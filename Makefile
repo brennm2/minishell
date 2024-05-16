@@ -3,7 +3,7 @@ NAME = minishell
 LIBFT = ./libs/libft.a
 
 CC = gcc -g
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = -Wall -Werror -Wextra 
 RM = rm
 RMFLAGS= -f
 GREEN=\033[0;32m
@@ -23,7 +23,7 @@ $(LIBFT):
 		$(MAKE) -C ./libs/
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
 
 
 	@echo "\n${YELLOW}--------------------------"
