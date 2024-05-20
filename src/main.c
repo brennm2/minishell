@@ -4,28 +4,57 @@ void	search_command(char *buffer, t_data *data)
 {
 	int i;
 	int y;
-	t_data *temp_data;
+	int flag;
+	t_command *reset_command;
 
 	i = 0;
 	y = 0;
-	temp_data = data;
-\
+	flag = 0;
+	reset_command = data->command;
+
 	while(buffer[i] == ' ' || buffer[i] == '\t')
 		i++;
 	while(buffer[i] && (buffer[i] != ' ' && buffer[i] != '\t' && buffer[i] != '\n'))
 		data->command->command[y++] = buffer[i++];
-	if (buffer[i])
+	
+	while (buffer[i])
 	{
 		y = 0;
-		while(buffer[i] == ' ' || buffer[i] == '\t')
+		while(buffer[i] == ' ' || buffer[i] == '\t' || buffer[i] == 39 || buffer[i] == 34)
+		{
+			if(buffer[i] == 39)
+				flag = 1;
+			else if (buffer[i] == 34)
+				flag = 2;
 			i++;
+		}
 		while(buffer[i] && (buffer[i] != ' ' && buffer[i] != '\t' && buffer[i] != '\n'))
+		{
+			//printf("%d\n", flag);
+			if(flag == 1)
+			{
+				while (buffer[i] && buffer[i] != 39)
+					data->command->value[y++] = buffer[i++];
+			}
+			else if (flag == 2)
+			{
+				while (buffer[i] && buffer[i] != 34)
+					data->command->value[y++] = buffer[i++];
+			}
+		}
+
+		while (buffer[i] && flag != 0 && buffer[i] != 39 && buffer[i] != 34)
 			data->command->value[y++] = buffer[i++];
-		data->command = data->command->next;
+
 		if(!buffer[i])
-			data->command = temp_data;
+			break;
+		if(flag = 0)
+		{
+			data->command = data->command->next;
+			init_command(data->command, buffer);
+		}
 	}
-	data = temp_data;
+	data->command = reset_command;
 }
 
 
@@ -37,6 +66,8 @@ void	define_type(t_data *data)
 		getCD(data);
 	else if (strcmp(data->command->command, "echo") == 0)
 		getECHO(data);
+	else if (strcmp(data->command->command, "exit") == 0)
+		exit(1);
 	else
 	{
 		printf("command not yet builded\n");
@@ -58,8 +89,6 @@ int main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
-	//init_data(data);
-	//init_envp
 
 	while(1)
 	{

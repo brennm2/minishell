@@ -40,7 +40,7 @@ typedef struct s_command
 typedef struct s_data
 {
 
-	t_envp envp;
+	t_envp *envp;
 	t_command *command;
 	struct s_data	*next;
 }				t_data;

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/16 15:20:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:29:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,17 @@ void	getCD(t_data *data)
 
 void	getECHO(t_data *data)
 {
-	printf("%s\n", data->command->value);
-	free(data->command);
+	t_command *temp_data;
+
+	temp_data = data->command;
+
+	while(data->command->value != NULL)
+	{
+		printf("%s ", data->command->value);
+		data->command = data->command->next;
+		// if(!data->command->next)
+		// 	printf("\n");
+	}
+	printf("\n");
 	//free(data->command);
 }
