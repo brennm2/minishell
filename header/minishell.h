@@ -27,21 +27,23 @@ typedef struct s_envp
 }					t_envp;
 
 
-typedef struct s_command
+typedef struct s_token
 {
 	char *command;
 	char *value;
+	//flag
+	
 	t_types	type;
 	//flag visivel
-	struct s_command *next;
-}				t_command;
+	struct s_token *next;
+}				t_token;
 
 
 typedef struct s_data
 {
 
 	t_envp *envp;
-	t_command *command;
+	t_token *token;
 	struct s_data	*next;
 }				t_data;
 
@@ -52,8 +54,11 @@ void	getECHO(t_data *data);
 
 
 // SRC/UTILS
-void	init_command(t_command *command, char *buffer);
+void	init_command(t_token *token, char *buffer);
 void 	init_data(t_data *data, char *buffer);
+
+//SRC/PARSING
+int	get_command(char *buffer, t_data *data);
 
 
 # ifndef BUFFER_SIZE

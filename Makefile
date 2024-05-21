@@ -14,6 +14,7 @@ NC=\033[0m
 SRC = src/main.c \
 	src/builtins/get_builtins.c \
 	src/utils.c \
+	src/parsing/parsing.c \
 
 OBJ = $(SRC:.c=.o)
 
