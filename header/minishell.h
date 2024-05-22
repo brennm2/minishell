@@ -12,9 +12,14 @@
 
 typedef enum s_types
 {
-	pwd,
-	cd,
-	echo,
+	flag,
+	command,
+	builtin,
+	redin,
+	redout,
+	expander,
+	pipe,
+	string,
 }				t_types;
 
 
@@ -29,12 +34,9 @@ typedef struct s_envp
 
 typedef struct s_token
 {
-	char *command;
-	char *value;
-	//flag
-	
+	char *str;
 	t_types	type;
-	//flag visivel
+
 	struct s_token *next;
 }				t_token;
 
@@ -44,6 +46,7 @@ typedef struct s_data
 
 	t_envp *envp;
 	t_token *token;
+	
 	struct s_data	*next;
 }				t_data;
 
@@ -59,6 +62,8 @@ void 	init_data(t_data *data, char *buffer);
 
 //SRC/PARSING
 int	get_command(char *buffer, t_data *data);
+int	get_flags(char *buffer, int i, t_data *data);
+int	get_value(char *buffer, int i, t_data *data);
 
 
 # ifndef BUFFER_SIZE
@@ -66,3 +71,4 @@ int	get_command(char *buffer, t_data *data);
 # endif
 
 #endif
+

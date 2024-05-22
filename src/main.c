@@ -15,18 +15,30 @@ void	search_command(char *buffer, t_data *data)
 	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
 		i++;
 	
-	while(buffer[i])
+	while(buffer[i]) // ENQUANTO AINDA EXISTIR BUFFER (PROCURAR POR FLAGS OU VALUE)
 	{
-		if(buffer[i] == 34 || buffer[i] == 39)
-		{
+		get_flags(buffer, i, data);
+		if(data->token->flag != NULL);
+			i = get_flags(buffer, i, data);
+		while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
 			i++;
-			while(buffer[i] && (buffer[i] != 34 || buffer[i] != 39))
-			{
-				data->token->value[y++] = buffer[i++];
-			}
-			data->
-		}
+		i = get_value(buffer, i, data);
+
+		// {
+		// 	i++;
+		// 	while(buffer[i] && (buffer[i] != 34 || buffer[i] != 39))
+		// 	{
+		// 		data->token->value[y++] = buffer[i++];
+		// 	}
+		// 	data->
+		// }
 	}
+
+	///split (buffer);
+	echo 
+	-n
+	abc
+	
 }
 // {
 // 	int i;
@@ -111,7 +123,8 @@ void	define_type(t_data *data)
 		exit(1);
 	else
 	{
-		printf("command not yet builded\n");
+		printf("%s: command not found\n", data->token->command);
+		//EXIT CODE CERTO;
 		free(data->token);
 	}
 }
