@@ -11,34 +11,46 @@ void	search_command(char *buffer, t_data *data)
 	y = 0;
 	reset_command = data->token;
 
-	i = get_command(buffer, data);
-	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
-		i++;
-	
-	while(buffer[i]) // ENQUANTO AINDA EXISTIR BUFFER (PROCURAR POR FLAGS OU VALUE)
+	get_split(buffer, data);
+	while(data->token->str)
 	{
-		get_flags(buffer, i, data);
-		if(data->token->flag != NULL);
-			i = get_flags(buffer, i, data);
-		while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
-			i++;
-		i = get_value(buffer, i, data);
-
-		// {
-		// 	i++;
-		// 	while(buffer[i] && (buffer[i] != 34 || buffer[i] != 39))
-		// 	{
-		// 		data->token->value[y++] = buffer[i++];
-		// 	}
-		// 	data->
-		// }
+		printf("%s\n", data->token->str);
+		data->token = data->token->next;
 	}
 
-	///split (buffer);
-	echo 
-	-n
-	abc
+
+
+	// i = get_command(buffer, data);
+	// while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
+	// 	i++;
 	
+	// while(buffer[i]) // ENQUANTO AINDA EXISTIR BUFFER (PROCURAR POR FLAGS OU VALUE)
+	// {
+	// 	get_flags(buffer, i, data);
+	// 	if(data->token->flag != NULL);
+	// 		i = get_flags(buffer, i, data);
+	// 	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
+	// 		i++;
+	// 	i = get_value(buffer, i, data);
+
+		// {// void	define_type(t_data *data)
+// {
+// 	if (strcmp(data->token->command, "pwd") == 0)
+// 		getPWD(data);
+// 	else if (strcmp(data->token->command, "cd") == 0)
+// 		getCD(data);
+// 	else if (strcmp(data->token->command, "echo") == 0)
+// 		getECHO(data);
+// 	else if (strcmp(data->token->command, "exit") == 0)
+// 		exit(1);
+// 	else
+// 	{
+// 		printf("%s: command not found\n", data->token->command);
+// 		//EXIT CODE CERTO;
+// 		free(data->token);
+// 	}
+// }
+	///split (buffer);
 }
 // {
 // 	int i;
@@ -111,30 +123,30 @@ void	search_command(char *buffer, t_data *data)
 // }
 
 
-void	define_type(t_data *data)
-{
-	if (strcmp(data->token->command, "pwd") == 0)
-		getPWD(data);
-	else if (strcmp(data->token->command, "cd") == 0)
-		getCD(data);
-	else if (strcmp(data->token->command, "echo") == 0)
-		getECHO(data);
-	else if (strcmp(data->token->command, "exit") == 0)
-		exit(1);
-	else
-	{
-		printf("%s: command not found\n", data->token->command);
-		//EXIT CODE CERTO;
-		free(data->token);
-	}
-}
+// void	define_type(t_data *data)
+// {
+// 	if (strcmp(data->token->command, "pwd") == 0)
+// 		getPWD(data);
+// 	else if (strcmp(data->token->command, "cd") == 0)
+// 		getCD(data);
+// 	else if (strcmp(data->token->command, "echo") == 0)
+// 		getECHO(data);
+// 	else if (strcmp(data->token->command, "exit") == 0)
+// 		exit(1);
+// 	else
+// 	{
+// 		printf("%s: command not found\n", data->token->command);
+// 		//EXIT CODE CERTO;
+// 		free(data->token);
+// 	}
+// }
 
 
 void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-	define_type(data);
+	//define_type(data);
 }
 
 int main(int argc, char **argv, char **envp)
