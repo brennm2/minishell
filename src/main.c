@@ -18,7 +18,7 @@ void	search_command(char *buffer, t_data *data)
 		data->token = data->token->next;
 	}
 
-
+	//"vdadasdasd
 
 	// i = get_command(buffer, data);
 	// while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
