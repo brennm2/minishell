@@ -17,23 +17,9 @@ void	search_command(char *buffer, t_data *data)
 		printf("%s\n", data->token->str);
 		data->token = data->token->next;
 	}
+}
 
-	//"vdadasdasd
-
-	// i = get_command(buffer, data);
-	// while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
-	// 	i++;
-	
-	// while(buffer[i]) // ENQUANTO AINDA EXISTIR BUFFER (PROCURAR POR FLAGS OU VALUE)
-	// {
-	// 	get_flags(buffer, i, data);
-	// 	if(data->token->flag != NULL);
-	// 		i = get_flags(buffer, i, data);
-	// 	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32)) // TIRAMOS OS ESPACOS
-	// 		i++;
-	// 	i = get_value(buffer, i, data);
-
-		// {// void	define_type(t_data *data)
+// void	define_type(t_data *data)
 // {
 // 	if (strcmp(data->token->command, "pwd") == 0)
 // 		getPWD(data);
@@ -49,57 +35,7 @@ void	search_command(char *buffer, t_data *data)
 // 		//EXIT CODE CERTO;
 // 		free(data->token);
 // 	}
-// }
-	///split (buffer);
-}
-// {
-// 	int i;
-// 	int y;
-// 	int flag;
-// 	t_commands *reset_command;
-
-// 	i = 0;
-// 	y = 0;
-// 	flag = 0;
-// 	reset_command = data->commands;
-
-// 	while(buffer[i] == ' ' || buffer[i] == '\t')
-// 		i++;
-// 	while(buffer[i] && (buffer[i] != ' ' && buffer[i] != '\t' && buffer[i] != '\n')) // command
-// 		data->commands->command[y++] = buffer[i++];
-// 	//getCommand(buffer, data);
-	
-// 	while (buffer[i]) // value
-// 	{
-// 		y = 0;
-// 		while(buffer[i] == ' ' || buffer[i] == '\t' || buffer[i] == 39 || buffer[i] == 34)
-// 		{
-// 			if(buffer[i] == 39)
-// 			{
-// 				flag = 1;
-// 				break ;
-// 			}
-// 			else if (buffer[i] == 34)
-// 			{
-// 				flag = 2;
-// 				break ;
-// 			}
-// 			i++;
-// 		}
-// 		while(buffer[i] && flag != 0)
-// 		{
-// 			//printf("%d\n", flag);
-// 			if(flag == 1)
-// 			{
-// 				if (buffer[i] && buffer[i] != 39)
-// 					data->commands->value[y++] = buffer[i];
-// 			}
-// 			else if (flag == 2)
-// 			{
-// 				if (buffer[i] && buffer[i] != 34)
-// 					data->commands->value[y++] = buffer[i];
-// 			}
-// 			else
+// }	else
 // 			{
 // 				if (buffer[i])
 // 					data->commands->value[y++] = buffer[i];
