@@ -9,6 +9,16 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// ----- COLORS -----
+# define C_BLUE "\e[1;34m"
+# define C_GREEN "\e[1;32m"
+# define C_YELLOW "\e[1;93m"
+# define C_MAGENTA "\e[1;35m"
+# define C_CYAN "\e[1;96m"
+# define C_RED "\e[6;31m"
+# define END_COLOR "\e[0m"
+// ------------------
+
 # define S_QUOTES 39
 # define D_QUOTES 34
 
@@ -68,6 +78,10 @@ int	get_command(char *buffer, t_data *data);
 int	get_flags(char *buffer, int i, t_data *data);
 int	get_value(char *buffer, int i, t_data *data);
 void	get_split(char *buffer, t_data *data);
+
+//SRC/DEBUG
+
+void	debug_print_list(t_data *data);
 
 
 # ifndef BUFFER_SIZE

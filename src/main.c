@@ -1,22 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
+/*   Updated: 2024/05/23 22:30:43 by bde-souz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../header/minishell.h"
 
 void	search_command(char *buffer, t_data *data)
 {
-	int i;
-	int y;
-	int flag;
-	t_token *reset_command;
-
-	i = 0;
-	y = 0;
-	reset_command = data->token;
-
 	get_split(buffer, data);
-	while(data->token->str)
-	{
-		printf("%s\n", data->token->str);
-		data->token = data->token->next;
-	}
+	debug_print_list(data); // DEBUG PARA LER A LISTA COMPLETA
 }
 
 // void	define_type(t_data *data)
@@ -35,28 +34,7 @@ void	search_command(char *buffer, t_data *data)
 // 		//EXIT CODE CERTO;
 // 		free(data->token);
 // 	}
-// }	else
-// 			{
-// 				if (buffer[i])
-// 					data->commands->value[y++] = buffer[i];
-// 			}
-// 			i++;
-// 			//y++;
-// 		}
 
-// 		while (buffer[i] && flag == 0 && buffer[i] != ' ' && buffer[i] != '\t')
-// 			data->commands->value[y++] = buffer[i++];
-
-// 		if(!buffer[i])
-// 			break;
-// 		if(flag == 0)
-// 		{
-// 			data->commands = data->commands->next;
-// 			init_command(data->commands, buffer);
-// 		}
-// 	}
-// 	data->commands = reset_command;
-// }
 
 
 // void	define_type(t_data *data)
@@ -91,6 +69,8 @@ int main(int argc, char **argv, char **envp)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
+	if (!data)
+		return (0);
 
 	while(1)
 	{
