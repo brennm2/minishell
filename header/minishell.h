@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 14:38:36 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:41:34 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define S_QUOTES 39
 # define D_QUOTES 34
+
+
 typedef enum s_builtins
 {
 	echo,
@@ -56,7 +58,6 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
-	string,
 }				t_types;
 
 
@@ -74,7 +75,7 @@ typedef struct s_token
 	char		*str;
 	t_types		type;
 	t_builtins	builtin; //Se for um buitin, ja fica definido qual.
-	struct t_token		*next;
+	struct s_token		*next;
 }				t_token;
 
 
@@ -101,7 +102,29 @@ void	init_token(t_token *token, char *buffer);
 void 	init_data(t_data *data, char *buffer);
 
 //SRC/PARSING/PARSING
+
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/PARSING/MOVES ----------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+//
+/**
+ * @brief Itera buffer para dentro da <DATA->TOKEN->STR> e, caso exista buffer,
+ * cria mais uma lista usando <DATA->TOKEN->NEXT>
+ * @param buffer BUFFER da string
+ * @param start START da string para ser salva
+ * @param end END da string para ser salva
+ * @param data Estrutura de <DATA>
+ * @return <VOID>
+ */
 void	save_substring(char *buffer, int start, int end, t_data *data);
+/**
+ * @brief Função para executar o split dos comandos.
+ * @param buffer String de buffer para ser "splitado"
+ * @param data A Estrutura de <DATA> para ser utilizada
+ * @return <VOID>
+ */
 void	get_split(char *buffer, t_data *data);
 
 /* ************************************************************************** */
@@ -109,6 +132,7 @@ void	get_split(char *buffer, t_data *data);
 /* -------------------------- SRC/PARSING/MOVES ----------------------------- */
 /*                                                                            */
 /* ************************************************************************** */
+//
 /**
  * @brief Função move por espaços até encontrar um caractere
  * @param buffer BUFFER da string
@@ -151,12 +175,8 @@ void	debug_print_list(t_data *data);
 /* -------------------------- SRC/ERROR/FREE -------------------------------- */
 /*                                                                            */
 /* ************************************************************************** */
-
+//
 void	free_all(t_data *data);
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
 
 #endif
 

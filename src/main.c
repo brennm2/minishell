@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 14:10:44 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:19:24 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
+	
 
 	data = malloc(sizeof(t_data));
 	if (!data)
@@ -76,6 +77,7 @@ int main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		buffer = readline("minishell: ");
+		//TODO Adicionar func de verificar se pode continuar
 		add_history(buffer);
 		init_commands(buffer, data);
 	}
