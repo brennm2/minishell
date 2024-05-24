@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
+/*   Updated: 2024/05/24 12:09:34 by bde-souz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -77,7 +89,11 @@ void 	init_data(t_data *data, char *buffer);
 void	save_substring(char *buffer, int start, int end, t_data *data);
 void	get_split(char *buffer, t_data *data);
 
-// ------------ SRC/PARSING/MOVES ------------ //
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/PARSING/MOVES ----------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
 /**
  * @brief Função move por espaços até encontrar um caractere
  * @param buffer BUFFER da string
@@ -115,6 +131,13 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
 void	debug_print_list(t_data *data);
 
 
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/ERROR/FREE -------------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+
+void	free_all(t_data *data);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

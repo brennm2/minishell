@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 10:25:37 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:10:44 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	search_command(char *buffer, t_data *data)
 {
 	get_split(buffer, data);
 	debug_print_list(data); // DEBUG PARA LER A LISTA COMPLETA
+	//free_all(data);
 }
 
 // void	define_type(t_data *data)

@@ -1,3 +1,5 @@
+MAKEFLAGS += -s
+
 NAME = minishell
 
 LIBFT = ./libs/libft.a
@@ -16,6 +18,7 @@ SRC = src/main.c \
 	src/builtins/get_builtins.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
+	src/error/free.c \
 	src/debug/debug_commands.c \
 
 OBJ = $(SRC:.c=.o)
