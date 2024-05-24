@@ -6,20 +6,32 @@
 # include <stdio.h>
 # include <linux/limits.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef enum s_builtins
+{
+	echo,
+	cd,
+	pwd,
+	export,
+	unset,
+	env,
+	Exit
+}			t_builtins;
 
 typedef enum s_types
 {
-	flag,
+	string, 
+	flag, // echo -a, imprime -a;
 	command,
-	builtin,
-	redin,
-	redout,
+	builtin, //ok
+	redin, //ok
+	redout, //ok
+	append, //ok
 	expander,
-	pipe,
-	string,
+	Pipe //ok
 }				t_types;
 
 
@@ -34,10 +46,10 @@ typedef struct s_envp
 
 typedef struct s_token
 {
-	char *str;
-	t_types	type;
-
-	struct s_token *next;
+	char		*str;
+	t_types		type;
+	t_builtins	builtin; //Se for um buitin, ja fica definido qual.
+	struct t_token		*next;
 }				t_token;
 
 
