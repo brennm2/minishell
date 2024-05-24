@@ -6,11 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/22 18:26:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:23:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/minishell.h"
+#include "../../header/minishell.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -62,7 +62,7 @@ bool	is_builtin(t_token *token)
 void	define_tokens(t_token *token)
 {
 	if (!ft_strncmp(token->str, "|", 1) && token->str[1] == '\0')
-		token->type = Pipe;
+		token->type = is_pipe;
 	else if (!ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
 		token->type = redin;
 	else if (!ft_strncmp(token->str, ">", 1) && token->str[1] == '\0')
