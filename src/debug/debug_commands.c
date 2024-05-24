@@ -6,17 +6,13 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/23 21:39:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:02:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-/**
- * @brief Função de Debug para imprimir o que está na lista de Token.
- * @param data Estrutura de <DATA> para iterar até chegar ao NULL de data->str
- * @return <VOID>
- */
+
 void	debug_print_list(t_data *data)
 {
 	int i;

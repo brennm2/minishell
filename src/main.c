@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/23 22:30:43 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 10:25:37 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,5 @@ int main(int argc, char **argv, char **envp)
 		buffer = readline("minishell: ");
 		add_history(buffer);
 		init_commands(buffer, data);
-		//free(data);
 	}
 } 	

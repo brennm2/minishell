@@ -15,6 +15,7 @@ SRC = src/main.c \
 	src/utils.c \
 	src/builtins/get_builtins.c \
 	src/parsing/parsing.c \
+	src/parsing/moves.c \
 	src/debug/debug_commands.c \
 
 OBJ = $(SRC:.c=.o)

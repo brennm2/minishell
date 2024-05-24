@@ -73,15 +73,47 @@ void	init_commands(char *buffer, t_data *data);
 void	init_token(t_token *token, char *buffer);
 void 	init_data(t_data *data, char *buffer);
 
-//SRC/PARSING
-int	get_command(char *buffer, t_data *data);
-int	get_flags(char *buffer, int i, t_data *data);
-int	get_value(char *buffer, int i, t_data *data);
+//SRC/PARSING/PARSING
+void	save_substring(char *buffer, int start, int end, t_data *data);
 void	get_split(char *buffer, t_data *data);
 
-//SRC/DEBUG
+// ------------ SRC/PARSING/MOVES ------------ //
+/**
+ * @brief Função move por espaços até encontrar um caractere
+ * @param buffer BUFFER da string
+ * @param i Iterador de BUFFER
+ * @return Iterador de onde o BUFFER parou
+ */
+int	move_space(char *buffer, int i);
+/**
+ * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
+ * caso NÃO possua D_QUOTES ou S_QUOTES
+ * @param buffer BUFFER da string
+ * @param i Iterador de BUFFER
+ * @param data Estrutura de <DATA>
+ * @return Iterador de onde o BUFFER parou
+ */
+int	move_without_quotes(char *buffer, int i, t_data *data);
+/**
+ * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
+ * caso possua D_QUOTES ou S_QUOTES
+ * @param buffer BUFFER da string
+ * @param i Iterador de BUFFER
+ * @param flag Flag para determinar se é D_QUOTES ou S_QUOTES
+ * @param data Estrutura de <DATA>
+ * @return Iterador de onde o BUFFER parou
+ */
+int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
 
+
+// ------------ SRC/DEBUG ------------ //
+/**
+ * @brief Função de Debug para imprimir o que está na lista de Token.
+ * @param data Estrutura de <DATA> para iterar até chegar ao NULL de data->str
+ * @return <VOID>
+ */
 void	debug_print_list(t_data *data);
+
 
 
 # ifndef BUFFER_SIZE

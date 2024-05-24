@@ -6,25 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/23 22:17:28 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 11:05:13 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-/**
- * @brief Função move por espaços até encontrar um caractere
- * @param buffer BUFFER da string
- * @param i Iterador de BUFFER
- * @return Iterador de onde o BUFFER parou
- */
-int	move_space(char *buffer, int i) // FUNC RECEBE <BUFFER> E <I> E ANDA ATE ACHAR UMA OUTRA LETRA
-{
-	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
-		i++;
-	return(i);
-}
-
 
 /**
  * @brief Itera buffer para dentro da <DATA->TOKEN->STR> e, caso exista buffer,
@@ -49,56 +35,8 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		data->token = data->token->next;
 		init_token(data->token, buffer);
 	}
-		
 }
 
-/**
- * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
- * caso NÃO possua D_QUOTES ou S_QUOTES
- * @param buffer BUFFER da string
- * @param i Iterador de BUFFER
- * @param data Estrutura de <DATA>
- * @return Iterador de onde o BUFFER parou
- */
-int	move_without_quotes(char *buffer, int i, t_data *data)
-{
-	int start;
-
-	start = i;
-	while(buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32
-		|| buffer[i] == D_QUOTES || buffer[i] == S_QUOTES))
-		i++;
-	save_substring(buffer, start, (i - 1), data);
-	return(i);
-}
-
-/**
- * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
- * caso possua D_QUOTES ou S_QUOTES
- * @param buffer BUFFER da string
- * @param i Iterador de BUFFER
- * @param flag Flag para determinar se é D_QUOTES ou S_QUOTES
- * @param data Estrutura de <DATA>
- * @return Iterador de onde o BUFFER parou
- */
-int	move_with_quotes(char *buffer, int i, int flag, t_data *data)
-{
-	int start;
-
-	start = i;
-	i++;
-	while(buffer[i] && buffer[i] != flag)
-		i++;
-	if(!buffer[i])
-	{
-		printf("SINTAX ERROR! \n"); //#TODO CRIAR FUNC DE ERROR
-		return (i);
-	}
-	if (buffer[i] == flag)
-		i++;
-	save_substring(buffer, (start + 1), (i - 2), data);
-	return(i);
-}
 
 /**
  * @brief Função para executar o split dos comandos.
