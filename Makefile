@@ -1,3 +1,5 @@
+MAKEFLAGS += -s
+
 NAME = minishell
 
 LIBFT = ./libs/libft.a
@@ -12,9 +14,12 @@ YELLOW=\033[1;93m
 NC=\033[0m
 
 SRC = src/main.c \
-	src/builtins/get_builtins.c \
 	src/utils.c \
+	src/builtins/get_builtins.c \
 	src/parsing/parsing.c \
+	src/parsing/moves.c \
+	src/error/free.c \
+	src/debug/debug_commands.c \
 
 OBJ = $(SRC:.c=.o)
 
