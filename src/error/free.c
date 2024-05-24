@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 12:43:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:59:45 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_token(t_token *token)
 {
+	//#TODO Terminar a func para dar clean no token por completo
 	t_token *temp_token;
 	
 	while(token)
@@ -32,6 +33,7 @@ void	free_token(t_token *token)
 
 void	free_all(t_data *data)
 {
+	//#TODO Terminar a func de limpar toda as listas
 	t_data *temp_data;
 	
 	if (data->token)
