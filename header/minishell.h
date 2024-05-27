@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 14:49:08 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:02:06 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_token
 {
 	char		*str;
 	t_types		type;
-	t_builtins	builtin; //Se for um buitin, ja fica definido qual.
+	t_builtins	builtin;
 	struct s_token		*next;
 }				t_token;
 
@@ -192,5 +192,18 @@ void	debug_print_list(t_data *data);
 //
 void	free_all(t_data *data);
 
-#endif
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/PARSING/ENV ------------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+//
+/**
+ * @brief Função para transformar o env em uma lista linkada.
+ * @param data : estrutura de data;
+ * @param env : variavel de ambiente em char**;
+ * @return <VOID>
+ */
+void	get_env(t_data *data, char **env);
 
+#endif

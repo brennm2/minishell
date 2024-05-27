@@ -6,52 +6,13 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/24 20:23:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:15:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	*ft_calloc(size_t n, size_t size)
-{
-	void	*s;
-
-	s = malloc(n * size);
-	if (!s)
-		return (NULL);
-	ft_bzero(s, n * size);
-	return (s);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-	{
-		((char *)s)[i] = '\0';
-		i++;
-	}
-}
-
-size_t	ft_strlen(const char *str)
-{
-	int		i;
-	char	*s;
-
-	s = (char *)str;
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-
-
-/* -------- */
-
-t_envp	*ft_lstnew_env(void *key, void *value)
+static t_envp	*ft_lstnew_env(void *key, void *value)
 {
 	t_envp	*list;
 
@@ -64,17 +25,34 @@ t_envp	*ft_lstnew_env(void *key, void *value)
 	return (list);
 }
 
-void	cpy_env(t_envp *env, char *str)
+static void	ft_lstadd_back_env(t_envp **lst, t_envp *new)
+{
+	t_envp	*aux;
+
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	aux = *lst;
+	while (aux->next != NULL)
+		aux = aux->next;
+	aux->next = new;
+}
+
+static void	cpy_env(t_envp **env, char *str)
 {
 	int		i;
 	int		j;
 	char	*key;
 	char	*value;
 	int 	size;
+	t_envp	*node;
 	
 	i = -1;
 	j = -1;
-	(void)env;
 	while (str[++i] && str[i] != '=')
 		;
 	key = ft_calloc(sizeof(char), (i + 1));
@@ -85,36 +63,15 @@ void	cpy_env(t_envp *env, char *str)
 		key[i] = str[i];
 	while(str[++i])
 		value[++j] = str[i];
-	ft_lstnew_env(key, value);
-	
-	lst_env(value, key, )
-	printf("%s\n", key);
-	printf("%s\n", value);
+	node = ft_lstnew_env(key, value);
+	ft_lstadd_back_env(env, node);
 }
 
-/* void	get_env(t_data *data, char **env)
+void	get_env(t_data *data, char **env)
 {
 	int		i;
 
 	i = -1;
 	while (env[++i])
-	{
-		cpy_env(data->envp, env[i]);
-	}
-	return (NULL);
-} */
-
-int main(int ac, char **av, char **envp)
-{
-	int		i;
-
-	(void)ac;
-	(void)av;
-	i = -1;
-	while (envp[++i])
-	{
-		cpy_env(NULL, envp[i]);
-		
-	}
+		cpy_env(&data->envp, env[i]);
 }
-
