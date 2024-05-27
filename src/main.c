@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 15:15:24 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:33:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,12 @@ int main(int argc, char **argv, char **envp)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (0);
-
 	while(1)
 	{
 		buffer = readline("minishell: ");
 		//TODO Adicionar func de verificar se pode continuar
+		get_env(data, envp);
 		init_commands(buffer, data);
 		add_history(buffer);
-		get_env(data, envp);
 	}
 } 	

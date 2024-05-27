@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 15:09:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:32:39 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_token
 {
 	char		*str;
 	t_types		type;
-	t_builtins	builtin; //Se for um buitin, ja fica definido qual.
+	t_builtins	builtin;
 	struct s_token		*next;
 }				t_token;
 
