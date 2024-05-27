@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 16:41:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:09:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,5 +178,18 @@ void	debug_print_list(t_data *data);
 //
 void	free_all(t_data *data);
 
-#endif
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/PARSING/ENV ------------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+//
+/**
+ * @brief Função para transformar o env em uma lista linkada.
+ * @param data : estrutura de data;
+ * @param env : variavel de ambiente em char**;
+ * @return <VOID>
+ */
+void	get_env(t_data *data, char **env);
 
+#endif
