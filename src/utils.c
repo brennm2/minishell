@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 11:36:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:50:35 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	init_token(t_token *token, char *buffer)
 {
 	token->str = ft_calloc(1, ft_strlen(buffer) + 1);
-	token->type = (t_types)malloc(sizeof(t_types));
+	//token->type = (t_types)malloc(sizeof(t_types));
 	token->next = (t_token *)ft_calloc(1, sizeof(t_token));
 }
 

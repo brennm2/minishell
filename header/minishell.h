@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:02:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:43:22 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef enum s_builtins
 
 typedef enum s_types
 {
-	string, 
+	string,
 	flag, // echo -a, imprime -a;
 	command,
 	builtin, //ok
@@ -65,6 +65,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
+	not_expander,
 }				t_types;
 
 
