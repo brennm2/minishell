@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 14:42:58 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:05:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ bool	check_for_syntax_error(char *buffer)
 			if (buffer[0] == '|')
 			{
 				if (buffer[1] == '|')
-					printf("");//print ERROR Double Pipes
+					printf("ERROR_PIPE_DOUBLE\n");//print ERROR Double Pipes
 				else
-					printf("");//print ERROR Single Pipe
+					printf("ERROR_PIPE_SINGLE\n");//print ERROR Single Pipe
 			}
 			else if (ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 			{
 				if (buffer[ft_strlen(buffer) - 1] == '|')
-					printf("ERROR_PIPE_FINAL");
+					printf("ERROR_PIPE_FINAL\n");
 				else
-					printf("ERROR_REDIR");
+					printf("ERROR_REDIR\n");
 			}
 		}
 		//free buffer?
