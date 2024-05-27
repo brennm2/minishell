@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:05:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:32:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ bool	is_all_space(char *buffer)
 {
 	int i;
 
+	//test
 	i = 0;
 	while(buffer[i++])
 		if (buffer[i] != ' ')

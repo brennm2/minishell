@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:01:57 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:47:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int main(int argc, char **argv, char **envp)
 		buffer = readline("minishell: ");
 		//TODO Adicionar func de verificar se pode continuar
 		add_history(buffer);
-		if (valid_input(buffer))
-		{
+		//if (valid_input(buffer))
+		//{
 			init_commands(buffer, data);
-		}
+		//}
 	}
 } 	

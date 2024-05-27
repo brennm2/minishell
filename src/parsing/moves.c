@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 16:31:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:44:04 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data)
 	if (buffer[i] == flag)
 		i++;
 	save_substring(buffer, (start + 1), (i - 2), data);
+	if (flag == S_QUOTES)
+		data->token->type = not_expander;
 	return(i);
 }
