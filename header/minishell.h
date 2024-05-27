@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:02:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:07:56 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
+	not_expander,
 }				t_types;
 
 
