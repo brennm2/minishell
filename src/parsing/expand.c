@@ -6,13 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/27 17:48:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/27 19:22:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-/* void	is_expand(t_token *token, t_data *data) */
 
 int	ft_isupper(int c)
 {
@@ -21,35 +19,35 @@ int	ft_isupper(int c)
 	return (0);
 }
 
-void	is_expand(char *token)
+char	*check_env(char *str, t_envp *env, int i, int j)
+{
+	char	*variable;
+	
+	variable = malloc(j - i);
+	ft_strlcpy(variable, str + j, (j - i));
+	
+	
+}
+
+void	is_expand(t_token *token, t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	/* if (token->type == not_expander)
-		return ; */
-	while (token[++i])
+	if (token->type == not_expander)
+		return ;
+	while (token->str[++i])
 	{
-		if (token[i] == '$')
+		if (token->str[i] == '$')
 		{
 			j = i;
-			if (token[i + 1] == '?')
+			if (token->str[i + 1] == '?')
 				printf("error\n");
-			while (ft_isupper(token[++i]))
+			while (ft_isupper(token->str[++i]))
 				;
-			printf("%d, %d\n", j, (i - 1));
+			check_env(token->str, data->envp, i, j);
+			//printf("%d, %d\n", j, (i - 1));
 		}
 	}
-}
-
-int main(int ac, char **av, char **envp)
-{
-	char *token;
-	//t_data *data;
-	
-	token = "aaaa$aUSERRRaaa'";
-	//get_env(&data, envp);
-	is_expand(token);
-	return (0);
 }
