@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 16:41:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:49:08 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@
 # define END_COLOR "\e[0m"
 // ------------------
 
+// DEFINE DOUBLE QUOTES AND SINGLE QUOTES
 # define S_QUOTES 39
 # define D_QUOTES 34
+
+// DEFINE ERROS
+# define ERROR_PIPE_DOUBLE "syntax error near unexpected token `||'"
+# define ERROR_PIPE_SINGLE "syntax error near unexpected token `|'"
+# define ERROR_PIPE_FINAL "no support for this type of pipe"
+# define ERROR_REDIR "syntax error near unexpected token `newline'"
 
 
 typedef enum s_builtins
@@ -101,11 +108,13 @@ void	init_commands(char *buffer, t_data *data);
 void	init_token(t_token *token, char *buffer);
 void 	init_data(t_data *data, char *buffer);
 
-//SRC/PARSING/PARSING
+// SRC/PARSING/CHECK_FIRST
+bool	valid_input(char *buffer);
+
 
 /* ************************************************************************** */
 /*                                                                            */
-/* -------------------------- SRC/PARSING/MOVES ----------------------------- */
+/* -------------------------- SRC/PARSING/PARSING --------------------------- */
 /*                                                                            */
 /* ************************************************************************** */
 //
@@ -161,7 +170,12 @@ int	move_without_quotes(char *buffer, int i, t_data *data);
 int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
 
 
-// ------------ SRC/DEBUG ------------ //
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/DEBUG ------------------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+//
 /**
  * @brief Função de Debug para imprimir o que está na lista de Token.
  * @param data Estrutura de <DATA> para iterar até chegar ao NULL de data->str
@@ -169,7 +183,7 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
  */
 void	debug_print_list(t_data *data);
 
-
+//
 /* ************************************************************************** */
 /*                                                                            */
 /* -------------------------- SRC/ERROR/FREE -------------------------------- */
