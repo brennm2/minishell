@@ -18,6 +18,7 @@ SRC = src/main.c \
 	src/builtins/get_builtins.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
+	src/parsing/check_first.c \
 	src/error/free.c \
 	src/debug/debug_commands.c \
 	src/parsing/env.c \
