@@ -20,6 +20,7 @@ SRC = src/main.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
 	src/error/free.c \
+	src/error/print_error.c \
 	src/debug/debug_commands.c \
 	src/parsing/env.c \
 

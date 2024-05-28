@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:43:22 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:00:35 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ typedef struct s_data
 	struct s_data	*next;
 }				t_data;
 
-//test
+//VARIAVEL GLOBAL
+extern int	G_EXIT_CODE;
+//
+
+
 
 void	getPWD(t_data *data);
 void	getCD(t_data *data);
@@ -103,6 +107,10 @@ void	getECHO(t_data *data);
 
 //MAIN
 void	init_commands(char *buffer, t_data *data);
+
+
+// SRC/BUILTIN/GET_BUILTINS
+void	get_builtin(t_data *data);
 
 
 // SRC/UTILS
@@ -192,6 +200,10 @@ void	debug_print_list(t_data *data);
 /* ************************************************************************** */
 //
 void	free_all(t_data *data);
+
+
+// SRC/ERROR/PRINT_ERROR
+void	print_error(char *error_type, int error_code);
 
 /* ************************************************************************** */
 /*                                                                            */

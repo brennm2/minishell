@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:32:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:20:35 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ bool	check_for_syntax_error(char *buffer)
 			if (buffer[0] == '|')
 			{
 				if (buffer[1] == '|')
-					printf("ERROR_PIPE_DOUBLE\n");//print ERROR Double Pipes
+					print_error(ERROR_PIPE_DOUBLE, 2);
 				else
-					printf("ERROR_PIPE_SINGLE\n");//print ERROR Single Pipe
+					print_error(ERROR_PIPE_SINGLE, 2);
 			}
 			else if (ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 			{
 				if (buffer[ft_strlen(buffer) - 1] == '|')
-					printf("ERROR_PIPE_FINAL\n");
+					print_error(ERROR_PIPE_FINAL, 1);
 				else
-					printf("ERROR_REDIR\n");
+					print_error(ERROR_REDIR, 2);
 			}
 		}
 		//free buffer?
@@ -82,12 +82,12 @@ bool	check_for_syntax_error(char *buffer)
 bool	valid_input(char *buffer)
 {
 
-	if (!buffer)
+	if (!buffer || buffer == NULL)
 	{
-		printf("Buffer nao existe\n");
+		printf("Buffer nao existe\n"); //#TODO <-- Retirar
 		//free
 		//print error
-		//exit 0
+		exit (G_EXIT_CODE);
 	}
 	if(is_all_space(buffer) || check_for_quotes(buffer) 
 		|| !check_for_syntax_error(buffer))
