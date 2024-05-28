@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/27 15:15:59 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/28 19:37:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,5 @@ void	get_env(t_data *data, char **env)
 	i = -1;
 	while (env[++i])
 		cpy_env(&data->envp, env[i]);
+	printf("%s\n", data->envp->key);
 }

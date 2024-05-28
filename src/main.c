@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/28 15:08:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/28 19:37:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,14 @@ int main(int argc, char **argv, char **envp)
 	{
 		buffer = readline("minishell: ");
 		add_history(buffer);
-		get_env(data, envp);
 		init_commands(buffer, data);
+		get_env(data, envp);
+		//printf("%s\n", data->envp->key);
+		//expand(data);
 	}
 } 	
+	/* while (data->envp)
+	{
+		printf("%s\n", data->envp->key);
+		data->envp = data->envp->next;
+	} */
