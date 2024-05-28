@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 19:03:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:07:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,12 @@ void	free_all(t_data *data);
  * @return <VOID>
  */
 void	get_env(t_data *data, char **env);
+/**
+ * @brief 
+ * 
+ * @param token 
+ * @param data 
+ */
+void	is_expand(t_token *token, t_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/27 16:58:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/28 15:14:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	debug_print_list(t_data *data)
 	temp_token = data->token;
 	while (data->token->str)
 	{
+		is_expand(data->token, data);
 		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
 		printf(C_RED"-"END_COLOR"%s"C_RED"-\n"END_COLOR, data->token->str);
 		printf("flag: %d\n", data->token->type);
