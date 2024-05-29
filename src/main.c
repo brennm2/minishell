@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/28 17:07:49 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:25:13 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	G_EXIT_CODE;
 
-void	search_command(char *buffer, t_data *data)
+void	search_command(char *buffer, t_data *data) // FUNC separar o buffer em tokens
 {
 	get_split(buffer, data);
 	//debug_print_list(data); // DEBUG PARA LER A LISTA COMPLETA
 	//free_all(data);
 }
 
-void	use_command(t_data *data)
+void	use_command(t_data *data) // Func para buscar qual tipo de <type>
 {
 	if(data->token->type == builtin)
 		get_builtin(data);

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/28 17:00:35 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/05/29 13:27:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef enum s_builtins
 	export,
 	unset,
 	env,
-	Exit
+	exit,
+	not_builtin,
 }			t_builtins;
 
 typedef enum s_types
@@ -112,6 +113,8 @@ void	init_commands(char *buffer, t_data *data);
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data);
 
+// SRC/BUILTIN/GET_ECHO
+void	get_echo(t_token *token);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
