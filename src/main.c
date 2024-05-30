@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/28 19:37:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:14:37 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,20 @@ void	search_command(char *buffer, t_data *data)
 // }
 
 
-void init_commands(char *buffer, t_data *data)
+void init_commands(char *buffer, t_data *data, char **envp)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-	//define_type(data);
+	get_env(data, envp);
+	while (data->envp)
+	{
+		printf("%s = %s\n", data->envp->key, data->envp->value);
+		printf("-\n"),
+		data->envp = data->envp->next;
+	}
+	/* data->token->type = builtin; // retirar
+	data->token->builtin = echo;// retirar
+	use_command(data); */
 }
 
 int main(int argc, char **argv, char **envp)
@@ -77,14 +86,8 @@ int main(int argc, char **argv, char **envp)
 	{
 		buffer = readline("minishell: ");
 		add_history(buffer);
-		init_commands(buffer, data);
-		get_env(data, envp);
+		init_commands(buffer, data, envp);
 		//printf("%s\n", data->envp->key);
 		//expand(data);
 	}
 } 	
-	/* while (data->envp)
-	{
-		printf("%s\n", data->envp->key);
-		data->envp = data->envp->next;
-	} */

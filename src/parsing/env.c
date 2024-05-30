@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/28 19:37:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:22:33 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static t_envp	*ft_lstnew_env(void *key, void *value)
 {
 	t_envp	*list;
 
-	list = ft_calloc(sizeof(t_list), 1);
+	list = ft_calloc(sizeof(t_envp), 1);
 	if (!list)
-		return (0); // 
+		return (NULL); 
 	list->key = key;
 	list->value = value;
 	list->next = NULL;
@@ -62,9 +62,17 @@ static void	cpy_env(t_envp **env, char *str)
 	while(str[++i] && (str[i] != '='))
 		key[i] = str[i];
 	while(str[++i])
-		value[++j] = str[i];
+		value[j++] = str[i];
+	value[j] = '\0';
 	node = ft_lstnew_env(key, value);
+	if (!node) 
+	{
+        free(key);
+        free(value);
+        return;
+	}
 	ft_lstadd_back_env(env, node);
+	printf("debug\n");
 }
 
 void	get_env(t_data *data, char **env)
@@ -74,5 +82,4 @@ void	get_env(t_data *data, char **env)
 	i = -1;
 	while (env[++i])
 		cpy_env(&data->envp, env[i]);
-	printf("%s\n", data->envp->key);
 }
