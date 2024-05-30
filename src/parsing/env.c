@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/29 17:22:33 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:34:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	cpy_env(t_envp **env, char *str)
         return;
 	}
 	ft_lstadd_back_env(env, node);
-	printf("debug\n");
 }
 
 void	get_env(t_data *data, char **env)
@@ -81,5 +80,8 @@ void	get_env(t_data *data, char **env)
 
 	i = -1;
 	while (env[++i])
+	{
+		printf("%d %s\n", i, env[i]);
 		cpy_env(&data->envp, env[i]);
+	}
 }
