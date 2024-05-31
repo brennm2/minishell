@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/30 19:35:33 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:19:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void init_commands(char *buffer, t_data *data, char **envp)
 	init_data(data, buffer);
 	search_command(buffer, data);
 	get_env(data, envp);
-	while (data->envp)
+	/* while (data->envp)
 	{
 		printf("%d %s = %s\n", i, data->envp->key, data->envp->value);
 		printf("-\n"),
 		data->envp = data->envp->next;
 		i++;
-	}
+	} */
 	/* data->token->type = builtin; // retirar
 	data->token->builtin = echo;// retirar
 	use_command(data); */
@@ -83,7 +83,7 @@ int main(int argc, char **argv, char **envp)
 	t_data	*data;
 	
 
-	data = malloc(sizeof(t_data));
+	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
 		return (0);
 	while(1)

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/30 19:34:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:51:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 static t_envp	*ft_lstnew_env(void *key, void *value)
 {
 	t_envp	*list;
+	char *key_d;
+	char *value_d;
 
-	list = ft_calloc(sizeof(t_envp), 1);
+	key_d =(char *)key;
+	value_d = (char *)value;
+	list = ft_calloc(1, sizeof(t_envp));
 	if (!list)
 		return (NULL); 
-	list->key = key;
-	list->value = value;
+	list->key = key_d;
+	list->value = value_d;
 	list->next = NULL;
 	return (list);
 }
@@ -31,7 +35,7 @@ static void	ft_lstadd_back_env(t_envp **lst, t_envp *new)
 
 	if (!new)
 		return ;
-	if (!*lst)
+	if (!lst || !*lst)
 	{
 		*lst = new;
 		return ;
@@ -51,25 +55,29 @@ static void	cpy_env(t_envp **env, char *str)
 	int 	size;
 	t_envp	*node;
 	
-	i = -1;
+	i = 0;
 	j = -1;
-	while (str[++i] && str[i] != '=')
-		;
+	// printf("EVN TO COPY: %s\n", str);
+	while (str[i] && str[i] != '=')
+		i++;
 	key = ft_calloc(sizeof(char), (i + 1));
 	size = ft_strlen(str) - i;
 	value = ft_calloc(sizeof(char), size);
 	i = -1;
 	while(str[++i] && (str[i] != '='))
 		key[i] = str[i];
+	key[i] = '\0';
+	// printf("KEY COPIED: %s\n", key);
 	while(str[++i])
-		value[j++] = str[i];
-	value[j] = '\0';
+		value[++j] = str[i];
+	value[++j] = '\0';
+	// printf("VALUE COPIED: %s\n", value);
 	node = ft_lstnew_env(key, value);
 	if (!node) 
 	{
         free(key);
         free(value);
-        return;
+		return ;
 	}
 	ft_lstadd_back_env(env, node);
 }
@@ -77,11 +85,21 @@ static void	cpy_env(t_envp **env, char *str)
 void	get_env(t_data *data, char **env)
 {
 	int		i;
+	t_envp *envp;
 
 	i = -1;
+	// envp = ft_calloc(1, sizeof(t_envp));
+	envp = NULL;
 	while (env[++i])
 	{
-		printf("%d %s\n", i, env[i]);
-		cpy_env(&data->envp, env[i]);
+		cpy_env(&envp, env[i]);
+	}
+	i = 0;
+	while (envp)
+	{
+		printf("%d %s = %s\n", i, envp->key, envp->value);
+		printf("-\n"),
+		envp = envp->next;
+		i++;
 	}
 }
