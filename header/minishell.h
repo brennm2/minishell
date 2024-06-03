@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 12:06:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:22:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,5 +225,5 @@ void	print_error(char *error_type, int error_code);
  * @return <VOID>
  */
 void	get_env(t_data *data, char **env);
-
+void	expand(t_data *data);
 #endif
