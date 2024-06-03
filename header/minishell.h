@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 12:01:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:02:27 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 
 typedef enum s_builtins
 {
+	not_builtin,
 	echo,
 	cd,
 	pwd,
@@ -53,7 +54,6 @@ typedef enum s_builtins
 	unset,
 	env,
 	n_exit,
-	not_builtin,
 }			t_builtins;
 
 typedef enum s_types
