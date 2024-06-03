@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 10:51:02 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:25:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 
 typedef enum s_builtins
 {
+	not_builtin,
 	echo,
 	cd,
 	pwd,
@@ -53,7 +54,6 @@ typedef enum s_builtins
 	unset,
 	env,
 	n_exit,
-	not_builtin,
 }			t_builtins;
 
 typedef enum s_types
@@ -108,17 +108,8 @@ void	getCD(t_data *data);
 void	getECHO(t_data *data);
 
 //MAIN
-void	init_commands(char *buffer, t_data *data);
+void	init_commands(char *buffer, t_data *data, char **envp);
 
-
-// SRC/BUILTIN/GET_BUILTINS
-void	get_builtin(t_data *data);
-
-// SRC/BUILTIN/GET_ECHO
-void	get_echo(t_token *token);
-
-// SRC/BUILTIN/GET_PWD
-void	get_pwd(t_token *token);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
@@ -225,5 +216,6 @@ void	print_error(char *error_type, int error_code);
  * @return <VOID>
  */
 void	get_env(t_data *data, char **env);
+void	expand(t_data *data);
 
 #endif

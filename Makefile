@@ -25,6 +25,7 @@ SRC = src/main.c \
 	src/error/print_error.c \
 	src/debug/debug_commands.c \
 	src/parsing/env.c \
+	src/parsing/expand.c
 
 OBJ = $(SRC:.c=.o)
 
