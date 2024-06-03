@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 12:02:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:33:33 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,6 @@ extern int	G_EXIT_CODE;
 //
 
 
-
-void	getPWD(t_data *data);
-void	getCD(t_data *data);
-void	getECHO(t_data *data);
-
 //MAIN
 void	init_commands(char *buffer, t_data *data);
 
@@ -119,6 +114,9 @@ void	get_echo(t_token *token);
 
 // SRC/BUILTIN/GET_PWD
 void	get_pwd(t_token *token);
+
+// SRC/BUILTIN/GET_CD
+void	get_cd(t_token *token);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
@@ -206,7 +204,7 @@ void	debug_print_list(t_data *data);
 /*                                                                            */
 /* ************************************************************************** */
 //
-void	free_all(t_data *data);
+void	ft_free_data(t_data *data, int option);
 
 
 // SRC/ERROR/PRINT_ERROR

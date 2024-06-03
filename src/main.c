@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 11:41:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:02:05 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void init_commands(char *buffer, t_data *data)
 	init_data(data, buffer);
 	search_command(buffer, data);
 	data->token->type = builtin; // retirar
-	data->token->builtin = echo;// retirar
+	data->token->builtin = pwd;// retirar
+	//data->token->next->type = flag; //retirar
 	use_command(data);
 }
 
@@ -45,18 +46,26 @@ int main(int argc, char **argv, char **envp)
 	t_data	*data;
 	
 
-	data = ft_calloc(1, sizeof(t_data));;
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (0);
 	get_env(data, envp);
+	int i = 0;
 	while(1)
 	{
 		buffer = readline("minishell: ");
 		add_history(buffer);
 		if (valid_input(buffer))
 		{
+			G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 			init_commands(buffer, data);
 		}
+		ft_free_data(data, 1);
+		// i++;
+		// if (i == 2)  <-- #TODO Lidar com alocacao do data
+		// 	exit (1);
+		// data = ft_calloc(1, sizeof(t_data));
 		//printf("$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		
 	}
 }
