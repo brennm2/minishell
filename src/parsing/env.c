@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/31 16:51:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:53:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,21 @@ static void	cpy_env(t_envp **env, char *str)
 void	get_env(t_data *data, char **env)
 {
 	int		i;
-	t_envp *envp;
+	//t_envp *envp;
 
 	i = -1;
 	// envp = ft_calloc(1, sizeof(t_envp));
-	envp = NULL;
+	data->envp = NULL;
 	while (env[++i])
 	{
-		cpy_env(&envp, env[i]);
+		cpy_env(&data->envp, env[i]);
 	}
-	i = 0;
-	while (envp)
+	/* i = 0;
+	while (data->envp)
 	{
-		printf("%d %s = %s\n", i, envp->key, envp->value);
+		printf("%d %s = %s\n", i, data->envp->key, data->envp->value);
 		printf("-\n"),
-		envp = envp->next;
+		data->envp = data->envp->next;
 		i++;
-	}
+	} */
 }

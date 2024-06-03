@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/29 16:50:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:22:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@
 
 typedef enum s_builtins
 {
+	not_builtin,
 	echo,
 	cd,
 	pwd,
 	export,
 	unset,
 	env,
-	Exit
+	n_exit,
 }			t_builtins;
 
 typedef enum s_types
