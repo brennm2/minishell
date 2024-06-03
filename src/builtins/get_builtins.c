@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/29 11:00:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:52:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	get_builtin(t_data *data)
 {
 	if(data->token->builtin == echo) // Se for echo
 		get_echo(data->token->next); //Entra com o proximo <NODE>
+	else if (data->token->builtin == pwd) // Se for pwd
+		get_pwd(data->token);
 }
 
 

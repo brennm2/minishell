@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/05/24 16:57:42 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/03 10:38:01 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_split(char *buffer, t_data *data)
 	i = 0;
 	while(buffer[i])
 	{
-	//#TODO Definir em S_QUOTES nao permitir expandir e em D_QUOTES permitir
+	//#TODO Definir em S_QUOTES nao permitir expandir e em D_QUOTES permitir (Finalizado?)
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
 			i = move_space(buffer, i);
 		if(buffer[i] == D_QUOTES)

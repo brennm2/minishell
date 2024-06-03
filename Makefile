@@ -17,6 +17,7 @@ SRC = src/main.c \
 	src/utils.c \
 	src/builtins/get_builtins.c \
 	src/builtins/get_echo.c \
+	src/builtins/get_pwd.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
