@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 11:25:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:50:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	getCD(t_data *data);
 void	getECHO(t_data *data);
 
 //MAIN
-void	init_commands(char *buffer, t_data *data, char **envp);
+void	init_commands(char *buffer, t_data *data);
 
 
 // SRC/UTILS

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 11:41:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:51:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,20 @@ int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
-	
+	int i;
 
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
 		return (0);
 	get_env(data, envp);
+	i = 0;
+	while (data->envp)
+	{
+		printf("%d %s = %s\n", i, data->envp->key, data->envp->value);
+		printf("-\n"),
+		data->envp = data->envp->next;
+		i++;
+	}
 	while(1)
 	{
 		buffer = readline("minishell: ");
