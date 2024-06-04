@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 13:52:45 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:19:12 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	get_builtin(t_data *data)
 	else if (data->token->builtin == pwd) // Se for pwd
 		get_pwd(data->token);
 	else if (data->token->builtin == cd)
-		get_cd(data->token);
+		get_cd(data);
+	else if (data->token->builtin == env)
+		get_builtin_env(data);
 }
 
 

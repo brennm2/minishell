@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 14:33:33 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:23:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERROR_PIPE_FINAL "no support for this type of pipe"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_QUOTE "quotation has not been closed"
+
 
 
 typedef enum s_builtins
@@ -116,11 +117,15 @@ void	get_echo(t_token *token);
 void	get_pwd(t_token *token);
 
 // SRC/BUILTIN/GET_CD
-void	get_cd(t_token *token);
+void	get_cd(t_data *data);
+
+// SRC/BUILTIN/GET_BUILTIN_ENV
+void	get_builtin_env(t_data *data);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
-void 	init_data(t_data *data, char *buffer);
+void	init_data(t_data *data, char *buffer);
+int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST
 bool	valid_input(char *buffer);

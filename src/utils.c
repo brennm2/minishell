@@ -6,12 +6,21 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 16:29:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:23:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
 
 void	init_token(t_token *token, char *buffer)
 {
