@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/04 14:23:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:31:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
  * @return <VOID>
  */
 void	debug_print_list(t_data *data);
+t_data	*debug_get_builtin_type(t_data *data);
 
 //
 /* ************************************************************************** */

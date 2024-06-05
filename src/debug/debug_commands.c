@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   debug_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 11:28:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:33:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+t_data	*debug_get_builtin_type(t_data *data)
+{
+	if(!ft_strcmp(data->token->str, "cd"))
+		data->token->builtin = cd;
+	else if(!ft_strcmp(data->token->str, "echo"))
+		data->token->builtin = echo;
+	else if(!ft_strcmp(data->token->str, "env"))
+		data->token->builtin = env;
+	else if(!ft_strcmp(data->token->str, "pwd"))
+		data->token->builtin = pwd;
+	return (data);
+}
 
 void	debug_print_list(t_data *data)
 {

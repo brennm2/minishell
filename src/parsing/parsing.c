@@ -6,11 +6,25 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 10:38:01 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:44:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+int	check_for_string(char *buffer, int start)
+{
+	while(buffer[start])
+	{
+		if (buffer[start] && (buffer[start] >= 7 && buffer[start] <= 32))
+		{
+			start++;
+		}
+		else
+			return (start);
+	}
+	return (start);
+}
 
 void	save_substring(char *buffer, int start, int end, t_data *data)
 {
@@ -21,7 +35,7 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		data->token->str[i++] = buffer[start++];
 	if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
 		start++;
-	if(buffer[start])
+	if(buffer[check_for_string(buffer, start)])
 	{
 		data->token = data->token->next;
 		init_token(data->token, buffer);

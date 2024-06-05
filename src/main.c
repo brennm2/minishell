@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/04 16:02:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:52:49 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void init_commands(char *buffer, t_data *data)
 	init_data(data, buffer);
 	search_command(buffer, data);
 	data->token->type = builtin; // retirar
-	data->token->builtin = cd;// retirar
+	//data->token->builtin = cd;// retirar
 	//data->token->next->type = flag; //retirar
+	data = debug_get_builtin_type(data);
 	use_command(data);
 }
 
@@ -65,6 +66,6 @@ int main(int argc, char **argv, char **envp)
 		// if (i == 2)  <-- #TODO Lidar com alocacao do data
 		// 	exit (1);
 		// data = ft_calloc(1, sizeof(t_data));
-		//printf("$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
