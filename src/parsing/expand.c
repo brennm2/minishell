@@ -6,73 +6,97 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/03 16:06:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:39:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int	ft_is_especial(int c)
+int ft_is_especial(int c)
 {
 	if ((c >= 33 && c <= 47))
 		return (1);
 	return (0);
 }
 
-void	change_token(t_envp *envp, t_token *token, int flag)
+char	*ft_strjoin_ex(char *s1, char const *s2)
 {
-	char	*expanded;
-	
-	if (flag == 1)
-	{	
-		free(token->str);
-		token->str = ft_calloc(sizeof(char), (ft_strlen(envp->value) + 1));
-		ft_strlcpy(token->str, envp->value, ft_strlen(envp->value) + 1);
-		//token->str = expanded;
-	}
-	if (flag == 0)
+	int		strlen;
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	strlen = ft_strlen(s1) + ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (strlen + 1));
+	if (!str)
+		return (NULL);
+	while (s1 && s2)
 	{
-		free(token->str);
-		token->str = ft_calloc(sizeof(char), 2);
-		ft_strlcpy(token->str, "\n", 1);
-		//token->str = expanded;
+		while (s1[i])
+			str[j++] = s1[i++];
+		i = 0;
+		while (s2[i])
+			str[j++] = s2[i++];
+		str[j] = '\0';
+		free(s1);
+		return (str);
 	}
-	printf("change_token %s\n", token->str);
+	return (NULL);
 }
 
-void	check_env(t_token *token, t_envp *env, int i, int j)
+void expanded(t_envp *envp, t_token *token, char *variable, int flag)
 {
-	char	*variable;
-	int		size;
-	int		flag;
+	char *expanded;
+	int i;
 	
+	i = -1;
+	while (token->str[++i] != '$')
+		;
+	expanded = ft_calloc(sizeof(char *), i + 1);
+	ft_strlcpy(expanded, token->str, i + 1);
+	if (flag == 1)
+		expanded = ft_strjoin_ex(expanded, envp->value);
+	expanded = ft_strjoin_ex(expanded, token->str + i + 1 + ft_strlen(variable));
+	free(token->str);
+	token->str = expanded;
+}
+
+void check_env(t_token *token, t_envp *env, int i, int j)
+{
+	char *variable;
+	int size;
+	t_envp *env_aux;
+
+	env_aux = env;
 	size = i - j;
-	flag = 0;
-	variable = ft_calloc(sizeof(char), size);
+	variable = ft_calloc(sizeof(char), size + 1);
 	if (!variable)
 		exit(1);
 	ft_strlcpy(variable, token->str + j + 1, (size));
-	//printf("variable is %s\n", variable);
-	while (env->next)
+	while (env_aux)
 	{
-		if (!ft_strncmp(variable, env->key, size))
-			flag = 1;
-		env = env->next;
+		if (!ft_strncmp(variable, env_aux->key, size))
+		{
+			expanded(env_aux, token, variable, 1);
+			free(variable);
+			return ;
+		}
+		env_aux = env_aux->next;
 	}
-	change_token(env, token, flag);
-	printf("check_env %s\n", token->str);
-	free (variable);
+	expanded(NULL, token, variable, 0);
+	free(variable);
 }
 
-void	is_expand(t_token *token, t_envp *envp)
+void is_expand(t_token *token, t_envp *envp)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = -1;
 	if (token->type == not_expander)
-		return ;
-	printf("before %s\n", token->str);
+		return;
 	while (token->str[++i])
 	{
 		if (token->str[i] == '$')
@@ -81,22 +105,24 @@ void	is_expand(t_token *token, t_envp *envp)
 			if (token->str[i + 1] == '?')
 			{
 				printf("error\n");
-				return ;	
+				return;
 			}
 			while (!ft_is_especial(token->str[++i]) && token->str[i])
 				;
-			//printf("%d %d\n", i, j);
 			check_env(token, envp, i, j);
-			printf("after %s\n", token->str);
+			i = -1;
 		}
 	}
 }
 
-void	expand(t_data *data)
+void expand(t_data *data)
 {
-	while (data->token)
+	t_token *token_aux;
+
+	token_aux = data->token;
+	while (token_aux->next)
 	{
-		is_expand(data->token, data->envp);
-		data = data->next;
+		is_expand(token_aux, data->envp);
+		token_aux = token_aux->next;
 	}
 }

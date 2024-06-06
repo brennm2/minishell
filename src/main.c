@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 12:28:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:39:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,32 @@ void	use_command(t_data *data) // Func para buscar qual tipo de <type>
 		get_builtin(data);
 }
 
-void init_commands(char *buffer, t_data *data)
+void	debug_print_list_ex(t_data *data)
 {
-	int i;
+	int			i;
+	t_token		*temp_token;
 
 	i = 0;
+	temp_token = data->token;
+	while (data->token->str)
+	{
+		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
+		printf(C_RED"-"END_COLOR"%s"C_RED"-\n"END_COLOR, data->token->str);
+		/* printf("type: %d\n", data->token->type);
+		printf("builtin: %d\n\n\n", data->token->builtin); */
+		
+		data->token = data->token->next;
+	}
+	printf("Error code: %d\n", G_EXIT_CODE);
+	data->token = temp_token;
+}
+
+void init_commands(char *buffer, t_data *data)
+{
 	init_data(data, buffer);
 	search_command(buffer, data);
 	expand(data);
+	debug_print_list_ex(data);
 	data->token->type = builtin; // retirar
 	data->token->builtin = echo;// retirar
 	use_command(data);
@@ -44,7 +62,6 @@ int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
-	//int i;
 
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
@@ -61,8 +78,8 @@ int main(int argc, char **argv, char **envp)
 		//printf("$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
-
-/* 	i = 0;
+	/* i = 0;
+	int i;
 	while (data->envp)
 	{
 		printf("%d %s = %s\n", i, data->envp->key, data->envp->value);
