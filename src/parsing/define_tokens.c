@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/03 14:37:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/06 20:27:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	is_builtin(t_token *token)
 	else if (!ft_strncmp(token->str, "env", 3))
 		set_builtins(token, env);
 	else if (!ft_strncmp(token->str, "exit", 4))
-		set_builtins(token, Exit);
+		set_builtins(token, n_exit);
 	else 
 		return (false);
 	return (true);
@@ -73,22 +73,4 @@ void	define_tokens(t_token *token)
 		token->type = append;
 	else 
 		token->type = string;
-}
-
-int main(void)
-{
-	t_token token;
-	
-	token.str = "|";
-	if (is_builtin(&token))
-	{
-		printf ("Str = %s\nType = %d\nBuiltin = %d\n", token.str, token.type, token.builtin);
-	}
-	else
-	{
-		printf("Not a builtin\n");
-		define_tokens(&token);
-		printf ("Str = %s\nType = %d\n", token.str, token.type);
-	}
-	return 0;
 }
