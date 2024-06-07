@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/06 20:39:25 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:22:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
+	space,
 	not_expander,
 }				t_types;
 
@@ -244,4 +245,17 @@ void	get_env(t_data *data, char **env);
  * the tokens of the command to be expanded.
  */
 void	expand(t_data *data);
+
+/**
+ * @brief Classifies the type of each token in the provided linked list.
+ *
+ * This function iterates over a linked list of tokens, determining the type of 
+ * each token based on its content. The type of each token is stored within 
+ * the token itself.
+ *
+ * @param token A pointer to the first token in a linked list. Each token in the list
+ * should have its content already set, and this function will set the type of each token.
+ */
+void	tokenize(t_data *data);
+
 #endif

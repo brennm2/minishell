@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/06 19:39:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:14:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	debug_print_list_ex(t_data *data)
 	{
 		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
 		printf(C_RED"-"END_COLOR"%s"C_RED"-\n"END_COLOR, data->token->str);
-		/* printf("type: %d\n", data->token->type);
-		printf("builtin: %d\n\n\n", data->token->builtin); */
+		printf("type: %d\n", data->token->type);
+		printf("builtin: %d\n\n\n", data->token->builtin);
 		
 		data->token = data->token->next;
 	}
@@ -51,11 +51,12 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
+	tokenize(data);
 	expand(data);
 	debug_print_list_ex(data);
-	data->token->type = builtin; // retirar
-	data->token->builtin = echo;// retirar
-	use_command(data);
+	/* data->token->type = builtin; // retirar
+	data->token->builtin = echo;// retirar */
+	//use_command(data);
 }
 
 int main(int argc, char **argv, char **envp)
