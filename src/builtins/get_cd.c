@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/05 15:46:08 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:13:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,36 @@ char	*get_in_env(t_envp *envp, char *key)
 	printf("Nao achou nada\n\n"); //#TODO <--- Apenas para debug, caso nao encontre o que eu quero
 	return NULL;
 }
+
+void	cd_change_last_oldpwd(t_data *data)
+{
+	// #TODO 
+	// getcwd(old_cwd, sizeof(old_cwd));
+	// old_cwd_char = get_in_env(data->envp, "OLDPWD");
+	// chdir(old_cwd_char);
+	// data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
+	// ft_putstr_fd(old_cwd_char, 1);
+	// write(1, "\n", 1);
+	// return ;
+}
+
 void	cd_options(t_data *data)
 {
 	char	old_cwd[256];
 	char	*old_cwd_char;
 	
-	//#TODO CD -- e CD +- -+
-	if(data->token->next->str[1])
+	if(data->token->next->str[1] && data->token->next->str[1] != '-')
 	{
+		
 		write(2, "minishell: cd: -", 16);
 		write(2, &data->token->next->str[1], 1);
 		write(2, ": invalid option\n", 17);
 		print_error(NULL, 2);
+		return ;
+	}
+	if (data->token->next->str[1] == '-') // se for CD --
+	{
+		chdir(get_in_env(data->envp, "HOME"));
 		return ;
 	}
 	getcwd(old_cwd, sizeof(old_cwd));
