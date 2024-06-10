@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/07 16:14:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/10 18:51:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,98 @@
 
 int	G_EXIT_CODE;
 
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*join;
+
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * 1);
+		s1[0] = '\0';
+	}
+	i = ft_strlen(s1);
+	j = 0;
+	join = (char *)malloc(sizeof(s1[0]) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (join == NULL)
+		return (NULL);
+	while (s1[j])
+	{
+		join[j] = s1[j];
+		j++;
+	}
+	j = -1;
+	while (s2[++j])
+		join[i + j] = s2[j];
+	free(s1);
+	join[i + j] = '\0';
+	return (join);
+}
+
+char *put_space_on_pipes(char *buffer, int i)
+{
+    char *new_buffer;
+    char *temp;
+
+    new_buffer = ft_calloc(sizeof(char), i + 1);
+    if (!new_buffer)
+        return NULL;
+    ft_strlcpy(new_buffer, buffer, i + 1);
+    temp = ft_strjoin_free(new_buffer, " | ");
+    if (!temp)
+    {
+        free(new_buffer);
+        return NULL;
+    }
+    new_buffer = ft_strjoin_free(temp, buffer + i + 1);
+    if (!new_buffer)
+    {
+        free(temp);
+        return NULL;
+    }
+    free(buffer);
+    return (new_buffer);
+}
+
+
+/* char	*put_space_on_pipes(char *buffer, int i)
+{
+	char	*new_buffer;
+
+	new_buffer = ft_calloc(sizeof(char), i + 1);
+	ft_strlcpy(new_buffer, buffer, i);
+	new_buffer = ft_strjoin_free(new_buffer, " | ");
+	new_buffer = ft_strjoin_free(new_buffer, buffer + i + 1);
+	free(buffer);
+	return (new_buffer);
+} */
+
+char	*checks_pipes(char *buffer)
+{
+	int	i;
+	int quote_flag;
+
+	quote_flag = 1;
+	i = -1;
+	while (buffer[++i])
+	{
+		if (buffer[i] == D_QUOTES || buffer[i] == S_QUOTES)
+			quote_flag *= -1;
+		if (buffer[i] == '|' && quote_flag > 0)
+		{
+			buffer = put_space_on_pipes(buffer, i);
+			i += 2;	
+		}
+	}
+	return (buffer);
+}
+
 void	search_command(char *buffer, t_data *data) // FUNC separar o buffer em tokens
 {
+	buffer = checks_pipes(buffer);
 	get_split(buffer, data);
+	//check_tokens(data);
 	//debug_print_list(data); // DEBUG PARA LER A LISTA COMPLETA
 	//free_all(data);
 }
@@ -79,12 +168,4 @@ int main(int argc, char **argv, char **envp)
 		//printf("$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
-	/* i = 0;
-	int i;
-	while (data->envp)
-	{
-		printf("%d %s = %s\n", i, data->envp->key, data->envp->value);
-		printf("-\n"),
-		data->envp = data->envp->next;
-		i++;
-	} */
+
