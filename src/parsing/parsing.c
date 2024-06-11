@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:50:40 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:56:43 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 
 	i = 0;
 	while(start <= end)
-	{
 		data->token->str[i++] = buffer[start++];
 	if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
 		start++;
