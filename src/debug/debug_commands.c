@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/05 10:33:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:20:22 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,3 @@ void	debug_print_list(t_data *data)
 	printf("Error code: %d\n", G_EXIT_CODE);
 	data->token = temp_token;
 }
-
