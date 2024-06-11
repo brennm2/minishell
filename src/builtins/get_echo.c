@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/04 14:23:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:15:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-
 
 void	put_token_str(t_token *token)
 {
