@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/05 10:52:49 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/11 11:15:37 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int main(int argc, char **argv, char **envp)
 		// if (i == 2)  <-- #TODO Lidar com alocacao do data
 		// 	exit (1);
 		// data = ft_calloc(1, sizeof(t_data));
-		printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		//printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
