@@ -5,19 +5,22 @@ NAME = minishell
 LIBFT = ./libs/libft.a
 
 CC = gcc -g
-CCFLAGS = -Wall -Werror -Wextra 
+CCFLAGS = -Wall -Werror -Wextra
 RM = rm
 RMFLAGS= -f
 GREEN=\033[0;32m
 RED=\033[0;31m
 YELLOW=\033[1;93m
 NC=\033[0m
+VG = valgrind
 
 SRC = src/main.c \
 	src/utils.c \
 	src/builtins/get_builtins.c \
 	src/builtins/get_echo.c \
 	src/builtins/get_pwd.c \
+	src/builtins/get_cd.c \
+	src/builtins/get_env.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \

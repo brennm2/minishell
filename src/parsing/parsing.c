@@ -6,11 +6,25 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:16:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:50:40 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+int	check_for_string(char *buffer, int start)
+{
+	while(buffer[start])
+	{
+		if (buffer[start] && (buffer[start] >= 7 && buffer[start] <= 32))
+		{
+			start++;
+		}
+		else
+			return (start);
+	}
+	return (start);
+}
 
 void	save_substring(char *buffer, int start, int end, t_data *data)
 {
@@ -20,8 +34,9 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 	while(start <= end)
 	{
 		data->token->str[i++] = buffer[start++];
-	}
-	if(buffer[start])
+	if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
+		start++;
+	if(buffer[check_for_string(buffer, start)])
 	{
 		data->token = data->token->next;
 		init_token(data->token, buffer);
@@ -35,8 +50,7 @@ void	save_space(char *buffer, int start, t_data *data)
 	i = 0;
 	while(buffer[start] && buffer[start] >= 7 && buffer[start] <= 32)
 		start++;
-	data->token->str = ft_strdup(" ");
-	if(buffer[start])
+	if(buffer[check_for_string(buffer, start)])
 	{
 		data->token = data->token->next;
 		init_token(data->token, buffer);
@@ -52,7 +66,8 @@ void	get_split(char *buffer, t_data *data)
 	i = 0;
 	while(buffer[i])
 	{
-	//#TODO Definir em S_QUOTES nao permitir expandir e em D_QUOTES permitir (Finalizado?)
+	//#TODO Veriicar echo "abc"a
+	
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
 		{
 			i = move_space(buffer, i);

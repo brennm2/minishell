@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/07 17:22:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:43:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERROR_PIPE_FINAL "no support for this type of pipe"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_QUOTE "quotation has not been closed"
+
 
 
 typedef enum s_builtins
@@ -103,11 +104,6 @@ extern int	G_EXIT_CODE;
 //
 
 
-
-void	getPWD(t_data *data);
-void	getCD(t_data *data);
-void	getECHO(t_data *data);
-
 //MAIN
 void	init_commands(char *buffer, t_data *data);
 
@@ -121,9 +117,16 @@ void	get_echo(t_token *token);
 // SRC/BUILTIN/GET_PWD
 void	get_pwd(t_token *token);
 
+// SRC/BUILTIN/GET_CD
+void	get_cd(t_data *data);
+
+// SRC/BUILTIN/GET_BUILTIN_ENV
+void	get_builtin_env(t_data *data);
+
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
-void 	init_data(t_data *data, char *buffer);
+void	init_data(t_data *data, char *buffer);
+int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST
 bool	valid_input(char *buffer);
@@ -199,6 +202,7 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data);
  * @return <VOID>
  */
 void	debug_print_list(t_data *data);
+t_data	*debug_get_builtin_type(t_data *data);
 
 //
 /* ************************************************************************** */
@@ -207,7 +211,7 @@ void	debug_print_list(t_data *data);
 /*                                                                            */
 /* ************************************************************************** */
 //
-void	free_all(t_data *data);
+void	ft_free_data(t_data *data, int option);
 
 
 // SRC/ERROR/PRINT_ERROR
