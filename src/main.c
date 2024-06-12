@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:48:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:19:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,103 +14,13 @@
 
 int	G_EXIT_CODE;
 
-char	*ft_strjoin_free(char *s1, char *s2)
+void	search_command(char *buffer, t_data *data)
 {
-	int		i;
-	int		j;
-	char	*join;
-
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char) * 1);
-		s1[0] = '\0';
-	}
-	i = ft_strlen(s1);
-	j = 0;
-	join = (char *)malloc(sizeof(s1[0]) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (join == NULL)
-		return (NULL);
-	while (s1[j])
-	{
-		join[j] = s1[j];
-		j++;
-	}
-	j = -1;
-	while (s2[++j])
-		join[i + j] = s2[j];
-	free(s1);
-	join[i + j] = '\0';
-	return (join);
-}
-
-char *put_space_on_pipes(char *buffer, int i)
-{
-    char *new_buffer;
-    char *temp;
-
-    new_buffer = ft_calloc(sizeof(char), i + 1);
-    if (!new_buffer)
-        return NULL;
-    ft_strlcpy(new_buffer, buffer, i + 1);
-    temp = ft_strjoin_free(new_buffer, " | ");
-    if (!temp)
-    {
-        free(new_buffer);
-        return NULL;
-    }
-    new_buffer = ft_strjoin_free(temp, buffer + i + 1);
-    if (!new_buffer)
-    {
-        free(temp);
-        return NULL;
-    }
-    free(buffer);
-    return (new_buffer);
-}
-
-
-/* char	*put_space_on_pipes(char *buffer, int i)
-{
-	char	*new_buffer;
-
-	new_buffer = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(new_buffer, buffer, i);
-	new_buffer = ft_strjoin_free(new_buffer, " | ");
-	new_buffer = ft_strjoin_free(new_buffer, buffer + i + 1);
-	free(buffer);
-	return (new_buffer);
-} */
-
-char	*checks_pipes(char *buffer)
-{
-	int	i;
-	int quote_flag;
-
-	quote_flag = 1;
-	i = -1;
-	while (buffer[++i])
-	{
-		if (buffer[i] == D_QUOTES || buffer[i] == S_QUOTES)
-			quote_flag *= -1;
-		if (buffer[i] == '|' && quote_flag > 0)
-		{
-			buffer = put_space_on_pipes(buffer, i);
-			i += 2;	
-		}
-	}
-	return (buffer);
-}
-
-void	search_command(char *buffer, t_data *data) // FUNC separar o buffer em tokens
-{
-	buffer = checks_pipes(buffer);
+	buffer = check_spaces(buffer);
 	get_split(buffer, data);
-	//check_tokens(data);
-	//debug_print_list(data); // DEBUG PARA LER A LISTA COMPLETA
-	//free_all(data);
 }
 
-void	use_command(t_data *data) // Func para buscar qual tipo de <type>
+void	use_command(t_data *data)
 {
 	if(data->token->type == builtin)
 		get_builtin(data);
@@ -143,13 +53,6 @@ void init_commands(char *buffer, t_data *data)
 	tokenize(data);
 	expand(data);
 	debug_print_list_ex(data);
-	/* data->token->type = builtin; // retirar
-	data->token->builtin = echo;// retirar */
-	//use_command(data);
-	data->token->type = builtin; // retirar
-	//data->token->builtin = cd;// retirar
-	//data->token->next->type = flag; //retirar
-	data = debug_get_builtin_type(data);
 	use_command(data);
 }
 
@@ -169,15 +72,12 @@ int main(int argc, char **argv, char **envp)
 		add_history(buffer);
 		if (valid_input(buffer))
 		{
-			G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
+			G_EXIT_CODE = 0;
 			init_commands(buffer, data);
 		}
-		//ft_free_data(data, 1);
-		// i++;
-		// if (i == 2)  <-- #TODO Lidar com alocacao do data
-		// 	exit (1);
-		// data = ft_calloc(1, sizeof(t_data));
-		//printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		ft_free_data(data, 1);
 	}
+	ft_free_data(data, 1);
 }
 
+//valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell

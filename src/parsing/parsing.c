@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:56:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:57:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,10 @@ void	get_split(char *buffer, t_data *data)
 	i = 0;
 	while(buffer[i])
 	{
-	//#TODO Veriicar echo "abc"a
-	
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
-		{
 			i = move_space(buffer, i);
-			//save_space(buffer, i, data);
-		}
-		
-		// if(buffer[i] == D_QUOTES)
-		// dquotes = 1;
-		// 		i = move_with_quotes(buffer, i, D_QUOTES, data);
-		// if (buffer[i] == S_QUOTES)
-		// 		i = move_with_quotes(buffer, i, S_QUOTES, data);
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
-		{
-				i = move_without_quotes(buffer, i, data);		
-		}
+			i = move_without_quotes(buffer, i, data);		
 	}
 	data->token = reset_index;
 }

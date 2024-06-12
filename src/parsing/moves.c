@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:28:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:58:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_for_open_quotes(char *buffer, int i)
 	dquotes = false;
 	squotes = false;
 
-	while(buffer[i])
+	while(i >= 0 && buffer[i])
 	{
 		if(buffer[i] == S_QUOTES && dquotes == false)
 			squotes = !squotes;
