@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 19:19:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:49:46 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void init_commands(char *buffer, t_data *data)
 	search_command(buffer, data);
 	tokenize(data);
 	expand(data);
+	//remove_quotes(data);
 	debug_print_list_ex(data);
 	use_command(data);
 }
@@ -75,9 +76,9 @@ int main(int argc, char **argv, char **envp)
 			G_EXIT_CODE = 0;
 			init_commands(buffer, data);
 		}
-		ft_free_data(data, 1);
+		//ft_free_data(data, 1);
 	}
-	ft_free_data(data, 1);
+	//ft_free_data(data, 1);
 }
 
 //valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell

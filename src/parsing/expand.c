@@ -6,11 +6,12 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/06 19:39:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:59:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
 
 int ft_is_especial(int c)
 {
@@ -89,18 +90,40 @@ void check_env(t_token *token, t_envp *env, int i, int j)
 	free(variable);
 }
 
+bool	check_for_quotes_expander(char *buffer, int i)
+{
+	bool	dquotes;
+	bool 	squotes;
+
+	dquotes = false;
+	squotes = false;
+
+	while(i >= 0 && buffer[i])
+	{
+		if(buffer[i] == S_QUOTES && dquotes == false)
+			squotes = !squotes;
+		if(buffer[i] == D_QUOTES && squotes == false)
+			dquotes = !dquotes;
+		i--;
+	}
+	if (squotes == true)
+		return (true);
+	else
+		return (false);
+}
+
 void is_expand(t_token *token, t_envp *envp)
 {
 	int i;
 	int j;
 
 	i = -1;
-	if (token->type == not_expander)
-		return;
 	while (token->str[++i])
 	{
 		if (token->str[i] == '$')
 		{
+			if (check_for_quotes_expander(token->str, i))
+				return;
 			j = i;
 			if (token->str[i + 1] == '?')
 			{
