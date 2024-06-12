@@ -6,31 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/05/24 16:23:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:04:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	int				i;
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	i = 0;
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	if ((int)n < 0)
-		return ((int)n);
-	while ((str1[i] || str2[i]) && i < (int)n)
-	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
-	}
-	return (0);
-}
 
 void	set_builtins(t_token *token, t_builtins	blt)
 {
@@ -38,25 +18,27 @@ void	set_builtins(t_token *token, t_builtins	blt)
 	token->builtin = blt;
 }
 
-bool	is_builtin(t_token *token)
+void	which_command(t_token *token)
 {
 	if (!ft_strncmp(token->str, "echo", 4))
-		set_builtins(token, echo);
+		return(set_builtins(token, echo));
 	else if (!ft_strncmp(token->str, "cd", 2))
-		set_builtins(token, cd);
+		return(set_builtins(token, cd));
 	else if (!ft_strncmp(token->str, "pwd", 3))
-		set_builtins(token, pwd);
+		return(set_builtins(token, pwd));
 	else if (!ft_strncmp(token->str, "export", 6))
-		set_builtins(token, export);
+		return(set_builtins(token, export));
 	else if (!ft_strncmp(token->str, "unset", 5))
-		set_builtins(token, unset);
+		return(set_builtins(token, unset));
 	else if (!ft_strncmp(token->str, "env", 3))
-		set_builtins(token, env);
+		return(set_builtins(token, env));
 	else if (!ft_strncmp(token->str, "exit", 4))
-		set_builtins(token, Exit);
-	else 
-		return (false);
-	return (true);
+		return(set_builtins(token, n_exit));
+	else
+	{
+		set_builtins(token, not_builtin);
+		token->type = command;
+	}
 }
 
 void	define_tokens(t_token *token)
@@ -65,6 +47,8 @@ void	define_tokens(t_token *token)
 		token->type = is_pipe;
 	else if (!ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
 		token->type = redin;
+	else if (!ft_strncmp(token->str, " ", 1) && token->str[1] == '\0')
+		token->type = space;
 	else if (!ft_strncmp(token->str, ">", 1) && token->str[1] == '\0')
 		token->type = redout;
 	else if (!ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
@@ -75,20 +59,38 @@ void	define_tokens(t_token *token)
 		token->type = string;
 }
 
-int main(void)
+void	after_pipe(t_data *data)
 {
-	t_token token;
+	t_token	*token_aux;
+
+	token_aux = data->token;
+	while (token_aux->next)
+	{
+		if(token_aux->type == is_pipe)
+		{
+			token_aux = token_aux->next;
+			if (token_aux->type == space)
+				token_aux = token_aux->next;
+			which_command(token_aux);
+		}
+		token_aux = token_aux->next;
+	}
+}
+
+void	tokenize(t_data *data)
+{
+	t_token *token_aux;
+	int i;
 	
-	token.str = "|";
-	if (is_builtin(&token))
+	i = -1;
+	token_aux = data->token;
+	while (token_aux->next)
 	{
-		printf ("Str = %s\nType = %d\nBuiltin = %d\n", token.str, token.type, token.builtin);
+		if(++i == 0)
+			which_command(token_aux);
+		else
+			define_tokens(token_aux);
+		token_aux = token_aux->next;
 	}
-	else
-	{
-		printf("Not a builtin\n");
-		define_tokens(&token);
-		printf ("Str = %s\nType = %d\n", token.str, token.type);
-	}
-	return 0;
+	after_pipe(data);
 }
