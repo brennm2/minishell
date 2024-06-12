@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/04 14:23:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:31:52 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	get_echo(t_token *token)
 	while(token->str)
 	{
 		// Cuidado com a flag!
+		//#TODO LIDAR COM -nnnnnn OU "-nnnnnnnq"
 		if (ft_strcmp(token->str, "-n") == 0) // retirar isso
 			token->type = flag;
 		if (token->type == flag) //Se for uma flag
