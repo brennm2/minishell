@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/05 10:31:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:43:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
+	space,
 	not_expander,
 }				t_types;
 
@@ -223,11 +224,42 @@ void	print_error(char *error_type, int error_code);
 /* ************************************************************************** */
 //
 /**
- * @brief Função para transformar o env em uma lista linkada.
- * @param data : estrutura de data;
- * @param env : variavel de ambiente em char**;
- * @return <VOID>
+ * @brief Extracts the environment variables from the provided array and stores
+ * them in a linked list.
+ *
+ * This function iterates over the provided array of environment variables, 
+ * copying each one into a new node in a linked list.
+ * The linked list is stored in the provided t_data structure.
+ *
+ * @param data A pointer to a t_data structure. This structure will hold the 
+ * linked list of environment variables.
+ * @param env An array of strings, where each string is an environment variable
+ * in the format "key=value".
  */
 void	get_env(t_data *data, char **env);
+
+/**
+ * @brief Expands environment variables in the tokens of a command.
+ *
+ * This function iterates over the tokens in a command and expands any
+ * environment variables found within the tokens. The expansion is done
+ * in-place, modifying the tokens directly.
+ * 
+ * @param data A pointer to a t_data structure. This structure contains
+ * the tokens of the command to be expanded.
+ */
+void	expand(t_data *data);
+
+/**
+ * @brief Classifies the type of each token in the provided linked list.
+ *
+ * This function iterates over a linked list of tokens, determining the type of 
+ * each token based on its content. The type of each token is stored within 
+ * the token itself.
+ *
+ * @param token A pointer to the first token in a linked list. Each token in the list
+ * should have its content already set, and this function will set the type of each token.
+ */
+void	tokenize(t_data *data);
 
 #endif
