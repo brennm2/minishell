@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 12:54:09 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:06:35 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@ void	cd_error_invalid_option(t_data *data)
 	print_error(NULL, 2);
 }
 
+void	cd_error_invalid_file(t_data *data)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(data->token->next->str, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	print_error(NULL, 1);
+}
+
 t_envp	*change_in_env(t_envp *envp, char *cwd, char *key)
 {
 	t_envp *temp_envp;
@@ -29,10 +37,7 @@ t_envp	*change_in_env(t_envp *envp, char *cwd, char *key)
 	{
 		if(ft_strcmp(temp_envp->key, key) == 0)
 		{
-			//printf("oldpwd antes: %s\n", temp_envp->value); //#TODO DEBUGGER
-			//free(temp_envp->value);
 			temp_envp->value = ft_strdup(cwd);
-			//printf("oldpwd depois: %s\n", temp_envp->value); //#TODO DEBUGGER
 			return (envp);
 		}
 		temp_envp = temp_envp->next;
@@ -75,6 +80,7 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 void	cd_options_tilde(t_data *data)
 {
 	char	cwd[256];
+	char temp_cwd;
 	
 	if (data->token->next->str[0] == '-' && data->token->next->str[1] == '+')
 		return (cd_error_invalid_option(data));
@@ -83,39 +89,42 @@ void	cd_options_tilde(t_data *data)
 	{
 		chdir(cwd);
 		data->envp = change_in_env(data->envp, cwd, "OLDPWD");
+		data->envp = change_in_env(data->envp, cwd, "PWD");
 		return ;
 	}
 	if (data->token->next->str[1] == '-') // Vai para o OLDPWD e mudar o OLDPWD para o atual PWD
 	{
 		cd_change_last_oldpwd(data, 0);
+		getcwd(cwd, sizeof(cwd));
+		data->envp = change_in_env(data->envp, cwd, "PWD");
 		return ;
 	}
 }
 
-
 void	cd_options(t_data *data)
 {
-	char	old_cwd[256];
-	char	*old_cwd_char;
+	char	cwd[256];
 	
 	if(data->token->next->str[1] && (data->token->next->str[1] != '-' && data->token->next->str[1] != '+'))
 	{
-		write(2, "minishell: cd: -", 16);
-		write(2, &data->token->next->str[1], 1);
-		write(2, ": invalid option\n", 17);
-		print_error(NULL, 2);
-		return ;
+		if (data->token->next->str[0] == '~' && data->token->next->str[1]) //Se for "cd ~algumacoisa"
+			return (cd_error_invalid_file(data));
+		return (cd_error_invalid_option(data)); //Se for "cd -algumacoisa";
 	}
-	if ((data->token->next->str[0] == '-' && data->token->next->str[1] == '-')
-		|| data->token->next->str[0] == '~' && data->token->next->str[1] == '\0') // se for CD --
+	else if ((data->token->next->str[0] == '-' && data->token->next->str[1] == '-')
+		|| data->token->next->str[0] == '~' && data->token->next->str[1] == '\0') // se for "cd --" ou "cd ~"
 	{
 		cd_change_last_oldpwd(data, 0);
 		chdir(get_in_env(data->envp, "HOME"));
+		getcwd(cwd, sizeof(cwd));
+		data->envp = change_in_env(data->envp, cwd, "PWD");
 		return ;
 	}
-	if (data->token->next->str[1] == '+' || (data->token->next->str[1] == '-')) // Se for "CD ~-" OU "CD ~+"
+	else if (data->token->next->str[1] == '+' || (data->token->next->str[1] == '-')) // Se for "CD ~-" OU "CD ~+"
 		return (cd_options_tilde(data));
 	cd_change_last_oldpwd(data, 1); // Se nao entrar em nada, entao "cd -"
+	getcwd(cwd, sizeof(cwd)); //Pega o PWD atual
+	data->envp = change_in_env(data->envp, cwd, "PWD"); // Muda no env->PWD
 	return ;
 }
 
@@ -123,40 +132,29 @@ void	get_cd(t_data *data)
 {
 	char	cwd[256];
 	char	old_cwd[256];
-	t_token *temp_token;
-
-	temp_token = data->token;
-	getcwd(old_cwd, sizeof(old_cwd));
-	//printf("\nDiretorio atual: %s\n", old_cwd); //#TODO DEBUGGER
 	
+	getcwd(old_cwd, sizeof(old_cwd));
 	if(data->token->next->str != NULL) //Se existir um proximo <NODE>
 	{
 		if((data->token->next->str[0] == '-' || data->token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
-		{
-			cd_options(data);
-			return ;
-		}
-		else if (!chdir(temp_token->next->str)) //Se nao achar o diretorio, nao entra
+			return (cd_options(data));
+		else if (!chdir(data->token->next->str)) //Executar o comando normal "cd src/", caso nao encontre, nao entre
 		{
 			getcwd(cwd, sizeof(cwd));
-			//printf("Diretorio apos comando: %s\n", cwd); //#TODO DEBUGGER
 			data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
+			data->envp = change_in_env(data->envp, cwd, "PWD");
 			return ;
 		}
+		else if(data->token->next->str && data->token->next->next->str) // Se for "cd a b"
+			return (print_error(ERROR_CD_MANY_ARGUMENT, 1));
 		else
-		{
-			write(2, "minishell: cd: ", 15);
-			write(2, data->token->next->str, ft_strlen(data->token->next->str));
-			write(2, ": No such file or directory\n", 28);
-			print_error(NULL, 1);
-			return ;
-		}
+			return (cd_error_invalid_file(data)) ; // Se "cd algumacoisa" (nao for um diretorio valido)
 	}
-	else // Se o <NODE> atual for CD e o proximo nao existir
+	else // se for somente "cd"
 	{
 		chdir(get_in_env(data->envp, "HOME"));
-		getcwd(cwd, sizeof(cwd));
-		//printf("Diretorio apos comando: %s\n", cwd); //#TODO DEBUGGER
+		change_in_env(data->envp, old_cwd, "OLDPWD");
+		change_in_env(data->envp, get_in_env(data->envp, "HOME"), "PWD");
 		return ;
 	}
 }

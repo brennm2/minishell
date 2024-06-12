@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:48:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:01:40 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,13 +142,11 @@ void init_commands(char *buffer, t_data *data)
 	search_command(buffer, data);
 	tokenize(data);
 	expand(data);
-	debug_print_list_ex(data);
+	//debug_print_list_ex(data);
 	/* data->token->type = builtin; // retirar
 	data->token->builtin = echo;// retirar */
 	//use_command(data);
-	data->token->type = builtin; // retirar
-	//data->token->builtin = cd;// retirar
-	//data->token->next->type = flag; //retirar
+	data->token->type = builtin;
 	data = debug_get_builtin_type(data);
 	use_command(data);
 }
@@ -177,7 +175,7 @@ int main(int argc, char **argv, char **envp)
 		// if (i == 2)  <-- #TODO Lidar com alocacao do data
 		// 	exit (1);
 		// data = ft_calloc(1, sizeof(t_data));
-		//printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:56:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:58:03 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	get_split(char *buffer, t_data *data)
 		// 		i = move_with_quotes(buffer, i, S_QUOTES, data);
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
 		{
-				i = move_without_quotes(buffer, i, data);		
+				i = move_without_quotes(buffer, i, data);
 		}
 	}
 	data->token = reset_index;

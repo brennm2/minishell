@@ -6,11 +6,12 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/04 14:19:12 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:11:44 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
 
 void	get_builtin(t_data *data)
 {
@@ -22,6 +23,14 @@ void	get_builtin(t_data *data)
 		get_cd(data);
 	else if (data->token->builtin == env)
 		get_builtin_env(data);
+	
+	//teste
+	// char *test;
+	// test = get_in_env(data->envp, "PWD");
+	// printf("PWD atual: %s\n", test);
+	// test = get_in_env(data->envp, "OLDPWD");
+	// printf("OLDPWD atual: %s\n", test);
+	//
 }
 
 

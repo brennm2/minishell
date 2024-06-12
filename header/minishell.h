@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:43:55 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:00:02 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 # define ERROR_PIPE_FINAL "no support for this type of pipe"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
 # define ERROR_QUOTE "quotation has not been closed"
+# define ERROR_CD_MANY_ARGUMENT "cd: too many arguments"
 
 
 
@@ -119,6 +120,7 @@ void	get_pwd(t_token *token);
 
 // SRC/BUILTIN/GET_CD
 void	get_cd(t_data *data);
+char	*get_in_env(t_envp *envp, char *key);
 
 // SRC/BUILTIN/GET_BUILTIN_ENV
 void	get_builtin_env(t_data *data);
