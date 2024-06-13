@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/13 18:48:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/13 20:32:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,6 +254,8 @@ void	tokenize(t_data *data);
  */
 char	*check_spaces(char *buffer);
 
+void	remove_quotes(t_data *data);
+
 /* ************************************************************************** */
 /*                                                                            */
 /* -------------------------- SRC/PARSING/UTILS ----------------------------- */
@@ -275,5 +277,7 @@ int ft_is_especial(int c);
  * the concatenation. Returns NULL if the allocation fails.
  */
 char	*ft_strjoin_ex(char *s1, char const *s2);
+
+int	quote_status(char *str, int i);
 
 #endif
