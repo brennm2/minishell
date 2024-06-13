@@ -1,23 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/12 20:59:19 by nsouza-o         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
 
 int ft_is_especial(int c)
 {
 	if ((c >= 33 && c <= 47))
 		return (1);
 	return (0);
+}
+
+int	deal_with_quotes(t_token *token, int i)
+{	
+	if (token->str[i] == S_QUOTES)
+	{
+		i++;
+		while (token->str[i] != S_QUOTES)
+			i++;
+	}
+	return (i);
 }
 
 char	*ft_strjoin_ex(char *s1, char const *s2)
@@ -47,24 +46,20 @@ char	*ft_strjoin_ex(char *s1, char const *s2)
 	return (NULL);
 }
 
-void expanded(t_envp *envp, t_token *token, char *variable, int flag)
+void	expansion(t_envp *envp, t_token *token, int j, int i)
 {
-	char *expanded;
-	int i;
-	
-	i = -1;
-	while (token->str[++i] != '$')
-		;
-	expanded = ft_calloc(sizeof(char *), i + 1);
-	ft_strlcpy(expanded, token->str, i + 1);
-	if (flag == 1)
+	char	*expanded;
+
+	expanded = ft_calloc(sizeof(char), (j + 1));
+	ft_strlcpy(expanded, token->str, j + 1);
+	if (envp)
 		expanded = ft_strjoin_ex(expanded, envp->value);
-	expanded = ft_strjoin_ex(expanded, token->str + i + 1 + ft_strlen(variable));
+	expanded = ft_strjoin_ex(expanded, token->str + i);
 	free(token->str);
-	token->str = expanded;
+	token->str = expanded;	
 }
 
-void check_env(t_token *token, t_envp *env, int i, int j)
+void	check_env(t_token *token, t_envp *env, int j, int i)
 {
 	char *variable;
 	int size;
@@ -80,39 +75,17 @@ void check_env(t_token *token, t_envp *env, int i, int j)
 	{
 		if (!ft_strncmp(variable, env_aux->key, size))
 		{
-			expanded(env_aux, token, variable, 1);
+			expansion(env_aux, token, j, i);
 			free(variable);
 			return ;
 		}
 		env_aux = env_aux->next;
 	}
-	expanded(NULL, token, variable, 0);
+	expansion(NULL, token, j, i);
 	free(variable);
 }
 
-bool	check_for_quotes_expander(char *buffer, int i)
-{
-	bool	dquotes;
-	bool 	squotes;
-
-	dquotes = false;
-	squotes = false;
-
-	while(i >= 0 && buffer[i])
-	{
-		if(buffer[i] == S_QUOTES && dquotes == false)
-			squotes = !squotes;
-		if(buffer[i] == D_QUOTES && squotes == false)
-			dquotes = !dquotes;
-		i--;
-	}
-	if (squotes == true)
-		return (true);
-	else
-		return (false);
-}
-
-void is_expand(t_token *token, t_envp *envp)
+void	is_expand(t_token *token, t_envp *envp)
 {
 	int i;
 	int j;
@@ -120,25 +93,20 @@ void is_expand(t_token *token, t_envp *envp)
 	i = -1;
 	while (token->str[++i])
 	{
+		if (token->str[i] == S_QUOTES)
+			i = deal_with_quotes(token, i);
 		if (token->str[i] == '$')
 		{
-			if (check_for_quotes_expander(token->str, i))
-				return;
 			j = i;
-			if (token->str[i + 1] == '?')
-			{
-				printf("error\n");
-				return;
-			}
 			while (!ft_is_especial(token->str[++i]) && token->str[i])
 				;
-			check_env(token, envp, i, j);
+			check_env(token, envp, j, i);
 			i = -1;
 		}
 	}
 }
 
-void expand(t_data *data)
+void	expand(t_data *data)
 {
 	t_token *token_aux;
 
