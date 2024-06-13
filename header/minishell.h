@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 17:16:39 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:48:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,5 +253,27 @@ void	tokenize(t_data *data);
  * @return A pointer to the corrected command string.
  */
 char	*check_spaces(char *buffer);
+
+/* ************************************************************************** */
+/*                                                                            */
+/* -------------------------- SRC/PARSING/UTILS ----------------------------- */
+/*                                                                            */
+/* ************************************************************************** */
+
+/**
+ * @brief Checks if a character is a special character.
+ * @param c An integer representing the ASCII value of a character.
+ * @return Returns 1 if the character is special, and 0 otherwise.
+ */
+int ft_is_especial(int c);
+
+/**
+ * @brief Concatenates two strings.
+ * @param s1 A pointer to the first string.
+ * @param s2 A pointer to the second string.
+ * @return Returns a pointer to the newly created string that is the result of 
+ * the concatenation. Returns NULL if the allocation fails.
+ */
+char	*ft_strjoin_ex(char *s1, char const *s2);
 
 #endif

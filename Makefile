@@ -30,7 +30,8 @@ SRC = src/main.c \
 	src/parsing/env.c \
 	src/parsing/expand.c \
 	src/parsing/define_tokens.c \
-	src/parsing/correct_space.c
+	src/parsing/correct_space.c \
+	src/parsing/utils.c
 
 OBJ = $(SRC:.c=.o)
 
