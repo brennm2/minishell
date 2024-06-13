@@ -6,13 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 14:31:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:51:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-
 
 void	put_token_str(t_token *token)
 {
@@ -36,27 +34,52 @@ int	get_echo_flag(t_token *token)
 	}
 }
 
+bool	is_all_flag(t_token *token)
+{
+	int i;
+
+	i = 2;
+	if(token->str[0] == '-' && token->str[1] == 'n') //se for "-n..."
+	{
+		while(token->str[i]) // Enquanto a str existir
+		{
+			if(token->str[i] == 'n') // se a posicao atual for "n"
+				i++;
+			else
+				return (false); // se for diferente de "n", entao nao e uma flag valida
+		}
+	}
+	else
+		return (false); // Se nao for "-n..."
+	return (true); // se andou por toda string e nao achou alem de "n"
+}
+
 
 void	get_echo(t_token *token)
 {
-	t_token	*reset_token;
 	int		t_flag;
 	
 	t_flag = 0;
-	reset_token = token;
 	while(token->str)
 	{
-		// Cuidado com a flag!
-		//#TODO LIDAR COM -nnnnnn OU "-nnnnnnnq"
-		if (ft_strcmp(token->str, "-n") == 0) // retirar isso
-			token->type = flag;
-		if (token->type == flag) //Se for uma flag
+		if (token->str[0] == '-' && token->str[1] == 'n') // verifica se o node atual e uma "-n"
 		{
-			t_flag = get_echo_flag(token);
-			token = token->next;
+			if(is_all_flag(token) == true)
+			{
+				token->type = flag;
+				t_flag = 1;
+			}
 		}
-		else if (token->type == string || token->type == not_expander
-			|| token->type == expander)
+		while (token->type == flag) //Se for uma flag
+		{
+			token = token->next;
+			if (!token->str)
+				break;
+			if(is_all_flag(token) == true)
+				token->type = flag;
+		}
+		while (token->str && (token->type == string
+			|| token->type == not_expander || token->type == expander))
 		{
 			put_token_str(token);
 			token = token->next;
@@ -64,6 +87,4 @@ void	get_echo(t_token *token)
 	}
 	if (t_flag == 0)
 		write(1, "\n", 1);
-	// Voltar com a lista para o comeco?
-	// Limpar a lista?
 }

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 14:20:22 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:34:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_data	*debug_get_builtin_type(t_data *data)
 		data->token->builtin = env;
 	else if(!ft_strcmp(data->token->str, "pwd"))
 		data->token->builtin = pwd;
+	else if(!ft_strcmp(data->token->str, "exit"))
+		data->token->builtin = n_exit;
 	return (data);
 }
 

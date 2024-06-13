@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 15:11:44 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:56:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	get_builtin(t_data *data)
 		get_cd(data);
 	else if (data->token->builtin == env)
 		get_builtin_env(data);
+	else if (data->token->builtin == n_exit)
+		get_exit(data);
 	
 	//teste
 	// char *test;
@@ -32,36 +34,3 @@ void	get_builtin(t_data *data)
 	// printf("OLDPWD atual: %s\n", test);
 	//
 }
-
-
-
-// void	getPWD(t_data *data)
-// {
-// 	char PWD[PATH_MAX];
-// 	getcwd(PWD, sizeof(PWD));
-// 	printf("%s\n", PWD);
-// 	free(data->token);
-// }
-
-// void	getCD(t_data *data)
-// {
-// 	printf("this is a cd\n");
-// 	free(data->token);
-// }
-
-// void	getECHO(t_data *data)
-// {
-// 	t_token *temp_data;
-
-// 	temp_data = data->token;
-
-// 	while(data->token->value != NULL)
-// 	{
-// 		// se tiver -n
-// 			//
-// 		printf("%s ", data->token->value);
-// 		data->token = data->token->next;
-// 	}
-// 	printf("\n");
-// 	//free(data->command);
-// }
