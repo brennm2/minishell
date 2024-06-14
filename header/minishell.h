@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/13 16:58:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:43:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ void	get_exit(t_data *data);
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
 void	init_data(t_data *data, char *buffer);
+void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST

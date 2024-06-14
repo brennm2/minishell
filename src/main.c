@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/13 16:08:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:55:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,13 +161,13 @@ int main(int argc, char **argv, char **envp)
 		return (0);
 	get_env(data, envp);
 	int i = 0;
+	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	while(1)
 	{
 		buffer = readline("minishell: ");
 		add_history(buffer);
 		if (valid_input(buffer))
 		{
-			G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 			init_commands(buffer, data);
 		}
 		//ft_free_data(data, 1);
@@ -175,7 +175,7 @@ int main(int argc, char **argv, char **envp)
 		// if (i == 2)  <-- #TODO Lidar com alocacao do data
 		// 	exit (1);
 		// data = ft_calloc(1, sizeof(t_data));
-		//printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
+		printf("\n$?: %d\n", G_EXIT_CODE); //<-- verificar o ultimo exit code
 	}
 }
 

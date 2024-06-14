@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 15:06:35 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:43:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,15 +118,16 @@ void	cd_options(t_data *data)
 		chdir(get_in_env(data->envp, "HOME"));
 		getcwd(cwd, sizeof(cwd));
 		data->envp = change_in_env(data->envp, cwd, "PWD");
-		return ;
+		return (set_exit_code(0));
 	}
 	else if (data->token->next->str[1] == '+' || (data->token->next->str[1] == '-')) // Se for "CD ~-" OU "CD ~+"
 		return (cd_options_tilde(data));
 	cd_change_last_oldpwd(data, 1); // Se nao entrar em nada, entao "cd -"
 	getcwd(cwd, sizeof(cwd)); //Pega o PWD atual
 	data->envp = change_in_env(data->envp, cwd, "PWD"); // Muda no env->PWD
-	return ;
+	return (set_exit_code(0));
 }
+
 
 void	get_cd(t_data *data)
 {
@@ -143,7 +144,7 @@ void	get_cd(t_data *data)
 			getcwd(cwd, sizeof(cwd));
 			data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 			data->envp = change_in_env(data->envp, cwd, "PWD");
-			return ;
+			return (set_exit_code(0));
 		}
 		else if(data->token->next->str && data->token->next->next->str) // Se for "cd a b"
 			return (print_error(ERROR_CD_MANY_ARGUMENT, 1));
@@ -155,7 +156,7 @@ void	get_cd(t_data *data)
 		chdir(get_in_env(data->envp, "HOME"));
 		change_in_env(data->envp, old_cwd, "OLDPWD");
 		change_in_env(data->envp, get_in_env(data->envp, "HOME"), "PWD");
-		return ;
+		return (set_exit_code(0));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/05 12:10:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:45:24 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	display_env(t_envp *envp)
 		write(1, "\n", 1);
 		envp = envp->next;
 	}
+	return (set_exit_code(0));
 }
 
 void	get_builtin_env(t_data *data)

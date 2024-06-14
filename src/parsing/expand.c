@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/06 19:39:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:31:32 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,11 @@ void is_expand(t_token *token, t_envp *envp)
 		if (token->str[i] == '$')
 		{
 			j = i;
-			if (token->str[i + 1] == '?')
+			if (token->str[i + 1] == '?') //Modificado para imprimir o que esta na variavel G_EXIT_CODE
 			{
-				printf("error\n");
+				free(token->str); // Limpa o que esta no <TOKEN->STR>
+				token->str = ft_strdup(ft_itoa(G_EXIT_CODE)); // Aloca e coloca o G_EXIT_CODE no <TOKEN->STR>
+				//printf("error\n");
 				return;
 			}
 			while (!ft_is_especial(token->str[++i]) && token->str[i])
