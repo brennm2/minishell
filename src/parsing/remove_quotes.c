@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/13 20:46:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/14 20:34:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,35 @@ void	erase_the_quote(t_token *token, int i)
 	token->str = unquote_str;
 }
 
+int	deal_quotes(char *token, int i)
+{	
+	char	quote;
+
+	quote = token[i];
+	while (token[++i] && token[i] != quote)
+		;
+	return (i);
+}
+
 void	unquote_token(t_token *token)
 {
 	int	i;
 	int j;
-	char	*dup;
 
-	i = -1;
-	j = -1;
-	dup = ft_strdup(token->str);
-	while (token->str[++i])
+	i = 0;
+	j = 0;
+	while (token->str[i])
 	{
-		++j;
-		if (token->str[i] == S_QUOTES || token->str[i] == D_QUOTES)
+		if ((token->str[i] == S_QUOTES || token->str[i] == D_QUOTES))
 		{
-			if (quote_status(dup, j) < 0);
-				continue;
+			j = deal_quotes(token->str, i);
 			erase_the_quote(token, i);
-			i--;	
+			erase_the_quote(token, j - 1);
+			i = j - 1;	
 		}
+		else
+			i++;
 	}
-	free(dup);
 }
 
 void	remove_quotes(t_data *data)

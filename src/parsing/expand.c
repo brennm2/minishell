@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:41:10 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/13 18:41:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:05:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	is_expand(t_token *token, t_envp *envp)
 	i = -1;
 	while (token->str[++i])
 	{
-		if (token->str[i] == S_QUOTES)
+		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
 			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$')
+		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] != S_QUOTES && token->str[i + 1] != D_QUOTES)
 		{
 			j = i;
 			while (!ft_is_especial(token->str[++i]) && token->str[i])

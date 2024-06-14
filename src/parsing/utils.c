@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:41:04 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/13 20:52:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:00:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	quote_status(char *str, int i)
 	s_flag = 1;
 	d_flag = 2;
 	j = -1;
-	while (str[++j] && j < i)
+	while (str[++j] && j <= i)
 	{
 		if (str[j] == S_QUOTES && d_flag > 0)
-			s_flag = -1;
+			s_flag *= -1;
 		if (str[j] == D_QUOTES && s_flag > 0)
-			d_flag = -1;
+			d_flag *= -1;
 	}
 	if (s_flag < 0)
 		return (s_flag);
