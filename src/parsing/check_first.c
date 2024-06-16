@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/14 16:01:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/16 19:22:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,34 @@ bool	check_for_syntax_error(char *buffer)
 	return (true);
 }
 
+bool	validate_syntax(char *buffer)
+{
+	int	i;
+	int	quote_flag;
+
+	quote_flag = 1;
+	i = -1;
+	while (buffer[++i])
+	{
+		if (buffer[i] == D_QUOTES || buffer[i] == S_QUOTES)
+			quote_flag *= -1;
+		if ((buffer[i] == '>' && buffer[i + 1] == '>'))
+		{
+			if ((buffer[i + 2] == '|' || buffer[i + 2] == '>' || buffer[i + 2] == '<'))
+			{
+				print_error(ERROR_PIPE_SINGLE, 2);
+				return (false);
+			}
+		}
+		else if ((buffer[i] == '|' || buffer[i] == '>' || buffer[i] == '<') && quote_flag > 0)
+			if ((buffer[i + 1] == '|' || buffer[i + 1] == '>' || buffer[i + 1] == '<'))
+			{
+				print_error(ERROR_PIPE_SINGLE, 2);
+				return (false);
+			}
+	}
+	return (true);
+}
 
 bool	valid_input(char *buffer)
 {
@@ -94,7 +122,7 @@ bool	valid_input(char *buffer)
 		exit (G_EXIT_CODE);
 	}
 	if(is_all_space(buffer) || check_for_quotes(buffer)
-		|| !check_for_syntax_error(buffer))
+		|| !check_for_syntax_error(buffer) || !validate_syntax(buffer))
 			return (false);
 	/* if (check_others_syntax_errors(buffer))
 		return (false); */
