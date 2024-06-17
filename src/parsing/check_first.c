@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 12:39:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 14:17:41 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,29 @@ void	syntax_error_sup (char *buffer)
 		}
 }
 
+bool	check_for_double_pipes(char *buffer)
+{
+	int i;
+
+	i = 0;
+	while(buffer[i])
+	{
+		if(buffer[i] == '|' && buffer[i + 1] != '|')
+		{
+			i++;
+			while(buffer[i] == ' ')
+				i++;
+			if(buffer[i] == '|')
+				return true;
+			else
+				return false;
+		}
+		i++;
+	}
+	return false;
+	
+}
+
 bool	check_for_syntax_error(char *buffer)
 {
 	buffer = ft_strtrim(buffer, " \t");
@@ -77,6 +100,11 @@ bool	check_for_syntax_error(char *buffer)
 		if (buffer)
 			syntax_error_sup(buffer);
 		free (buffer);
+		return (false);
+	}
+	if(check_for_double_pipes(buffer))
+	{
+		print_error(ERROR_PIPE_SINGLE, 2);
 		return (false);
 	}
 	free (buffer);

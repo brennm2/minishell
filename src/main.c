@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 12:42:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:00:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	use_command(t_data *data)
 {
 	if(data->token->type == builtin)
 		get_builtin(data);
+	else
+		command_not_found(data->token);
 }
 
 void	debug_print_list_ex(t_data *data)
@@ -53,7 +55,7 @@ void init_commands(char *buffer, t_data *data)
 	tokenize(data);
 	expand(data);
 	remove_quotes(data);
-	debug_print_list_ex(data);
+	//debug_print_list_ex(data);
 	use_command(data);
 }
 
@@ -76,6 +78,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			init_commands(buffer, data);
 		}
+		
 		//ft_free_data(data, 1);
 	}
 	//ft_free_data(data, 1);

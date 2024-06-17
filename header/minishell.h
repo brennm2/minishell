@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 12:41:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:01:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	init_commands(char *buffer, t_data *data);
 
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data);
+void	command_not_found(t_token *token);
 
 // SRC/BUILTIN/GET_ECHO
 void	get_echo(t_token *token);

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/14 11:06:02 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:00:40 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	get_builtin(t_data *data)
 		get_builtin_env(data);
 	else if (data->token->builtin == n_exit)
 		get_exit(data);
-	else
-		command_not_found(data->token); //#TODO Retirar daqui, por na func "use_command"
+	//else
+	//	command_not_found(data->token); //#TODO Retirar daqui, por na func "use_command"
 	
 	//teste
 	// char *test;
