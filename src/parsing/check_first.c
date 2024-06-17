@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/03 11:12:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:39:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ bool	check_for_syntax_error(char *buffer)
 	free (buffer);
 	return (true);
 }
-
 
 bool	valid_input(char *buffer)
 {

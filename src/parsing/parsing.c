@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 11:58:03 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:44:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,8 @@ void	get_split(char *buffer, t_data *data)
 	i = 0;
 	while(buffer[i])
 	{
-	//#TODO Veriicar echo "abc"a
-	
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
-		{
 			i = move_space(buffer, i);
-			//save_space(buffer, i, data);
-		}
-		
-		// if(buffer[i] == D_QUOTES)
-		// dquotes = 1;
-		// 		i = move_with_quotes(buffer, i, D_QUOTES, data);
-		// if (buffer[i] == S_QUOTES)
-		// 		i = move_with_quotes(buffer, i, S_QUOTES, data);
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
 		{
 				i = move_without_quotes(buffer, i, data);

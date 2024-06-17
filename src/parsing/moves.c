@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/11 16:28:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/12 20:54:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_for_open_quotes(char *buffer, int i)
 	dquotes = false;
 	squotes = false;
 
-	while(buffer[i])
+	while(i >= 0 && buffer[i])
 	{
 		if(buffer[i] == S_QUOTES && dquotes == false)
 			squotes = !squotes;
@@ -42,7 +42,6 @@ bool	check_for_open_quotes(char *buffer, int i)
 		return (false);
 }
 
-
 int	move_without_quotes(char *buffer, int i, t_data *data)
 {
 	int start;
@@ -54,7 +53,7 @@ int	move_without_quotes(char *buffer, int i, t_data *data)
 	return(i);
 }
 
-
+/* 
 int	move_with_quotes(char *buffer, int i, int flag, t_data *data)
 {
 	int start;
@@ -74,4 +73,4 @@ int	move_with_quotes(char *buffer, int i, int flag, t_data *data)
 	if (flag == S_QUOTES)
 		data->token->type = not_expander;
 	return(i);
-}
+} */
