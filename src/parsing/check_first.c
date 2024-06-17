@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 12:03:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 12:39:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,5 @@ bool	valid_input(char *buffer)
 	if(is_all_space(buffer) || check_for_quotes(buffer)
 		|| !check_for_syntax_error(buffer))
 			return (false);
-	/* if (check_others_syntax_errors(buffer))
-		return (false); */
 	return (true);
 }
