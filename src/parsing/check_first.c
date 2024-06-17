@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 14:17:41 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:32:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,21 @@ bool	check_for_quotes(char *buffer) // Procura por D_QUOTES ou S_QUOTES nao fech
 void	syntax_error_sup (char *buffer)
 {
 	if (buffer[0] == '|')
-		{
-			if (buffer[1] == '|')
-				print_error(ERROR_PIPE_DOUBLE, 2);
-			else
-				print_error(ERROR_PIPE_SINGLE, 2);
-		}
-		else if (ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
-		{
-			if (buffer[ft_strlen(buffer) - 1] == '|')
-				print_error(ERROR_PIPE_FINAL, 1);
-			else
-				print_error(ERROR_REDIR, 2);
-		}
+	{
+		if (buffer[1] == '|')
+			print_error(ERROR_PIPE_DOUBLE, 2);
+		else
+			print_error(ERROR_PIPE_SINGLE, 2);
+	}
+	else if (ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
+	{
+		if (buffer[ft_strlen(buffer) - 1] == '|')
+			print_error(ERROR_PIPE_FINAL, 1);
+		else
+			print_error(ERROR_REDIR, 2);
+	}
 }
+
 
 bool	check_for_double_pipes(char *buffer)
 {
@@ -111,6 +112,20 @@ bool	check_for_syntax_error(char *buffer)
 	return (true);
 }
 
+bool	redirect_error(char *buffer)
+{
+	buffer = ft_strtrim(buffer, " \t");
+	int i = 0;
+
+	if (ft_strchr("><", buffer)) //#TODO Parei aqui, olhar no caderno
+	{
+		printf("error redirect\n");
+		return (true);
+	}
+	free (buffer);
+	return(false);
+}
+
 bool	valid_input(char *buffer)
 {
 	if (!buffer || buffer == NULL)
@@ -121,7 +136,7 @@ bool	valid_input(char *buffer)
 		exit (G_EXIT_CODE);
 	}
 	if(is_all_space(buffer) || check_for_quotes(buffer)
-		|| !check_for_syntax_error(buffer))
+		|| !check_for_syntax_error(buffer || ))
 			return (false);
 	return (true);
 }
