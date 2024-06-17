@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 12:43:20 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:59:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	get_echo(t_token *token)
 	int		t_flag;
 	
 	t_flag = 0;
-	while(token->str)
+	while(token->str && token->type != is_pipe)
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n') // verifica se o node atual e uma "-n"
 		{

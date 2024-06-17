@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 13:00:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:50:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	debug_print_list_ex(t_data *data)
 
 	i = 0;
 	temp_token = data->token;
-	while (data->token->str)
+	while (data->token)
 	{
 		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
 		printf(C_RED"-"END_COLOR"%s"C_RED"-\n"END_COLOR, data->token->str);
@@ -52,10 +52,19 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
+/* 	while (data)
+	{
+		tokenize(data);
+		expand(data);
+		remove_quotes(data);
+		debug_print_list_ex(data);
+		//use_command(data);
+		data = data->next;
+	} */
 	tokenize(data);
 	expand(data);
 	remove_quotes(data);
-	//debug_print_list_ex(data);
+	debug_print_list_ex(data);
 	use_command(data);
 }
 

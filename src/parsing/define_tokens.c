@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/12 19:52:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:51:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	set_builtins(t_token *token, t_builtins	blt)
 
 void	which_command(t_token *token)
 {
-	if (!ft_strncmp(token->str, "echo", 4))
+	if (!ft_strncmp(token->str, "echo", 5))
 		return(set_builtins(token, echo));
-	else if (!ft_strncmp(token->str, "cd", 2))
+	else if (!ft_strncmp(token->str, "cd", 3))
 		return(set_builtins(token, cd));
-	else if (!ft_strncmp(token->str, "pwd", 3))
+	else if (!ft_strncmp(token->str, "pwd", 4))
 		return(set_builtins(token, pwd));
 	else if (!ft_strncmp(token->str, "export", 6))
 		return(set_builtins(token, export));
@@ -43,17 +43,17 @@ void	which_command(t_token *token)
 
 void	define_tokens(t_token *token)
 {
-	if (!ft_strncmp(token->str, "|", 1) && token->str[1] == '\0')
+	if (token->str && !ft_strncmp(token->str, "|", 1))
 		token->type = is_pipe;
-	else if (!ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
+	else if (token->str && !ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
 		token->type = redin;
-	else if (!ft_strncmp(token->str, " ", 1) && token->str[1] == '\0')
+	else if (token->str && !ft_strncmp(token->str, " ", 1) && token->str[1] == '\0')
 		token->type = space;
-	else if (!ft_strncmp(token->str, ">", 1) && token->str[1] == '\0')
+	else if (token->str && !ft_strncmp(token->str, ">", 1) && token->str[1] == '\0')
 		token->type = redout;
-	else if (!ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
+	else if (token->str && !ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
 		token->type = redin;
-	else if (!ft_strncmp(token->str, ">>", 1) && token->str[2] == '\0')
+	else if (token->str && !ft_strncmp(token->str, ">>", 1) && token->str[2] == '\0')
 		token->type = append;
 	else 
 		token->type = string;
@@ -84,7 +84,7 @@ void	tokenize(t_data *data)
 	
 	i = -1;
 	token_aux = data->token;
-	while (token_aux->next)
+	while (token_aux)
 	{
 		if(++i == 0)
 			which_command(token_aux);
