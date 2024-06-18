@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/14 10:45:24 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:03:49 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	env_error_option(t_data *data)
 
 void	display_env(t_envp *envp)
 {
-	while(envp)
+	while (envp)
 	{
 		write(1, envp->key, ft_strlen(envp->key));
 		write(1, "=", 1);
@@ -48,21 +48,21 @@ void	display_env(t_envp *envp)
 void	get_builtin_env(t_data *data)
 {
 	t_envp	*temp_env;
+
 	data->token->next->type = flag;
 	temp_env = data->envp;
-	
-	if(data->token->next->str) // Se existir <NODE> a frente
+	if (data->token->next->str) // Se existir <NODE> a frente
 	{
-		if(data->token->next->str[0] == '-' && data->token->next->str[1]) //Se for Option "-n"
+		if (data->token->next->str[0] == '-' && data->token->next->str[1]) //Se for Option "-n"
 		{
 			env_error_invalid(data);
 			return ;
 		}
 	}
-	if(data->token->next->str) // Se existir <NODE> a frente
+	if (data->token->next->str) // Se existir <NODE> a frente
 	{
-		if(data->token->next->str[0] == '-') // Se for somente "-", retornar sem fazer nada
-			return;
+		if (data->token->next->str[0] == '-') // Se for somente "-", retornar sem fazer nada
+			return ;
 		env_error_option(data);
 		return ;
 	}

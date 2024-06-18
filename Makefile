@@ -53,6 +53,7 @@ $(NAME): $(OBJ) $(LIBFT)
 
 clean:
 	$(RM) $(RMFLAGS) $(OBJ) $(LIBFT)
+	$(MAKE) -C ./libs/ clean
 
 	@echo "\n${YELLOW}-----------------------------"
 	@echo "${YELLOW}| ${GREEN}Cleaned all ${RED}program${GREEN} files ${YELLOW}|"
@@ -60,6 +61,7 @@ clean:
 
 fclean: clean
 	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT)
+	$(MAKE) -C ./libs/ fclean
 
 	@echo "\n${YELLOW}--------------------------------"
 	@echo "${YELLOW}| ${RED}ALL files ${GREEN}have been cleaned! ${YELLOW}|"
