@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 13:00:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:31:46 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	//debug_print_list_ex(data);
+	//debug_print_list(data);
 	use_command(data);
 }
 
@@ -72,7 +73,7 @@ int main(int argc, char **argv, char **envp)
 	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	while(1)
 	{
-		buffer = readline("minishell: ");
+		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
 		if (valid_input(buffer))
 		{

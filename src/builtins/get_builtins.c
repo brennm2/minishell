@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 13:00:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:03:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,18 @@ void	command_not_found(t_token *token)
 
 void	get_builtin(t_data *data)
 {
-	if(data->token->builtin == echo) // Se for echo
+	if(data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
 		get_echo(data->token->next); //Entra com o proximo <NODE>
-	else if (data->token->builtin == pwd) // Se for pwd
+	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
 		get_pwd(data->token);
-	else if (data->token->builtin == cd)
+	else if (data->token->builtin == cd && !ft_strcmp(data->token->str, "cd"))
 		get_cd(data);
-	else if (data->token->builtin == env)
+	else if (data->token->builtin == env && !ft_strcmp(data->token->str, "env"))
 		get_builtin_env(data);
-	else if (data->token->builtin == n_exit)
+	else if (data->token->builtin == n_exit
+		&& !ft_strcmp(data->token->str, "exit"))
 		get_exit(data);
-	//else
-	//	command_not_found(data->token); //#TODO Retirar daqui, por na func "use_command"
-	
-	//teste
-	// char *test;
-	// test = get_in_env(data->envp, "PWD");
-	// printf("PWD atual: %s\n", test);
-	// test = get_in_env(data->envp, "OLDPWD");
-	// printf("OLDPWD atual: %s\n", test);
-	//
+	else
+		command_not_found(data->token); //#TODO Verificar se isso pode ficar aqui
+
 }

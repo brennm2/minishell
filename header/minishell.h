@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/17 13:01:11 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:16:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define ERROR_PIPE_SINGLE "syntax error near unexpected token `|'"
 # define ERROR_PIPE_FINAL "no support for this type of pipe"
 # define ERROR_REDIR "syntax error near unexpected token `newline'"
+# define ERROR_REDIR_1 "syntax error near unexpected token `<'"
 # define ERROR_QUOTE "quotation has not been closed"
 # define ERROR_CD_MANY_ARGUMENT "cd: too many arguments"
 
