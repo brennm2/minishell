@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 14:17:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:42:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	get_builtin(t_data *data)
 	else if (data->token->builtin == n_exit
 		&& !ft_strcmp(data->token->str, "exit"))
 		get_exit(data);
+	else if(data->token->builtin == export
+		&& !ft_strcmp(data->token->str, "export"))
+		get_export(data);
 	else
 		command_not_found(data->token); //#TODO Verificar se isso pode ficar aqui
 
