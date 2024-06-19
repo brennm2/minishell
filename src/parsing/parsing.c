@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 17:01:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 12:48:18 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,13 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		start++;
 	if(buffer[check_for_string(buffer, start)])
 	{
+		start = check_for_string(buffer, end + 1); //Acha a proxima palavra
+		i = start; // i fica igual ao inicio da palavra
+		while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
+			i++;
+		end = i - 1; // end vai ser igual ao i
+		init_next_token(data->token, buffer, end - start); // Inicia o proximo token com o tamnho da string
 		data->token = data->token->next;
-		init_token(data->token, buffer);
 	}
 }
 

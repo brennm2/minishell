@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 10:16:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:18:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	get_builtin(t_data *data);
 void	command_not_found(t_token *token);
 
 // SRC/BUILTIN/GET_ECHO
-void	get_echo(t_token *token);
+void	get_echo(t_token *token, t_data *data);
 
 // SRC/BUILTIN/GET_PWD
 void	get_pwd(t_token *token);
@@ -131,6 +131,7 @@ void	get_exit(t_data *data);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
+void	init_next_token(t_token *token, char *buffer, int len);
 void	init_data(t_data *data, char *buffer);
 void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);

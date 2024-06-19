@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 16:00:44 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:48:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ void	get_exit(t_data *data)
 	int	i;
 
 	i = 0;
-	if (!data->token->next->str) //Se for somente "exit"
+	if (!data->token->next) //Se for somente "exit"
 		only_exit();
 	else if (data->token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
 	{
-		if (data->token->next->next->str) // Se for "exit ... ..."
+		if (data->token->next->next) // Se for "exit ... ..."
 			return (too_many_argument_error(data->token->next));
 		if (data->token->next->str[0] == '-') // Se tiver numeros negativos "exit -1"
 			i++;

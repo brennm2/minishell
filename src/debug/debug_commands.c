@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/13 14:34:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:03:56 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ void	debug_print_list(t_data *data)
 
 	i = 0;
 	temp_token = data->token;
-	while (data->token->str)
+	while (data->token)
 	{
 		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
-		printf(C_RED"-"END_COLOR"%s"C_RED"-\n"END_COLOR, data->token->str);
-		printf("type: %d\n", data->token->type);
-		printf("builtin: %d\n\n\n", data->token->builtin);
+		printf(C_RED"-"END_COLOR"%s"C_RED"-"END_COLOR, data->token->str);
+		printf("\n");
+		//printf("type: %d\n", data->token->type);
+		//printf("builtin: %d\n\n\n", data->token->builtin);
 		
 		data->token = data->token->next;
 	}
-	printf("Error code: %d\n", G_EXIT_CODE);
+	//printf("Error code: %d\n", G_EXIT_CODE);
 	data->token = temp_token;
 }

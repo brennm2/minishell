@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/14 10:43:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:39:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	get_cd(t_data *data)
 	char	old_cwd[256];
 	
 	getcwd(old_cwd, sizeof(old_cwd));
-	if(data->token->next->str != NULL) //Se existir um proximo <NODE>
+	if(data->token->next) //se for "cd ..."
 	{
 		if((data->token->next->str[0] == '-' || data->token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
 			return (cd_options(data));
@@ -146,7 +146,7 @@ void	get_cd(t_data *data)
 			data->envp = change_in_env(data->envp, cwd, "PWD");
 			return (set_exit_code(0));
 		}
-		else if(data->token->next->str && data->token->next->next->str) // Se for "cd a b"
+		else if(data->token->next && data->token->next->next) // Se for "cd a b"
 			return (print_error(ERROR_CD_MANY_ARGUMENT, 1));
 		else
 			return (cd_error_invalid_file(data)) ; // Se "cd algumacoisa" (nao for um diretorio valido)

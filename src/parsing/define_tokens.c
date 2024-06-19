@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/12 19:52:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:55:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	after_pipe(t_data *data)
 	t_token	*token_aux;
 
 	token_aux = data->token;
-	while (token_aux->next)
+	while (token_aux) //Retirado "token_aux->next"
 	{
 		if(token_aux->type == is_pipe)
 		{
@@ -84,7 +84,7 @@ void	tokenize(t_data *data)
 	
 	i = -1;
 	token_aux = data->token;
-	while (token_aux->next)
+	while (token_aux) //Retirado "token_aux->next"
 	{
 		if(++i == 0)
 			which_command(token_aux);

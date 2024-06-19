@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 16:31:46 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:56:37 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			init_commands(buffer, data);
 		}
+		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		
 		//ft_free_data(data, 1);
 	}
