@@ -31,6 +31,7 @@ SRC = src/main.c \
 	src/debug/debug_commands.c \
 	src/parsing/env.c \
 	src/parsing/expand.c \
+	src/parsing/expand_utils.c \
 	src/parsing/define_tokens.c \
 	src/parsing/correct_space.c \
 	src/parsing/utils.c \

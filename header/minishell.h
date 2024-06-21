@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 17:00:20 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:19:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,5 +292,8 @@ char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
 bool	is_here_doc(t_data *data);
+int	deal_with_quotes(t_token *token, int i);
+void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
+void	check_env(t_token *token, t_envp *env, int j, int i);
 
 #endif

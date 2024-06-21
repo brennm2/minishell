@@ -6,22 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/21 18:28:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:03:35 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-int	deal_with_quotes(t_token *token, int i)
-{	
-	if (token->str[i] == S_QUOTES)
-	{
-		i++;
-		while (token->str[i] != S_QUOTES)
-			i++;
-	}
-	return (i);
-}
 
 void	expansion(t_envp *envp, t_token *token, int j, int i)
 {
@@ -33,14 +22,14 @@ void	expansion(t_envp *envp, t_token *token, int j, int i)
 		expanded = ft_strjoin_ex(expanded, envp->value);
 	expanded = ft_strjoin_ex(expanded, token->str + i);
 	free(token->str);
-	token->str = expanded;	
+	token->str = expanded;
 }
 
 void	check_env(t_token *token, t_envp *env, int j, int i)
 {
-	char *variable;
-	int size;
-	t_envp *env_aux;
+	char	*variable;
+	int		size;
+	t_envp	*env_aux;
 
 	env_aux = env;
 	size = i - j;
@@ -66,7 +55,7 @@ void	expand_til(t_token *token, int i, char *home)
 {
 	char	*expanded;
 
-	i++;	
+	i++;
 	if (token->str[i] == ' ' || token->str[i] == '/' || !token->str[i])
 	{
 		expanded = ft_calloc(sizeof(char), (i + 1));
@@ -80,26 +69,18 @@ void	expand_til(t_token *token, int i, char *home)
 
 void	is_expand(t_token *token, t_envp *envp, char *home)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (token->str[++i])
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
 			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] != S_QUOTES && token->str[i + 1] != D_QUOTES)
+		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
+		!= S_QUOTES && token->str[i + 1] != D_QUOTES)
 		{
-			j = i;
-			if (token->str[i + 1] == '?')
-			{
-				free(token->str);
-				token->str = ft_strdup(ft_itoa(G_EXIT_CODE)); 
-				return;
-			}
-			while (!ft_is_especial(token->str[++i]) && token->str[i])
-				;
-			check_env(token, envp, j, i);
+			is_expand_util(token, envp, i, j);
 			i = -1;
 		}
 		if (token->str[i] == '~' && quote_status(token->str, i) >= 0)
@@ -109,7 +90,7 @@ void	is_expand(t_token *token, t_envp *envp, char *home)
 
 void	expand(t_data *data)
 {
-	t_token *token_aux;
+	t_token	*token_aux;
 
 	token_aux = data->token;
 	while (token_aux)

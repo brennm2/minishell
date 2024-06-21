@@ -6,13 +6,13 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:41:04 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/14 15:00:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:16:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-int ft_is_especial(int c)
+int	ft_is_especial(int c)
 {
 	if ((c >= 33 && c <= 47))
 		return (1);
