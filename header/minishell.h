@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 10:16:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:02:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
-	space,
 	not_expander,
 }				t_types;
 
@@ -286,5 +285,6 @@ int ft_is_especial(int c);
 char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
+bool	is_here_doc(t_data *data);
 
 #endif

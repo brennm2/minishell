@@ -6,16 +6,40 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/18 16:17:59 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:11:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-/* bool	is_here_doc(t_data *data)
+void	open_here_doc(char *delimiter)
 {
-	while (data->token->str)
+	char *buffer;
+
+	//buffer = ft_strdup("");
+	while (1)
 	{
-		if (ft_strcmp(data->token->str, ))
+		buffer = readline("> ");
+		if (!ft_strcmp(delimiter, buffer))
+			return ;
+	}	
+}
+
+bool	is_here_doc(t_data *data)
+{
+	char	*delimiter;
+	t_data	*data_aux;
+
+	data_aux = data;
+	while (data_aux->token->str)
+	{
+   		if (!ft_strcmp(data_aux->token->str, "<<"))
+		{
+			delimiter = ft_strdup(data_aux->token->next->str);
+			open_here_doc(delimiter);
+			return (true);
+		}
+		data_aux->token = data_aux->token->next;
 	}
-} */
+	return (false);
+}

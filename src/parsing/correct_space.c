@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:03:06 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/12 17:07:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/18 17:46:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ char	*copy_char(char *buffer, int i)
 		return ("|");
 	if(!ft_strncmp(buffer + i, ">", 1) && ft_strncmp(buffer + i + 1, ">", 1))
 		return (">");
-	if(!ft_strncmp(buffer + i, "<", 1))
+	if(!ft_strncmp(buffer + i, "<", 1) && ft_strncmp(buffer + i + 1, "<", 1))
 		return ("<");
 	if(!ft_strncmp(buffer + i, ">>", 1))
 		return (">>");
+	if(!ft_strncmp(buffer + i, "<<", 1))
+		return ("<<");
 	return (NULL);
 }
 
@@ -67,6 +69,8 @@ char *put_space_on(char *buffer, int i)
 	new_buffer = ft_strjoin_free(new_buffer, copy_char(buffer, i));
 	new_buffer = ft_strjoin_free(new_buffer, " ");
 	if(!ft_strncmp(buffer + i, ">>", 2))
+		i++;
+	if(!ft_strncmp(buffer + i, "<<", 2))
 		i++;
     new_buffer = ft_strjoin_free(new_buffer, buffer + i + 1);
     free(buffer);

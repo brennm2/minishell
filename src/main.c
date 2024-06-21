@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 17:12:31 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:58:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,13 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-/* 	while (data)
-	{
-		tokenize(data);
-		expand(data);
-		remove_quotes(data);
-		debug_print_list_ex(data);
-		//use_command(data);
-		data = data->next;
-	} */
-	//tokenize(data);
-	//is_here_doc(data);
+	/* if (is_here_doc(data))
+		return ; */
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
 	debug_print_list_ex(data);
-	use_command(data);
+	//use_command(data);
 }
 
 int main(int argc, char **argv, char **envp)
