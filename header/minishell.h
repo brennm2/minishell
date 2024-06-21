@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 18:20:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:18:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,13 @@ void	get_exit(t_data *data);
 
 // SRC/BUILTIN/GET_EXPORT
 void	get_export(t_data *data);
+t_envp	*duplicate_envp_list(t_envp *env);
+t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
+t_envp	*organize_envp_list(t_envp *duplicate_env);
+
+// SRC/BUILTIN/GET_EXPORT_UTILS
+void	display_env_export(t_envp *envp);
+void	print_export(t_envp *env);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
