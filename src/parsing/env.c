@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/06 20:14:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:03:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,13 @@ void	get_env(t_data *data, char **env)
 
 	i = -1;
 	data->envp = NULL;
+	data->home = NULL;
 	while (env[++i])
+	{
+		if (!ft_strncmp(env[i], "HOME", 4))
+			data->home = ft_strdup(env[i] + 5);
+		/* if (data->home)
+			printf("%s\n", data->home); */
 		cpy_env(&data->envp, env[i]);
+	}
 }

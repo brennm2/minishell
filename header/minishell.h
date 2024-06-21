@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 16:26:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:00:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_data
 
 	t_envp *envp;
 	t_token *token;
+	char	*home;
 	struct s_data	*next;
 }				t_data;
 

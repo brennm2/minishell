@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/21 16:28:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:32:39 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	define_tokens(t_token *token)
 		token->type = is_pipe;
 	else if (token->str && !ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
 		token->type = redin;
-	else if (token->str && !ft_strncmp(token->str, " ", 1) && token->str[1] == '\0')
-		token->type = space;
+	/* else if (token->str && !ft_strncmp(token->str, " ", 1) && token->str[1] == '\0')
+		token->type = space; */
 	else if (token->str && !ft_strncmp(token->str, ">", 1) && token->str[1] == '\0')
 		token->type = redout;
 	else if (token->str && !ft_strncmp(token->str, "<", 1) && token->str[1] == '\0')
@@ -69,8 +69,8 @@ void	after_pipe(t_data *data)
 		if(token_aux->type == is_pipe)
 		{
 			token_aux = token_aux->next;
-			if (token_aux->type == space)
-				token_aux = token_aux->next;
+			/* if (token_aux->type == space)
+				token_aux = token_aux->next; */
 			which_command(token_aux);
 		}
 		token_aux = token_aux->next;
