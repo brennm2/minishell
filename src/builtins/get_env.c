@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 16:03:49 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:43:10 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	get_builtin_env(t_data *data)
 {
 	t_envp	*temp_env;
 
-	data->token->next->type = flag;
+	//data->token->next->type = flag;
 	temp_env = data->envp;
-	if (data->token->next->str) // Se existir <NODE> a frente
+	if (data->token->next) // Se for "env ..."
 	{
 		if (data->token->next->str[0] == '-' && data->token->next->str[1]) //Se for Option "-n"
 		{
@@ -59,7 +59,7 @@ void	get_builtin_env(t_data *data)
 			return ;
 		}
 	}
-	if (data->token->next->str) // Se existir <NODE> a frente
+	if (data->token->next) // Se for "env ..."
 	{
 		if (data->token->next->str[0] == '-') // Se for somente "-", retornar sem fazer nada
 			return ;

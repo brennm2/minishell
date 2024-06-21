@@ -22,6 +22,7 @@ SRC = src/main.c \
 	src/builtins/get_cd.c \
 	src/builtins/get_env.c \
 	src/builtins/get_exit.c \
+	src/builtins/get_export.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
@@ -68,4 +69,11 @@ fclean: clean
 	@echo "${YELLOW}| ${RED}ALL files ${GREEN}have been cleaned! ${YELLOW}|"
 	@echo "${YELLOW}--------------------------------${NC}\n"
 
+norminette:
+	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
+
+valgrind:
+	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell
+
 re: fclean all
+

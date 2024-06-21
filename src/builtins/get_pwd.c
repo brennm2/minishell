@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:45:52 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 16:01:33 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:29:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_pwd(t_token *token)
 	char	pwd[PATH_MAX];
 
 	getcwd(pwd, sizeof(pwd));
-	if (token->next->str != NULL) //Se houver algo alem de somente "pwd"
+	if (token->next) // Se for "pwd ..."
 	{
 		if (token->next->str[0] == '-') //Se existir o proximo node for <TYPE> flag
 		{

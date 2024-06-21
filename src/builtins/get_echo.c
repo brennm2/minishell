@@ -6,21 +6,39 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 17:16:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:26:30 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	put_token_str(t_token *token)
+void	put_token_str(t_token *token, t_data *data)
 {
-	if (token->next->str)
+	if (token->str[0] == '~'
+		&& (token->str[1] == '\0' || token->str[1] == '/')) //#TODO Revisar essa condicao
 	{
-		write(1, token->str, ft_strlen(token->str));
+		ft_putstr_fd(get_in_env(data->envp, "HOME"), 1);
+		ft_putstr_fd(&token->str[1], 1);
+		if (token->next)
+			write(1, " ", 1);
+	}
+	else if (token->str[0] == '~'
+		&& (token->str[1] == '-' || token->str[1] == '+')) //#TODO Revisar essa condicao
+	{
+		if (token->str[1] == '+')
+			ft_putstr_fd(get_in_env(data->envp, "PWD"), 1);
+		else
+			ft_putstr_fd(get_in_env(data->envp, "OLDPWD"), 1);
+		if (token->next)
+			write(1, " ", 1);
+	}
+	else if (token->next)
+	{
+		ft_putstr_fd(token->str, 1);
 		write(1, " ", 1);
 	}
 	else
-			write(1, token->str, ft_strlen(token->str));
+		ft_putstr_fd(token->str, 1);
 }
 
 int	get_echo_flag(t_token *token)
@@ -55,12 +73,12 @@ bool	is_all_flag(t_token *token)
 }
 
 
-void	get_echo(t_token *token)
+void	get_echo(t_token *token, t_data *data)
 {
 	int		t_flag;
 	
 	t_flag = 0;
-	while(token->str)
+	while(token)
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n') // verifica se o node atual e uma "-n"
 		{
@@ -73,15 +91,15 @@ void	get_echo(t_token *token)
 		while (token->type == flag) //Se for uma flag
 		{
 			token = token->next;
-			if (!token->str)
+			if (!token)
 				break;
 			if(is_all_flag(token) == true)
 				token->type = flag;
 		}
-		while (token->str && (token->type == string
+		while (token && (token->type == string
 			|| token->type == not_expander || token->type == expander))
 		{
-			put_token_str(token);
+			put_token_str(token, data);
 			token = token->next;
 		}
 	}

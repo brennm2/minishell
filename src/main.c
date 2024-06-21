@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 18:58:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:26:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,15 @@ int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
+	
+	(void)argc;
+	(void)argv;
 
+	int i;
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
 		return (0);
 	get_env(data, envp);
-	int i = 0;
 	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	while(1)
 	{
@@ -81,6 +84,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			init_commands(buffer, data);
 		}
+		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		
 		//ft_free_data(data, 1);
 	}

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/18 19:02:49 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:26:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	get_builtin(t_data *data);
 void	command_not_found(t_token *token);
 
 // SRC/BUILTIN/GET_ECHO
-void	get_echo(t_token *token);
+void	get_echo(t_token *token, t_data *data);
 
 // SRC/BUILTIN/GET_PWD
 void	get_pwd(t_token *token);
@@ -124,12 +124,17 @@ char	*get_in_env(t_envp *envp, char *key);
 
 // SRC/BUILTIN/GET_BUILTIN_ENV
 void	get_builtin_env(t_data *data);
+void	display_env(t_envp *envp);
 
 // SRC/BUILTINS/GET_EXIT
 void	get_exit(t_data *data);
 
+// SRC/BUILTIN/GET_EXPORT
+void	get_export(t_data *data);
+
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
+void	init_next_token(t_token *token, char *buffer, int len);
 void	init_data(t_data *data, char *buffer);
 void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);

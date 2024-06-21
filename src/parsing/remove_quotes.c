@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/14 20:34:49 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:05:54 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	remove_quotes(t_data *data)
 	t_token *token_aux;
 
 	token_aux = data->token;
-	while (token_aux->next)
+	while (token_aux) //Retirado "token_aux->next"
 	{
 		unquote_token(token_aux);
 		token_aux = token_aux->next;
