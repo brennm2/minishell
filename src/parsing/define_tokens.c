@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/21 19:14:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/23 14:05:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,15 @@ void	tokenize(t_data *data)
 	while (token_aux)
 	{
 		if (++i == 0)
+		{
+			if (!ft_strncmp(token_aux->str, "<", 1))
+			{
+				token_aux->type = redin;
+				token_aux = token_aux->next;
+				token_aux = token_aux->next;		
+			}
 			which_command(token_aux);
+		}
 		else
 			define_tokens(token_aux);
 		token_aux = token_aux->next;

@@ -38,12 +38,25 @@ SRC = src/main.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c
 
-OBJ = $(SRC:.c=.o)
+OBJ_DIR = obj
+OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
 $(LIBFT):
 		$(MAKE) -C ./libs/
+
+$(OBJ_DIR):
+		mkdir -p $(OBJ_DIR)
+		mkdir -p $(OBJ_DIR)/src
+		mkdir -p $(OBJ_DIR)/src/builtins
+		mkdir -p $(OBJ_DIR)/src/parsing
+		mkdir -p $(OBJ_DIR)/src/error
+		mkdir -p $(OBJ_DIR)/src/debug
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	$(CC) -c $< -o $@
+#verificar o $(CC) $(CCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
@@ -57,13 +70,14 @@ $(NAME): $(OBJ) $(LIBFT)
 clean:
 	$(RM) $(RMFLAGS) $(OBJ) $(LIBFT)
 	$(MAKE) -C ./libs/ clean
+	$(RM) $(RMFLAGS) -r $(OBJ_DIR)
 
 	@echo "\n${YELLOW}-----------------------------"
 	@echo "${YELLOW}| ${GREEN}Cleaned all ${RED}program${GREEN} files ${YELLOW}|"
 	@echo "${YELLOW}-----------------------------${NC}\n"
 
 fclean: clean
-	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT)
+	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT) $(OBJ_DIR)
 	$(MAKE) -C ./libs/ fclean
 
 	@echo "\n${YELLOW}--------------------------------"
