@@ -36,7 +36,8 @@ SRC = src/main.c \
 	src/parsing/correct_space.c \
 	src/parsing/utils.c \
 	src/parsing/remove_quotes.c \
-	src/parsing/here_doc.c
+	src/parsing/here_doc.c \
+	src/parsing/redirects.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)

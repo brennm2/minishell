@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/23 14:05:36 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:18:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ void	define_tokens(t_token *token)
 	else if (token->str && !ft_strncmp(token->str, ">>", 1) && \
 	token->str[2] == '\0')
 		token->type = append;
+	else if (token->str && !ft_strncmp(token->str, "<<", 1) && \
+	token->str[2] == '\0')
+		token->type = here_doc;
 	else
 		token->type = string;
 }
@@ -101,4 +104,5 @@ void	tokenize(t_data *data)
 		token_aux = token_aux->next;
 	}
 	after_pipe(data);
+	after_reds(data);
 }

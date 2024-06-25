@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 19:19:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:18:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
+	here_doc,
 	not_expander,
 }				t_types;
 
@@ -295,5 +296,6 @@ bool	is_here_doc(t_data *data);
 int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
+void	after_reds(t_data *data);
 
 #endif
