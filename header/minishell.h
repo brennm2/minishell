@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/25 16:18:55 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/25 19:21:57 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,47 @@ typedef enum s_types
 	not_expander,
 }				t_types;
 
+typedef enum e_tree_type
+{
+	t_exec,
+	t_redir,
+	t_pipe
+}				t_tree_type;
+
+//tree structs
+
+typedef struct s_tree_cmd
+{
+	t_token		*token;
+	t_tree_type	type;
+}				t_tree_cmd;
+
+typedef struct s_tree_pipe
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*left;
+	t_tree_cmd	*right;
+}				t_tree_pipe;
+
+typedef struct s_tree_red
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*tree;
+	char		*file;
+	int			mode;
+	int			fd;
+	int			perm;
+}				t_tree_red;
+
+typedef struct s_tree_exec
+{
+	t_token		*token;
+	t_tree_type	type;
+	char		*cmd;
+	char		**argv;
+}				t_tree_exec;
 
 typedef struct s_envp
 {
@@ -98,6 +139,7 @@ typedef struct s_data
 	t_envp *envp;
 	t_token *token;
 	char	*home;
+	t_tree_cmd	*tree;
 	struct s_data	*next;
 }				t_data;
 
