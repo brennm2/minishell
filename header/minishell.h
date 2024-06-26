@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 15:18:07 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:13:51 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ t_envp	*organize_envp_list(t_envp *duplicate_env);
 // SRC/BUILTIN/GET_EXPORT_UTILS
 void	display_env_export(t_envp *envp);
 void	print_export(t_envp *env);
+t_envp	*find_last_node(t_envp *lst);
+
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
@@ -231,6 +233,8 @@ t_data	*debug_get_builtin_type(t_data *data);
 /* ************************************************************************** */
 //
 void	ft_free_data(t_data *data, int option);
+void	free_env(t_envp *envp);
+void	free_token(t_token *token);
 
 
 // SRC/ERROR/PRINT_ERROR

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/12 18:51:22 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:21:46 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,32 @@ void	free_token(t_token *token)
 	{
 		temp_token = token->next;
 		free(token->str);
+		token->str = NULL;
 		free(token);
+		token = NULL;
 		token = temp_token;
 	}
 }
 
 void	free_env(t_envp *envp)
 {
-	t_envp	*temp_envp;
+    t_envp	*temp_envp;
+    
+    while(envp)
+    {
+        temp_envp = envp->next;
+        free(envp->key);
+        envp->key = NULL;
+        free(envp->value);
+        envp->value = NULL;
+        free(envp);
+		envp = NULL;
+        envp = temp_envp;
+    }
+}
+void	free_data(t_data *data)
+{
 	
-	while(envp)
-	{
-		temp_envp = envp->next;
-		free(envp->key);
-		free(envp->value);
-		free(envp);
-		envp = temp_envp;
-	}
 }
 
 void	ft_free_data(t_data *data, int option)
@@ -46,9 +55,9 @@ void	ft_free_data(t_data *data, int option)
 	while(data)
 	{
 		temp_data = data->next;
-		if (option == 0)
+		if (option >= 0)
 			free_token(data->token);
-		if (option == 1)
+		if (option >= 1)
 		{
 			free_token(data->token);
 			free_env(data->envp);

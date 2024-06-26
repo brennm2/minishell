@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 17:42:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 12:09:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	command_not_found(t_token *token)
 {
-	//asdasdasd: command not found
-
 	ft_putstr_fd(token->str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	set_exit_code(127);

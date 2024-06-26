@@ -6,35 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 15:16:37 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:11:05 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-// void	display_env_export(t_envp *envp)
-// {
-// 	while (envp)
-// 	{
-// 		ft_putstr_fd("declare -x ", 1);
-// 		ft_putstr_fd(envp->key, 1);
-// 		ft_putchar_fd('=', 1);
-// 		ft_putstr_fd(envp->value, 1);
-// 		ft_putchar_fd('\n', 1);
-// 		envp = envp->next;
-// 	}
-// 	return (set_exit_code(0));
-// }
-
-// void	print_export(t_envp *env)
-// {
-// 	t_envp *duplicate_env;
-
-// 	duplicate_env = duplicate_envp_list(env);
-// 	duplicate_env = organize_envp_list(duplicate_env);
-// 	display_env_export(duplicate_env);
-// 	free(duplicate_env);
-// }
 
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env)
 {
@@ -66,7 +42,7 @@ t_envp	*duplicate_envp_list(t_envp *env)
 		//#TODO lidar com a flag de visivel
 		if (!head)
 			head = duplicate_env;
-		duplicate_env = duplicate_next_node(duplicate_env, temp_env);
+		duplicate_env = duplicate_next_node(duplicate_env, temp_env); // Verifica se ha outro node e se e necessario alocar memoria
 		temp_env = temp_env->next;
 	}
 	return (head);
@@ -101,18 +77,44 @@ t_envp	*organize_envp_list(t_envp *duplicate_env)
 	return (duplicate_env);
 }
 
+void	create_new_export(t_envp *env, t_token *token)
+{
+	t_envp	*new_envp;
+	char	*temp_str;
+	int		i;
+
+	i = 0;
+	while (token->str[i] != '=' && token->str[i])
+		i++;
+	new_envp = env;
+	new_envp = find_last_node(new_envp);
+	new_envp->next = ft_calloc(1, sizeof(t_token));
+	new_envp = new_envp->next;
+	new_envp->next = NULL;
+	temp_str = ft_strchr(token->str, '=');
+	new_envp->value = ft_strdup(temp_str + 1);
+	new_envp->key = ft_calloc(sizeof(char *), i + 1);
+	ft_strlcpy(new_envp->key, token->str, i + 1);
+	//free(new_envp);
+	//display_env(env); //DEBUGG <-- RETIRAR
+}
+
 void	get_export(t_data *data)
 {
 	if(!data->token->next)
-	{
-		print_export(data->envp); //#TODO Corrigir error de valgrind
-	}
+		print_export(data->envp);
 	else if (data->token->next && data->token->next->str[0] == '-')
 	{
-		printf("Error de flag\n");
+		ft_putstr_fd("minishell: export: -", 2);
+		ft_putchar_fd(data->token->next->str[1], 2);
+		ft_putstr_fd(": invalid option\n", 2);
+		print_error(NULL, 2);
+		return ;
 	}
-	else if (data->token->next)
+	else if (data->token->next) // Se tiver algo para criar
 	{
-		printf("Export do comand %s\n", data->token->next->str);
+		// DEBUGG = 42 ERROR! #TODO
+		create_new_export(data->envp, data->token->next);
+		//printf("Export do comand %s\n", data->token->next->str);
 	}
 }

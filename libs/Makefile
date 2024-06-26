@@ -56,9 +56,9 @@ OBJ_BONUS = ft_lstnew_bonus.o \
 	ft_lstmap_bonus.o
 
 
-all: $(NAME)
+all: $(NAME) 
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(OBJ_BONUS)
 	$(AR) $(ARFLAGS) $@ $(OBJ)
 
 %.o: %.c
