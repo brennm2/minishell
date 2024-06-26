@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/19 14:05:54 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:15:50 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	erase_the_quote(t_token *token, int i)
 {
-	char *unquote_str;
+	char	*unquote_str;
 
 	unquote_str = ft_calloc(sizeof(char), i + 1);
 	ft_strlcpy(unquote_str, token->str, i + 1);
@@ -25,7 +25,7 @@ void	erase_the_quote(t_token *token, int i)
 }
 
 int	deal_quotes(char *token, int i)
-{	
+{
 	char	quote;
 
 	quote = token[i];
@@ -37,7 +37,7 @@ int	deal_quotes(char *token, int i)
 void	unquote_token(t_token *token)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -48,7 +48,7 @@ void	unquote_token(t_token *token)
 			j = deal_quotes(token->str, i);
 			erase_the_quote(token, i);
 			erase_the_quote(token, j - 1);
-			i = j - 1;	
+			i = j - 1;
 		}
 		else
 			i++;
@@ -57,10 +57,10 @@ void	unquote_token(t_token *token)
 
 void	remove_quotes(t_data *data)
 {
-	t_token *token_aux;
+	t_token	*token_aux;
 
 	token_aux = data->token;
-	while (token_aux) //Retirado "token_aux->next"
+	while (token_aux)
 	{
 		unquote_token(token_aux);
 		token_aux = token_aux->next;

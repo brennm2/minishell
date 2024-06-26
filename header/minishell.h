@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 15:13:51 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:00:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,51 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
-	space,
+	here_doc,
 	not_expander,
 }				t_types;
 
+typedef enum e_tree_type
+{
+	t_exec,
+	t_redir,
+	t_pipe
+}				t_tree_type;
+
+//tree structs
+
+typedef struct s_tree_cmd
+{
+	t_token		*token;
+	t_tree_type	type;
+}				t_tree_cmd;
+
+typedef struct s_tree_pipe
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*left;
+	t_tree_cmd	*right;
+}				t_tree_pipe;
+
+typedef struct s_tree_red
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*tree;
+	char		*file;
+	int			mode;
+	int			fd;
+	int			perm;
+}				t_tree_red;
+
+typedef struct s_tree_exec
+{
+	t_token		*token;
+	t_tree_type	type;
+	char		*cmd;
+	char		**argv;
+}				t_tree_exec;
 
 typedef struct s_envp
 {
@@ -97,6 +138,8 @@ typedef struct s_data
 
 	t_envp *envp;
 	t_token *token;
+	char	*home;
+	t_tree_cmd	*tree;
 	struct s_data	*next;
 }				t_data;
 
@@ -302,5 +345,10 @@ int ft_is_especial(int c);
 char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
+bool	is_here_doc(t_data *data);
+int	deal_with_quotes(t_token *token, int i);
+void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
+void	check_env(t_token *token, t_envp *env, int j, int i);
+void	after_reds(t_data *data);
 
 #endif

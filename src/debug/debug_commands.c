@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_commands.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:29:26 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 14:03:56 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:35:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	debug_print_list(t_data *data)
 		printf(C_BLUE"Node:"END_COLOR C_GREEN" %d "END_COLOR, i++);
 		printf(C_RED"-"END_COLOR"%s"C_RED"-"END_COLOR, data->token->str);
 		printf("\n");
-		//printf("type: %d\n", data->token->type);
-		//printf("builtin: %d\n\n\n", data->token->builtin);
+		printf("type: %d\n", data->token->type);
+		printf("builtin: %d\n\n\n", data->token->builtin);
 		
 		data->token = data->token->next;
 	}

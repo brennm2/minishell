@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 17:32:54 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:40:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	G_EXIT_CODE;
 void	search_command(char *buffer, t_data *data)
 {
 	buffer = check_spaces(buffer);
+	
 	get_split(buffer, data);
 }
 
@@ -52,12 +53,14 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-	tokenize(data);
+	/* if (is_here_doc(data))
+		return ; */
 	expand(data);
 	remove_quotes(data);
-	//debug_print_list_ex(data);
-	//debug_print_list(data);
-	use_command(data);
+	tokenize(data);
+	debug_print_list(data);
+	//use_command(data);
+	//execution(data);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -68,7 +71,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	int i;
+	//int i;
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
 		return (0);

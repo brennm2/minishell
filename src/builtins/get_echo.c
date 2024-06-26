@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:28:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:31:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	put_token_str(t_token *token, t_data *data)
 {
-	if (token->str[0] == '~'
+	// ~ expande na funcao expand
+/* 	if (token->str[0] == '~'
 		&& (token->str[1] == '\0' || token->str[1] == '/')) //#TODO Revisar essa condicao
 	{
 		ft_putstr_fd(get_in_env(data->envp, "HOME"), 1);
@@ -22,7 +23,7 @@ void	put_token_str(t_token *token, t_data *data)
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->str[0] == '~'
+	else  */if (token->str[0] == '~'
 		&& (token->str[1] == '-' || token->str[1] == '+')) //#TODO Revisar essa condicao
 	{
 		if (token->str[1] == '+')
