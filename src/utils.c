@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/24 20:45:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:28:43 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-void	init_next_token(t_token *token, char *buffer, int len)
+void	init_next_token(t_token *token, int len)
 {
 	token->next = (t_token *)ft_calloc(1, sizeof(t_token));
 	//token->next->str = NULL;

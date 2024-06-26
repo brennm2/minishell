@@ -57,7 +57,7 @@ $(OBJ_DIR):
 		mkdir -p $(OBJ_DIR)/src/debug
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) -c $< -o $@
+	$(CC) $(CCFLAGS) -c $< -o $@
 #verificar o $(CC) $(CCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT)

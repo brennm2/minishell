@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 16:31:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:31:15 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,13 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
 			i++;
 		end = i - 1; // end vai ser igual ao i
-		init_next_token(data->token, buffer, end - start); // Inicia o proximo token com o tamnho da string
+		init_next_token(data->token, end - start); // Inicia o proximo token com o tamnho da string
 		data->token = data->token->next;
 	}
 }
 
 void	save_space(char *buffer, int start, t_data *data)
 {
-	int	i;
-
-	i = 0;
 	while(buffer[start] && buffer[start] >= 7 && buffer[start] <= 32)
 		start++;
 	if(buffer[check_for_string(buffer, start)])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   correct_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:03:06 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/21 19:10:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:36:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*copy_char(char *buffer, int i)
 char	*put_space_on(char *buffer, int i)
 {
 	char	*new_buffer;
-	char	*temp;
+	//char	*temp; //#TODO Func nao utilizada. Comentada por causa das flags
 
 	new_buffer = ft_calloc(sizeof(char), i + 1);
 	if (!new_buffer)

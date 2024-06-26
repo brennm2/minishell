@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 16:00:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:29:02 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ typedef enum e_tree_type
 
 //tree structs
 
+typedef struct s_token
+{
+	char		*str;
+	t_types		type;
+	t_builtins	builtin;
+	struct s_token		*next;
+}				t_token;
+
 typedef struct s_tree_cmd
 {
 	t_token		*token;
@@ -125,13 +133,13 @@ typedef struct s_envp
 }					t_envp;
 
 
-typedef struct s_token
-{
-	char		*str;
-	t_types		type;
-	t_builtins	builtin;
-	struct s_token		*next;
-}				t_token;
+// typedef struct s_token
+// {
+// 	char		*str;
+// 	t_types		type;
+// 	t_builtins	builtin;
+// 	struct s_token		*next;
+// }				t_token;
 
 typedef struct s_data
 {
@@ -187,7 +195,7 @@ t_envp	*find_last_node(t_envp *lst);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
-void	init_next_token(t_token *token, char *buffer, int len);
+void	init_next_token(t_token *token, int len);
 void	init_data(t_data *data, char *buffer);
 void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);

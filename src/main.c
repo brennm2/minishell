@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/25 15:40:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:25:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
-	debug_print_list(data);
-	//use_command(data);
+	//debug_print_list(data);
+	use_command(data);
 	//execution(data);
 }
 

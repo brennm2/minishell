@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:39:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:30:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 void	cd_options_tilde(t_data *data)
 {
 	char	cwd[256];
-	char temp_cwd;
 	
 	if (data->token->next->str[0] == '-' && data->token->next->str[1] == '+')
 		return (cd_error_invalid_option(data));
@@ -112,7 +111,8 @@ void	cd_options(t_data *data)
 		return (cd_error_invalid_option(data)); //Se for "cd -algumacoisa";
 	}
 	else if ((data->token->next->str[0] == '-' && data->token->next->str[1] == '-')
-		|| data->token->next->str[0] == '~' && data->token->next->str[1] == '\0') // se for "cd --" ou "cd ~"
+		|| (data->token->next->str[0] == '~'
+		&& data->token->next->str[1] == '\0')) // se for "cd --" ou "cd ~"
 	{
 		cd_change_last_oldpwd(data, 0);
 		chdir(get_in_env(data->envp, "HOME"));
