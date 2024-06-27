@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/26 20:53:18 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:29:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 } */
 
-void	cmd_execution(t_data *data, t_tree_cmd *tree)
+void	cmd_execution(t_data *data, t_tree_exec *tree)
 {
 	int status;
 	int pid;
@@ -41,7 +41,8 @@ void	cmd_execution(t_data *data, t_tree_cmd *tree)
 	status = 0;
 	pid = 0;
 	if (tree->token->type == builtin)
-		get_builtin(); // TODO
+		printf("builting\n");
+		//get_builtin(); // TODO
 	else
 	{
 		pid = safe_fork(data);
@@ -75,7 +76,7 @@ void	redir_execution(t_data *data, t_tree_cmd *tree)
 		perror(rcmd->file);
 		exit(G_EXIT_CODE);
 	}
-	executing_tree(data, rcmd->token);
+	executing_tree(data, rcmd->tree);
 }
 
 void	pipe_execution(t_data *data, t_tree_cmd *tree)

@@ -37,7 +37,12 @@ SRC = src/main.c \
 	src/parsing/utils.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c \
-	src/parsing/redirects.c
+	src/parsing/redirects.c \
+	src/execution/building.c \
+	src/execution/construction.c \
+	src/execution/exec_utils.c \
+	src/execution/execution.c \
+	src/execution/path.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -47,15 +52,8 @@ all: $(NAME)
 $(LIBFT):
 		$(MAKE) -C ./libs/
 
-$(OBJ_DIR):
-		mkdir -p $(OBJ_DIR)
-		mkdir -p $(OBJ_DIR)/src
-		mkdir -p $(OBJ_DIR)/src/builtins
-		mkdir -p $(OBJ_DIR)/src/parsing
-		mkdir -p $(OBJ_DIR)/src/error
-		mkdir -p $(OBJ_DIR)/src/debug
-
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
 	$(CC) -c $< -o $@
 #verificar o $(CC) $(CCFLAGS) -c $< -o $@
 

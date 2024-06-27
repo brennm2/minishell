@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 19:31:18 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:26:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,14 @@ typedef enum s_types
 	not_expander,
 }				t_types;
 
+typedef struct s_token
+{
+	char		*str;
+	t_types		type;
+	t_builtins	builtin;
+	struct s_token		*next;
+}				t_token;
+
 typedef enum e_tree_type
 {
 	t_exec,
@@ -127,13 +135,6 @@ typedef struct s_envp
 }					t_envp;
 
 
-typedef struct s_token
-{
-	char		*str;
-	t_types		type;
-	t_builtins	builtin;
-	struct s_token		*next;
-}				t_token;
 
 typedef struct s_data
 {
@@ -341,5 +342,30 @@ int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
+
+//Execution
+
+void	build_tree(t_data *data);
+t_tree_cmd	*build_pipe(t_data *data, t_token *token);
+t_tree_cmd	*build_exec(t_data *data, t_token *token);
+void	get_exec(t_data *data, t_tree_exec *cmd, char *arg);
+t_tree_cmd	*build_redir(t_data *data, t_tree_cmd *tree_cmd);
+t_tree_cmd	*const_pipe(t_data *data, t_tree_cmd *left, t_tree_cmd *right);
+t_tree_cmd	*const_redir(t_tree_cmd *scmd, char *file, int mode, int fd);
+t_tree_cmd	*get_red(t_tree_cmd *red_cmd);
+t_tree_cmd	*const_exec(t_data *data, t_token *token);
+int	count_args(t_data *data, t_token *token);
+void pipe_child_execution(t_data *data, t_tree_cmd *tree, int fd[2], int proc);
+void	safe_pipe(int fd[2], t_data *data);
+void	safe_execve(t_data *data, t_tree_exec *exec);
+char	**change_env(t_envp *envp);
+int		safe_fork(t_data *data);
+void	execution(t_data *data);
+void	executing_tree(t_data *data, t_tree_cmd *tree);
+void	pipe_execution(t_data *data, t_tree_cmd *tree);
+void	redir_execution(t_data *data, t_tree_cmd *tree);
+void	exec_execution(t_data *data, t_tree_cmd *tree);
+void	cmd_execution(t_data *data, t_tree_exec *tree);
+char	*get_path(t_data *data, char *cmd);
 
 #endif

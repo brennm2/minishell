@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 20:24:20 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:19:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void init_commands(char *buffer, t_data *data)
 	tokenize(data);
 	debug_print_list(data);
 	//use_command(data);
-	//execution(data);
+	if (safe_fork(data) == 0)
+		execution(data);
 }
 
 int main(int argc, char **argv, char **envp)

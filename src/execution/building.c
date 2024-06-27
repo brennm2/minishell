@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:14:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/26 20:53:05 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/27 20:11:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_tree_cmd	*build_redir(t_data *data, t_tree_cmd *tree_cmd)
 	token = tree_cmd->token;
 	r_type = token->type;
 	if (r_type == redin || r_type == here_doc)
-		tree_cmd = const_redir(tree_cmd, token, O_RDONLY, 0);
+		tree_cmd = const_redir(tree_cmd, token->str, O_RDONLY, 0);
 	else if (r_type == redout)
-		tree_cmd = const_redir(tree_cmd, token, O_WRONLY | O_CREAT | O_TRUNC, 1);
+		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_TRUNC, 1);
 	else if (r_type == append)
-		tree_cmd = const_redir(tree_cmd, token, O_WRONLY | O_CREAT | O_APPEND, 1);
+		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_APPEND, 1);
 	if (!tree_cmd)
 		exit(1);
 	return (tree_cmd);
@@ -51,7 +51,7 @@ t_tree_cmd	*build_exec(t_data *data, t_token *token)
 	t_tree_exec	*exec_cmd;
 	
 	tree_cmd = const_exec(data, token);
-	exec_cmd = (t_tree_cmd *)tree_cmd;
+	exec_cmd = (t_tree_exec *)tree_cmd;
 	aux = tree_cmd->token;
 	while (aux)
 	{
@@ -78,6 +78,7 @@ t_tree_cmd	*build_pipe(t_data *data, t_token *token)
 		token = token->next;
 		tree_cmd = const_pipe(data, tree_cmd, build_pipe(data, token));
 	}
+	return (tree_cmd);
 }
 
 void	build_tree(t_data *data)
