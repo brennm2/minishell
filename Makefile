@@ -38,8 +38,8 @@ SRC = src/main.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c \
 	src/parsing/redirects.c \
-	src/execution/building.c \
-	src/execution/construction.c \
+	src/execution/construction_tree.c \
+	src/execution/construction_node.c \
 	src/execution/exec_utils.c \
 	src/execution/execution.c \
 	src/execution/path.c

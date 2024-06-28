@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/27 19:29:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:43:18 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		if (pid == 0)
 			safe_execve(data, tree);
 	}
+	//waitpid(pid, &status, 0);
 }
 
 void	exec_execution(t_data *data, t_tree_cmd *tree)

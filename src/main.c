@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/27 20:19:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:10:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
-	debug_print_list(data);
+	//debug_print_list(data);
 	//use_command(data);
-	if (safe_fork(data) == 0)
-		execution(data);
+	/* if (safe_fork(data) == 0)
+		execution(data); */
 }
 
 int main(int argc, char **argv, char **envp)
@@ -85,6 +85,9 @@ int main(int argc, char **argv, char **envp)
 		if (valid_input(buffer))
 		{
 			init_commands(buffer, data);
+			free(buffer);
+			if (safe_fork(data) == 0)
+				execution(data);
 		}
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		

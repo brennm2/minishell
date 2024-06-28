@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/27 19:44:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:09:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*find_path(t_data *data, char *path, char *cmd)
 	int		i;
 
 	i = 0;
+	if (access(cmd, X_OK) == 0)
+		return (cmd);
 	valid_path = NULL;
 	path_apart = ft_split(path, ':');
 	while (path_apart[i])
@@ -61,5 +63,6 @@ char	*get_path(t_data *data, char *cmd)
 			valid_path = find_path(data, env_aux->value, cmd);
 		env_aux = env_aux->next;
 	}
+	//printf("- %s\n", valid_path);
 	return (valid_path);
 }
