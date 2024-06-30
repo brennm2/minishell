@@ -6,11 +6,31 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 13:57:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/28 13:10:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+bool	is_valid_export(t_token *token)
+{
+	//char	*temp_str;
+	
+	if(ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
+	{
+		while(token->next)
+		{
+			ft_putstr_fd("minishell: export: '", 2);
+			ft_putstr_fd(token->next->str, 2);
+			ft_putendl_fd("': not a valid identifier", 2);
+			token = token->next;
+		}
+		print_error(NULL, 1);
+		return (false);
+	}
+	// if ()
+	return (true);
+}
 
 t_envp	*find_last_node(t_envp *lst)
 {
@@ -44,5 +64,6 @@ void	print_export(t_envp *env)
 	duplicate_env = duplicate_envp_list(env);
 	duplicate_env = organize_envp_list(duplicate_env);
 	display_env_export(duplicate_env);
-	free(duplicate_env); // #TODO Free correto do dup;
+	free_env(duplicate_env);
+	//free(duplicate_env); // #TODO Free correto do dup;
 }

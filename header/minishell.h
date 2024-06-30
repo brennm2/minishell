@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 16:29:02 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:57:51 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,10 +126,10 @@ typedef struct s_tree_exec
 
 typedef struct s_envp
 {
-	char *key;
-	char *value;
-	//flag visivel;
-	struct s_envp *next;
+	char			*key;
+	char			*value;
+	int				visible;
+	struct s_envp	*next;
 }					t_envp;
 
 
@@ -173,6 +173,7 @@ void	get_pwd(t_token *token);
 // SRC/BUILTIN/GET_CD
 void	get_cd(t_data *data);
 char	*get_in_env(t_envp *envp, char *key);
+t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
 
 // SRC/BUILTIN/GET_BUILTIN_ENV
 void	get_builtin_env(t_data *data);
@@ -191,6 +192,7 @@ t_envp	*organize_envp_list(t_envp *duplicate_env);
 void	display_env_export(t_envp *envp);
 void	print_export(t_envp *env);
 t_envp	*find_last_node(t_envp *lst);
+bool	is_valid_export(t_token *token);
 
 
 // SRC/UTILS
