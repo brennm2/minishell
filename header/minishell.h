@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/27 19:26:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:42:17 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ typedef struct s_envp
 
 typedef struct s_data
 {
-
 	t_envp *envp;
 	t_token *token;
 	char	*home;
@@ -367,5 +366,7 @@ void	redir_execution(t_data *data, t_tree_cmd *tree);
 void	exec_execution(t_data *data, t_tree_cmd *tree);
 void	cmd_execution(t_data *data, t_tree_exec *tree);
 char	*get_path(t_data *data, char *cmd);
+void	free_token(t_token *token);
+void	clean(t_data *data, int ex);
 
 #endif

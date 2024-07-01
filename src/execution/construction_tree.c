@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   building.c                                         :+:      :+:    :+:   */
+/*   construction_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:14:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/27 20:11:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/01 16:58:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tree_cmd	*build_redir(t_data *data, t_tree_cmd *tree_cmd)
 	else if (r_type == append)
 		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_APPEND, 1);
 	if (!tree_cmd)
-		exit(1);
+		clean(data, 1);
 	return (tree_cmd);
 }
 
@@ -39,7 +39,7 @@ void	get_exec(t_data *data, t_tree_exec *cmd, char *arg)
 		i++;
 	cmd->argv[i] = ft_strdup(arg);
 	if (!cmd->argv[i])
-		exit(1);
+		clean(data, 1);
 	if (i == 0)
 		cmd->cmd = get_path(data, cmd->argv[0]);
 }
@@ -49,6 +49,7 @@ t_tree_cmd	*build_exec(t_data *data, t_token *token)
 	t_tree_cmd	*tree_cmd;
 	t_token		*aux;
 	t_tree_exec	*exec_cmd;
+	int i;
 	
 	tree_cmd = const_exec(data, token);
 	exec_cmd = (t_tree_exec *)tree_cmd;

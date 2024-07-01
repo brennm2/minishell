@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/28 19:10:32 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:18:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,43 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	//int i;
+	data = ft_calloc(1, sizeof(t_data));;
+	if (!data)
+		return (0);
+	get_env(data, envp);
+	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
+	while(1)
+	{
+		buffer = NULL;
+		buffer = readline(C_CYAN"minishell: "END_COLOR);
+		add_history(buffer);
+		if (!valid_input(buffer))
+		{
+			free(buffer);
+			continue;
+		}
+		init_commands(buffer, data);
+		if (safe_fork(data) == 0)
+			execution(data);
+		waitpid(0, NULL, 0);
+		free(buffer);
+		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
+		
+		//ft_free_data(data, 1);
+	}
+	//ft_free_data(data, 1);
+}
+
+/* 
+int main(int argc, char **argv, char **envp)
+{
+	char	*buffer;
+	t_data	*data;
+	
+	(void)argc;
+	(void)argv;
+
+	buffer = NULL;
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
 		return (0);
@@ -85,15 +121,18 @@ int main(int argc, char **argv, char **envp)
 		if (valid_input(buffer))
 		{
 			init_commands(buffer, data);
-			free(buffer);
+			//free(buffer);
+			//debug_print_list(data);
 			if (safe_fork(data) == 0)
 				execution(data);
+			//free_token(data->token);
 		}
+		free(buffer);
+		waitpid(0, NULL, 0);
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		
 		//ft_free_data(data, 1);
 	}
 	//ft_free_data(data, 1);
-}
-
+} */
 //valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell
