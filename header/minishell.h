@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/28 17:57:51 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:01:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_envp
 {
 	char			*key;
 	char			*value;
-	int				visible;
+	int				invisible;
 	struct s_envp	*next;
 }					t_envp;
 
@@ -193,6 +193,7 @@ void	display_env_export(t_envp *envp);
 void	print_export(t_envp *env);
 t_envp	*find_last_node(t_envp *lst);
 bool	is_valid_export(t_token *token);
+void	export_error_identifier(t_token *token);
 
 
 // SRC/UTILS

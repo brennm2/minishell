@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/28 18:07:57 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:07:16 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_envp	*duplicate_envp_list(t_envp *env)
 	{
 		duplicate_env->key = ft_strdup(temp_env->key);
 		duplicate_env->value = ft_strdup(temp_env->value);
+		duplicate_env->invisible = temp_env->invisible;
 		//#TODO lidar com a flag de visivel
 		if (!head)
 			head = duplicate_env;
@@ -54,6 +55,7 @@ t_envp	*organize_envp_list(t_envp *duplicate_env)
 	t_envp *next_node;
 	char *key;
 	char *value;
+	int		invisible;
 	
 	current_node = duplicate_env;
 	while(current_node->next)
@@ -65,10 +67,13 @@ t_envp	*organize_envp_list(t_envp *duplicate_env)
 			{
 				key = current_node->key;
 				value = current_node->value;
+				invisible = current_node->invisible;
 				current_node->key = next_node->key;
 				current_node->value = next_node->value;
+				current_node->invisible = next_node->invisible;
 				next_node->key = key;
 				next_node->value = value;
+				next_node->invisible = invisible;
 			}
 			next_node = next_node->next;
 		}
@@ -94,7 +99,14 @@ void	create_new_export(t_envp *env, char *key, char *value)
 	//new_envp->next = NULL;
 	//temp_str = ft_strchr(token->str, '=');
 	//new_envp->value = ft_strdup(temp_str + 1);
-	new_envp->value = ft_strdup(value);
+	if (!value)
+	{
+		//printf("valor esta vazio na key: %s\n", key);
+		new_envp->invisible = 1;
+		new_envp->value = ft_strdup("\0"); //'\0';
+	}
+	else
+		new_envp->value = ft_strdup(value);
 	//new_envp->key = ft_calloc(sizeof(char *), i + 1);
 	new_envp->key = key; //ft_strdup(key);
 
@@ -105,16 +117,6 @@ void	create_new_export(t_envp *env, char *key, char *value)
 
 bool	change_existing_export(t_envp *env, char *key, char *value)
 {
-	//char	*key;
-	//char	*temp_value;
-	//int		i;
-	
-	//i = 0;
-	//while (token->str[i] != '=' && token->str[i])
-	//	i++;
-	//temp_value = ft_strchr(token->str, '=');
-	//key = ft_calloc(i + 1, sizeof(char *));
-	//ft_strlcpy(key, token->str, i + 1);
 	if (get_in_env(env, key) == NULL) // Se procurou na lista e não encontrou, então retorna falso
 	{
 		//free(key);
@@ -130,16 +132,18 @@ bool	change_existing_export(t_envp *env, char *key, char *value)
 	return(false);
 }
 
-bool	is_invalid_token(char *str)
+bool	is_invalid_token(char *key)
 {
 	int	i;
 
 	i = 0;
-	if (!ft_isalpha(str[0]) && ft_isdigit(str[0]))
+	if (!ft_isalpha(key[0]) && ft_isdigit(key[0]))
 		return (false);
-	while(str[i])
+	while(key[i])
 	{
-		if(!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' && str[i] != ' ')
+		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '=' && key[i] != ' ')
+			return false;
+		if (key[i] && key[i + 1] == ' ')
 			return false;
 		i++;
 	}
@@ -162,41 +166,25 @@ char	*find_key(char *str)
 void	handle_export_token(t_data *data, t_token *token)
 {
 	char *value;
-	//char *equal_sign;
 	char *key;
-	(void)value;
 	
-	if (token->str[0] == '=' || token->str[0] == '-')
+	if (token->str[0] == '=' || token->str[0] == '-') //se tiver '=' ou '-' no comeco
 	{
-		ft_putstr_fd("minishell: export: '", 2);
-		ft_putstr_fd(token->str, 2);
-		ft_putendl_fd("': not a valid identifier", 2);
-		print_error(NULL, 1);
+		export_error_identifier(token);
 		return;
 	}
-	
 	key = find_key(token->str);
-	value = ft_strchr(token->str, '=') + 1;
-	
-
-	if (!is_invalid_token(key))
+	value = ft_strchr(token->str, '=');
+	if (value) //Se existir value, anda para frente uma casa, para tirar o "="
+		value = value + 1;
+	if (!is_invalid_token(key)) //Se for uma key valida
 	{
-			free(key);
-		ft_putstr_fd("minishell: export: '", 2);
-		ft_putstr_fd(token->str, 2);
-		ft_putendl_fd("': not a valid identifier", 2);
-		print_error(NULL, 1);
+		free(key);
+		export_error_identifier(token);
 		return;
 	}
-	// if (equal_sign)
-	// {
-		if(!change_existing_export(data->envp, key, value))
-			create_new_export(data->envp, key, value);
-		//free (key);
-		//*equal_sign = '=';
-
-	// if (!equal_sign)
-	// 	free(key);
+	if(!change_existing_export(data->envp, key, value))
+		create_new_export(data->envp, key, value);
 }
 
 void	get_export(t_data *data)
@@ -210,22 +198,12 @@ void	get_export(t_data *data)
 		ft_putstr_fd(": invalid option\n", 2);
 		print_error(NULL, 2);
 		return ;
-	} 
+	}
+	else if (data->token->next->str[0] == '\0')
+		return(export_error_identifier(data->token->next));
 	while (data->token->next) // Se tiver algo para criar
 	{
 		data->token = data->token->next;
 		handle_export_token(data, data->token);
-		
-
-		
-		// if(!is_valid_export(data->token->next))
-		// 	data->token = data->token->next; //return ;
-		// else if (change_existing_export(data->envp, data->token->next)) //Se ja tiver um export igual, se tive retorna postivo e sai da func, se não, retorna falso e continua
-		// 	data->token = data->token->next; //return ;
-		// else
-		// {
-		// 	create_new_export(data->envp, data->token->next);
-		// 	data->token = data->token->next;
-		// }
 	}
 }

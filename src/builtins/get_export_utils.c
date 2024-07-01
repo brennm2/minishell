@@ -6,29 +6,31 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/28 13:10:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/01 14:05:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
+void	export_error_identifier(t_token *token)
+{
+	ft_putstr_fd("minishell: export: '", 2);
+	ft_putstr_fd(token->str, 2);
+	ft_putendl_fd("': not a valid identifier", 2);
+	print_error(NULL, 1);
+}
+
 bool	is_valid_export(t_token *token)
 {
-	//char	*temp_str;
-	
-	if(ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
+	if (ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
 	{
-		while(token->next)
+		while (token->next)
 		{
-			ft_putstr_fd("minishell: export: '", 2);
-			ft_putstr_fd(token->next->str, 2);
-			ft_putendl_fd("': not a valid identifier", 2);
+			export_error_identifier(token);
 			token = token->next;
 		}
-		print_error(NULL, 1);
 		return (false);
 	}
-	// if ()
 	return (true);
 }
 
@@ -45,13 +47,22 @@ void	display_env_export(t_envp *envp)
 {
 	while (envp)
 	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(envp->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putstr_fd("\"", 1);
-		ft_putstr_fd(envp->value, 1);
-		ft_putstr_fd("\"", 1);
-		ft_putchar_fd('\n', 1);
+		if(envp->invisible == 0)
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(envp->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putstr_fd("\"", 1);
+			ft_putstr_fd(envp->value, 1);
+			ft_putstr_fd("\"", 1);
+			ft_putchar_fd('\n', 1);
+		}
+		else if (envp->invisible == 1)
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(envp->key, 1);
+			ft_putchar_fd('\n', 1);
+		}
 		envp = envp->next;
 	}
 	return (set_exit_code(0));

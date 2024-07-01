@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/28 11:17:03 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:13:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,23 @@ void	cd_error_invalid_file(t_data *data)
 	print_error(NULL, 1);
 }
 
-t_envp	*change_in_env(t_envp *envp, char *cwd, char *key)
+t_envp	*change_in_env(t_envp *envp, char *value, char *key)
 {
 	t_envp *temp_envp;
 	
 	temp_envp = envp;
 	while(temp_envp)
 	{
-		if(ft_strcmp(temp_envp->key, key) == 0)
+		if(ft_strcmp(temp_envp->key, key) == 0) // Se encontrar a key
 		{
 			//#TODO free aqui?
-			temp_envp->value = ft_strdup(cwd);
+			if(value)
+			{
+				temp_envp->invisible = 0;
+				temp_envp->value = ft_strdup(value);
+			}
+			// if(!value && temp_envp->value)
+			// 	continue;
 			return (envp);
 		}
 		temp_envp = temp_envp->next;

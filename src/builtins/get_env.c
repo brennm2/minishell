@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:43:10 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/01 12:55:52 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ void	display_env(t_envp *envp)
 {
 	while (envp)
 	{
-		write(1, envp->key, ft_strlen(envp->key));
-		write(1, "=", 1);
-		write(1, envp->value, ft_strlen(envp->value));
-		write(1, "\n", 1);
+		if (envp->invisible == 0)
+		{
+			write(1, envp->key, ft_strlen(envp->key));
+			write(1, "=", 1);
+			write(1, envp->value, ft_strlen(envp->value));
+			write(1, "\n", 1);
+		}
 		envp = envp->next;
 	}
 	return (set_exit_code(0));
