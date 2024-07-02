@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:48:53 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:24:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	exit_negative(t_token *token)
 	exit(number);
 }
 
-void	only_exit(void)
+void	only_exit(t_data *data)
 {
 	ft_putstr_fd("exit\n", 1);
+	free_env(data->envp);
+	free_token(data->token);
+	free_data(data);
 	exit (G_EXIT_CODE);
 }
 
@@ -72,7 +75,7 @@ void	get_exit(t_data *data)
 
 	i = 0;
 	if (!data->token->next) //Se for somente "exit"
-		only_exit();
+		only_exit(data);
 	else if (data->token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
 	{
 		if (data->token->next->next) // Se for "exit ... ..."

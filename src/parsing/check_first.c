@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 11:01:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:42:05 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ bool	syntax_error_sup (char *buffer)
 			print_error(ERROR_REDIR, 2);
 		return (true);
 	}
+	return (false);
 }
 
 

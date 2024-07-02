@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/25 17:05:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:37:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_token	*trim_redir(t_data *data, t_token *token)
 {
 	int	type;
-	t_token	*aux;
+	//t_token	*aux; #TODO func nao utilizada. Retirado devido as flags
 	t_token	*aux_data;
 
 	type = token->type;

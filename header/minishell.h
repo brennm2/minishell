@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 14:05:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:29:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
-	here_doc,
+	space,
 	not_expander,
 }				t_types;
 
@@ -140,8 +140,6 @@ typedef struct s_data
 {
 	t_envp *envp;
 	t_token *token;
-	char	*home;
-	t_tree_cmd	*tree;
 	struct s_data	*next;
 }				t_data;
 
@@ -177,6 +175,18 @@ void	get_exit(t_data *data);
 
 // SRC/BUILTIN/GET_EXPORT
 void	get_export(t_data *data);
+t_envp	*duplicate_envp_list(t_envp *env);
+t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
+t_envp	*organize_envp_list(t_envp *duplicate_env);
+
+// SRC/BUILTIN/GET_EXPORT_UTILS
+void	display_env_export(t_envp *envp);
+void	print_export(t_envp *env);
+t_envp	*find_last_node(t_envp *lst);
+
+// SRC/BUILTIN/GET_UNSET
+void	get_unset(t_data *data);
+
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
@@ -269,6 +279,8 @@ t_data	*debug_get_builtin_type(t_data *data);
 /* ************************************************************************** */
 //
 void	ft_free_data(t_data *data, int option);
+void	free_env(t_envp *envp);
+void	free_token(t_token *token);
 
 
 // SRC/ERROR/PRINT_ERROR

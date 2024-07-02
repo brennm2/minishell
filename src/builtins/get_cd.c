@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:39:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:00:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,21 @@ void	cd_error_invalid_file(t_data *data)
 	print_error(NULL, 1);
 }
 
-t_envp	*change_in_env(t_envp *envp, char *cwd, char *key)
+t_envp	*change_in_env(t_envp *envp, char *value, char *key)
 {
 	t_envp *temp_envp;
 	
 	temp_envp = envp;
 	while(temp_envp)
 	{
-		if(ft_strcmp(temp_envp->key, key) == 0)
+		if(ft_strcmp(temp_envp->key, key) == 0) // Se encontrar a key
 		{
-			temp_envp->value = ft_strdup(cwd);
+			if(value)
+			{
+				temp_envp->invisible = 0;
+				free(temp_envp->value);
+				temp_envp->value = ft_strdup(value);
+			}
 			return (envp);
 		}
 		temp_envp = temp_envp->next;
@@ -56,7 +61,7 @@ char	*get_in_env(t_envp *envp, char *key)
 			return(temp_envp->value);
 		temp_envp = temp_envp->next;
 	}
-	printf("Nao achou nada\n\n"); //#TODO <--- Apenas para debug, caso nao encontre o que eu quero
+	//printf("Nao achou nada\n\n"); //#TODO <--- Apenas para debug, caso nao encontre o que eu quero
 	return NULL;
 }
 
@@ -67,7 +72,7 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 	char	*old_cwd_char;
 	
 	getcwd(old_cwd, sizeof(old_cwd));
-	old_cwd_char = get_in_env(data->envp, "OLDPWD");
+	old_cwd_char = ft_strdup(get_in_env(data->envp, "OLDPWD")); //WHAT????
 	chdir(old_cwd_char);
 	data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 	if (option == 1)
@@ -75,12 +80,12 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 		ft_putstr_fd(old_cwd_char, 1);
 		write(1, "\n", 1);
 	}
+	free(old_cwd_char);
 }
 
 void	cd_options_tilde(t_data *data)
 {
 	char	cwd[256];
-	char temp_cwd;
 	
 	if (data->token->next->str[0] == '-' && data->token->next->str[1] == '+')
 		return (cd_error_invalid_option(data));
@@ -112,7 +117,8 @@ void	cd_options(t_data *data)
 		return (cd_error_invalid_option(data)); //Se for "cd -algumacoisa";
 	}
 	else if ((data->token->next->str[0] == '-' && data->token->next->str[1] == '-')
-		|| data->token->next->str[0] == '~' && data->token->next->str[1] == '\0') // se for "cd --" ou "cd ~"
+		|| (data->token->next->str[0] == '~'
+		&& data->token->next->str[1] == '\0')) // se for "cd --" ou "cd ~"
 	{
 		cd_change_last_oldpwd(data, 0);
 		chdir(get_in_env(data->envp, "HOME"));
