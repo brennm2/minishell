@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 12:29:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:59:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	search_command(char *buffer, t_data *data)
 	get_split(buffer, data);
 }
 
-void	use_command(t_data *data)
+void	use_command(t_data *data, t_token *token)
 {
-	if(data->token->type == builtin)
-		get_builtin(data);
+	if(token->type == builtin)
+		get_builtin(data, token);
 	else
 		command_not_found(data->token);
 }
@@ -59,7 +59,7 @@ void init_commands(char *buffer, t_data *data)
 	remove_quotes(data);
 	tokenize(data);
 	//debug_print_list(data);
-	use_command(data);
+	use_command(data, data->token);
 	free_token(data->token);
 	//execution(data);
 }

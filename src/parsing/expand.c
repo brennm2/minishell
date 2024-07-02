@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/26 16:36:11 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:36:18 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	is_expand(t_token *token, t_envp *envp, char *home)
 			is_expand_util(token, envp, i, j);
 			i = -1;
 		}
-		if (token->str[i] == '~' && quote_status(token->str, i) >= 0)
+		if (token->str[i] == '~' && !token->str[i - 1] && quote_status(token->str, i) >= 0)
 			expand_til(token, i, home);
 	}
 }
