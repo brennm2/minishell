@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/01 12:42:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:52:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct s_data
 	t_token *token;
 	char	*home;
 	t_tree_cmd	*tree;
-	struct s_data	*next;
+	//struct s_data	*next;
 }				t_data;
 
 //VARIAVEL GLOBAL
@@ -344,11 +344,11 @@ void	after_reds(t_data *data);
 
 //Execution
 
-void	build_tree(t_data *data);
-t_tree_cmd	*build_pipe(t_data *data, t_token *token);
-t_tree_cmd	*build_exec(t_data *data, t_token *token);
+void	tree_struct(t_data *data);
+t_tree_cmd	*pipe_struct(t_data *data, t_token *token);
+t_tree_cmd	*exec_struct(t_data *data, t_token *token);
 void	get_exec(t_data *data, t_tree_exec *cmd, char *arg);
-t_tree_cmd	*build_redir(t_data *data, t_tree_cmd *tree_cmd);
+t_tree_cmd	*redir_struct(t_data *data, t_tree_cmd *tree_cmd);
 t_tree_cmd	*const_pipe(t_data *data, t_tree_cmd *left, t_tree_cmd *right);
 t_tree_cmd	*const_redir(t_tree_cmd *scmd, char *file, int mode, int fd);
 t_tree_cmd	*get_red(t_tree_cmd *red_cmd);

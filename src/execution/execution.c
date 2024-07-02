@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/28 15:43:18 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:53:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ void	executing_tree(t_data *data, t_tree_cmd *tree)
 
 void	execution(t_data *data)
 {
-	build_tree(data);
+	tree_struct(data);
 	executing_tree(data, data->tree);
 }
