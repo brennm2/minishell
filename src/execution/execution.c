@@ -6,32 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/02 10:53:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:03:48 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-/* void	get_builtin_ex(t_tree_exec *cmd)
-{
-	if(cmd->token->builtin == echo && !ft_strcmp(cmd->token->str, "echo"))
-		get_echo(data->token->next, data); //Entra com o proximo <NODE>
-	else if (cmd->token->builtin == pwd && !ft_strcmp(cmd->token->str, "pwd"))
-		get_pwd(data->token);
-	else if (cmd->token->builtin == cd && !ft_strcmp(cmd->token->str, "cd"))
-		get_cd(data);
-	else if (cmd->token->builtin == env && !ft_strcmp(cmd->token->str, "env"))
-		get_builtin_env(data);
-	else if (cmd->token->builtin == n_exit
-		&& !ft_strcmp(cmd->token->str, "exit"))
-		get_exit(data);
-	else if(cmd->token->builtin == export
-		&& !ft_strcmp(cmd->token->str, "export"))
-		get_export(data);
-	else
-		command_not_found(data->token); //#TODO Verificar se isso pode ficar aqui
-
-} */
 
 void	cmd_execution(t_data *data, t_tree_exec *tree)
 {

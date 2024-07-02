@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 10:52:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:05:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef struct s_data
 	t_token *token;
 	char	*home;
 	t_tree_cmd	*tree;
-	//struct s_data	*next;
+	struct s_data	*next;
 }				t_data;
 
 //VARIAVEL GLOBAL

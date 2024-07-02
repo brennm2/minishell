@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 10:45:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:03:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,52 +63,6 @@ void init_commands(char *buffer, t_data *data)
 	/* if (safe_fork(data) == 0)
 		execution(data); */
 }
-
-/* void	init_loop(t_data *data)
-{
-	char	*buffer;
-	int		status;
-	
-	while(1)
-	{
-		buffer = NULL;
-		buffer = readline(C_CYAN"minishell: "END_COLOR);
-		add_history(buffer);
-		if (!valid_input(buffer))
-		{
-			free(buffer);
-			continue;
-		}
-		init_commands(buffer, data);
-		if (safe_fork(data) == 0)
-			execution(data);
-		free(buffer);
-		clear_history();
-		waitpid(0, &status, 0);
-		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
-		
-		//ft_free_data(data, 1);
-	}
-}
-
-int main(int argc, char **argv, char **envp)
-{
-	t_data	*data;
-	
-	if (argc > 1 || argv[1])
-	{
-		print_error("Inputs are not being received by Minishell.", 1);
-		clean(NULL, 1);
-	}
-	data = ft_calloc(1, sizeof(t_data));;
-	if (!data)
-		print_error("Malloc error! \n", 1);
-	get_env(data, envp);
-	G_EXIT_CODE = 0;
-	init_loop(data);
-	clean(data, 0);
-} */
-
 
 int main(int argc, char **argv, char **envp)
 {
