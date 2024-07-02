@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 17:03:57 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:40:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	free_token(t_token *token)
 		token->str = NULL;
 		free(token);
 		token = NULL;
+		//token = NULL;
 		token = temp_token;
 	}
+	//free(temp_token);
+	//printf("%s", token->str);
 }
 
 void	free_env(t_envp *envp)
@@ -43,10 +46,15 @@ void	free_env(t_envp *envp)
         envp = temp_envp;
     }
 }
-// void	free_data(t_data *data)
-// {
-	
-// }
+void	free_data(t_data *data)
+{
+	free(data->home);
+	data->home = NULL;
+	//free(data->token);
+	//free(data->envp);
+	free(data);
+	data = NULL;
+}
 
 void	ft_free_data(t_data *data, int option)
 {

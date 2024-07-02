@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/01 14:07:16 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:50:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,34 +85,20 @@ t_envp	*organize_envp_list(t_envp *duplicate_env)
 void	create_new_export(t_envp *env, char *key, char *value)
 {
 	t_envp	*new_envp;
-	//char	*temp_str;
-	//int		i;
-
-	//i = 0;
-	//while (token->str[i] != '=' && token->str[i])
-	//	i++;
+	
 	new_envp = env;
 	new_envp = find_last_node(new_envp);
 	new_envp->next = ft_calloc(1, sizeof(t_envp));
 	new_envp = new_envp->next;
 	
-	//new_envp->next = NULL;
-	//temp_str = ft_strchr(token->str, '=');
-	//new_envp->value = ft_strdup(temp_str + 1);
 	if (!value)
 	{
-		//printf("valor esta vazio na key: %s\n", key);
 		new_envp->invisible = 1;
-		new_envp->value = ft_strdup("\0"); //'\0';
+		new_envp->value = ft_strdup("\0");
 	}
 	else
 		new_envp->value = ft_strdup(value);
-	//new_envp->key = ft_calloc(sizeof(char *), i + 1);
 	new_envp->key = key; //ft_strdup(key);
-
-	//ft_strlcpy(new_envp->key, token->str, i + 1);
-	//free(new_envp);
-	//display_env(env); //DEBUGG <-- RETIRAR
 }
 
 bool	change_existing_export(t_envp *env, char *key, char *value)
@@ -189,6 +175,9 @@ void	handle_export_token(t_data *data, t_token *token)
 
 void	get_export(t_data *data)
 {
+	t_token	*head;
+	
+	head = data->token;
 	if(!data->token->next)
 		return (print_export(data->envp));
 	else if (data->token->next && data->token->next->str[0] == '-')
@@ -206,4 +195,5 @@ void	get_export(t_data *data)
 		data->token = data->token->next;
 		handle_export_token(data, data->token);
 	}
+	data->token = head;
 }

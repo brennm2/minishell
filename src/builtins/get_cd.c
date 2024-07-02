@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/01 11:13:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:12:41 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ t_envp	*change_in_env(t_envp *envp, char *value, char *key)
 	{
 		if(ft_strcmp(temp_envp->key, key) == 0) // Se encontrar a key
 		{
-			//#TODO free aqui?
 			if(value)
 			{
 				temp_envp->invisible = 0;
+				free(temp_envp->value);
 				temp_envp->value = ft_strdup(value);
 			}
-			// if(!value && temp_envp->value)
-			// 	continue;
 			return (envp);
 		}
 		temp_envp = temp_envp->next;
@@ -74,7 +72,7 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 	char	*old_cwd_char;
 	
 	getcwd(old_cwd, sizeof(old_cwd));
-	old_cwd_char = get_in_env(data->envp, "OLDPWD");
+	old_cwd_char = ft_strdup(get_in_env(data->envp, "OLDPWD")); //WHAT????
 	chdir(old_cwd_char);
 	data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 	if (option == 1)
@@ -82,6 +80,7 @@ void	cd_change_last_oldpwd(t_data *data, int option) //
 		ft_putstr_fd(old_cwd_char, 1);
 		write(1, "\n", 1);
 	}
+	free(old_cwd_char);
 }
 
 void	cd_options_tilde(t_data *data)

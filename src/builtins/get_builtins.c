@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 12:09:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 10:32:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	command_not_found(t_token *token)
 void	get_builtin(t_data *data)
 {
 	if(data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
-		get_echo(data->token->next, data); //Entra com o proximo <NODE>
+		get_echo(data->token->next, data);
 	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
 		get_pwd(data->token);
 	else if (data->token->builtin == cd && !ft_strcmp(data->token->str, "cd"))
@@ -33,9 +33,12 @@ void	get_builtin(t_data *data)
 	else if (data->token->builtin == n_exit
 		&& !ft_strcmp(data->token->str, "exit"))
 		get_exit(data);
-	else if(data->token->builtin == export
+	else if (data->token->builtin == export
 		&& !ft_strcmp(data->token->str, "export"))
 		get_export(data);
+	else if (data->token->builtin == unset
+		&& !ft_strcmp(data->token->str, "unset"))
+		get_unset(data);
 	else
 		command_not_found(data->token); //#TODO Verificar se isso pode ficar aqui
 

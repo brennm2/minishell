@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 17:04:12 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:24:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	only_exit(t_data *data)
 	ft_putstr_fd("exit\n", 1);
 	free_env(data->envp);
 	free_token(data->token);
-	//ft_free_data(data, 2);
+	free_data(data);
 	exit (G_EXIT_CODE);
 }
 
