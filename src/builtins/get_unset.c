@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 11:50:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:13:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	get_unset(t_data *data)
 			ft_putstr_fd("minishell: unset: -", 2);
 			ft_putchar_fd(data->token->str[1], 2);
 			ft_putendl_fd(": invalid option", 2);
+			data->token = head;
 			return (print_error(NULL, 2));
 		}
 		if (get_in_env(data->envp, data->token->str) == NULL)

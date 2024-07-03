@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 10:49:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:35:43 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,18 +183,24 @@ void	display_env(t_envp *envp);
 void	get_exit(t_data *data);
 
 
-// SRC/BUILTIN/GET_EXPORT
+// SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data);
 t_envp	*duplicate_envp_list(t_envp *env);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
-// SRC/BUILTIN/GET_EXPORT_UTILS
+// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS
 void	display_env_export(t_envp *envp);
 void	print_export(t_envp *env);
 t_envp	*find_last_node(t_envp *lst);
 bool	is_valid_export(t_token *token);
 void	export_error_identifier(t_token *token);
+
+// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
+char	*find_key(char *str);
+bool	is_invalid_token(char *key);
+t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
+t_envp	*organize_envp_list(t_envp *duplicate_env);
 
 // SRC/BUILTIN/GET_UNSET
 void	get_unset(t_data *data);
