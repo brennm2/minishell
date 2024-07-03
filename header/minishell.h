@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 16:17:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:22:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,97 +84,6 @@ typedef struct s_token
 	struct s_token		*next;
 }				t_token;
 
-typedef enum e_tree_type
-{
-	t_exec,
-	t_redir,
-	t_pipe
-}				t_tree_type;
-
-//tree structs
-
-typedef struct s_tree_cmd
-{
-	t_token		*token;
-	t_tree_type	type;
-}				t_tree_cmd;
-
-typedef struct s_tree_pipe
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*left;
-	t_tree_cmd	*right;
-}				t_tree_pipe;
-
-typedef struct s_tree_red
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*tree;
-	char		*file;
-	int			mode;
-	int			fd;
-	int			perm;
-}				t_tree_red;
-
-typedef struct s_tree_exec
-{
-	t_token		*token;
-	t_tree_type	type;
-	char		*cmd;
-	char		**argv;
-}				t_tree_exec;
-typedef enum e_tree_type
-{
-	t_exec,
-	t_redir,
-	t_pipe
-}				t_tree_type;
-
-//tree structs
-
-typedef struct s_token
-{
-	char		*str;
-	t_types		type;
-	t_builtins	builtin;
-	struct s_token		*next;
-}				t_token;
-
-typedef struct s_tree_cmd
-{
-	t_token		*token;
-	t_tree_type	type;
-}				t_tree_cmd;
-
-typedef struct s_tree_pipe
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*left;
-	t_tree_cmd	*right;
-}				t_tree_pipe;
-
-typedef struct s_tree_red
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*tree;
-	char		*file;
-	int			mode;
-	int			fd;
-	int			perm;
-}				t_tree_red;
-
-typedef struct s_tree_exec
-{
-	t_token		*token;
-	t_tree_type	type;
-	char		*cmd;
-	char		**argv;
-}				t_tree_exec;
-
 typedef struct s_envp
 {
 	char			*key;
@@ -182,15 +91,6 @@ typedef struct s_envp
 	int				invisible;
 	struct s_envp	*next;
 }					t_envp;
-
-
-// typedef struct s_token
-// {
-// 	char		*str;
-// 	t_types		type;
-// 	t_builtins	builtin;
-// 	struct s_token		*next;
-// }				t_token;
 
 typedef struct s_data
 {
@@ -420,5 +320,9 @@ int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
+
+//execution
+bool	nbr_pipes(t_data *data);
+void	execution_pipes(t_data *data);
 
 #endif

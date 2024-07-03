@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:57:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/03 15:34:35 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:33:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	split_pipes(t_data *data)
 	token_aux = data->token;
 	while (token_aux)
 	{
-		if (token_aux->next->type == is_pipe)
+		if (token_aux->next && token_aux->next->type == is_pipe)
 			token_aux = pipe_separator(data, token_aux);
 		else
 			token_aux = token_aux->next;
@@ -73,5 +73,5 @@ void	debbug_list_data(t_data *data)
 void	execution_pipes(t_data *data)
 {
 	split_pipes(data);
-	debbug_list_data(data);
+	//debbug_list_data(data);
 }

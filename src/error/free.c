@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 14:56:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:56:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_env(t_envp *envp)
         envp = temp_envp;
     }
 }
-/* void	free_data(t_data *data)
+void	free_data(t_data *data)
 {
 	free(data->home);
 	data->home = NULL;
@@ -54,7 +54,7 @@ void	free_env(t_envp *envp)
 	//free(data->envp);
 	free(data);
 	data = NULL;
-} */
+}
 
 void	ft_free_data(t_data *data, int option)
 {
@@ -81,35 +81,6 @@ void	ft_free_data(t_data *data, int option)
 		// data->tree = NULL;
 		
 		data = temp_data;
-	}
-}
-
-void	free_tree(t_tree_cmd *cmd)
-{
-	int			argc;
-	t_tree_exec	*execcmd;
-
-	argc = 0;
-	if (cmd->type == t_pipe)
-	{
-		free_tree(((t_tree_pipe *)(cmd))->left);
-		free_tree(((t_tree_pipe *)(cmd))->right);
-		free((t_tree_pipe *)(cmd));
-	}
-	else if (cmd->type == t_redir)
-	{
-		free_tree(((t_tree_red *)(cmd))->tree);
-		free((t_tree_red *)(cmd));
-	}
-	else if (cmd->type == t_exec)
-	{
-		execcmd = (t_tree_exec *)cmd;
-		while (execcmd->argv[argc])
-			free(execcmd->argv[argc++]);
-		free(execcmd->argv);
-		if (execcmd->cmd)
-			free(execcmd->cmd);
-		free(execcmd);
 	}
 }
 
