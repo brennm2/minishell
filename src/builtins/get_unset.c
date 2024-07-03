@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 11:47:32 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:13:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_envp	*find_back_node_in_env(t_envp *env, char *key)
 	{
 		if (!ft_strcmp(temp_env->next->key, key))
 		{
-			printf("achou o node: %s\n", temp_env->next->key); //debug
-			//printf("back node: %s\n", temp_env->key);
 			return (temp_env);
 		}
 		temp_env = temp_env->next;
@@ -36,11 +34,8 @@ void	free_node(t_envp *node)
 	node->key = NULL;
 	free(node->value);
 	node->value = NULL;
-	//free(node->next);
-	// node->next = NULL;
 	free(node);
 }
-
 
 void	search_for_node(t_envp *env, t_token *token)
 {
@@ -52,22 +47,33 @@ void	search_for_node(t_envp *env, t_token *token)
 	dead_node = back_node->next;
 	next_node = back_node->next->next;
 	back_node->next = next_node;
-	printf("back node: %s\n", back_node->key); //Debug
-
 	free_node(dead_node);
 }
 
 void	get_unset(t_data *data)
 {
-	if (!data->token)
+	t_token	*head;
+	int		flag;
+
+	flag = 0;
+	head = data->token;
+	if (!data->token->next)
 		return ;
-	if(get_in_env(data->envp, data->token->next->str) == NULL)
+	while (data->token->next)
 	{
-		printf("Nao achou nada, unset: %s\n", data->token->next->str);
-		return ;
+		data->token = data->token->next;
+		if (flag++ == 0 && data->token->str[0] == '-')
+		{
+			ft_putstr_fd("minishell: unset: -", 2);
+			ft_putchar_fd(data->token->str[1], 2);
+			ft_putendl_fd(": invalid option", 2);
+			data->token = head;
+			return (print_error(NULL, 2));
+		}
+		if (get_in_env(data->envp, data->token->str) == NULL)
+			continue ;
+		else
+			search_for_node(data->envp, data->token);
 	}
-	else
-	{
-		search_for_node(data->envp, data->token->next);
-	}
+	data->token = head;
 }

@@ -4,7 +4,7 @@ NAME = minishell
 
 LIBFT = ./libs/libft.a
 
-CC = gcc -g
+CC = cc -g
 CCFLAGS = -Wall -Werror -Wextra
 RM = rm
 RMFLAGS= -f
@@ -22,8 +22,9 @@ SRC = src/main.c \
 	src/builtins/get_cd.c \
 	src/builtins/get_env.c \
 	src/builtins/get_exit.c \
-	src/builtins/get_export.c \
-	src/builtins/get_export_utils.c \
+	src/builtins/export/get_export.c \
+	src/builtins/export/get_export_utils.c \
+	src/builtins/export/get_export_utils_2.c \
 	src/builtins/get_unset.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \

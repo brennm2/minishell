@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:39:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:13:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ void	get_cd(t_data *data)
 	}
 	else // se for somente "cd"
 	{
+		if (get_in_env(data->envp, "HOME") == NULL)
+			return (ft_putstr_fd("minishell: cd: HOME not set\n", 2), print_error(NULL, 1));
 		chdir(get_in_env(data->envp, "HOME"));
 		change_in_env(data->envp, old_cwd, "OLDPWD");
 		change_in_env(data->envp, get_in_env(data->envp, "HOME"), "PWD");

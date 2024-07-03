@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:37:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:17:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef enum s_types
 	append, //ok
 	expander,
 	is_pipe,
-	space,
+	here_doc,
 	not_expander,
 }				t_types;
 
@@ -125,16 +125,72 @@ typedef struct s_tree_exec
 	char		*cmd;
 	char		**argv;
 }				t_tree_exec;
+typedef enum e_tree_type
+{
+	t_exec,
+	t_redir,
+	t_pipe
+}				t_tree_type;
+
+//tree structs
+
+typedef struct s_token
+{
+	char		*str;
+	t_types		type;
+	t_builtins	builtin;
+	struct s_token		*next;
+}				t_token;
+
+typedef struct s_tree_cmd
+{
+	t_token		*token;
+	t_tree_type	type;
+}				t_tree_cmd;
+
+typedef struct s_tree_pipe
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*left;
+	t_tree_cmd	*right;
+}				t_tree_pipe;
+
+typedef struct s_tree_red
+{
+	t_token		*token;
+	t_tree_type	type;
+	t_tree_cmd	*tree;
+	char		*file;
+	int			mode;
+	int			fd;
+	int			perm;
+}				t_tree_red;
+
+typedef struct s_tree_exec
+{
+	t_token		*token;
+	t_tree_type	type;
+	char		*cmd;
+	char		**argv;
+}				t_tree_exec;
 
 typedef struct s_envp
 {
-	char *key;
-	char *value;
-	//flag visivel;
-	struct s_envp *next;
+	char			*key;
+	char			*value;
+	int				invisible;
+	struct s_envp	*next;
 }					t_envp;
 
 
+// typedef struct s_token
+// {
+// 	char		*str;
+// 	t_types		type;
+// 	t_builtins	builtin;
+// 	struct s_token		*next;
+// }				t_token;
 
 typedef struct s_data
 {
@@ -166,6 +222,7 @@ void	get_pwd(t_token *token);
 // SRC/BUILTIN/GET_CD
 void	get_cd(t_data *data);
 char	*get_in_env(t_envp *envp, char *key);
+t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
 
 // SRC/BUILTIN/GET_BUILTIN_ENV
 void	get_builtin_env(t_data *data);
@@ -174,16 +231,25 @@ void	display_env(t_envp *envp);
 // SRC/BUILTINS/GET_EXIT
 void	get_exit(t_data *data);
 
-// SRC/BUILTIN/GET_EXPORT
+
+// SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data);
 t_envp	*duplicate_envp_list(t_envp *env);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
-// SRC/BUILTIN/GET_EXPORT_UTILS
+// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS
 void	display_env_export(t_envp *envp);
 void	print_export(t_envp *env);
 t_envp	*find_last_node(t_envp *lst);
+bool	is_valid_export(t_token *token);
+void	export_error_identifier(t_token *token);
+
+// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
+char	*find_key(char *str);
+bool	is_invalid_token(char *key);
+t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
+t_envp	*organize_envp_list(t_envp *duplicate_env);
 
 // SRC/BUILTIN/GET_UNSET
 void	get_unset(t_data *data);
@@ -191,7 +257,7 @@ void	get_unset(t_data *data);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
-//void	init_next_token(t_token *token, char *buffer, int len);
+void	init_next_token(t_token *token, int len);
 void	init_data(t_data *data, char *buffer);
 void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);
@@ -282,7 +348,7 @@ t_data	*debug_get_builtin_type(t_data *data);
 void	ft_free_data(t_data *data, int option);
 void	free_env(t_envp *envp);
 void	free_token(t_token *token);
-
+void	free_data(t_data *data);
 
 // SRC/ERROR/PRINT_ERROR
 void	print_error(char *error_type, int error_code);
@@ -354,35 +420,5 @@ int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
-
-//Execution
-
-/* void	tree_struct(t_data *data);
-t_tree_cmd	*pipe_struct(t_data *data, t_token *token);
-t_tree_cmd	*exec_struct(t_data *data, t_token *token);
-void	get_exec(t_data *data, t_tree_exec *cmd, char *arg);
-t_tree_cmd	*redir_struct(t_data *data, t_tree_cmd *tree_cmd);
-t_tree_cmd	*const_pipe(t_data *data, t_tree_cmd *left, t_tree_cmd *right);
-t_tree_cmd	*const_redir(t_tree_cmd *scmd, char *file, int mode, int fd);
-t_tree_cmd	*get_red(t_tree_cmd *red_cmd);
-t_tree_cmd	*const_exec(t_data *data, t_token *token);
-int	count_args(t_data *data, t_token *token);
-void pipe_child_execution(t_data *data, t_tree_cmd *tree, int fd[2], int proc);
-void	safe_pipe(int fd[2], t_data *data);
-void	safe_execve(t_data *data, t_tree_exec *exec);
-char	**change_env(t_envp *envp);
-int		safe_fork(t_data *data);
-void	execution(t_data *data);
-void	executing_tree(t_data *data, t_tree_cmd *tree);
-void	pipe_execution(t_data *data, t_tree_cmd *tree);
-void	redir_execution(t_data *data, t_tree_cmd *tree);
-void	exec_execution(t_data *data, t_tree_cmd *tree);
-void	cmd_execution(t_data *data, t_tree_exec *tree);
-char	*get_path(t_data *data, char *cmd);
-void	free_token(t_token *token);
-void	clean(t_data *data, int ex); */
-
-void	execution_pipes(t_data *data);
-bool	nbr_pipes(t_data *data);
 
 #endif
