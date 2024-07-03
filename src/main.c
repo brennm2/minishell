@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 17:29:59 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:55:54 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void init_commands(char *buffer, t_data *data)
 	remove_quotes(data);
 	tokenize(data);
 	//debug_print_list(data);
-	use_command(data, data->token);
-	free_token(data->token);
+	//use_command(data, data->token);
+	//free_token(data->token);
 	//execution(data);
 }
 
@@ -87,12 +87,12 @@ int main(int argc, char **argv, char **envp)
 			init_commands(buffer, data);
 			//free(buffer);
 			//debug_print_list(data);
-			if (safe_fork(data) == 0)
-				execution(data);
+			if (nbr_pipes(data))
+				execution_pipes(data);
 			//free_token(data->token);
 		}
 		free(buffer);
-		waitpid(0, NULL, 0);
+		//waitpid(0, NULL, 0);
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		
 		//ft_free_data(data, 1);

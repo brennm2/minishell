@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 17:30:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 14:56:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_env(t_envp *envp)
         envp = temp_envp;
     }
 }
-void	free_data(t_data *data)
+/* void	free_data(t_data *data)
 {
 	free(data->home);
 	data->home = NULL;
@@ -54,7 +54,7 @@ void	free_data(t_data *data)
 	//free(data->envp);
 	free(data);
 	data = NULL;
-}
+} */
 
 void	ft_free_data(t_data *data, int option)
 {
@@ -119,8 +119,6 @@ void	clean(t_data *data, int ex)
 		exit(1);
 	free_env(data->envp);
 	free_token(data->token);
-	if (data->tree)
-		free_tree(data->tree);
 	rl_clear_history();
 	exit(ex);
 }

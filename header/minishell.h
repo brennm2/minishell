@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 17:29:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:37:38 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ typedef struct s_data
 {
 	t_envp *envp;
 	t_token *token;
+	char	*home;
 	struct s_data	*next;
 }				t_data;
 
@@ -190,7 +191,7 @@ void	get_unset(t_data *data);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
-void	init_next_token(t_token *token, char *buffer, int len);
+//void	init_next_token(t_token *token, char *buffer, int len);
 void	init_data(t_data *data, char *buffer);
 void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);
@@ -356,7 +357,7 @@ void	after_reds(t_data *data);
 
 //Execution
 
-void	tree_struct(t_data *data);
+/* void	tree_struct(t_data *data);
 t_tree_cmd	*pipe_struct(t_data *data, t_token *token);
 t_tree_cmd	*exec_struct(t_data *data, t_token *token);
 void	get_exec(t_data *data, t_tree_exec *cmd, char *arg);
@@ -379,6 +380,9 @@ void	exec_execution(t_data *data, t_tree_cmd *tree);
 void	cmd_execution(t_data *data, t_tree_exec *tree);
 char	*get_path(t_data *data, char *cmd);
 void	free_token(t_token *token);
-void	clean(t_data *data, int ex);
+void	clean(t_data *data, int ex); */
+
+void	execution_pipes(t_data *data);
+bool	nbr_pipes(t_data *data);
 
 #endif
