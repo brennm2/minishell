@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/01 12:55:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:02:03 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ void	env_error_option(t_data *data)
 
 void	display_env(t_envp *envp)
 {
+	if (get_in_env(envp, "PATH") == NULL) // Se nao encontrar o PATH
+	{
+		//bash: env: No such file or directory
+		ft_putstr_fd("minishell: env: No such file or directory\n", 2);
+		return (print_error(NULL, 127));
+	}
 	while (envp)
 	{
 		if (envp->invisible == 0)

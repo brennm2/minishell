@@ -6,11 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/01 14:05:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:32:22 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	export_error_identifier(t_token *token)
 {
@@ -76,5 +76,4 @@ void	print_export(t_envp *env)
 	duplicate_env = organize_envp_list(duplicate_env);
 	display_env_export(duplicate_env);
 	free_env(duplicate_env);
-	//free(duplicate_env); // #TODO Free correto do dup;
 }
