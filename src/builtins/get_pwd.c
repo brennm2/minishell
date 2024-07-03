@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:45:52 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/19 15:29:36 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:52:32 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	get_pwd(t_token *token)
 		}
 	}
 	ft_putstr_fd(pwd, 1);
-	//write(1, pwd, ft_strlen(pwd));
 	ft_putchar_fd('\n', 1);
 	return (set_exit_code(0));
 }

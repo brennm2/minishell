@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 14:59:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 10:51:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	search_command(char *buffer, t_data *data)
 void	use_command(t_data *data, t_token *token)
 {
 	if(token->type == builtin)
-		get_builtin(data, token);
+		get_builtin(data);
 	else
 		command_not_found(data->token);
 }
