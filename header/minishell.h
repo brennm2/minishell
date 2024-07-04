@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:35:43 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:52:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libs/libft.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <signal.h>
 # include <linux/limits.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -164,24 +165,27 @@ void	init_commands(char *buffer, t_data *data);
 void	get_builtin(t_data *data);
 void	command_not_found(t_token *token);
 
-// SRC/BUILTIN/GET_ECHO
+// SRC/BUILTIN/ECHO/GET_ECHO
 void	get_echo(t_token *token, t_data *data);
 
-// SRC/BUILTIN/GET_PWD
+// SRC/BUILTIN/PWD/GET_PWD
 void	get_pwd(t_token *token);
 
-// SRC/BUILTIN/GET_CD
+// SRC/BUILTIN/CD/GET_CD
 void	get_cd(t_data *data);
+
+// SRC/BUILTIN/CD/GET_CD_UTILS
+void	cd_error_invalid_option(t_data *data);
+void	cd_error_invalid_file(t_data *data);
 char	*get_in_env(t_envp *envp, char *key);
 t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
 
-// SRC/BUILTIN/GET_BUILTIN_ENV
+// SRC/BUILTIN/ENV/GET_ENV
 void	get_builtin_env(t_data *data);
 void	display_env(t_envp *envp);
 
-// SRC/BUILTINS/GET_EXIT
+// SRC/BUILTINS/EXIT/GET_EXIT
 void	get_exit(t_data *data);
-
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data);
@@ -202,9 +206,12 @@ bool	is_invalid_token(char *key);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
-// SRC/BUILTIN/GET_UNSET
+// SRC/BUILTIN/UNSET/GET_UNSET
 void	get_unset(t_data *data);
 
+
+// SRC/SIGNAL/SIGNAL
+void	ft_catch_signal(int fd);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);

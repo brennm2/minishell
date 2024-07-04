@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 10:48:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:02:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ void	command_not_found(t_token *token)
 	ft_putstr_fd(token->str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	set_exit_code(127);
-	
 }
 
 void	get_builtin(t_data *data)
 {
-	if(data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
+	if (data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
 		get_echo(data->token->next, data);
 	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
 		get_pwd(data->token);
@@ -40,6 +39,5 @@ void	get_builtin(t_data *data)
 		&& !ft_strcmp(data->token->str, "unset"))
 		get_unset(data);
 	else
-		command_not_found(data->token); //#TODO Verificar se isso pode ficar aqui
-
+		command_not_found(data->token);
 }

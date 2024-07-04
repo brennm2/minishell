@@ -6,20 +6,20 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 12:02:03 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:05:40 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	env_error_invalid(t_data *data)
 {
 	write(2, "env: invalid option -- ", 23);
 	write(2, "'", 1);
-	write(2, &data->token->next->str[1], 1); //Escreve um caracter da flag
+	write(2, &data->token->next->str[1], 1);
 	write(2, "'", 1);
 	write(2, "\n", 1);
-	print_error(NULL, 125); //Escreva o erro
+	print_error(NULL, 125);
 }
 
 void	env_error_option(t_data *data)
@@ -34,9 +34,8 @@ void	env_error_option(t_data *data)
 
 void	display_env(t_envp *envp)
 {
-	if (get_in_env(envp, "PATH") == NULL) // Se nao encontrar o PATH
+	if (get_in_env(envp, "PATH") == NULL)
 	{
-		//bash: env: No such file or directory
 		ft_putstr_fd("minishell: env: No such file or directory\n", 2);
 		return (print_error(NULL, 127));
 	}
@@ -58,7 +57,6 @@ void	get_builtin_env(t_data *data)
 {
 	t_envp	*temp_env;
 
-	//data->token->next->type = flag;
 	temp_env = data->envp;
 	if (data->token->next) // Se for "env ..."
 	{

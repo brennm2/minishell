@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pwd.c                                          :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 10:45:52 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:18:29 by bde-souz         ###   ########.fr       */
+/*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
+/*   Updated: 2024/07/04 14:04:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	get_pwd(t_token *token)
+void	signal_main(int signal_num)
 {
-	char	pwd[PATH_MAX];
+	(void)signal_num;
+	ft_putendl_fd("^C", signal_num);
+}
 
-	getcwd(pwd, sizeof(pwd));
-	if (token->next)
-	{
-		if (token->next->str[0] == '-')
-		{
-			write(2, "minishell: pwd: -", 17);
-			write(2, &token->next->str[1], 1);
-			write(2, ": invalid option\n", 17);
-			print_error(NULL, 2);
-			return ;
-		}
-	}
-	ft_putstr_fd(pwd, 1);
-	ft_putchar_fd('\n', 1);
-	return (set_exit_code(0));
+void	ft_catch_signal(int fd)
+{
+	if (fd == 1)
+		signal(SIGINT, signal_main);
 }

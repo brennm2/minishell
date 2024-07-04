@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 10:51:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:46:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ int main(int argc, char **argv, char **envp)
 	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	while(1)
 	{
+		ft_catch_signal(1);
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
+		
 		if (valid_input(buffer))
 		{
 			init_commands(buffer, data);
