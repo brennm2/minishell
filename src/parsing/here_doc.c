@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/18 18:11:12 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:38:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	open_here_doc(char *delimiter)
 {
 	char *buffer;
 
-	//buffer = ft_strdup("");
 	while (1)
 	{
 		buffer = readline("> ");
 		if (!ft_strcmp(delimiter, buffer))
 			return ;
+		printf("%s\n", buffer);
 	}	
 }
 

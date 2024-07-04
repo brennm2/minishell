@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 14:39:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:38:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-	/* if (is_here_doc(data))
+/* 	if (is_here_doc(data))
 		return ; */
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
-	debug_print_list(data);
+	//debug_print_list(data);
 	use_command(data, data->token);
-	free_token(data->token);
+	//free_token(data->token);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -86,19 +86,10 @@ int main(int argc, char **argv, char **envp)
 		if (valid_input(buffer))
 		{
 			init_commands(buffer, data);
-			//free(buffer);
-			//debug_print_list(data);
-		/* 	if (nbr_pipes(data))
+			/* if (nbr_pipes(data))
 				execution_pipes(data); */
-			//free_token(data->token);
 		}
-		free(buffer);
-		//waitpid(0, NULL, 0);
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
-		
-		//ft_free_data(data, 1);
 	}
-	//free_env(data->envp);
-	//ft_free_data(data, 1);
 }
 //valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell

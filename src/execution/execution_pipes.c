@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 14:57:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/03 16:33:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:31:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,18 @@ t_token	*pipe_separator(t_data *data, t_token *token)
 
 void	split_pipes(t_data *data)
 {
-	t_data	*first;
+	t_data	*data_aux;
 	t_token *token_aux;
 	
-	first = data;
+	data_aux = data;
 	token_aux = data->token;
 	while (token_aux)
 	{
 		if (token_aux->next && token_aux->next->type == is_pipe)
-			token_aux = pipe_separator(data, token_aux);
+		{
+			token_aux = pipe_separator(data_aux, token_aux);
+			data_aux = data_aux->next;	
+		}
 		else
 			token_aux = token_aux->next;
 	}
@@ -63,15 +66,18 @@ void	split_pipes(t_data *data)
 
 void	debbug_list_data(t_data *data)
 {
-	while (data)
+	t_data	*data_aux;
+	
+	data_aux = data;
+	while (data_aux)
 	{
-		debug_print_list(data);
-		data = data->next;
+		debug_print_list(data_aux);
+		data_aux = data_aux->next;
 	}
 }
 
 void	execution_pipes(t_data *data)
 {
 	split_pipes(data);
-	//debbug_list_data(data);
+	debbug_list_data(data);
 }
