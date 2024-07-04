@@ -27,6 +27,7 @@ SRC = src/main.c \
 	src/builtins/export/get_export_utils.c \
 	src/builtins/export/get_export_utils_2.c \
 	src/builtins/unset/get_unset.c \
+	src/signal/signal.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
@@ -62,6 +63,7 @@ $(OBJ_DIR):
 		mkdir -p $(OBJ_DIR)/src/builtins/exit
 		mkdir -p $(OBJ_DIR)/src/builtins/pwd
 		mkdir -p $(OBJ_DIR)/src/builtins/unset
+		mkdir -p $(OBJ_DIR)/src/signal
 		mkdir -p $(OBJ_DIR)/src/parsing
 		mkdir -p $(OBJ_DIR)/src/error
 		mkdir -p $(OBJ_DIR)/src/debug

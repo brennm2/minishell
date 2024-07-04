@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 12:14:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 13:52:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libs/libft.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <signal.h>
 # include <linux/limits.h>
 # include <fcntl.h>
 # include <stdbool.h>
@@ -186,7 +187,6 @@ void	display_env(t_envp *envp);
 // SRC/BUILTINS/EXIT/GET_EXIT
 void	get_exit(t_data *data);
 
-
 // SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data);
 t_envp	*duplicate_envp_list(t_envp *env);
@@ -209,6 +209,9 @@ t_envp	*organize_envp_list(t_envp *duplicate_env);
 // SRC/BUILTIN/UNSET/GET_UNSET
 void	get_unset(t_data *data);
 
+
+// SRC/SIGNAL/SIGNAL
+void	ft_catch_signal(int fd);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
