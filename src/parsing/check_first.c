@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/26 16:42:05 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:24:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,47 +242,48 @@ bool	check_for_syntax_error(char *buffer)
 	return (true);
 }
 
-bool	redirect_count(char *buffer)
-{
-	bool s_quotes;
-	bool d_quotes;
-	int i;
-	int red_count;
+// bool	redirect_count(char *buffer)
+// {
+// 	bool s_quotes;
+// 	bool d_quotes;
+// 	int i;
+// 	int red_count;
 
-	s_quotes = false;
-	d_quotes = false;
-	i = 0;
-	red_count = 0;
-	while(buffer[i])
-	{
-		if (buffer[i] == S_QUOTES)
-			s_quotes = !s_quotes;
-		else if (buffer[i] == D_QUOTES)
-			d_quotes = !d_quotes;
-		else if ((buffer[i] == '>' || buffer[i] == '<') && !d_quotes && !s_quotes)
-			red_count++;
-		if (red_count > 2)
-		{
-			printf("error red count: %d\n", red_count);
-			return (true);
-		}
-		i++;
-	}
-	return (false);
-}
+// 	s_quotes = false;
+// 	d_quotes = false;
+// 	i = 0;
+// 	red_count = 0;
+// 	while(buffer[i])
+// 	{
+// 		if (buffer[i] == S_QUOTES)
+// 			s_quotes = !s_quotes;
+// 		else if (buffer[i] == D_QUOTES)
+// 			d_quotes = !d_quotes;
+// 		else if ((buffer[i] == '>' || buffer[i] == '<') && !d_quotes && !s_quotes)
+// 			red_count++;
+// 		if (red_count > 2)
+// 		{
+// 			printf("error red count: %d\n", red_count);
+// 			return (true);
+// 		}
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
 
-bool	valid_input(char *buffer)
+bool	valid_input(char *buffer, t_data *data)
 {
 	if (!buffer || buffer == NULL)
 	{
-		printf("Buffer nao existe\n"); //#TODO <-- Retirar
-		//free
-		//print error
+		free_env(data->envp);
+		//free_token(data->token);
+		free_data(data);
+		ft_putstr_fd("exit\n", 2);
 		exit (G_EXIT_CODE);
 	}
 	if(is_all_space(buffer) || check_for_quotes(buffer)
-		|| redirect_count(buffer) || !check_for_syntax_error(buffer)) // retirar o "redirect_count"
+		|| !check_for_syntax_error(buffer)) // retirar o "redirect_count"
 			return (false);
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 14:39:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:04:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
-	debug_print_list(data);
 	use_command(data, data->token);
 	free_token(data->token);
 }
@@ -83,7 +82,7 @@ int main(int argc, char **argv, char **envp)
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
 		
-		if (valid_input(buffer))
+		if (valid_input(buffer, data))
 		{
 			init_commands(buffer, data);
 			//free(buffer);
@@ -93,6 +92,7 @@ int main(int argc, char **argv, char **envp)
 			//free_token(data->token);
 		}
 		free(buffer);
+		buffer = NULL;
 		//waitpid(0, NULL, 0);
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 		

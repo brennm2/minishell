@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 14:39:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:36:33 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST
-bool	valid_input(char *buffer);
+bool	valid_input(char *buffer, t_data *data);
 
 
 /* ************************************************************************** */

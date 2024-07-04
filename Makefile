@@ -88,7 +88,7 @@ norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
 valgrind:
-	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=sup --tool=memcheck ./minishell
+	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
 
 define SUP_BODY
