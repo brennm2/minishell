@@ -42,7 +42,8 @@ SRC = src/main.c \
 	src/parsing/utils.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c \
-	src/parsing/redirects.c
+	src/parsing/redirects.c \
+	src/execution/execution_pipes.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -52,25 +53,10 @@ all: $(NAME) sup_file
 $(LIBFT):
 		$(MAKE) -C ./libs/
 
-$(OBJ_DIR):
-		mkdir -p $(OBJ_DIR)
-		mkdir -p $(OBJ_DIR)/src
-		mkdir -p $(OBJ_DIR)/src/builtins
-		mkdir -p $(OBJ_DIR)/src/builtins/export
-		mkdir -p $(OBJ_DIR)/src/builtins/cd
-		mkdir -p $(OBJ_DIR)/src/builtins/echo
-		mkdir -p $(OBJ_DIR)/src/builtins/env
-		mkdir -p $(OBJ_DIR)/src/builtins/exit
-		mkdir -p $(OBJ_DIR)/src/builtins/pwd
-		mkdir -p $(OBJ_DIR)/src/builtins/unset
-		mkdir -p $(OBJ_DIR)/src/signal
-		mkdir -p $(OBJ_DIR)/src/parsing
-		mkdir -p $(OBJ_DIR)/src/error
-		mkdir -p $(OBJ_DIR)/src/debug
-
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-	$(CC) $(CCFLAGS) -c $< -o $@
-
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) -c $< -o $@
+#verificar o $(CC) $(CCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 12:40:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:56:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,14 @@ void	ft_free_data(t_data *data, int option)
 		
 		data = temp_data;
 	}
+}
+
+void	clean(t_data *data, int ex)
+{
+	if (!data)
+		exit(1);
+	free_env(data->envp);
+	free_token(data->token);
+	rl_clear_history();
+	exit(ex);
 }

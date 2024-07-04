@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/03 12:21:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:27:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void	is_expand(t_token *token, t_envp *envp, char *home)
 		{
 			is_expand_util(token, envp, i, j);
 			i = -1;
+			continue ;
 		}
-		if (token->str[i] == '~' && !token->str[i - 1] && quote_status(token->str, i) >= 0)
+		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, home);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 13:52:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:39:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
 
 // ----- COLORS -----
 # define C_BLUE "\e[1;34m"
@@ -75,15 +77,6 @@ typedef enum s_types
 	not_expander,
 }				t_types;
 
-typedef enum e_tree_type
-{
-	t_exec,
-	t_redir,
-	t_pipe
-}				t_tree_type;
-
-//tree structs
-
 typedef struct s_token
 {
 	char		*str;
@@ -91,39 +84,6 @@ typedef struct s_token
 	t_builtins	builtin;
 	struct s_token		*next;
 }				t_token;
-
-typedef struct s_tree_cmd
-{
-	t_token		*token;
-	t_tree_type	type;
-}				t_tree_cmd;
-
-typedef struct s_tree_pipe
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*left;
-	t_tree_cmd	*right;
-}				t_tree_pipe;
-
-typedef struct s_tree_red
-{
-	t_token		*token;
-	t_tree_type	type;
-	t_tree_cmd	*tree;
-	char		*file;
-	int			mode;
-	int			fd;
-	int			perm;
-}				t_tree_red;
-
-typedef struct s_tree_exec
-{
-	t_token		*token;
-	t_tree_type	type;
-	char		*cmd;
-	char		**argv;
-}				t_tree_exec;
 
 typedef struct s_envp
 {
@@ -133,22 +93,11 @@ typedef struct s_envp
 	struct s_envp	*next;
 }					t_envp;
 
-
-// typedef struct s_token
-// {
-// 	char		*str;
-// 	t_types		type;
-// 	t_builtins	builtin;
-// 	struct s_token		*next;
-// }				t_token;
-
 typedef struct s_data
 {
-
 	t_envp *envp;
 	t_token *token;
 	char	*home;
-	t_tree_cmd	*tree;
 	struct s_data	*next;
 }				t_data;
 
@@ -378,5 +327,9 @@ int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
+
+//execution
+bool	nbr_pipes(t_data *data);
+void	execution_pipes(t_data *data);
 
 #endif
