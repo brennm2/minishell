@@ -3,28 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/06/21 18:31:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:05:16 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	put_token_str(t_token *token, t_data *data)
 {
-	// ~ expande na funcao expand
-/* 	if (token->str[0] == '~'
-		&& (token->str[1] == '\0' || token->str[1] == '/')) //#TODO Revisar essa condicao
-	{
-		ft_putstr_fd(get_in_env(data->envp, "HOME"), 1);
-		ft_putstr_fd(&token->str[1], 1);
-		if (token->next)
-			write(1, " ", 1);
-	}
-	else  */if (token->str[0] == '~'
-		&& (token->str[1] == '-' || token->str[1] == '+')) //#TODO Revisar essa condicao
+	if (token->str[0] == '~'
+		&& (token->str[1] == '-' || token->str[1] == '+'))
 	{
 		if (token->str[1] == '+')
 			ft_putstr_fd(get_in_env(data->envp, "PWD"), 1);
@@ -44,7 +35,7 @@ void	put_token_str(t_token *token, t_data *data)
 
 int	get_echo_flag(t_token *token)
 {
-	if(ft_strcmp(token->str, "-n") == 0) //Se a flag for -n
+	if (ft_strcmp(token->str, "-n") == 0) //Se a flag for -n
 		return (1);
 	else
 	{
@@ -55,14 +46,14 @@ int	get_echo_flag(t_token *token)
 
 bool	is_all_flag(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 2;
-	if(token->str[0] == '-' && token->str[1] == 'n') //se for "-n..."
+	if (token->str[0] == '-' && token->str[1] == 'n') //se for "-n..."
 	{
-		while(token->str[i]) // Enquanto a str existir
+		while (token->str[i]) // Enquanto a str existir
 		{
-			if(token->str[i] == 'n') // se a posicao atual for "n"
+			if (token->str[i] == 'n') // se a posicao atual for "n"
 				i++;
 			else
 				return (false); // se for diferente de "n", entao nao e uma flag valida
@@ -73,36 +64,38 @@ bool	is_all_flag(t_token *token)
 	return (true); // se andou por toda string e nao achou alem de "n"
 }
 
+void	handle_token(t_token **token, t_data *data)
+{
+	while (*token && ((*token)->type == string || (*token)->type == not_expander
+			|| (*token)->type == expander))
+	{
+		put_token_str(*token, data);
+		*token = (*token)->next;
+	}
+}
 
 void	get_echo(t_token *token, t_data *data)
 {
-	int		t_flag;
-	
+	int	t_flag;
+
 	t_flag = 0;
-	while(token)
+	while (token)
 	{
-		if (token->str[0] == '-' && token->str[1] == 'n') // verifica se o node atual e uma "-n"
+		if (token->str[0] == '-' && token->str[1] == 'n'
+			&& is_all_flag(token) == true)
 		{
-			if(is_all_flag(token) == true)
-			{
-				token->type = flag;
-				t_flag = 1;
-			}
+			token->type = flag;
+			t_flag = 1;
 		}
-		while (token->type == flag) //Se for uma flag
+		while (token->type == flag)
 		{
 			token = token->next;
 			if (!token)
-				break;
-			if(is_all_flag(token) == true)
+				break ;
+			if (is_all_flag(token) == true)
 				token->type = flag;
 		}
-		while (token && (token->type == string
-			|| token->type == not_expander || token->type == expander))
-		{
-			put_token_str(token, data);
-			token = token->next;
-		}
+		handle_token(&token, data);
 	}
 	if (t_flag == 0)
 		write(1, "\n", 1);

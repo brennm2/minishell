@@ -6,11 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 10:45:52 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:18:29 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 12:11:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	get_pwd(t_token *token)
 {

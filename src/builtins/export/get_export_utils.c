@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 15:32:22 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/04 10:14:34 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	display_env_export(t_envp *envp)
 {
 	while (envp)
 	{
-		if(envp->invisible == 0)
+		if (envp->invisible == 0)
 		{
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(envp->key, 1);
@@ -70,7 +70,7 @@ void	display_env_export(t_envp *envp)
 
 void	print_export(t_envp *env)
 {
-	t_envp *duplicate_env;
+	t_envp	*duplicate_env;
 
 	duplicate_env = duplicate_envp_list(env);
 	duplicate_env = organize_envp_list(duplicate_env);

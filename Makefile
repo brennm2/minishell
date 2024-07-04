@@ -17,15 +17,16 @@ NC=\033[0m
 SRC = src/main.c \
 	src/utils.c \
 	src/builtins/get_builtins.c \
-	src/builtins/get_echo.c \
-	src/builtins/get_pwd.c \
-	src/builtins/get_cd.c \
-	src/builtins/get_env.c \
-	src/builtins/get_exit.c \
+	src/builtins/echo/get_echo.c \
+	src/builtins/pwd/get_pwd.c \
+	src/builtins/cd/get_cd.c \
+	src/builtins/cd/get_cd_utils.c \
+	src/builtins/env/get_env.c \
+	src/builtins/exit/get_exit.c \
 	src/builtins/export/get_export.c \
 	src/builtins/export/get_export_utils.c \
 	src/builtins/export/get_export_utils_2.c \
-	src/builtins/get_unset.c \
+	src/builtins/unset/get_unset.c \
 	src/parsing/parsing.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
@@ -55,13 +56,19 @@ $(OBJ_DIR):
 		mkdir -p $(OBJ_DIR)/src
 		mkdir -p $(OBJ_DIR)/src/builtins
 		mkdir -p $(OBJ_DIR)/src/builtins/export
+		mkdir -p $(OBJ_DIR)/src/builtins/cd
+		mkdir -p $(OBJ_DIR)/src/builtins/echo
+		mkdir -p $(OBJ_DIR)/src/builtins/env
+		mkdir -p $(OBJ_DIR)/src/builtins/exit
+		mkdir -p $(OBJ_DIR)/src/builtins/pwd
+		mkdir -p $(OBJ_DIR)/src/builtins/unset
 		mkdir -p $(OBJ_DIR)/src/parsing
 		mkdir -p $(OBJ_DIR)/src/error
 		mkdir -p $(OBJ_DIR)/src/debug
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	$(CC) $(CCFLAGS) -c $< -o $@
-#verificar o $(CC) $(CCFLAGS) -c $< -o $@
+
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
