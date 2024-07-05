@@ -43,7 +43,10 @@ SRC = src/main.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c \
 	src/parsing/redirects.c \
-	src/execution/execution_pipes.c
+	src/execution/execution_pipes.c \
+	src/execution/command_execution.c \
+	src/execution/exec_utils.c \
+	src/execution/path.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)

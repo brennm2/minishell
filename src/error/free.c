@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 16:56:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:01:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,3 +93,18 @@ void	clean(t_data *data, int ex)
 	rl_clear_history();
 	exit(ex);
 }
+
+void	*ptr_free(char **ptr)
+{	
+	int i;
+
+	i = 0;	
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
+	return (NULL);
+}
+

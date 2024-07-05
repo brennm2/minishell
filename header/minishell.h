@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 14:39:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:01:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,5 +331,11 @@ void	after_reds(t_data *data);
 //execution
 bool	nbr_pipes(t_data *data);
 void	execution_pipes(t_data *data);
+void	cmd_execution(t_data *data);
+char	*get_path(t_data *data, char *cmd);
+int	safe_fork(t_data *data);
+void	safe_execve(t_data *data, char **argv, char *path);
+void	safe_pipe(int fd[2], t_data *data);
+void	*ptr_free(char **ptr);
 
 #endif
