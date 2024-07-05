@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 15:48:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:16:45 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void init_commands(char *buffer, t_data *data)
 	search_command(buffer, data);
 /* 	if (is_here_doc(data))
 		return ; */
-	expand(data);
 	tokenize(data);
+	expand(data);
 	remove_quotes(data);
 	use_command(data, data->token);
 	free_token(data->token);
