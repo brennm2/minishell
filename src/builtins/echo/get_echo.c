@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 12:08:35 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:37:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,19 @@ bool	is_all_flag(t_token *token)
 	return (true); // se andou por toda string e nao achou alem de "n"
 }
 
+// void	handle_token(t_token **token, t_data *data)
+// {
+// 	while (*token && ((*token)->type == string || (*token)->type == not_expander
+// 			|| (*token)->type == expander))
+// 	{
+// 		put_token_str(*token, data);
+// 		*token = (*token)->next;
+// 	}
+// }
+
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && ((*token)->type == string || (*token)->type == not_expander
-			|| (*token)->type == expander))
+	while (*token && (!((*token)->type == flag)))
 	{
 		put_token_str(*token, data);
 		*token = (*token)->next;

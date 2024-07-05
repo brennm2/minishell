@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 16:24:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:03:55 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,16 +190,18 @@ bool	check_for_quotes(char *buffer) // Procura por D_QUOTES ou S_QUOTES nao fech
 		return (false);
 }
 
-
-
 bool	check_for_double_pipes(char *buffer)
 {
 	int i;
+	bool in_quotes;
 
 	i = 0;
+	in_quotes = false;
 	while(buffer[i])
 	{
-		if(buffer[i] == '|' && buffer[i + 1] != '|')
+		if(buffer[i] == '\'')
+			in_quotes = !in_quotes;
+		if(!in_quotes && buffer[i] == '|' && buffer[i + 1] != '|')
 		{
 			i++;
 			while(buffer[i] == ' ')
@@ -212,7 +214,6 @@ bool	check_for_double_pipes(char *buffer)
 		i++;
 	}
 	return false;
-	
 }
 
 

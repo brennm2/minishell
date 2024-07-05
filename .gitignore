@@ -1,0 +1,7 @@
+# Ignora todos os arquivos .txt
+
+
+# Ignora todos os arquivos na pasta logs
+/minishell_tester/
+
+# Ignora o arquivo especifico debug.log
