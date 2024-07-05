@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 15:36:33 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:45:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ typedef enum s_types
 	is_pipe,
 	here_doc,
 	not_expander,
+	MAIN,
+	CHILD,
+	HERE_DOC,
+	PIPE,
+	IGNORE,
 }				t_types;
 
 typedef struct s_token
