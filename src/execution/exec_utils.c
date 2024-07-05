@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 10:41:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:50:40 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	safe_execve(t_data *data, char **argv, char *path)
 	env = change_env(data->envp);
 	if(execve(path, argv, env) == -1)
 	{
+		printf("entrou aqui\n");
 		perror(path);
 		if (access(argv[0], X_OK))
 			exit(126);
