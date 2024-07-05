@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:12:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,29 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	tokenize(data);
-	//debug_print_list(data);
 	use_command(data, data->token);
 	free_token(data->token);
+}
+
+void	reset_fd_signals(int fd1, int fd2)
+{
+	ft_catch_signal(MAIN);
+	dup2(fd1, STDIN_FILENO);
+	dup2(fd2, STDOUT_FILENO);
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
+
+	int	fd1;
+	int	fd2;
+
+	//
+	fd1 = dup(STDIN_FILENO);
+	fd2 = dup(1);
+	//
 	
 	(void)argc;
 	(void)argv;
@@ -79,16 +93,17 @@ int main(int argc, char **argv, char **envp)
 	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	while(1)
 	{
-		ft_catch_signal(1);
+		reset_fd_signals(fd1, fd2);
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
 		
-		if (valid_input(buffer))
+		if (valid_input(buffer, data))
 		{
 			init_commands(buffer, data);
 			/* if (nbr_pipes(data))
 				execution_pipes(data); */
 		}
+		//free(buffer);
 		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
 	}
 }

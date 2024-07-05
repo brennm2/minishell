@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 12:01:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 12:12:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ typedef enum s_types
 	is_pipe,
 	here_doc,
 	not_expander,
+	MAIN,
+	CHILD,
+	HERE_DOC,
+	PIPE,
+	IGNORE,
 }				t_types;
 
 typedef struct s_token
@@ -170,7 +175,7 @@ void	set_exit_code(int code);
 int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST
-bool	valid_input(char *buffer);
+bool	valid_input(char *buffer, t_data *data);
 
 
 /* ************************************************************************** */
