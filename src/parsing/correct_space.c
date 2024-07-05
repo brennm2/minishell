@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   correct_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:03:06 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 10:25:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:29:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,12 @@ char	*put_space_on(char *buffer, int i)
 char	*check_spaces(char *buffer)
 {
 	int	i;
-	int	quote_flag;
-
-	quote_flag = 1;
+	
 	i = -1;
 	while (buffer[++i])
 	{
-		if (buffer[i] == D_QUOTES || buffer[i] == S_QUOTES)
-			quote_flag *= -1;
 		if ((buffer[i] == '|' || buffer[i] == '>' || buffer[i] == '<' || \
-			(buffer[i] == '>' && buffer[i + 1] == '>')) && quote_flag > 0)
+			(buffer[i] == '>' && buffer[i + 1] == '>')) && quote_status(buffer, i) == 0)
 		{
 			buffer = put_space_on(buffer, i);
 			i += 2;
