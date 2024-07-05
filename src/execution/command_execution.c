@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 09:48:46 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 12:02:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/05 15:39:52 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,5 @@ void	cmd_execution(t_data *data)
 	waitpid(0, &status, 0);
 	ptr_free(argv);
 	free(path);
-	//G_EXIT_CODE = status;
+	G_EXIT_CODE = status;
 }
