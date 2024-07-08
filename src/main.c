@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 15:28:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 10:43:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int	G_EXIT_CODE;
 void	search_command(char *buffer, t_data *data)
 {
 	buffer = check_spaces(buffer);
-	
 	get_split(buffer, data);
+	free(buffer);
 }
 
-void	use_command(t_data *data, t_token *token)
+/* void	use_command(t_data *data, t_token *token)
 {
 	if(token->type == builtin)
 		get_builtin(data);
 	else
 		cmd_execution(data);
-}
+} */
 
 void	debug_print_list_ex(t_data *data)
 {
@@ -59,8 +59,8 @@ void init_commands(char *buffer, t_data *data)
 	tokenize(data);
 	remove_quotes(data);
 	//debug_print_list(data);
-	use_command(data, data->token);
-	free_token(data->token);
+	//use_command(data, data->token);
+	//free_token(data->token);
 }
 
 void	reset_fd_signals(int fd1, int fd2)
@@ -74,6 +74,7 @@ int main(int argc, char **argv, char **envp)
 {
 	char	*buffer;
 	t_data	*data;
+	int		status;
 
 	int	fd1;
 	int	fd2;
@@ -97,15 +98,13 @@ int main(int argc, char **argv, char **envp)
 		reset_fd_signals(fd1, fd2);
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
-		
-		if (valid_input(buffer, data))
-		{
-			init_commands(buffer, data);
-			/* if (nbr_pipes(data))
-				execution_pipes(data); */
-		}
-		//free(buffer);
-		//printf("Exit code: %d\n", G_EXIT_CODE); //DEBUGGER
+		if (!valid_input(buffer, data))
+			get_exit(data);
+		init_commands(buffer, data);
+		if (safe_fork(data) == 0)
+			execution(data);
+		waitpid(0, &status, 0);
+		free_token(data->token);
 	}
 }
-//valgrind --leak-check=full --show-leak-kinds=all --suppressions=supp.supp ./minishell
+
