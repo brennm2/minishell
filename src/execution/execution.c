@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 10:53:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:28:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		if (pid == 0)
 			safe_execve(data, tree);
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			set_exit_code(WEXITSTATUS(status));
 	}
 }
 
@@ -37,7 +39,6 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0])
 		cmd_execution(data, ecmd);
-	G_EXIT_CODE = 0;
 	clean(data, G_EXIT_CODE);	
 }
 

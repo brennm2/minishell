@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 17:47:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:29:13 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ t_data	*init_minishell(int argc, char **argv, char ** envp, t_data *data)
 	return (data);
 }
 
+void	update_exit_code(int status)
+{
+	if (WIFEXITED(status))
+		set_exit_code(WEXITSTATUS(status));
+}
+
 void	loop_minishell(int fd1, int fd2, t_data *data)
 {
 	char	*buffer;
@@ -101,6 +107,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		if (safe_fork(data) == 0)
 			execution(data);
 		waitpid(0, &status, 0);
+		update_exit_code(status);
 		free_token(data->token);
 	}
 }
