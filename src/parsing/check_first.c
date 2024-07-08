@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 13:03:55 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:43:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,9 @@ bool	valid_input(char *buffer, t_data *data)
 	}
 	if(is_all_space(buffer) || check_for_quotes(buffer)
 		|| !check_for_syntax_error(buffer)) // retirar o "redirect_count"
+		{
+			free(buffer);
 			return (false);
+		}
 	return (true);
 }

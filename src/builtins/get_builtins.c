@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 11:19:45 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:48:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	command_not_found(t_token *token)
+void	command_not_found(t_token *token, t_data *data)
 {
 	ft_putstr_fd(token->str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	set_exit_code(127);
+	clean(data, 127);
 }
 
 void	get_builtin(t_data *data)
@@ -38,6 +39,6 @@ void	get_builtin(t_data *data)
 	else if (data->token->builtin == unset
 		&& !ft_strcmp(data->token->str, "unset"))
 		get_unset(data);
-	else
-		command_not_found(data->token);
+	/* else
+		command_not_found(data->token); */
 }

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:21:39 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 10:41:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:54:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	safe_fork(t_data *data)
 	if (pid == -1)
 	{
 		printf("Fork failed\n");
-		exit(1);
+		clean(data, 1);
 	}
 	return (pid);
 }
@@ -56,20 +56,23 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 {
 	char	**env;
 
+	if (!exec->cmd)
+		command_not_found(exec->token, data);
 	env = change_env(data->envp);
 	if(execve(exec->cmd, exec->argv, env) == -1)
 	{
 		perror(exec->cmd);
+		ptr_free(env);
 		if (access(exec->argv[0], X_OK))
-			exit(126);
-		exit(1);
+			clean(data, 126);
+		clean(data, 1);
 	}
 }
 
 void	safe_pipe(int fd[2], t_data *data)
 {
 	if (pipe(fd) < 0)
-		exit(1);
+		clean(data, 1);
 }
 
 void pipe_child_execution(t_data *data, t_tree_root *tree, int fd[2], int proc)

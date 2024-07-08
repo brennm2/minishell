@@ -32,6 +32,7 @@ SRC = src/main.c \
 	src/parsing/moves.c \
 	src/parsing/check_first.c \
 	src/error/free.c \
+	src/error/free_utils.c \
 	src/error/print_error.c \
 	src/debug/debug_commands.c \
 	src/parsing/env.c \
@@ -59,8 +60,7 @@ $(LIBFT):
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) -c $< -o $@
-#verificar o $(CC) $(CCFLAGS) -c $< -o $@
+	$(CC) $(CCFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CCFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline

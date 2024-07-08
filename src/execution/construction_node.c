@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:29:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 10:41:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:31:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	count_args(t_data *data, t_token *token)
 	(void)data;
 	while (aux)
 	{
-		//cont = (t_aux *)token->content;
 		if (aux->type == command || aux->type == builtin || aux->type == string)
 			nbr++;
 		else if (aux->type == is_pipe)

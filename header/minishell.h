@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 10:38:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:49:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void	init_commands(char *buffer, t_data *data);
 
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data);
-void	command_not_found(t_token *token);
+void	command_not_found(t_token *token, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO
 void	get_echo(t_token *token, t_data *data);
@@ -386,7 +386,6 @@ void	safe_execve(t_data *data, char **argv, char *path);
 void	safe_pipe(int fd[2], t_data *data);
 void	*ptr_free(char **ptr); */
 
-void	tree_struct(t_data *data);
 t_tree_root	*pipe_struct(t_data *data, t_token *token);
 t_tree_root	*exec_struct(t_data *data, t_token *token);
 void	get_exec(t_data *data, t_tree_exec *cmd, char *arg);
@@ -410,5 +409,6 @@ void	cmd_execution(t_data *data, t_tree_exec *tree);
 char	*get_path(t_data *data, char *cmd);
 void	free_token(t_token *token);
 void	clean(t_data *data, int ex);
+void	*ptr_free(char **ptr);
 
 #endif
