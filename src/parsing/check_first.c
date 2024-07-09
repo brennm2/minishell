@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 13:03:55 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:53:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,11 +216,21 @@ bool	check_for_double_pipes(char *buffer)
 	return false;
 }
 
+bool	first_character(char *buffer)
+{
+	//ft_strchr("|<>", buffer[0]) 
+	if (ft_strchr("|<>", buffer[0]) && is_all_space(buffer))
+	{
+		return (true);
+	}
+	return (false);
+}
+
 
 bool	check_for_syntax_error(char *buffer)
 {
 	buffer = ft_strtrim(buffer, " \t");
-	if (!buffer || ft_strchr("|<>", buffer[0])
+	if (!buffer || first_character(buffer) //ft_strchr("|<>", buffer[0])
 		|| ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 	{
 		if (buffer)
