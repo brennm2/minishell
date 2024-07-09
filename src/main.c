@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/09 15:19:22 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:23:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-/* 	if (is_here_doc(data))
-		return ; */
+	//debug_print_list(data);
+	is_here_doc(data);
+	//debug_print_list(data);
 	tokenize(data);
 	expand(data);
 	remove_quotes(data);

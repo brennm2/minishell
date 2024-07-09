@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 15:19:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:32:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,34 @@ char	**change_env(t_envp *envp)
 	return (env);
 }
 
+void	empty_cmd(t_data *data, t_tree_exec *exec)
+{
+	if (!ft_strncmp(exec->argv[0], "./", 2))
+	{
+		if (access(exec->argv[0], F_OK) < 0)
+			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
+	}
+	else
+		command_not_found(exec->token, data);
+	clean(data, 127);
+}
+
 void	safe_execve(t_data *data, t_tree_exec *exec)
 {
 	char	**env;
 
 	if (!exec->cmd)
-		command_not_found(exec->token, data);
+		empty_cmd(data, exec);
 	env = change_env(data->envp);
-	if(execve(exec->cmd, exec->argv, env) == -1)
+	if (execve(exec->cmd, exec->argv, env) == -1)
 	{
+		if (access(exec->argv[0], X_OK) == 0)
+		{
+			printf("minishell: %s: Is a directory\n", exec->argv[0]);
+			clean(data, 126);
+		}
 		perror(exec->cmd);
 		ptr_free(env);
-		if (access(exec->argv[0], X_OK))
-			clean(data, 126);
 		clean(data, 1);
 	}
 }

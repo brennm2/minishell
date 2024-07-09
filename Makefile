@@ -43,6 +43,7 @@ SRC = src/main.c \
 	src/parsing/utils.c \
 	src/parsing/remove_quotes.c \
 	src/parsing/here_doc.c \
+	src/parsing/here_doc_expand.c \
 	src/parsing/redirects.c \
 	src/execution/construction_node.c \
 	src/execution/construction_tree.c \

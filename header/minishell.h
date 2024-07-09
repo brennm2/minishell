@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/09 11:41:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:49:21 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,6 +346,7 @@ void	tokenize(t_data *data);
 char	*check_spaces(char *buffer);
 
 void	remove_quotes(t_data *data);
+int		deal_quotes(char *token, int i);
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -370,7 +371,9 @@ int ft_is_especial(int c);
 char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
-bool	is_here_doc(t_data *data);
+void	is_here_doc(t_data *data);
+char	*expand_hd(t_data *data, char *buffer, bool flag);
+char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 int	deal_with_quotes(t_token *token, int i);
 void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
@@ -403,5 +406,6 @@ void	free_token(t_token *token);
 void	clean(t_data *data, int ex);
 void	*ptr_free(char **ptr);
 void	*safe_calloc(size_t bytes, size_t n, t_data *data);
+void	free_token_redir(t_token *token);
 
 #endif

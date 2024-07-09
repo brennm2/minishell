@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 11:56:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:50:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,38 @@ void	free_token_redir(t_token *token)
 	token = NULL;
 }
 
+t_token	*trim_first_redir(t_data *data, t_token *token)
+{
+	t_token	*head;
+	t_token	*dead_token;
+	
+	head = token->next;
+	token->next->type = token->type;
+	dead_token = token;
+	data->token = head;
+	free_token_redir(dead_token);
+	return (data->token);
+}
+
 t_token	*trim_redir(t_data *data, t_token *token)
 {
 	int	type;
-	//t_token	*aux; #TODO func nao utilizada. Retirado devido as flags
 	t_token	*aux_data;
-	t_token	*dead_token; //Criada para guardar o token descartado
+	t_token	*dead_token;
 
 	type = token->type;
 	aux_data = data->token;
+	if (aux_data == token)
+	{
+		aux_data = trim_first_redir(data, token);
+		return (aux_data);
+	}
 	while (aux_data->next != token)
 		aux_data = aux_data->next;
-	dead_token = aux_data->next; // Atribui o valor do token que vai ser descartado
+	dead_token = aux_data->next;
 	aux_data->next = token->next;
 	aux_data->next->type = type;
-	free_token_redir(dead_token); //Limpa o token descartado
-	//free(token);
+	free_token_redir(dead_token);
 	return (aux_data->next);
 }
 
