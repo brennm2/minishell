@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 19:23:31 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:35:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ void init_data(t_data *data, char *buffer)
 void	set_exit_code(int code)
 {
 	G_EXIT_CODE = code;
+}
+
+void	*safe_calloc(size_t bytes, size_t n, t_data *data)
+{
+	void	*var;
+	
+	var = ft_calloc(n, bytes);
+	if (!var)
+	{
+		print_error("Malloc error.", 1);
+		clean(data, 1);
+	}
+	return (var);
 }

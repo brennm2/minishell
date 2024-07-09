@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:14:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 10:52:20 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:18:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_tree_root	*redir_struct(t_data *data, t_tree_root *tree_cmd)
 	token = tree_cmd->token;
 	r_type = token->type;
 	if (r_type == redin || r_type == here_doc)
-		tree_cmd = const_redir(tree_cmd, token->str, O_RDONLY, 0);
+		tree_cmd = const_redir(tree_cmd, token->str, O_RDONLY, STDIN_FILENO);
 	else if (r_type == redout)
-		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_TRUNC, 1);
+		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_TRUNC, STDOUT_FILENO);
 	else if (r_type == append)
-		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_APPEND, 1);
+		tree_cmd = const_redir(tree_cmd, token->str, O_WRONLY | O_CREAT | O_APPEND, STDOUT_FILENO);
 	if (!tree_cmd)
 		clean(data, 1);
 	return (tree_cmd);

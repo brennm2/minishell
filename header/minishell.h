@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 16:49:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:41:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ typedef enum s_builtins
 typedef enum s_types
 {
 	string,
-	flag, // echo -a, imprime -a;
+	flag,
 	command,
-	builtin, //ok
-	redin, //ok
-	redout, //ok
-	append, //ok
+	builtin,
+	redin,
+	redout,
+	append,
 	expander,
 	is_pipe,
 	here_doc,
@@ -376,15 +376,7 @@ void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
 
-//execution
-/* bool	nbr_pipes(t_data *data);
-void	execution_pipes(t_data *data);
-void	cmd_execution(t_data *data);
-char	*get_path(t_data *data, char *cmd);
-int	safe_fork(t_data *data);
-void	safe_execve(t_data *data, char **argv, char *path);
-void	safe_pipe(int fd[2], t_data *data);
-void	*ptr_free(char **ptr); */
+// execution
 
 t_tree_root	*pipe_struct(t_data *data, t_token *token);
 t_tree_root	*exec_struct(t_data *data, t_token *token);
@@ -410,5 +402,6 @@ char	*get_path(t_data *data, char *cmd);
 void	free_token(t_token *token);
 void	clean(t_data *data, int ex);
 void	*ptr_free(char **ptr);
+void	*safe_calloc(size_t bytes, size_t n, t_data *data);
 
 #endif

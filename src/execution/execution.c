@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 19:28:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:21:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,20 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 {
 	int	fd[2];
 	int status;
-	int	pid1;
-	int pid2;
+	int	pid_first;
+	int pid_sec;
 	
 	safe_pipe(fd, data);
-	pid1 = safe_fork(data);
-	if (pid1 == 0)
+	pid_first = safe_fork(data);
+	if (pid_first == 0)
 		pipe_child_execution(data, tree, fd, 1);
-	pid2 = safe_fork(data);
-	if (pid2 == 0)
+	pid_sec = safe_fork(data);
+	if (pid_sec == 0)
 		pipe_child_execution(data, tree, fd, 2);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid1, &status, 0);
-	waitpid(pid2, &status, 0);
+	waitpid(pid_first, &status, 0);
+	waitpid(pid_sec, &status, 0);
 	if (WIFEXITED(status))
 		G_EXIT_CODE = WEXITSTATUS(status);
 	clean(data, G_EXIT_CODE);
