@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/09 11:36:49 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:19:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void init_commands(char *buffer, t_data *data)
 	search_command(buffer, data);
 /* 	if (is_here_doc(data))
 		return ; */
-	expand(data);
 	tokenize(data);
+	expand(data);
 	remove_quotes(data);
 }
 

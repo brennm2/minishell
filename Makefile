@@ -92,7 +92,14 @@ norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
 valgrind:
+	@make
 	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
+
+sync_shell: all		## Test w/ syncshell
+	@echo "[Testing with syncshell]"
+	tmux split-window -h "./$(NAME)"
+	tmux setw synchronize-panes on
+	clear && bash
 
 
 define SUP_BODY
@@ -119,7 +126,7 @@ define SUP_BODY
 endef
 
 sup_file:
-    $(file > sup,$(SUP_BODY))
+	$(file > sup,$(SUP_BODY))
 
 re: fclean all
 
