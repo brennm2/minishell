@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 16:39:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:02:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	clean(t_data *data, int ex)
 		exit(1);
 	free_env(data->envp);
 	free_token(data->token);
+	/* if (data->fd_here_doc)
+		unlink("here_doc_file"); */
 	if (data->tree)
 		free_tree(data->tree);
 	if (data->home)

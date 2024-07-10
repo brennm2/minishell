@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/10 17:09:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:50:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,21 @@ void	after_pipe(t_data *data)
 	}
 }
 
+t_token	*is_red(t_token *token)
+{
+	if (!ft_strcmp(token->str, "<"))
+		token->type = redin;
+	else if (!ft_strcmp(token->str, "<<"))
+		token->type = here_doc;
+	else if (!ft_strcmp(token->str, ">"))
+		token->type = redout;
+	else if (!ft_strcmp(token->str, ">>"))
+		token->type = append;
+	else
+		return (token);
+	return (token->next->next);
+}
+
 void	tokenize(t_data *data)
 {
 	t_token	*token_aux;
@@ -91,12 +106,9 @@ void	tokenize(t_data *data)
 	{
 		if (++i == 0)
 		{
-			if (!ft_strncmp(token_aux->str, "<", 1))
-			{
-				token_aux->type = redin;
-				token_aux = token_aux->next;
-				token_aux = token_aux->next;		
-			}
+			token_aux = is_red(token_aux);
+			if (!token_aux)
+				break ;	
 			which_command(token_aux);
 		}
 		else

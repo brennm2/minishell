@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 20:51:56 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:06:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	open_here_doc(t_data *data, char *delimiter, bool flag)
 {
-	char *buffer;
+	char	*buffer;
+	int		fd;
 
-	FILE *file = fopen("here_doc_file", "w");
+	fd = open("here_doc_file", O_WRONLY | O_APPEND);
+	//data->fd_here_doc = fd;
 	while (1)
 	{
 		buffer = readline("> ");
@@ -27,10 +29,10 @@ void	open_here_doc(t_data *data, char *delimiter, bool flag)
 			break ;
 		}
 		buffer = expand_hd(data, buffer, flag);
-		fprintf(file, "%s\n", buffer);
+		write(fd, buffer, ft_strlen(buffer));
 		free(buffer);
 	}	
-	fclose(file);
+	close(fd);
 }
 
 char	*erase_the_quote_hd(char *delimiter, int i)
