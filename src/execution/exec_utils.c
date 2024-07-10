@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 21:32:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:48:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 {
 	char	**env;
 
+	ft_catch_signal(CHILD);
 	if (!exec->cmd)
 		empty_cmd(data, exec);
 	env = change_env(data->envp);
