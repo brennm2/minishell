@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:46:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 12:01:44 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:40:22 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	cd_error_invalid_file(t_data *data)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(data->token->next->str, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(": ", 2);
+	perror("");
 	print_error(NULL, 1);
 }
 

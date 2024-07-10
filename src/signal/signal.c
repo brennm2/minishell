@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 12:24:33 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:42:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	signal_main(int signal_num)
 	//printf("main\n");
 	if(signal_num == SIGINT)
 	{
+		//ft_putstr_fd("main", 2);
 		rl_replace_line("", 0);
 		ft_putstr_fd("\n", STDERR_FILENO);
 		rl_on_new_line();
@@ -25,31 +26,66 @@ void	signal_main(int signal_num)
 	}
 }
 
+void	signal_child(int signal_num)
+{
+	if(signal_num == SIGINT)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		print_error(NULL, 50);
+	}
+}
+
+void	signal_child_checker(int status)
+{
+	if (WTERMSIG(status) == 3)// Se o sinal for terminado com status 3 (ctrl + barra)
+		{
+			ft_putstr_fd("ctrl + barra\n", 2);
+			ft_putstr_fd("Quit (core dumped)\n", 2);
+			return (print_error(NULL, 131));
+		}
+		else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
+		{
+			ft_putstr_fd("ctrl + c\n", 2);
+			ft_putstr_fd("\n", 2);
+			return (print_error(NULL, 130));
+		}
+}
+
+
+
 
 void	ft_catch_signal(int id)
 {
-	//1 = MAIN, 2 = CHILD, 3 = HERE_DOC, 4 = PIPE, 5 = IGNORE
+	//1 = MAIN, 2 = CHILD, 3 = HERE_DOC, 4 = PIPE
 	
 	if (id == MAIN)
 	{
-		signal(SIGINT, signal_main);
-		signal(SIGTERM, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, signal_main); //ctrl + c
+		signal(SIGTERM, SIG_IGN); //ctrl + D
+		signal(SIGQUIT, SIG_IGN); //ctrl + barra
 	}
 	else if (id == CHILD)
 	{
-		printf("child\n");
-		signal(SIGINT, signal_main);
+		signal(SIGINT, signal_child);
+		signal(SIGQUIT, signal_child);
 	}
 	else if (id == HERE_DOC)
 	{
-		printf("HERE_DOC\n");
+		ft_putstr_fd("HERE_DOC\n", 2);
 		signal(SIGINT, signal_main);
 	}
 	else if (id == PIPE)
 	{
-		printf("PIPE\n");
+		ft_putstr_fd("PIPE\n", 2);
 		signal(SIGINT, signal_main);
 	}
 	
+}
+
+void	ft_signal_ignore(void)
+{
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 }

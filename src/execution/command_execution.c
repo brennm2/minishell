@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 09:48:46 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 15:39:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:45:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,15 @@ void	cmd_execution(t_data *data)
 	argv = get_argv(data);
 	path = get_path(data, argv[0]);
 	pid = safe_fork(data);
+	ft_signal_ignore(); // Ignora os sinais anteriores
 	if (pid == 0)
 		safe_execve(data, argv, path);
 	waitpid(0, &status, 0);
+	G_EXIT_CODE = status; //Verificar
+	if (WIFSIGNALED(status) == 1) //Verifica o estado do sinal
+		signal_child_checker(status);
+	printf("status: %d\n", status); //DEBUG
+	printf("exit code: %d\n", G_EXIT_CODE); // DEBUG
 	ptr_free(argv);
 	free(path);
-	G_EXIT_CODE = status;
 }

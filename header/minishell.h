@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 12:17:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 13:15:13 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ void	get_unset(t_data *data);
 
 // SRC/SIGNAL/SIGNAL
 void	ft_catch_signal(int fd);
+void	ft_signal_ignore(void);
+void	signal_child_checker(int status);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
