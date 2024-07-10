@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 16:48:24 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:12:03 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	command_not_found(t_token *token, t_data *data)
 	clean(data, 127);
 }
 
-void	get_builtin(t_data *data)
+void	get_builtin(t_data *data, t_token *token)
 {
 	if (data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
-		get_echo(data->token->next, data);
+		get_echo(token->next, data);
 	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
-		get_pwd(data->token);
+		get_pwd(token);
 	else if (data->token->builtin == cd && !ft_strcmp(data->token->str, "cd"))
 		get_cd(data);
 	else if (data->token->builtin == env && !ft_strcmp(data->token->str, "env"))

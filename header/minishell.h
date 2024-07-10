@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 14:45:29 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:23:16 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_tree_exec
 {
 	t_token		*token;
 	t_tree_type	type;
+	t_token		*builtin_token;
 	char		*cmd;
 	char		**argv;
 }				t_tree_exec;
@@ -159,7 +160,7 @@ void	init_commands(char *buffer, t_data *data);
 
 
 // SRC/BUILTIN/GET_BUILTINS
-void	get_builtin(t_data *data);
+void	get_builtin(t_data *data, t_token *token);
 void	command_not_found(t_token *token, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO

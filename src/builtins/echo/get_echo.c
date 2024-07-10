@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/05 13:37:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:49:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	put_token_str(t_token *token, t_data *data)
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->next)
+	else if (token->next && token->next->type == string)
 	{
 		ft_putstr_fd(token->str, 1);
 		write(1, " ", 1);
@@ -76,7 +76,7 @@ bool	is_all_flag(t_token *token)
 
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && (!((*token)->type == flag)))
+	while (*token && ((*token)->type == string))
 	{
 		put_token_str(*token, data);
 		*token = (*token)->next;
@@ -88,7 +88,7 @@ void	get_echo(t_token *token, t_data *data)
 	int	t_flag;
 
 	t_flag = 0;
-	while (token)
+	while (token && token->type == string)
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n'
 			&& is_all_flag(token) == true)

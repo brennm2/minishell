@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 13:42:58 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:56:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	signal_child(int signal_num)
 {
 	if(signal_num == SIGINT)
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
+		//rl_replace_line("", 0);
+		//ft_putstr_fd("\n", STDERR_FILENO);
+		//rl_on_new_line();
+		//rl_redisplay();
 		print_error(NULL, 50);
 	}
 }
@@ -40,13 +42,13 @@ void	signal_child_checker(int status)
 {
 	if (WTERMSIG(status) == 3)// Se o sinal for terminado com status 3 (ctrl + barra)
 		{
-			ft_putstr_fd("ctrl + barra\n", 2);
+			//ft_putstr_fd("ctrl + barra\n", 2);
 			ft_putstr_fd("Quit (core dumped)\n", 2);
 			return (print_error(NULL, 131));
 		}
 		else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
 		{
-			ft_putstr_fd("ctrl + c\n", 2);
+			//ft_putstr_fd("ctrl + c\n", 2);
 			ft_putstr_fd("\n", 2);
 			return (print_error(NULL, 130));
 		}

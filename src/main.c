@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 14:46:29 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:06:12 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void init_commands(char *buffer, t_data *data)
 	//debug_print_list(data);
 	is_here_doc(data);
 	//debug_print_list(data);
-	tokenize(data);
 	expand(data);
+	tokenize(data);
 	remove_quotes(data);
 }
 
