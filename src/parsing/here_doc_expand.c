@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:31:40 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 19:38:09 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:36:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,6 @@ char	*check_env_hd(char *buffer, t_envp *env, int j, int i)
 	expansion_hd(NULL, buffer, j, i);
 	free(variable);
 	return (buffer);
-}
-
-char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code)
-{
-	char	*expanded;
-
-	expanded = ft_calloc(sizeof(char), (j + 1));
-	ft_strlcpy(expanded, buffer, j + 1);
-	expanded = ft_strjoin_ex(expanded, exit_code);
-	expanded = ft_strjoin_ex(expanded, buffer + i + 2);
-	free(exit_code);
-	free(buffer);
-	return (expanded);
 }
 
 char	*expansion_digit_hd(char *buffer, int j, int i)

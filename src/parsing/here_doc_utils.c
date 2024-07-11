@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 11:42:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:30:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code)
 	return (expanded);
 }
 
-bool	open_file(t_data *data, char *file)
+bool	open_file(char *file)
 {
 	int	fd;
 
@@ -38,12 +38,11 @@ bool	open_file(t_data *data, char *file)
 	return (true);
 }
 
-char	*creat_here_doc_file(t_data *data, int i)
+char	*creat_here_doc_file(int i)
 {
 	char	*file;
 	char	*nbr;
 	char	*temp;
-	int		fd;
 	
 	file = NULL;
 	nbr = ft_itoa(i);
@@ -51,7 +50,7 @@ char	*creat_here_doc_file(t_data *data, int i)
 	file = ft_strjoin(temp, ".temp");
 	free(nbr);
 	free(temp);
-	if (!open_file (data, file))
+	if (!open_file (file))
 	{
 		free(file);
 		return (NULL);
@@ -67,7 +66,7 @@ void	write_file(char *here_doc_file, char *buffer)
 	if (fd == -1)
 		return ;
 	write(fd, buffer, ft_strlen(buffer));
-	write(fd, '\n', 1);
+	write(fd, "\n", 1);
 	close(fd);
 }
 

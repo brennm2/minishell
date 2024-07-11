@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 11:51:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:59:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int
 	char	*here_doc_file;
 	int		status;
 
-	here_doc_file = creat_here_doc_file(data, i);
+	here_doc_file = creat_here_doc_file(i);
 	if (!here_doc_file)
 		clean(data, 1);
 	if (safe_fork(data) == 0)
@@ -100,7 +100,7 @@ void	is_here_doc(t_data *data)
 			}
 			open_here_doc(data, token_aux, delimiter, flag, ++i);
 			free(delimiter);
-			return ;
+			continue ;
 		}
 		token_aux = token_aux->next;
 	}
