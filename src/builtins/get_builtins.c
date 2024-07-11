@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:05:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:42:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	command_not_found(t_token *token, t_data *data)
 }
 
 
-void	get_builtin(t_data *data, t_token *token)
+void	get_builtin(t_data *data, t_token *token, int flag)
 {
+	//flag 0 = data->exit_code / flag = 1 signal
 	if (data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
-		get_echo(token->next, data);
+		get_echo(token->next, data, flag);
 	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
 		get_pwd(token, data);
 	else if (data->token->builtin == cd && !ft_strcmp(data->token->str, "cd"))

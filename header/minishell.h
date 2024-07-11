@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:31:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:38:24 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,11 +161,11 @@ void	init_commands(char *buffer, t_data *data);
 
 
 // SRC/BUILTIN/GET_BUILTINS
-void	get_builtin(t_data *data, t_token *token);
+void	get_builtin(t_data *data, t_token *token, int flag);
 void	command_not_found(t_token *token, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO
-void	get_echo(t_token *token, t_data *data);
+void	get_echo(t_token *token, t_data *data, int flag);
 
 // SRC/BUILTIN/PWD/GET_PWD
 void	get_pwd(t_token *token, t_data *data);
