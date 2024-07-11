@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 17:06:12 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:41:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,35 @@ t_data	*init_minishell(int argc, char **argv, char ** envp, t_data *data)
 {	
 	if (argc != 1 || argv[1])
 	{
-		print_error("Minishell does not accept any arguments.", 1);
+		print_error("Minishell does not accept any arguments.", 1, data);
 		exit(1);
 	}
 	data = ft_calloc(1, sizeof(t_data));;
 	if (!data)
-		print_error("Malloc error.", 1);
+		print_error("Malloc error.", 1, data);
 	get_env(data, envp);
 	return (data);
 }
 
-void	update_exit_code(int status)
+void	update_exit_code(int status, t_data *data)
 {
 	if (WIFEXITED(status))
-		set_exit_code(WEXITSTATUS(status));
+		set_exit_code(WEXITSTATUS(status), data);
+}
+
+bool	is_only_builtin(t_data *data, t_token *token)
+{
+	(void)data;
+	t_token *temp_token;
+
+	temp_token = token;
+	while(temp_token)
+	{
+		if (temp_token->type != builtin && temp_token->type != string)
+			return (false);
+		temp_token = temp_token->next;
+	}
+	return (true);
 }
 
 void	loop_minishell(int fd1, int fd2, t_data *data)
@@ -97,15 +112,20 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 	while (1)
 	{
 		reset_fd_signals(fd1, fd2);
+		data->exit_code = 0;
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
 		if (!valid_input(buffer, data))
 			continue ;
 		init_commands(buffer, data);
-		if (safe_fork(data) == 0)
+		if (is_only_builtin(data, data->token) == true)
+			execution(data);
+		else if (safe_fork(data) == 0)
 			execution(data);
 		waitpid(0, &status, 0);
-		update_exit_code(status);
+		printf("exit code: %d\n", data->exit_code); //DEBUG
+		//update_exit_code esta mudando o exit code
+		update_exit_code(status, data);
 		free_token(data->token);
 	}
 }
@@ -118,9 +138,10 @@ int main(int argc, char **argv, char **envp)
 
 	fd1 = dup(STDIN_FILENO);
 	fd2 = dup(1);
-	G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
+	//G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
+	data->exit_code = 0;
 	loop_minishell(fd1, fd2, data);
 }
 

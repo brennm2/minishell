@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 12:05:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:22:32 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	env_error_invalid(t_data *data)
 	write(2, &data->token->next->str[1], 1);
 	write(2, "'", 1);
 	write(2, "\n", 1);
-	print_error(NULL, 125);
+	set_exit_code(125, data);
+	//print_error(NULL, 125);
 }
 
 void	env_error_option(t_data *data)
@@ -29,15 +30,16 @@ void	env_error_option(t_data *data)
 	write(2, data->token->next->str, ft_strlen(data->token->next->str));
 	write(2, "': No such file or directory", 29);
 	write(2, "\n", 1);
-	print_error(NULL, 127);
+	set_exit_code(127, data);
+	//print_error(NULL, 127);
 }
 
-void	display_env(t_envp *envp)
+void	display_env(t_envp *envp, t_data *data)
 {
 	if (get_in_env(envp, "PATH") == NULL)
 	{
 		ft_putstr_fd("minishell: env: No such file or directory\n", 2);
-		return (print_error(NULL, 127));
+		return (set_exit_code(127, data));
 	}
 	while (envp)
 	{
@@ -50,7 +52,7 @@ void	display_env(t_envp *envp)
 		}
 		envp = envp->next;
 	}
-	return (set_exit_code(0));
+	return (set_exit_code(0, data));
 }
 
 void	get_builtin_env(t_data *data)
@@ -74,5 +76,6 @@ void	get_builtin_env(t_data *data)
 		return ;
 	}
 	else //Se nenhuma dessas condicoes foi atendida...
-		display_env(temp_env); // Mostra a lista de env
+		display_env(temp_env, data); // Mostra a lista de env
+	data->exit_code = 42;
 }

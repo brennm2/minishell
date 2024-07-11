@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/09 15:19:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:35:05 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,14 @@ bool	redirect_space_and_count_error(char *buffer)
 }
 
 
-bool	syntax_error_sup (char *buffer)
+bool	syntax_error_sup (char *buffer, t_data *data)
 {
 	if (buffer[0] == '|')
 	{
 		if (buffer[1] == '|')
-			print_error(ERROR_PIPE_DOUBLE, 2);
+			print_error(ERROR_PIPE_DOUBLE, 2, data);
 		else
-			print_error(ERROR_PIPE_SINGLE, 2);
+			print_error(ERROR_PIPE_SINGLE, 2, data);
 		return (true);
 	}
 	else if (redirect_error(buffer))
@@ -155,16 +155,16 @@ bool	syntax_error_sup (char *buffer)
 	else if (ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 	{
 		if (buffer[ft_strlen(buffer) - 1] == '|')
-			print_error(ERROR_PIPE_FINAL, 1);
+			print_error(ERROR_PIPE_FINAL, 1, data);
 		else
-			print_error(ERROR_REDIR, 2);
+			print_error(ERROR_REDIR, 2, data);
 		return (true);
 	}
 	return (false);
 }
 
 
-bool	check_for_quotes(char *buffer) // Procura por D_QUOTES ou S_QUOTES nao fechadas
+bool	check_for_quotes(char *buffer, t_data *data) // Procura por D_QUOTES ou S_QUOTES nao fechadas
 {
 	int s_quotes;
 	int d_quotes;
@@ -183,7 +183,7 @@ bool	check_for_quotes(char *buffer) // Procura por D_QUOTES ou S_QUOTES nao fech
 	}
 	if (d_quotes != 0 || s_quotes != 0)
 	{
-		print_error(ERROR_QUOTE, 1);
+		print_error(ERROR_QUOTE, 1, data);
 		return (true);
 	}
 	else
@@ -227,25 +227,25 @@ bool	first_character(char *buffer)
 }
 
 
-bool	check_for_syntax_error(char *buffer)
+bool	check_for_syntax_error(char *buffer, t_data *data)
 {
 	buffer = ft_strtrim(buffer, " \t");
 	if (!buffer || first_character(buffer) //ft_strchr("|<>", buffer[0])
 		|| ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 	{
 		if (buffer)
-			syntax_error_sup(buffer);
+			syntax_error_sup(buffer, data);
 		free (buffer);
 		return (false);
 	}
-	if (buffer && syntax_error_sup(buffer) == true)
+	if (buffer && syntax_error_sup(buffer, data) == true)
 	{
 		free (buffer);
 		return (false);
 	}
 	if(check_for_double_pipes(buffer))
 	{
-		print_error(ERROR_PIPE_SINGLE, 2);
+		print_error(ERROR_PIPE_SINGLE, 2, data);
 		free(buffer);
 		return (false);
 	}
@@ -293,8 +293,8 @@ bool	valid_input(char *buffer, t_data *data)
 		ft_putstr_fd("exit\n", 2);
 		exit (G_EXIT_CODE);
 	}
-	if(is_all_space(buffer) || check_for_quotes(buffer)
-		|| !check_for_syntax_error(buffer)) // retirar o "redirect_count"
+	if(is_all_space(buffer) || check_for_quotes(buffer, data)
+		|| !check_for_syntax_error(buffer, data)) // retirar o "redirect_count"
 		{
 			free(buffer);
 			return (false);

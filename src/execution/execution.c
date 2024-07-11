@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/10 16:46:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:45:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		get_builtin(data, tree->builtin_token);
 		//ft_putstr_fd("builting\n", 2);
 	}
-	else
-	{
-		ft_signal_ignore();
-		pid = safe_fork(data);
-		if (pid == 0)
-			safe_execve(data, tree);
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			set_exit_code(WEXITSTATUS(status));
-		else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal
-			signal_child_checker(status);
-	}
+	// else
+	// {
+	// 	ft_signal_ignore();
+	// 	pid = safe_fork(data);
+	// 	if (pid == 0)
+	// 		safe_execve(data, tree);
+	// 	waitpid(pid, &status, 0);
+	// 	if (WIFEXITED(status))
+	// 		set_exit_code(WEXITSTATUS(status), data);
+	// 	else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal
+	// 		signal_child_checker(status);
+	// }
 }
 
 void	exec_execution(t_data *data, t_tree_root *tree)
@@ -45,7 +45,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0])
 		cmd_execution(data, ecmd);
-	clean(data, G_EXIT_CODE);	
+	//clean(data, G_EXIT_CODE);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)

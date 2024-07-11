@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/09 11:35:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:19:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void init_data(t_data *data, char *buffer)
 	init_token(data->token, buffer);
 }
 
-void	set_exit_code(int code)
+void	set_exit_code(int code, t_data *data)
 {
-	G_EXIT_CODE = code;
+	data->exit_code = code;
 }
 
 void	*safe_calloc(size_t bytes, size_t n, t_data *data)
@@ -55,7 +55,7 @@ void	*safe_calloc(size_t bytes, size_t n, t_data *data)
 	var = ft_calloc(n, bytes);
 	if (!var)
 	{
-		print_error("Malloc error.", 1);
+		print_error("Malloc error.", 1, data);
 		clean(data, 1);
 	}
 	return (var);

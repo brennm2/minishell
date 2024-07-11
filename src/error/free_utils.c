@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 16:39:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:54:21 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	free_tree(t_tree_root *cmd)
 
 void	clean(t_data *data, int ex)
 {
+	(void)ex;
 	if (!data)
 		exit(1);
 	free_env(data->envp);
@@ -53,5 +54,5 @@ void	clean(t_data *data, int ex)
 		free(data->home);
 	free(data);
 	rl_clear_history();
-	exit(ex);
+	exit(data->exit_code);
 }

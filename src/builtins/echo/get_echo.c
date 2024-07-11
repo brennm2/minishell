@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 16:49:11 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 11:58:12 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,6 @@ void	get_echo(t_token *token, t_data *data)
 	}
 	if (t_flag == 0)
 		write(1, "\n", 1);
-	G_EXIT_CODE = 0;
+	//G_EXIT_CODE = 0;
+	data->exit_code = 0;
 }

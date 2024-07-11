@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 14:56:26 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:31:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	signal_main(int signal_num)
 		ft_putstr_fd("\n", STDERR_FILENO);
 		rl_on_new_line();
 		rl_redisplay();
-		print_error(NULL, 130);
+		G_EXIT_CODE = 130;
+		//print_error(NULL, 130);
 	}
 }
 
@@ -34,7 +35,7 @@ void	signal_child(int signal_num)
 		//ft_putstr_fd("\n", STDERR_FILENO);
 		//rl_on_new_line();
 		//rl_redisplay();
-		print_error(NULL, 50);
+		G_EXIT_CODE = 50;
 	}
 }
 
@@ -44,13 +45,15 @@ void	signal_child_checker(int status)
 		{
 			//ft_putstr_fd("ctrl + barra\n", 2);
 			ft_putstr_fd("Quit (core dumped)\n", 2);
-			return (print_error(NULL, 131));
+			G_EXIT_CODE = 131;
+			return ;
 		}
 		else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
 		{
 			//ft_putstr_fd("ctrl + c\n", 2);
 			ft_putstr_fd("\n", 2);
-			return (print_error(NULL, 130));
+			G_EXIT_CODE = 130;
+			return ;
 		}
 }
 

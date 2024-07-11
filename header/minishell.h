@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 16:23:16 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:31:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_data
 	t_token *token;
 	char	*home;
 	t_tree_root	*tree;
+	int		exit_code;
 	struct s_data	*next;
 }				t_data;
 
@@ -167,7 +168,7 @@ void	command_not_found(t_token *token, t_data *data);
 void	get_echo(t_token *token, t_data *data);
 
 // SRC/BUILTIN/PWD/GET_PWD
-void	get_pwd(t_token *token);
+void	get_pwd(t_token *token, t_data *data);
 
 // SRC/BUILTIN/CD/GET_CD
 void	get_cd(t_data *data);
@@ -180,10 +181,10 @@ t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
 
 // SRC/BUILTIN/ENV/GET_ENV
 void	get_builtin_env(t_data *data);
-void	display_env(t_envp *envp);
+void	display_env(t_envp *envp, t_data *data);
 
 // SRC/BUILTINS/EXIT/GET_EXIT
-void	get_exit(t_data *data);
+void	get_exit(t_data *data, t_token *token);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data);
@@ -192,11 +193,11 @@ t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS
-void	display_env_export(t_envp *envp);
-void	print_export(t_envp *env);
+void	display_env_export(t_envp *envp, t_data *data);
+void	print_export(t_envp *env, t_data *data);
 t_envp	*find_last_node(t_envp *lst);
-bool	is_valid_export(t_token *token);
-void	export_error_identifier(t_token *token);
+bool	is_valid_export(t_token *token, t_data *data);
+void	export_error_identifier(t_token *token, t_data *data);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
 char	*find_key(char *str);
@@ -217,7 +218,7 @@ void	signal_child_checker(int status);
 void	init_token(t_token *token, char *buffer);
 void	init_next_token(t_token *token, int len);
 void	init_data(t_data *data, char *buffer);
-void	set_exit_code(int code);
+void	set_exit_code(int code, t_data *data);
 int		ft_strcmp(char *s1, char *s2);
 
 // SRC/PARSING/CHECK_FIRST
@@ -309,7 +310,7 @@ void	free_token(t_token *token);
 void	free_data(t_data *data);
 
 // SRC/ERROR/PRINT_ERROR
-void	print_error(char *error_type, int error_code);
+void	print_error(char *error_type, int error_code, t_data *data);
 
 /* ************************************************************************** */
 /*                                                                            */

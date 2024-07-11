@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/10 13:39:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:21:15 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,27 +70,28 @@ void	cd_options(t_data *data)
 		chdir(get_in_env(data->envp, "HOME"));
 		getcwd(cwd, sizeof(cwd));
 		data->envp = change_in_env(data->envp, cwd, "PWD");
-		return (set_exit_code(0));
+		return (set_exit_code(0, data));
 	}
 	else if (data->token->next->str[1] == '+' || (data->token->next->str[1] == '-')) // Se for "CD ~-" OU "CD ~+"
 		return (cd_options_tilde(data));
 	cd_change_last_oldpwd(data, 1); // Se nao entrar em nada, entao "cd -"
 	getcwd(cwd, sizeof(cwd)); //Pega o PWD atual
 	data->envp = change_in_env(data->envp, cwd, "PWD"); // Muda no env->PWD
-	return (set_exit_code(0));
+	return (set_exit_code(0, data));
 }
 
 void	only_cd(t_data *data, char *old_cwd)
 {
 	if (get_in_env(data->envp, "HOME") == NULL)
 		return (ft_putstr_fd("minishell: cd: HOME not set\n", 2),
-			print_error(NULL, 1));
+			set_exit_code(1, data));
+			//print_error(NULL, 1));
 	else
 	{
 		chdir(get_in_env(data->envp, "HOME"));
 		change_in_env(data->envp, old_cwd, "OLDPWD");
 		change_in_env(data->envp, get_in_env(data->envp, "HOME"), "PWD");
-		return (set_exit_code(0));
+		return (set_exit_code(0, data));
 	}
 }
 
@@ -109,10 +110,10 @@ void	get_cd(t_data *data)
 			getcwd(cwd, sizeof(cwd));
 			data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 			data->envp = change_in_env(data->envp, cwd, "PWD");
-			return (set_exit_code(0));
+			return (set_exit_code(0, data));
 		}
 		else if (data->token->next && data->token->next->next) // Se for "cd a b"
-			return (print_error(ERROR_CD_MANY_ARGUMENT, 1));
+			return (print_error(ERROR_CD_MANY_ARGUMENT, 1, data));
 		else
 			return (cd_error_invalid_file(data)); // Se "cd algumacoisa" (nao for um diretorio valido)
 	}

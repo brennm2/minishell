@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/03 16:37:26 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:24:41 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	handle_export_token(t_data *data, t_token *token)
 
 	if (token->str[0] == '=' || token->str[0] == '-') //se tiver '=' ou '-' no comeco
 	{
-		export_error_identifier(token);
+		export_error_identifier(token, data);
 		return ;
 	}
 	key = find_key(token->str);
@@ -86,7 +86,7 @@ void	handle_export_token(t_data *data, t_token *token)
 	if (!is_invalid_token(key)) //Se for uma key valida
 	{
 		free(key);
-		export_error_identifier(token);
+		export_error_identifier(token, data);
 		return ;
 	}
 	if (!change_existing_export(data->envp, key, value))
@@ -99,17 +99,18 @@ void	get_export(t_data *data)
 
 	head = data->token;
 	if (!data->token->next)
-		return (print_export(data->envp));
+		return (print_export(data->envp, data));
 	else if (data->token->next && data->token->next->str[0] == '-')
 	{
 		ft_putstr_fd("minishell: export: -", 2);
 		ft_putchar_fd(data->token->next->str[1], 2);
 		ft_putstr_fd(": invalid option\n", 2);
-		print_error(NULL, 2);
+		set_exit_code(2, data);
+		//print_error(NULL, 2);
 		return ;
 	}
 	else if (data->token->next->str[0] == '\0')
-		return (export_error_identifier(data->token->next));
+		return (export_error_identifier(data->token->next, data));
 	while (data->token->next) // Se tiver algo para criar
 	{
 		data->token = data->token->next;

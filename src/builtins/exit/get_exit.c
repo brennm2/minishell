@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 12:10:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:23:01 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	too_many_argument_error(t_token	*token, t_data *data)
 		{
 			ft_putstr_fd("exit\n", 2);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			print_error(NULL, 1);
+			set_exit_code(1, data);
+			//print_error(NULL, 1);
 			return ;
 		}
 	}
@@ -71,15 +72,15 @@ void	only_exit(t_data *data)
 	free_env(data->envp);
 	free_token(data->token);
 	free_data(data);
-	exit (G_EXIT_CODE);
+	exit(G_EXIT_CODE);
 }
 
-void	get_exit(t_data *data)
+void	get_exit(t_data *data, t_token *token)
 {
 	int	i;
 
 	i = 0;
-	if (!data->token->next) //Se for somente "exit"
+	if (!token->next || token->next->type != string) //Se for somente "exit"
 		only_exit(data);
 	else if (data->token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
 	{
