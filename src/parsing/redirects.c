@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 15:50:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 12:03:48 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	after_reds(t_data *data)
 	while (token_aux)
 	{
 		if (token_aux->type == redin || token_aux->type == redout || \
-		token_aux->type == append || token_aux->type == here_doc)
+		token_aux->type == append)
 			token_aux = trim_redir(data, token_aux);
 		token_aux = token_aux->next;
 	}

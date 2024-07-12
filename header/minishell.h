@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 11:50:01 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:08:21 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct s_data
 	t_envp *envp;
 	t_token *token;
 	char	*home;
+	int		fd_here_doc;
 	t_tree_root	*tree;
 	int		exit_code;
 	struct s_data	*next;
@@ -380,6 +381,8 @@ char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
 void	is_here_doc(t_data *data);
+char	*creat_here_doc_file(int i);
+void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag);
 char	*expand_hd(t_data *data, char *buffer, bool flag);
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 int	deal_with_quotes(t_token *token, int i);

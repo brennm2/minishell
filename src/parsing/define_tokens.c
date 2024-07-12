@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/10 17:09:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:48:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,9 @@ void	define_tokens(t_token *token)
 	else if (token->str && !ft_strncmp(token->str, ">", 1) && \
 	token->str[1] == '\0')
 		token->type = redout;
-	else if (token->str && !ft_strncmp(token->str, "<", 1) && \
-	token->str[1] == '\0')
-		token->type = redin;
 	else if (token->str && !ft_strncmp(token->str, ">>", 1) && \
 	token->str[2] == '\0')
 		token->type = append;
-	else if (token->str && !ft_strncmp(token->str, "<<", 1) && \
-	token->str[2] == '\0')
-		token->type = here_doc;
-	else
-		token->type = string;
 }
 
 void	after_pipe(t_data *data)
@@ -73,11 +65,35 @@ void	after_pipe(t_data *data)
 	{
 		if (token_aux->type == is_pipe)
 		{
-			token_aux = token_aux->next;
-			which_command(token_aux);
+			if (token_aux->next->type == string)
+			{
+				token_aux = token_aux->next;		
+				which_command(token_aux);
+			}
 		}
 		token_aux = token_aux->next;
 	}
+}
+
+void	is_red(t_token *token)
+{
+	if (!ft_strcmp(token->str, "<"))
+		token->type = redin;
+	else if (!ft_strcmp(token->str, ">"))
+		token->type = redout;
+	else if (!ft_strcmp(token->str, ">>"))
+		token->type = append;
+}
+
+bool	is_red_or_pipe(t_token *token)
+{
+	if (token->type == redin || token->type == redout)
+		return (true);
+	if (token->type == append || token->type == here_doc)
+		return (true);
+	if (token->type == is_pipe)
+		return (true);
+	return (false);
 }
 
 void	tokenize(t_data *data)
@@ -89,20 +105,27 @@ void	tokenize(t_data *data)
 	token_aux = data->token;
 	while (token_aux)
 	{
-		if (++i == 0)
-		{
-			if (!ft_strncmp(token_aux->str, "<", 1))
-			{
-				token_aux->type = redin;
-				token_aux = token_aux->next;
-				token_aux = token_aux->next;		
-			}
-			which_command(token_aux);
-		}
-		else
-			define_tokens(token_aux);
+		is_red(token_aux);
 		token_aux = token_aux->next;
 	}
+	token_aux = data->token;
+	while (token_aux)
+	{
+		if (!ft_strcmp(token_aux->str, "|"))
+			token_aux->type = is_pipe;
+		token_aux = token_aux->next;
+	}
+	token_aux = data->token;
+	if (token_aux->type == string)
+		which_command(token_aux);
 	after_pipe(data);
 	after_reds(data);
+	token_aux = data->token;
+	while (token_aux)
+	{
+		if (is_red_or_pipe(token_aux))
+			if (token_aux->next && !is_red_or_pipe(token_aux->next))
+				which_command(token_aux->next);
+		token_aux = token_aux->next;
+	}
 }

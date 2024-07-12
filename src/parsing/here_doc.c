@@ -6,31 +6,42 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/09 20:51:56 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:59:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	open_here_doc(t_data *data, char *delimiter, bool flag)
+void	change_token(t_token *token, char *file)
 {
-	char *buffer;
+	t_token	*dead;
+	
+	dead = token->next;
+	token->next = token->next->next;
+	if (token->str)
+		free(token->str);
+	token->str = ft_strdup(file);
+	free(file);
+	free_token_redir(dead);
+	token->type = here_doc;
+}
 
-	FILE *file = fopen("here_doc_file", "w");
-	while (1)
+void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int i)
+{
+	char	*here_doc_file;
+	int		status;
+
+	here_doc_file = creat_here_doc_file(i);
+	if (!here_doc_file)
+		clean(data, 1);
+	if (safe_fork(data) == 0)
 	{
-		buffer = readline("> ");
-		//add_history(buffer);
-		if (!ft_strcmp(delimiter, buffer))
-		{
-			free(buffer);
-			break ;
-		}
-		buffer = expand_hd(data, buffer, flag);
-		fprintf(file, "%s\n", buffer);
-		free(buffer);
-	}	
-	fclose(file);
+		fill_file(data, delimiter, here_doc_file, flag);
+	}
+	waitpid(0, &status, 0);
+	change_token(token, here_doc_file);
+	if (WIFEXITED(status))
+		G_EXIT_CODE = WEXITSTATUS(status);
 }
 
 char	*erase_the_quote_hd(char *delimiter, int i)
@@ -67,26 +78,14 @@ char	*remove_quotes_hd(char *delimiter)
 	return (delimiter);
 }
 
-void	change_token(t_token *token)
-{
-	char	*new_token_str;
-	t_token	*token_aux;
-
-	token_aux = token->next;
-	token->next = token->next->next;
-	free_token_redir(token_aux);
-	new_token_str = ft_strdup("here_doc_file");
-	free(token->str);
-	token->str = new_token_str;
-	token->type = here_doc;
-}
-
 void	is_here_doc(t_data *data)
 {
 	char	*delimiter;
 	t_token	*token_aux;
 	bool	flag;
+	int		i;
 
+	i = -1;
 	token_aux = data->token;
 	flag = false;
 	while (token_aux)
@@ -99,10 +98,9 @@ void	is_here_doc(t_data *data)
 				flag = true;
 				delimiter = remove_quotes_hd(delimiter);
 			}
-			open_here_doc(data, delimiter, flag);
-			change_token(token_aux);
+			open_here_doc(data, token_aux, delimiter, flag, ++i);
 			free(delimiter);
-			return ;
+			continue ;
 		}
 		token_aux = token_aux->next;
 	}

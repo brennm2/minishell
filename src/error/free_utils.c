@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 11:54:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:09:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	clean(t_data *data, int ex)
 		exit(1);
 	free_env(data->envp);
 	free_token(data->token);
+	/* if (data->fd_here_doc)
+		unlink("here_doc_file"); */
 	if (data->tree)
 		free_tree(data->tree);
 	if (data->home)

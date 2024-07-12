@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 10:13:54 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:09:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void init_commands(char *buffer, t_data *data)
 	search_command(buffer, data);
 	//debug_print_list(data);
 	is_here_doc(data);
-	//debug_print_list(data);
 	expand(data);
 	tokenize(data);
 	remove_quotes(data);
+	//debug_print_list(data);
 }
 
 void	reset_fd_signals(int fd1, int fd2)
