@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 14:08:21 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:57:46 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void	get_builtin_env(t_data *data, t_token *token, int exit_flag);
 void	display_env(t_envp *envp, t_data *data, int exit_flag);
 
 // SRC/BUILTINS/EXIT/GET_EXIT
-void	get_exit(t_data *data, t_token *token);
+void	get_exit(t_data *data, t_token *token, int exit_flag);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT
 void	get_export(t_data *data, t_token *token, int exit_flag);
@@ -209,7 +209,7 @@ t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
 // SRC/BUILTIN/UNSET/GET_UNSET
-void	get_unset(t_data *data);
+void	get_unset(t_data *data, t_token *token, int exit_flag);
 
 
 // SRC/SIGNAL/SIGNAL

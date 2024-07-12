@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:23:01 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:40:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	exit_numeric_error(t_data *data, int option)
 	exit (2);
 }
 
-void	too_many_argument_error(t_token	*token, t_data *data)
+void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 {
 	int	i;
 
@@ -46,8 +46,10 @@ void	too_many_argument_error(t_token	*token, t_data *data)
 		{
 			ft_putstr_fd("exit\n", 2);
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			set_exit_code(1, data);
-			//print_error(NULL, 1);
+			if (data->exit_code != 0)
+				ft_exit_flag(data->exit_code, exit_flag, data);
+			else
+				ft_exit_flag(1, exit_flag, data);
 			return ;
 		}
 	}
@@ -66,37 +68,52 @@ void	exit_negative(t_token *token, t_data *data)
 	exit(number);
 }
 
-void	only_exit(t_data *data)
+void	only_exit(t_data *data, t_token *token, int exit_flag)
 {
-	ft_putstr_fd("exit\n", 1);
-	free_env(data->envp);
-	free_token(data->token);
-	free_data(data);
-	exit(G_EXIT_CODE);
+	int	temp_exit;
+
+	temp_exit = 0;
+	if (exit_flag == -1)
+	{
+		temp_exit = ft_atoi(token->next->str);
+		ft_putstr_fd("exit\n", 1);
+		free_env(data->envp);
+		free_token(data->token);
+		free_data(data);
+		exit(temp_exit);
+	}
+	else
+	{
+		temp_exit = data->exit_code;
+		ft_putstr_fd("exit\n", 1);
+		free_env(data->envp);
+		free_token(data->token);
+		free_data(data);
+		exit(temp_exit);
+	}
 }
 
-void	get_exit(t_data *data, t_token *token)
+void	get_exit(t_data *data, t_token *token, int exit_flag)
 {
 	int	i;
 
 	i = 0;
 	if (!token->next || token->next->type != string) //Se for somente "exit"
-		only_exit(data);
-	else if (data->token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
+		only_exit(data, token, 0);
+	else if (token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
 	{
-		if (data->token->next->next) // Se for "exit ... ..."
-			return (too_many_argument_error(data->token->next, data));
-		if (data->token->next->str[0] == '-') // Se tiver numeros negativos "exit -1"
+		if (token->next->next) // Se for "exit ... ..."
+			return (too_many_error(token->next, data, exit_flag));
+		if (token->next->str[0] == '-') // Se tiver numeros negativos "exit -1"
 			i++;
-		while (ft_isdigit(data->token->next->str[i]) == 1) // Se <TOKEN->STR> / "exit 123" for somente numeros
+		while (ft_isdigit(token->next->str[i]) == 1) // Se <TOKEN->STR> / "exit 123" for somente numeros
 		{
 			i++;
-			if (data->token->next->str[i] == '\0') // Se <TOKEN->STR[i]> acabar e for tudo numero
+			if (token->next->str[i] == '\0') // Se <TOKEN->STR[i]> acabar e for tudo numero
 			{
-				if (ft_atoi(data->token->next->str) < 0)
-					return (exit_negative(data->token->next, data));
-				ft_putstr_fd("exit\n", 1);
-				exit(ft_atoi(data->token->next->str));
+				if (ft_atoi(token->next->str) < 0)
+					return (exit_negative(token->next, data));
+				only_exit(data, token, -1);
 			}
 		}
 		exit_numeric_error(data, 0);//Se saiu do loop entao encotrou algo que nao e numerico

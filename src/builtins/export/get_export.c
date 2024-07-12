@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 13:51:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:46:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,32 +99,34 @@ void	handle_export_token(t_data *data, t_token *token, int exit_flag)
 		create_new_export(data, key, value, exit_flag);
 }
 
+bool	check_invalid_token(t_token *token)
+{
+	while (token->next && token->next->type == string)
+	{
+		if (!is_invalid_token(token->next->str))
+			return (true);
+		token = token->next;
+	}
+	return (false);
+}
+
 void	get_export(t_data *data, t_token *token, int exit_flag)
 {
-	t_token	*head;
 	static bool	flag;
 
-	head = token;
-	//flag = false;
 	if (!token->next || token->next->type != string)
 		return (print_export(data->envp, data, exit_flag));
-	else if (token->next && token->next->str[0] == '-')
+	if (token->next && token->next->str[0] == '-')
 	{
 		ft_putstr_fd("minishell: export: -", 2);
 		ft_putchar_fd(token->next->str[1], 2);
 		ft_putstr_fd(": invalid option\n", 2);
 		return (ft_exit_flag(2, exit_flag, data));
 	}
-	else if (token->next->str[0] == '\0')
+	if (token->next->str[0] == '\0')
 		return (export_error_identifier(token->next, data, exit_flag));
+	flag = check_invalid_token(token);
 	while (token->next && token->next->type == string)
-	{
-		if(!is_invalid_token(token->next->str))
-			flag = true;
-		token = token->next;
-	}
-	token = head;
-	while (token->next && token->next->type == string) // Se tiver algo para criar
 	{
 		token = token->next;
 		handle_export_token(data, token, exit_flag);
@@ -133,5 +135,40 @@ void	get_export(t_data *data, t_token *token, int exit_flag)
 		ft_exit_flag(1, exit_flag, data);
 	else
 		ft_exit_flag(0, exit_flag, data);
-	token = head;
 }
+
+// void	get_export(t_data *data, t_token *token, int exit_flag)
+// {
+// 	t_token	*head;
+// 	static bool	flag;
+
+// 	head = token;
+// 	if (!token->next || token->next->type != string)
+// 		return (print_export(data->envp, data, exit_flag));
+// 	else if (token->next && token->next->str[0] == '-')
+// 	{
+// 		ft_putstr_fd("minishell: export: -", 2);
+// 		ft_putchar_fd(token->next->str[1], 2);
+// 		ft_putstr_fd(": invalid option\n", 2);
+// 		return (ft_exit_flag(2, exit_flag, data));
+// 	}
+// 	else if (token->next->str[0] == '\0')
+// 		return (export_error_identifier(token->next, data, exit_flag));
+// 	while (token->next && token->next->type == string)
+// 	{
+// 		if(!is_invalid_token(token->next->str))
+// 			flag = true;
+// 		token = token->next;
+// 	}
+// 	token = head;
+// 	while (token->next && token->next->type == string) // Se tiver algo para criar
+// 	{
+// 		token = token->next;
+// 		handle_export_token(data, token, exit_flag);
+// 	}
+// 	if (flag == true)
+// 		ft_exit_flag(1, exit_flag, data);
+// 	else
+// 		ft_exit_flag(0, exit_flag, data);
+// 	token = head;
+// }

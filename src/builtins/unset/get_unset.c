@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:25:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:04:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,31 @@ void	search_for_node(t_envp *env, t_token *token)
 	free_node(dead_node);
 }
 
-void	get_unset(t_data *data)
+void	get_unset(t_data *data, t_token *token, int exit_flag)
 {
 	t_token	*head;
 	int		flag;
 
 	flag = 0;
 	head = data->token;
-	if (!data->token->next)
+	if (!token->next)
 		return ;
-	while (data->token->next)
+	while (token->next)
 	{
-		data->token = data->token->next;
-		if (flag++ == 0 && data->token->str[0] == '-')
+		token = token->next;
+		if (flag++ == 0 && token->str[0] == '-')
 		{
 			ft_putstr_fd("minishell: unset: -", 2);
-			ft_putchar_fd(data->token->str[1], 2);
+			ft_putchar_fd(token->str[1], 2);
 			ft_putendl_fd(": invalid option", 2);
-			data->token = head;
-			return (set_exit_code(2, data));
+			token = head;
+			return (ft_exit_flag(2, exit_flag, data));
 		}
-		if (get_in_env(data->envp, data->token->str) == NULL)
+		if (get_in_env(data->envp, token->str) == NULL)
 			continue ;
 		else
 			search_for_node(data->envp, data->token);
 	}
-	data->token = head;
+	ft_exit_flag(0, exit_flag, data);
+	token = head;
 }
