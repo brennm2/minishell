@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 14:08:21 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:34:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct s_data
 	t_envp *envp;
 	t_token *token;
 	char	*home;
-	int		fd_here_doc;
+	int		fd;
 	t_tree_root	*tree;
 	int		exit_code;
 	struct s_data	*next;

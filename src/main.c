@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 14:09:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:13:58 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		}
 		printf("exit code: %d\n", data->exit_code); //DEBUG
 		free_token(data->token);
+		//data->exit_code = 0;
 	}
 }
 
@@ -140,7 +141,6 @@ int main(int argc, char **argv, char **envp)
 
 	fd1 = dup(STDIN_FILENO);
 	fd2 = dup(1);
-	//G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
 	data->exit_code = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 11:40:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:53:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	pid = 0;
 	if (tree->builtin_token && tree->builtin_token->type == builtin)
 	{
-		get_builtin(data, tree->builtin_token, 1);
-		//ft_putstr_fd("builting\n", 2);
+		//get_builtin(data, tree->builtin_token, 1);
+		ft_signal_ignore();
+		pid = safe_fork(data);
+		if (pid == 0)
+			get_builtin(data, tree->builtin_token, 1);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			set_exit_code(WEXITSTATUS(status), data);
+		else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal
+			signal_child_checker(status);
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 14:45:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:39:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ void	is_expand_util(t_token *token, t_envp *envp, int i, int j)
 		expansion_digit(token, j, i);
 		return ;	
 	}
+/* 	if (token->str[i + 1] == '_' && !token->str[i + 2])
+	{
+		check_env(token, env, )
+		return ;
+	} */
 	while (!ft_is_especial(token->str[++i]) && token->str[i] && token->str[i] != 32)
 		;
 	check_env(token, envp, j, i);
