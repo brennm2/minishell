@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 16:38:24 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:50:01 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,41 +163,43 @@ void	init_commands(char *buffer, t_data *data);
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data, t_token *token, int flag);
 void	command_not_found(t_token *token, t_data *data);
+void	ft_exit_flag(int exit_code, int exit_flag, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO
 void	get_echo(t_token *token, t_data *data, int flag);
 
 // SRC/BUILTIN/PWD/GET_PWD
-void	get_pwd(t_token *token, t_data *data);
+void	get_pwd(t_token *token, t_data *data, int exit_flag);
 
 // SRC/BUILTIN/CD/GET_CD
-void	get_cd(t_data *data);
+void	get_cd(t_data *data, t_token *token, int exit_flag);
 
 // SRC/BUILTIN/CD/GET_CD_UTILS
-void	cd_error_invalid_option(t_data *data);
-void	cd_error_invalid_file(t_data *data);
+void	cd_error_invalid_option(t_data *data, int exit_flag);
+void	cd_error_invalid_file(t_data *data, int exit_flag);
 char	*get_in_env(t_envp *envp, char *key);
 t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
+void	cd_error_no_file(t_data *data, int exit_flag);
 
 // SRC/BUILTIN/ENV/GET_ENV
-void	get_builtin_env(t_data *data);
-void	display_env(t_envp *envp, t_data *data);
+void	get_builtin_env(t_data *data, t_token *token, int exit_flag);
+void	display_env(t_envp *envp, t_data *data, int exit_flag);
 
 // SRC/BUILTINS/EXIT/GET_EXIT
 void	get_exit(t_data *data, t_token *token);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT
-void	get_export(t_data *data);
+void	get_export(t_data *data, t_token *token, int exit_flag);
 t_envp	*duplicate_envp_list(t_envp *env);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS
-void	display_env_export(t_envp *envp, t_data *data);
-void	print_export(t_envp *env, t_data *data);
+void	display_env_export(t_envp *envp, t_data *data, int exit_flag);
+void	print_export(t_envp *env, t_data *data, int exit_flag);
 t_envp	*find_last_node(t_envp *lst);
-bool	is_valid_export(t_token *token, t_data *data);
-void	export_error_identifier(t_token *token, t_data *data);
+bool	is_valid_export(t_token *token, t_data *data, int exit_flag);
+void	export_error_identifier(t_token *token, t_data *data, int exit_flag);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
 char	*find_key(char *str);
@@ -311,6 +313,8 @@ void	free_data(t_data *data);
 
 // SRC/ERROR/PRINT_ERROR
 void	print_error(char *error_type, int error_code, t_data *data);
+void	print_error_flag(char *error_type, int error_code, t_data *data,
+	int exit_flag);
 
 /* ************************************************************************** */
 /*                                                                            */

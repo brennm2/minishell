@@ -4,7 +4,7 @@
 		"name": "(gdb) Launch",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "/home/bde-souz/Desktop/minishell_brendon/minishell",
+		"program": "/home/bde-souz/Desktop/brendon_versao2/minishell",
 		"args": [],
 		"stopAtEntry": false,
 		"cwd": "${fileDirname}",

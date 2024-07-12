@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 16:35:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:40:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	pid = 0;
 	if (tree->builtin_token && tree->builtin_token->type == builtin)
 	{
-		get_builtin(data, tree->builtin_token, 2);
+		get_builtin(data, tree->builtin_token, 1);
 		//ft_putstr_fd("builting\n", 2);
 	}
 	else
@@ -45,7 +45,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0])
 		cmd_execution(data, ecmd);
-	//clean(data, G_EXIT_CODE);
+	clean(data, G_EXIT_CODE);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)

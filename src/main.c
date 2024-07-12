@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 16:42:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:13:54 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,17 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 	int		status;
 
 	buffer = NULL;
+	data->exit_code = 0;
 	while (1)
 	{
 		reset_fd_signals(fd1, fd2);
-		data->exit_code = 0;
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		add_history(buffer);
 		if (!valid_input(buffer, data))
 			continue ;
 		init_commands(buffer, data);
 		if (is_only_builtin(data, data->token) == true)
-			get_builtin(data, data->token, 1);
+			get_builtin(data, data->token, 0);
 		else
 		{
 			if (safe_fork(data) == 0)

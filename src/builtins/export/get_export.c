@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:24:41 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:51:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ t_envp	*duplicate_envp_list(t_envp *env)
 	return (head);
 }
 
-void	create_new_export(t_envp *env, char *key, char *value)
+void	create_new_export(t_data *data, char *key, char *value, int exit_flag)
 {
 	t_envp	*new_envp;
 
-	new_envp = env;
+	(void) exit_flag;
+	new_envp = data->envp;
 	new_envp = find_last_node(new_envp);
 	new_envp->next = ft_calloc(1, sizeof(t_envp));
 	new_envp = new_envp->next;
@@ -52,69 +53,85 @@ void	create_new_export(t_envp *env, char *key, char *value)
 	else
 		new_envp->value = ft_strdup(value);
 	new_envp->key = key;
+	//ft_exit_flag(0, exit_flag, data);
 }
 
-bool	change_existing_export(t_envp *env, char *key, char *value)
+bool	change_existing_export(t_data *data, char *key, char *value,
+	int exit_flag)
+
 {
-	if (get_in_env(env, key) == NULL) // Se procurou na lista e não encontrou, então retorna falso
+	(void) exit_flag;
+	if (get_in_env(data->envp, key) == NULL) // Se procurou na lista e não encontrou, então retorna falso
 	{
 		return (false);
 	}
-	if (ft_strcmp(key, get_in_env(env, key))) // Se achar Key igual no env
+	if (ft_strcmp(key, get_in_env(data->envp, key))) // Se achar Key igual no env
 	{
-		change_in_env(env, value, key);
+		change_in_env(data->envp, value, key);
 		free(key);
+		//ft_exit_flag(0, exit_flag, data);
 		return (true);
 	}
 	return (false);
 }
 
-void	handle_export_token(t_data *data, t_token *token)
+void	handle_export_token(t_data *data, t_token *token, int exit_flag)
 {
 	char	*value;
 	char	*key;
 
 	if (token->str[0] == '=' || token->str[0] == '-') //se tiver '=' ou '-' no comeco
 	{
-		export_error_identifier(token, data);
+		export_error_identifier(token, data, exit_flag);
 		return ;
 	}
 	key = find_key(token->str);
 	value = ft_strchr(token->str, '=');
 	if (value) //Se existir value, anda para frente uma casa, para tirar o "="
 		value = value + 1;
-	if (!is_invalid_token(key)) //Se for uma key valida
+	if (!is_invalid_token(key)) //Se nao for uma key valida
 	{
 		free(key);
-		export_error_identifier(token, data);
+		export_error_identifier(token, data, exit_flag);
 		return ;
 	}
-	if (!change_existing_export(data->envp, key, value))
-		create_new_export(data->envp, key, value);
+	if (!change_existing_export(data, key, value, exit_flag))
+		create_new_export(data, key, value, exit_flag);
 }
 
-void	get_export(t_data *data)
+void	get_export(t_data *data, t_token *token, int exit_flag)
 {
 	t_token	*head;
+	static bool	flag;
 
-	head = data->token;
-	if (!data->token->next)
-		return (print_export(data->envp, data));
-	else if (data->token->next && data->token->next->str[0] == '-')
+	head = token;
+	//flag = false;
+	if (!token->next || token->next->type != string)
+		return (print_export(data->envp, data, exit_flag));
+	else if (token->next && token->next->str[0] == '-')
 	{
 		ft_putstr_fd("minishell: export: -", 2);
-		ft_putchar_fd(data->token->next->str[1], 2);
+		ft_putchar_fd(token->next->str[1], 2);
 		ft_putstr_fd(": invalid option\n", 2);
-		set_exit_code(2, data);
-		//print_error(NULL, 2);
-		return ;
+		return (ft_exit_flag(2, exit_flag, data));
 	}
-	else if (data->token->next->str[0] == '\0')
-		return (export_error_identifier(data->token->next, data));
-	while (data->token->next) // Se tiver algo para criar
+	else if (token->next->str[0] == '\0')
+		return (export_error_identifier(token->next, data, exit_flag));
+	while (token->next && token->next->type == string)
 	{
-		data->token = data->token->next;
-		handle_export_token(data, data->token);
+		if(!is_invalid_token(token->next->str))
+			flag = true;
+		token = token->next;
 	}
-	data->token = head;
+	token = head;
+	while (token->next && token->next->type == string) // Se tiver algo para criar
+	{
+		token = token->next;
+		handle_export_token(data, token, exit_flag);
+	}
+	if (flag == true)
+		ft_exit_flag(1, exit_flag, data);
+	else
+		ft_exit_flag(0, exit_flag, data);
+	token = head;
 }

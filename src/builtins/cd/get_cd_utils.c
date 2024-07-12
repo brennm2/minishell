@@ -6,28 +6,40 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:46:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:21:46 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:48:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	cd_error_invalid_option(t_data *data)
+void	cd_error_invalid_option(t_data *data, int exit_flag)
 {
 	write(2, "minishell: cd: -", 16);
 	write(2, &data->token->next->str[1], 1);
 	write(2, ": invalid option\n", 17);
-	set_exit_code(2, data);
+	ft_exit_flag(2, exit_flag, data);
+	//set_exit_code(2, data);
 	//print_error(NULL, 2);
 }
 
-void	cd_error_invalid_file(t_data *data)
+void	cd_error_no_file(t_data *data, int exit_flag)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(data->token->next->str, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	ft_exit_flag(1, exit_flag, data);
+	//set_exit_code(1, data);
+	//print_error(NULL, 1);
+}
+
+void	cd_error_invalid_file(t_data *data, int exit_flag)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(data->token->next->str, 2);
 	ft_putstr_fd(": ", 2);
 	perror("");
-	set_exit_code(1, data);
+	ft_exit_flag(1, exit_flag, data);
+	//set_exit_code(1, data);
 	//print_error(NULL, 1);
 }
 
