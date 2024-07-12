@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:32:23 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/04 10:15:41 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:53:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ bool	is_invalid_token(char *key)
 		return (false);
 	while (key[i])
 	{
-		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i]
-			!= '=' && key[i] != ' ')
+		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '=' && key[i] != ' ')
 			return (false);
 		if (key[i] && key[i + 1] == ' ')
 			return (false);
@@ -42,6 +41,24 @@ bool	is_invalid_token(char *key)
 	}
 	return (true);
 }
+
+// bool	is_invalid_token(char *key)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!ft_isalpha(key[0]) && ft_isdigit(key[0]))
+// 		return (false);
+// 	while (key[i])
+// 	{
+// 		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '=' && key[i] != ' ')
+// 			return (false);
+// 		if (key[i] && key[i + 1] == ' ')
+// 			return (false);
+// 		i++;
+// 	}
+// 	return (true);
+// }
 
 char	*find_key(char *str)
 {

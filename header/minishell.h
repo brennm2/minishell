@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 15:57:46 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:32:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,14 +199,17 @@ t_envp	*organize_envp_list(t_envp *duplicate_env);
 void	display_env_export(t_envp *envp, t_data *data, int exit_flag);
 void	print_export(t_envp *env, t_data *data, int exit_flag);
 t_envp	*find_last_node(t_envp *lst);
-bool	is_valid_export(t_token *token, t_data *data, int exit_flag);
-void	export_error_identifier(t_token *token, t_data *data, int exit_flag);
+bool	is_valid_export(t_token *token);
+void	export_error_identifier(t_token *token);
 
 // SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
 char	*find_key(char *str);
 bool	is_invalid_token(char *key);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
+
+// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_3
+bool	check_invalid_token(t_token *token);
 
 // SRC/BUILTIN/UNSET/GET_UNSET
 void	get_unset(t_data *data, t_token *token, int exit_flag);

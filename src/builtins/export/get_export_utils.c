@@ -6,16 +6,14 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 13:41:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:32:19 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	export_error_identifier(t_token *token, t_data *data, int exit_flag)
+void	export_error_identifier(t_token *token)
 {
-	(void)data;
-	(void)exit_flag;
 	ft_putstr_fd("minishell: export: '", 2);
 	ft_putstr_fd(token->str, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
@@ -24,13 +22,13 @@ void	export_error_identifier(t_token *token, t_data *data, int exit_flag)
 	//print_error(NULL, 1, data);
 }
 
-bool	is_valid_export(t_token *token, t_data *data, int exit_flag)
+bool	is_valid_export(t_token *token)
 {
 	if (ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
 	{
 		while (token->next)
 		{
-			export_error_identifier(token, data, exit_flag);
+			export_error_identifier(token);
 			token = token->next;
 		}
 		return (false);

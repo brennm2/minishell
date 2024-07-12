@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/02 11:57:51 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:22:04 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@ int	check_for_string(char *buffer, int start)
 	return (start);
 }
 
+// void	save_substring(char *buffer, int start, int end, t_data *data) //Boa primo
+// {
+//     int	i;
+
+//     i = 0;
+//     while(start <= end)
+//         data->token->str[i++] = buffer[start++];
+//     data->token->str[i] = '\0'; // Adicione um caractere nulo de terminação
+//     if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
+//         start++;
+//     if(buffer[check_for_string(buffer, start)])
+//     {
+//         start = check_for_string(buffer, end + 1); //Acha a proxima palavra
+//         i = start; // i fica igual ao inicio da palavra
+//         while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
+//             i++;
+//         end = i - 1; // end vai ser igual ao i
+//         init_next_token(data->token, end - start + 2); // Inicia o proximo token com o tamnho da string + 1 para o caractere nulo
+//         data->token = data->token->next;
+//     }
+// }
+
+
+
 void	save_substring(char *buffer, int start, int end, t_data *data)
 {
 	int	i;
@@ -42,7 +66,7 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
 			i++;
 		end = i - 1; // end vai ser igual ao i
-		init_next_token(data->token, end - start); // Inicia o proximo token com o tamnho da string
+		init_next_token(data->token, end - start + 2); // Inicia o proximo token com o tamnho da string
 		data->token = data->token->next;
 	}
 }

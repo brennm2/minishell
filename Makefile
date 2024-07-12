@@ -26,6 +26,7 @@ SRC = src/main.c \
 	src/builtins/export/get_export.c \
 	src/builtins/export/get_export_utils.c \
 	src/builtins/export/get_export_utils_2.c \
+	src/builtins/export/get_export_utils_3.c \
 	src/builtins/unset/get_unset.c \
 	src/signal/signal.c \
 	src/parsing/parsing.c \

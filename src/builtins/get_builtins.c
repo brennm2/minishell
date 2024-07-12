@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 15:57:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:54:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,22 @@ void	command_not_found(t_token *token, t_data *data)
 void	get_builtin(t_data *data, t_token *token, int flag)
 {
 	//flag 0 = data->exit_code / flag = 1 signal
-	if (data->token->builtin == echo && !ft_strcmp(data->token->str, "echo"))
+	
+	if (token->builtin == echo && !ft_strcmp(token->str, "echo"))
 		get_echo(token->next, data, flag);
-	else if (data->token->builtin == pwd && !ft_strcmp(data->token->str, "pwd"))
+	else if (token->builtin == pwd && !ft_strcmp(token->str, "pwd"))
 		get_pwd(token, data, flag);
-	else if (data->token->builtin == cd && !ft_strcmp(data->token->str, "cd"))
+	else if (token->builtin == cd && !ft_strcmp(token->str, "cd"))
 		get_cd(data, token, flag);
-	else if (data->token->builtin == env && !ft_strcmp(data->token->str, "env"))
+	else if (token->builtin == env && !ft_strcmp(token->str, "env"))
 		get_builtin_env(data, token, flag);
 	else if (token->builtin == n_exit
 		&& !ft_strcmp(token->str, "exit"))
 		get_exit(data, token, flag);
-	else if (data->token->builtin == export
+	else if (token->builtin == export
 		&& !ft_strcmp(data->token->str, "export"))
 		get_export(data, token, flag);
-	else if (data->token->builtin == unset
+	else if (token->builtin == unset
 		&& !ft_strcmp(data->token->str, "unset"))
 		get_unset(data, token, flag);
 	/* else
