@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 16:17:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:54:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	tokenize(data);
 	remove_quotes(data);
-	debug_print_list(data);
+	//debug_print_list(data);
 }
 
 void	reset_fd_signals(int fd1, int fd2)
@@ -103,8 +103,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 			continue ;
 		init_commands(buffer, data);
 		if (safe_fork(data) == 0)
-			printf("exec\n");
-			//execution(data);
+			execution(data);
 		waitpid(0, &status, 0);
 		update_exit_code(status);
 		free_token(data->token);
