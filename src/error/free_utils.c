@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 12:03:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:54:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	clean(t_data *data, int ex)
 		free_tree(data->tree);
 	if (data->home)
 		free(data->home);
+	if (data->ex_)
+		free(data->ex_);
 	free(data);
 	rl_clear_history();
 	exit(ex);

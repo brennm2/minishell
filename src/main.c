@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/13 11:57:13 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 17:32:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,23 @@ void	debug_print_list_ex(t_data *data)
 	data->token = temp_token;
 }
 
-void init_commands(char *buffer, t_data *data)
+void	set_ex_(t_data *data)
+{
+	t_token	*aux;
+
+	data->ex_ = ft_strdup("");
+	aux = data->token;
+	while (aux)
+	{
+		free(data->ex_);
+		data->ex_ = ft_strdup(aux->str);
+		if (aux->next && is_red_or_pipe(aux->next))
+			break ;
+		aux = aux->next;
+	}
+}
+
+void	init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
@@ -58,6 +74,7 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	tokenize(data);
 	remove_quotes(data);
+	set_ex_(data);
 	//debug_print_list(data);
 }
 

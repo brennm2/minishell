@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 11:46:48 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:07:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
 		{
 			free(buffer);
 			free(here_doc_file);
+			free(delimiter);	
 			clean(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);

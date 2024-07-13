@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/13 11:56:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:44:40 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ typedef struct s_data
 	t_envp *envp;
 	t_token *token;
 	char	*home;
+	char	*ex_;
 	int		fd;
 	t_tree_root	*tree;
 	int		exit_code;
@@ -419,5 +420,6 @@ void	*ptr_free(char **ptr);
 void	*safe_calloc(size_t bytes, size_t n, t_data *data);
 void	free_token_redir(t_token *token);
 void	unlink_here_doc_file(void);
+bool	is_red_or_pipe(t_token *token);
 
 #endif
