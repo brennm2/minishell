@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 11:31:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:04:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	pid = 0;
 	if (tree->builtin_token && tree->builtin_token->type == builtin)
 	{
-		//get_builtin(data, tree->builtin_token, 1);
 		ft_signal_ignore();
 		pid = safe_fork(data);
 		if (pid == 0)

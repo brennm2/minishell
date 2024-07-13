@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 16:54:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:10:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	unlink_here_doc_file(void)
 {
 	int	i;
 	char	*file_name;
-	
+		
 	i = -1;
 	while (1)
 	{
