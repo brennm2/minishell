@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 15:39:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:37:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	expansion_digit(t_token *token, int j, int i)
 	token->str = expanded;
 }
 
-void	is_expand_util(t_token *token, t_envp *envp, int i, int j)
+void	is_expand_util(t_token *token, t_data *data, int i, int j)
 {
 	char	*exit_code;
 
 	j = i;
 	if (token->str[i + 1] == '?')
 	{
-		exit_code = ft_itoa(G_EXIT_CODE);
+		exit_code = ft_itoa(data->exit_code);
 		expansion_exit_code(token, j, i, exit_code);
 		return ;
 	}
@@ -72,5 +72,5 @@ void	is_expand_util(t_token *token, t_envp *envp, int i, int j)
 	} */
 	while (!ft_is_especial(token->str[++i]) && token->str[i] && token->str[i] != 32)
 		;
-	check_env(token, envp, j, i);
+	check_env(token, data->envp, j, i);
 }

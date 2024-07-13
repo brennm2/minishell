@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 15:12:40 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:36:50 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	expand_til(t_token *token, int i, char *home)
 	}
 }
 
-void	is_expand(t_token *token, t_envp *envp, char *home)
+void	is_expand(t_token *token, t_data *data)
 {
 	int	i;
 	int	j;
@@ -81,12 +81,12 @@ void	is_expand(t_token *token, t_envp *envp, char *home)
 		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
 		!= S_QUOTES && token->str[i + 1] != D_QUOTES)
 		{
-			is_expand_util(token, envp, i, j);
+			is_expand_util(token, data, i, j);
 			i = -1;
 			continue ;
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
-			expand_til(token, i, home);
+			expand_til(token, i, data->home);
 	}
 }
 
@@ -97,7 +97,7 @@ void	expand(t_data *data)
 	token_aux = data->token;
 	while (token_aux)
 	{
-		is_expand(token_aux, data->envp, data->home);
+		is_expand(token_aux, data);
 		token_aux = token_aux->next;
 	}
 }

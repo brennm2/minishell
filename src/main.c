@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 18:13:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:57:13 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,8 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 			waitpid(0, &status, 0);
 			update_exit_code(status, data);
 		}
-		printf("exit code: %d\n", data->exit_code); //DEBUG
 		free_token(data->token);
-		//data->exit_code = 0;
+		unlink_here_doc_file();
 	}
 }
 

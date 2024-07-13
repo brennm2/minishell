@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 14:53:25 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:31:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0])
 		cmd_execution(data, ecmd);
-	clean(data, G_EXIT_CODE);
+	clean(data, data->exit_code);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 14:34:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:56:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,12 +381,12 @@ char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
 void	is_here_doc(t_data *data);
-char	*creat_here_doc_file(int i);
+char	*creat_here_doc_file(int i, int flag);
 void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag);
 char	*expand_hd(t_data *data, char *buffer, bool flag);
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 int	deal_with_quotes(t_token *token, int i);
-void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
+void	is_expand_util(t_token *token, t_data *data, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
 
@@ -418,5 +418,6 @@ void	clean(t_data *data, int ex);
 void	*ptr_free(char **ptr);
 void	*safe_calloc(size_t bytes, size_t n, t_data *data);
 void	free_token_redir(t_token *token);
+void	unlink_here_doc_file(void);
 
 #endif
