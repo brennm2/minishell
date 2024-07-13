@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/13 17:32:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:25:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	set_ex_(t_data *data)
 {
 	t_token	*aux;
 
-	data->ex_ = ft_strdup("");
 	aux = data->token;
 	while (aux)
 	{
-		free(data->ex_);
+		if (data->ex_)
+			free(data->ex_);
 		data->ex_ = ft_strdup(aux->str);
 		if (aux->next && is_red_or_pipe(aux->next))
 			break ;

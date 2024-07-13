@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/08 16:15:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:27:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ void	free_env(t_envp *envp)
 }
 void	free_data(t_data *data)
 {
-	free(data->home);
+	if (data->home)
+		free(data->home);
 	data->home = NULL;
+	if (data->ex_)
+		free(data->ex_);
 	//free(data->token);
 	//free(data->envp);
 	free(data);
