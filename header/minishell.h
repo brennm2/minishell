@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/13 16:44:40 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:18:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	init_commands(char *buffer, t_data *data);
 
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data, t_token *token, int flag);
-void	command_not_found(t_token *token, t_data *data);
+void	command_not_found(char *str, t_data *data);
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO

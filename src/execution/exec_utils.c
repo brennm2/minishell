@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 11:37:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:16:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
 	}
 	else
-		command_not_found(exec->token, data);
+		command_not_found(exec->argv[0], data);
 	clean(data, 127);
 }
 

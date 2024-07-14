@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/08 17:38:50 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/14 12:46:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*find_path(t_data *data, char *path, char *cmd)
 
 	i = 0;
 	if (access(cmd, X_OK) == 0)
-		return (cmd);
+		return (ft_strdup(cmd));
 	valid_path = NULL;
 	path_apart = ft_split(path, ':');
 	while (path_apart[i])
