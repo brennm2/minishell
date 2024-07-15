@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/14 12:50:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:38:58 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,30 @@ void	set_ex_(t_data *data)
 	}
 }
 
+void	update_token(t_data *data)
+{
+	t_token	*token_aux;
+	t_token *dead;
+
+	token_aux = data->token;
+	if (token_aux->str[0] == '\0')
+	{
+		data->token = token_aux->next;
+		free_token_redir(token_aux);
+		return ;
+	}
+	while (token_aux)
+	{
+		if (token_aux->next && token_aux->next->str[0] == '\0')
+		{
+			dead = token_aux->next;
+			token_aux->next = token_aux->next->next;
+			free_token_redir(dead);
+		}
+		token_aux = token_aux->next;
+	}
+}
+
 void	init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
@@ -74,6 +98,7 @@ void	init_commands(char *buffer, t_data *data)
 	expand(data);
 	tokenize(data);
 	remove_quotes(data);
+	update_token(data);
 	set_ex_(data);
 	//debug_print_list(data);
 }
@@ -135,6 +160,8 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 			continue ;
 		add_history(buffer);
 		init_commands(buffer, data);
+		if (!data->token)
+			continue ;
 		if (is_only_builtin(data, data->token) == true)
 			get_builtin(data, data->token, 0);
 		else

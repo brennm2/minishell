@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 11:36:50 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:00:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,53 @@ void	expand_til(t_token *token, int i, char *home)
 	}
 }
 
+void	erase_dollar_sign(t_token *token, int i)
+{
+	char	*str;
+
+	str = ft_calloc(sizeof(char), (i + 1));
+	ft_strlcpy(str, token->str, i);
+	str = ft_strjoin_ex(str, token->str + i + 1);
+	free(token->str);
+	token->str = str;
+}
+
+bool	is_expand_2(t_token *token, t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
+		!= S_QUOTES && token->str[i + 1] != D_QUOTES)
+	{
+		is_expand_util(token, data, i, j);
+		return (true);
+	}
+	if (token->str[i] == '$' && token->str[i + 1] && (token->str[i + 1] \
+	== S_QUOTES || token->str[i + 1] == D_QUOTES) && quote_status(token->str, i) == 0)
+	{
+		erase_dollar_sign(token, i);
+		return (true);
+	}
+	return (false);
+}
+
 void	is_expand(t_token *token, t_data *data)
 {
 	int	i;
-	int	j;
 
 	i = -1;
-	j = 0; // #TODO Inicializado o J a 0 por causa das flags! 
 	while (token->str[++i])
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
 			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
-		!= S_QUOTES && token->str[i + 1] != D_QUOTES)
+		if (token->str[i] == '$' && token->str[i + 1])
 		{
-			is_expand_util(token, data, i, j);
-			i = -1;
-			continue ;
+			if (is_expand_2(token, data, i))
+			{
+				i = -1;
+				continue ;
+			}
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);

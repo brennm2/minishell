@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 16:07:22 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:14:30 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*erase_the_quote_hd(char *delimiter, int i)
 	temp = ft_calloc(sizeof(char), i + 1);
 	ft_strlcpy(temp, delimiter, i + 1);
 	i++;
-	unquote_str = ft_strjoin_ex(temp, delimiter + i);
+	unquote_str = ft_strjoin(temp, delimiter + i);
 	free(temp);
 	return (unquote_str);
 }

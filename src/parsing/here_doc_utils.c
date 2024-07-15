@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 16:07:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:51:39 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	write_file(char *here_doc_file, char *buffer)
 	fd = open(here_doc_file, O_WRONLY | O_APPEND);
 	if (fd == -1)
 		return ;
-	write(fd, buffer, ft_strlen(buffer));
+	if (buffer)
+		write(fd, buffer, ft_strlen(buffer));
 	write(fd, "\n", 1);
 	close(fd);
 }

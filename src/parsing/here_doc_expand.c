@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:31:40 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 15:36:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:11:30 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*expansion_hd(t_envp *envp, char *buffer, int j, int i)
 {
 	char	*expanded;
 
+	if (!envp && j == 0 && !buffer[i])
+	return (NULL);
 	expanded = ft_calloc(sizeof(char), (j + 1));
 	ft_strlcpy(expanded, buffer, j + 1);
 	if (envp)
@@ -47,7 +49,7 @@ char	*check_env_hd(char *buffer, t_envp *env, int j, int i)
 		}
 		env_aux = env_aux->next;
 	}
-	expansion_hd(NULL, buffer, j, i);
+	buffer = expansion_hd(NULL, buffer, j, i);
 	free(variable);
 	return (buffer);
 }
@@ -101,6 +103,8 @@ char	*expand_hd(t_data *data, char *buffer, bool flag)
 		if (buffer[i] == '$' && buffer[i + 1] && buffer[i + 1])
 		{
 			buffer = is_expand_util_hd(buffer, data->envp, i, j);
+			if (!buffer)
+				break ;
 			i = -1;
 			continue ;
 		}
