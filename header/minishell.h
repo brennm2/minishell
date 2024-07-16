@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/14 13:18:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:06:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,5 +421,6 @@ void	*safe_calloc(size_t bytes, size_t n, t_data *data);
 void	free_token_redir(t_token *token);
 void	unlink_here_doc_file(void);
 bool	is_red_or_pipe(t_token *token);
+void	free_tree(t_tree_root *cmd);
 
 #endif

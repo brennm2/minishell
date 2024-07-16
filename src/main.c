@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/15 16:38:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:12:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_data	*init_minishell(int argc, char **argv, char ** envp, t_data *data)
 {	
 	if (argc != 1 || argv[1])
 	{
-		print_error("Minishell does not accept any arguments.", 1, data);
+		ft_putstr_fd("Minishell does not accept any arguments.", 2);
 		exit(1);
 	}
 	data = ft_calloc(1, sizeof(t_data));;

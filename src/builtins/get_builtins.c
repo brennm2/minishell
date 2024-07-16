@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/14 13:17:21 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:05:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,19 @@ void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 	}
 	else //flag 1 = signal
 	{
-		//ft_putstr_fd("Usando exit_flag_1 = exit: ", 2); //DEBUG
-		//ft_putnbr_fd(exit_code, 2);
-		//ft_putstr_fd(" <--\n", 2);
+		if (!data)
+		exit(1);
+		free_env(data->envp);
+		free_token(data->token);
+		if (data->tree)
+			free_tree(data->tree);
+		if (data->home)
+			free(data->home);
+		if (data->ex_)
+			free(data->ex_);
+		free(data);
+		rl_clear_history();
+		//exit(ex);
 		exit(exit_code);
 	}
 }
