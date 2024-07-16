@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:32:04 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:36:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_catch_signal(int id)
 	}
 	else if (id == CHILD)
 	{
-		ft_putstr_fd("Entrou aqui signal\n", 2);
+		//ft_putstr_fd("Entrou aqui signal\n", 2);
 		//signal(SIGINT, SIG_DFL);
 		//signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, signal_child);

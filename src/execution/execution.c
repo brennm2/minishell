@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/16 15:59:05 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:03:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 		{
-			ft_putstr_fd("aqui\n", 2);
+			//ft_putstr_fd("aqui\n", 2);
 			set_exit_code(WEXITSTATUS(status), data);
 		}
 		// else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal

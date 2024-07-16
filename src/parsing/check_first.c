@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/14 13:45:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:24:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,24 @@ bool	redirect_inverse_error(char *buffer)
 	return (false);
 }
 
+bool	check_valid_redir(char *buffer, int i)
+{
+	if (buffer[i + 1] == buffer[i] || buffer[i + 1] == ' ')
+	{
+		i = move_space(buffer, i + 2);
+		if (buffer[i] && (buffer[i] == '>' || buffer[i] == '<'))
+		{
+			ft_putstr_fd("syntax error near unexpected token `", 2);
+			if (buffer[i + 1] && (buffer[i + 1] == '>' || buffer[i + 1] == '<'))
+				ft_putchar_fd(buffer[i], 2);
+			ft_putchar_fd(buffer[i], 2);
+			ft_putstr_fd("\'\n", 2);
+			return (true);
+		}
+	}
+	return (false);
+}
+
 bool	redirect_space_and_count_error(char *buffer)
 {
 	bool s_quotes;
@@ -123,13 +141,18 @@ bool	redirect_space_and_count_error(char *buffer)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
-		else if (buffer[i] == '>' && buffer[i + 1] == ' '
+		else if (buffer[i] == '>' || buffer[i] == '<')
+		{
+			if (check_valid_redir(buffer, i))
+				return (true);
+		}
+		/* && buffer[i + 1] == ' '
 			&& buffer[move_space(buffer, i + 2)] == '>'
 			&& !d_quotes && !s_quotes)
 		{
-			printf("error\n");
+			printf(ERROR_REDIR_1);
 			return (true);
-		}
+		} */
 		i++;
 	}
 	return (false);
@@ -234,7 +257,8 @@ bool	check_for_syntax_error(char *buffer, t_data *data)
 		|| ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 	{
 		if (buffer)
-			syntax_error_sup(buffer, data);
+			if (syntax_error_sup(buffer, data))
+				data->exit_code = 2;
 		free (buffer);
 		return (false);
 	}
@@ -283,7 +307,6 @@ bool	check_for_syntax_error(char *buffer, t_data *data)
 // 	return (false);
 // }
 
-
 bool	valid_input(char *buffer, t_data *data)
 {
 	if (!buffer || buffer == NULL)
@@ -299,11 +322,11 @@ bool	valid_input(char *buffer, t_data *data)
 		free(buffer);
 		return (false);
 	}
-	if (check_for_quotes(buffer, data) || !check_for_syntax_error(buffer, data)) // retirar o "redirect_count"
-		{
-			add_history(buffer);
-			free(buffer);
-			return (false);
-		}
+	if (check_for_quotes(buffer, data) || !check_for_syntax_error(buffer, data))
+	{
+		add_history(buffer);
+		free(buffer);
+		return (false);
+	}
 	return (true);
 }
