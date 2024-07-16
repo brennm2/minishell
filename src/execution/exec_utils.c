@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/12 11:37:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:41:08 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	safe_fork(t_data *data)
 {
 	int	pid;
 
+	//ft_catch_signal(CHILD);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -68,7 +69,6 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 {
 	char	**env;
 
-	ft_catch_signal(CHILD);
 	if (!exec->cmd)
 		empty_cmd(data, exec);
 	env = change_env(data->envp);

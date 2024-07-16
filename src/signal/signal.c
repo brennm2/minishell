@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:31:25 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:32:04 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,29 @@ void	signal_main(int signal_num)
 	//printf("main\n");
 	if(signal_num == SIGINT)
 	{
+		ft_putstr_fd("impirmiu main\n", 2);
 		//ft_putstr_fd("main", 2);
 		rl_replace_line("", 0);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		G_EXIT_CODE = 130;
+		// G_EXIT_CODE = 130;
 		//print_error(NULL, 130);
 	}
 }
 
 void	signal_child(int signal_num)
 {
+	// (void) signal_num;
 	if(signal_num == SIGINT)
 	{
+		//ft_putstr_fd("aqui", 2);
 		//rl_replace_line("", 0);
 		//ft_putstr_fd("\n", STDERR_FILENO);
+		write(STDERR_FILENO, "\n", 1);
 		//rl_on_new_line();
 		//rl_redisplay();
-		G_EXIT_CODE = 50;
+		//G_EXIT_CODE = 50;
 	}
 }
 
@@ -48,17 +52,18 @@ void	signal_child_checker(int status)
 			G_EXIT_CODE = 131;
 			return ;
 		}
-		else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
-		{
-			//ft_putstr_fd("ctrl + c\n", 2);
-			ft_putstr_fd("\n", 2);
-			G_EXIT_CODE = 130;
-			return ;
-		}
+		// else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
+		// {
+		// 	//ft_putstr_fd("ctrl + c\n", 2);
+		// 	rl_replace_line("", 0);
+		// 	//ft_putstr_fd("\n", 2);
+		// 	ft_putstr_fd("\n", STDERR_FILENO);
+		// 	rl_on_new_line();
+		// 	rl_redisplay();
+		// 	G_EXIT_CODE = 130;
+		// 	return ;
+		// }
 }
-
-
-
 
 void	ft_catch_signal(int id)
 {
@@ -66,14 +71,18 @@ void	ft_catch_signal(int id)
 	
 	if (id == MAIN)
 	{
+		//ft_putstr_fd("Entrou aqui main\n", 2);
 		signal(SIGINT, signal_main); //ctrl + c
 		signal(SIGTERM, SIG_IGN); //ctrl + D
 		signal(SIGQUIT, SIG_IGN); //ctrl + barra
 	}
 	else if (id == CHILD)
 	{
+		ft_putstr_fd("Entrou aqui signal\n", 2);
+		//signal(SIGINT, SIG_DFL);
+		//signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, signal_child);
-		signal(SIGQUIT, signal_child);
+		//signal(SIGQUIT, SIG_IGN);
 	}
 	else if (id == HERE_DOC)
 	{

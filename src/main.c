@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 14:09:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:41:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,16 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 			get_builtin(data, data->token, 0);
 		else
 		{
+			ft_catch_signal(CHILD);
 			if (safe_fork(data) == 0)
+			{
+				//ft_catch_signal(CHILD);
 				execution(data);
+			}
 			waitpid(0, &status, 0);
 			update_exit_code(status, data);
 		}
-		printf("exit code: %d\n", data->exit_code); //DEBUG
+		//printf("exit code: %d\n", data->exit_code); //DEBUG
 		free_token(data->token);
 	}
 }
