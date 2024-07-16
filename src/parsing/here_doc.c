@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 15:59:20 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:14:30 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int
 	char	*here_doc_file;
 	int		status;
 
-	here_doc_file = creat_here_doc_file(i);
+	here_doc_file = creat_here_doc_file(i, 1);
 	if (!here_doc_file)
 		clean(data, 1);
 	if (safe_fork(data) == 0)
 	{
 		fill_file(data, delimiter, here_doc_file, flag);
+		clean(data, 0);
 	}
 	waitpid(0, &status, 0);
 	change_token(token, here_doc_file);
@@ -47,12 +48,13 @@ void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int
 char	*erase_the_quote_hd(char *delimiter, int i)
 {
 	char	*unquote_str;
+	char	*temp;
 
-	unquote_str = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(unquote_str, delimiter, i + 1);
+	temp = ft_calloc(sizeof(char), i + 1);
+	ft_strlcpy(temp, delimiter, i + 1);
 	i++;
-	unquote_str = ft_strjoin_ex(unquote_str, delimiter + i);
-	free(delimiter);
+	unquote_str = ft_strjoin(temp, delimiter + i);
+	free(temp);
 	return (unquote_str);
 }
 
@@ -60,6 +62,7 @@ char	*remove_quotes_hd(char *delimiter)
 {
 	int	i;
 	int	j;
+	char	*temp;
 
 	i = 0;
 	j = 0;
@@ -68,8 +71,10 @@ char	*remove_quotes_hd(char *delimiter)
 		if ((delimiter[i] == S_QUOTES || delimiter[i] == D_QUOTES))
 		{
 			j = deal_quotes(delimiter, i);
-			delimiter = erase_the_quote_hd(delimiter, i);
-			delimiter = erase_the_quote_hd(delimiter, j - 1);
+			temp = erase_the_quote_hd(delimiter, i);
+			free(delimiter);
+			delimiter = erase_the_quote_hd(temp, j - 1);
+			free(temp);
 			i = j - 1;
 		}
 		else

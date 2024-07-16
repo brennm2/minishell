@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 16:08:26 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:51:17 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ void	free_env(t_envp *envp)
 }
 void	free_data(t_data *data)
 {
-	free(data->home);
+	if (data->home)
+		free(data->home);
 	data->home = NULL;
+	if (data->ex_)
+		free(data->ex_);
 	//free(data->token);
 	//free(data->envp);
 	free(data);

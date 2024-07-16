@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   construction_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:29:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/10 16:29:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:15:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ t_tree_root	*const_exec(t_data *data, t_token *token)
 		exit(1);
 	ft_memset(exec_cmd, 0, sizeof(t_tree_exec));
 	if (token->type == builtin)
-	{
 		exec_cmd->builtin_token = token;
-	}
 	else
 		exec_cmd->builtin_token = NULL;
 	exec_cmd->type = t_exec;

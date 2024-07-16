@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/11 12:35:05 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:45:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	is_all_space(char *buffer)
 
 	i = 0;
 	while(buffer[i++])
-		if (buffer[i] != ' ')
+		if (buffer[i] != ' ' && buffer[i] != '\0')
 			return (false);
 	return (true);
 }
@@ -240,6 +240,7 @@ bool	check_for_syntax_error(char *buffer, t_data *data)
 	}
 	if (buffer && syntax_error_sup(buffer, data) == true)
 	{
+		data->exit_code = 2; //verificar
 		free (buffer);
 		return (false);
 	}
@@ -293,9 +294,14 @@ bool	valid_input(char *buffer, t_data *data)
 		ft_putstr_fd("exit\n", 2);
 		exit (G_EXIT_CODE);
 	}
-	if(is_all_space(buffer) || check_for_quotes(buffer, data)
-		|| !check_for_syntax_error(buffer, data)) // retirar o "redirect_count"
+	if(is_all_space(buffer))
+	{
+		free(buffer);
+		return (false);
+	}
+	if (check_for_quotes(buffer, data) || !check_for_syntax_error(buffer, data)) // retirar o "redirect_count"
 		{
+			add_history(buffer);
 			free(buffer);
 			return (false);
 		}

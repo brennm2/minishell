@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 14:30:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:51:39 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	open_file(char *file)
 	return (true);
 }
 
-char	*creat_here_doc_file(int i)
+char	*creat_here_doc_file(int i, int flag)
 {
 	char	*file;
 	char	*nbr;
@@ -50,10 +50,13 @@ char	*creat_here_doc_file(int i)
 	file = ft_strjoin(temp, ".temp");
 	free(nbr);
 	free(temp);
-	if (!open_file (file))
+	if (flag == 1)
 	{
-		free(file);
-		return (NULL);
+		if (!open_file (file))
+		{
+			free(file);
+			return (NULL);
+		}
 	}
 	return (file);
 }
@@ -65,7 +68,8 @@ void	write_file(char *here_doc_file, char *buffer)
 	fd = open(here_doc_file, O_WRONLY | O_APPEND);
 	if (fd == -1)
 		return ;
-	write(fd, buffer, ft_strlen(buffer));
+	if (buffer)
+		write(fd, buffer, ft_strlen(buffer));
 	write(fd, "\n", 1);
 	close(fd);
 }
@@ -81,6 +85,7 @@ void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
 		{
 			free(buffer);
 			free(here_doc_file);
+			free(delimiter);	
 			clean(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 16:48:05 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/13 11:23:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ bool	is_red_or_pipe(t_token *token)
 void	tokenize(t_data *data)
 {
 	t_token	*token_aux;
-	int		i;
-
-	i = -1;
+	
 	token_aux = data->token;
 	while (token_aux)
 	{

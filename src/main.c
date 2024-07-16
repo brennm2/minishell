@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:41:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:50:21 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,47 @@ void	debug_print_list_ex(t_data *data)
 	data->token = temp_token;
 }
 
-void init_commands(char *buffer, t_data *data)
+void	set_ex_(t_data *data)
+{
+	t_token	*aux;
+
+	aux = data->token;
+	while (aux)
+	{
+		if (data->ex_)
+			free(data->ex_);
+		data->ex_ = ft_strdup(aux->str);
+		if (aux->next && is_red_or_pipe(aux->next))
+			break ;
+		aux = aux->next;
+	}
+}
+
+void	update_token(t_data *data)
+{
+	t_token	*token_aux;
+	t_token *dead;
+
+	token_aux = data->token;
+	if (token_aux->str[0] == '\0')
+	{
+		data->token = token_aux->next;
+		free_token_redir(token_aux);
+		return ;
+	}
+	while (token_aux)
+	{
+		if (token_aux->next && token_aux->next->str[0] == '\0')
+		{
+			dead = token_aux->next;
+			token_aux->next = token_aux->next->next;
+			free_token_redir(dead);
+		}
+		token_aux = token_aux->next;
+	}
+}
+
+void	init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
@@ -58,6 +98,8 @@ void init_commands(char *buffer, t_data *data)
 	expand(data);
 	tokenize(data);
 	remove_quotes(data);
+	update_token(data);
+	set_ex_(data);
 	//debug_print_list(data);
 }
 
@@ -72,7 +114,7 @@ t_data	*init_minishell(int argc, char **argv, char ** envp, t_data *data)
 {	
 	if (argc != 1 || argv[1])
 	{
-		print_error("Minishell does not accept any arguments.", 1, data);
+		ft_putstr_fd("Minishell does not accept any arguments.", 2);
 		exit(1);
 	}
 	data = ft_calloc(1, sizeof(t_data));;
@@ -114,10 +156,12 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 	{
 		reset_fd_signals(fd1, fd2);
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
-		add_history(buffer);
 		if (!valid_input(buffer, data))
 			continue ;
+		add_history(buffer);
 		init_commands(buffer, data);
+		if (!data->token)
+			continue ;
 		if (is_only_builtin(data, data->token) == true)
 			get_builtin(data, data->token, 0);
 		else
@@ -133,6 +177,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		}
 		//printf("exit code: %d\n", data->exit_code); //DEBUG
 		free_token(data->token);
+		unlink_here_doc_file();
 	}
 }
 
@@ -144,7 +189,6 @@ int main(int argc, char **argv, char **envp)
 
 	fd1 = dup(STDIN_FILENO);
 	fd2 = dup(1);
-	//G_EXIT_CODE = 0; //#TODO <-- Exit code fica aqui?
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
 	data->exit_code = 0;

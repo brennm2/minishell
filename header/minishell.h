@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 18:32:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:49:54 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ typedef struct s_data
 	t_envp *envp;
 	t_token *token;
 	char	*home;
-	int		fd_here_doc;
+	char	*ex_;
+	int		fd;
 	t_tree_root	*tree;
 	int		exit_code;
 	struct s_data	*next;
@@ -163,7 +164,7 @@ void	init_commands(char *buffer, t_data *data);
 
 // SRC/BUILTIN/GET_BUILTINS
 void	get_builtin(t_data *data, t_token *token, int flag);
-void	command_not_found(t_token *token, t_data *data);
+void	command_not_found(char *str, t_data *data);
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data);
 
 // SRC/BUILTIN/ECHO/GET_ECHO
@@ -384,12 +385,12 @@ char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
 void	is_here_doc(t_data *data);
-char	*creat_here_doc_file(int i);
+char	*creat_here_doc_file(int i, int flag);
 void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag);
 char	*expand_hd(t_data *data, char *buffer, bool flag);
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 int	deal_with_quotes(t_token *token, int i);
-void	is_expand_util(t_token *token, t_envp *envp, int i, int j);
+void	is_expand_util(t_token *token, t_data *data, int i, int j);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
 
@@ -421,5 +422,8 @@ void	clean(t_data *data, int ex);
 void	*ptr_free(char **ptr);
 void	*safe_calloc(size_t bytes, size_t n, t_data *data);
 void	free_token_redir(t_token *token);
+void	unlink_here_doc_file(void);
+bool	is_red_or_pipe(t_token *token);
+void	free_tree(t_tree_root *cmd);
 
 #endif

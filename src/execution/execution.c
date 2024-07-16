@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/16 15:28:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:49:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	{
 		get_builtin(data, tree->builtin_token, 1);
 		//ft_putstr_fd("builting\n", 2);
+	}
+	else
+	{
+		ft_signal_ignore();
+		pid = safe_fork(data);
+		if (pid == 0)
+			get_builtin(data, tree->builtin_token, 1);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			set_exit_code(WEXITSTATUS(status), data);
+		else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal
+			signal_child_checker(status);
 	}
 	else
 	{
@@ -53,7 +65,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0])
 		cmd_execution(data, ecmd);
-	clean(data, G_EXIT_CODE);
+	clean(data, data->exit_code);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)

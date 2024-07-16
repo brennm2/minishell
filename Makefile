@@ -96,7 +96,7 @@ norminette:
 
 valgrind:
 	@make
-	@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
+	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
 sync_shell: all		## Test w/ syncshell
 	@echo "[Testing with syncshell]"
