@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:41:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:15:02 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,9 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 			get_builtin(data, data->token, 0);
 		else
 		{
-			ft_catch_signal(CHILD);
+			ft_signal_ignore();
 			if (safe_fork(data) == 0)
 			{
-				//ft_catch_signal(CHILD);
 				execution(data);
 			}
 			waitpid(0, &status, 0);

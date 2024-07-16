@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:32:04 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:21:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	signal_main(int signal_num)
 	//printf("main\n");
 	if(signal_num == SIGINT)
 	{
-		ft_putstr_fd("impirmiu main\n", 2);
+		//ft_putstr_fd("impirmiu main", 2);
 		//ft_putstr_fd("main", 2);
 		rl_replace_line("", 0);
 		write(STDERR_FILENO, "\n", 1);
@@ -30,17 +30,26 @@ void	signal_main(int signal_num)
 
 void	signal_child(int signal_num)
 {
-	// (void) signal_num;
-	if(signal_num == SIGINT)
-	{
-		//ft_putstr_fd("aqui", 2);
-		//rl_replace_line("", 0);
-		//ft_putstr_fd("\n", STDERR_FILENO);
+	(void) signal_num;
+	if (signal_num == SIGINT)
 		write(STDERR_FILENO, "\n", 1);
-		//rl_on_new_line();
-		//rl_redisplay();
-		//G_EXIT_CODE = 50;
+		
+
+	if (signal_num == SIGQUIT)
+	{
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
 	}
+	// write(STDERR_FILENO, "t", 1);
+	// if(signal_num == SIGINT)
+	// {
+	// 	//ft_putstr_fd("aqui", 2);
+	// 	//rl_replace_line("", 0);
+	// 	//ft_putstr_fd("\n", STDERR_FILENO);
+	// 	//write(STDERR_FILENO, "\n", 1);
+	// 	//rl_on_new_line();
+	// 	//rl_redisplay();
+	// 	//G_EXIT_CODE = 50;
+	// }
 }
 
 void	signal_child_checker(int status)
@@ -78,11 +87,11 @@ void	ft_catch_signal(int id)
 	}
 	else if (id == CHILD)
 	{
-		ft_putstr_fd("Entrou aqui signal\n", 2);
+		//ft_putstr_fd("Entrou aqui child", 2);
 		//signal(SIGINT, SIG_DFL);
 		//signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, signal_child);
-		//signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, signal_child);
 	}
 	else if (id == HERE_DOC)
 	{
