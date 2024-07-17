@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 12:03:48 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:31:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	free_token_redir(t_token *token)
 {
 	free(token->str);
 	token->str = NULL;
+	if (token->exp)
+		free(token->exp);
 	free(token);
 	token = NULL;
 }

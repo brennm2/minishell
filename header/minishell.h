@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:49:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:05:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef enum e_tree_type
 typedef struct s_token
 {
 	char		*str;
+	char		*exp;
 	t_types		type;
 	t_builtins	builtin;
 	struct s_token		*next;
@@ -118,6 +119,7 @@ typedef struct s_tree_red
 	t_tree_type	type;
 	t_tree_root	*tree;
 	char		*file;
+	char		*exp;
 	int			mode;
 	int			fd;
 	int			perm;
@@ -425,5 +427,7 @@ void	free_token_redir(t_token *token);
 void	unlink_here_doc_file(void);
 bool	is_red_or_pipe(t_token *token);
 void	free_tree(t_tree_root *cmd);
+void	which_command(t_token *token);
+
 
 #endif

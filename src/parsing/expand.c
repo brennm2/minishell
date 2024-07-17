@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/15 17:00:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:59:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	expansion(t_envp *envp, t_token *token, int j, int i)
 	char	*expanded;
 
 	expanded = ft_calloc(sizeof(char), (j + 1));
+	token->exp = ft_strdup(token->str);
 	ft_strlcpy(expanded, token->str, j + 1);
 	if (envp)
 		expanded = ft_strjoin_ex(expanded, envp->value);

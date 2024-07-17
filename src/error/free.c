@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:51:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:00:18 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	free_token(t_token *token)
 	while(token)
 	{
 		temp_token = token->next;
-		if (token->str)
 		free(token->str);
 		token->str = NULL;
+		if (token->exp)
+			free(token->exp);
 		free(token);
 		token = NULL;
-		//token = NULL;
 		token = temp_token;
 	}
 	//free(temp_token);

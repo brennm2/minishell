@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:29:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 19:15:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:06:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_tree_root	*const_redir(t_tree_root *scmd, char *file, int mode, int fd)
 	red_cmd->tree = scmd;
 	red_cmd->file = file;
 	red_cmd->mode = mode;
+	red_cmd->exp = scmd->token->exp;
 	red_cmd->fd = fd;
 	if (fd == 0)
 		red_cmd->perm = 0444;
