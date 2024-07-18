@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 10:49:32 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:03:14 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,9 @@ void	get_cd(t_data *data, t_token *token, int exit_flag)
 	getcwd(old_cwd, sizeof(old_cwd));
 	if (token->next) //se for "cd ..."
 	{
-		if ((data->token->next->str[0] == '-' || data->token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
+		if (data->token->next->str[0] == '\0')
+			return (ft_exit_flag(0, exit_flag, data));
+		else if ((data->token->next->str[0] == '-' || data->token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
 			return (cd_options(data, token, exit_flag));
 		else if (!chdir(data->token->next->str)) //Executar o comando normal "cd src/", caso nao encontre, nao entre
 		{
@@ -111,7 +113,6 @@ void	get_cd(t_data *data, t_token *token, int exit_flag)
 			data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 			data->envp = change_in_env(data->envp, cwd, "PWD");
 			return (ft_exit_flag(0, exit_flag, data));
-			//return (set_exit_code(0, data));
 		}
 		else if (data->token->next && data->token->next->next) // Se for "cd a b"
 			return (print_error_flag(ERROR_CD_MANY_ARGUMENT, 1,
