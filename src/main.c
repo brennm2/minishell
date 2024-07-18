@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/17 20:08:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:42:43 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,9 @@ void	set_ex_(t_data *data)
 	}
 }
 
-/* void	update_commands(t_data *data)
-{
-	t_token	*token_aux;
-
-	token_aux = data->token;
-	
-	while (token_aux)
-	{
-		if (is_red_or_pipe(token_aux))
-			if (token_aux->next && !is_red_or_pipe(token_aux->next))
-				which_command(token_aux->next);
-		token_aux = token_aux->next;
-	}
-} */
-
 void	update_token(t_data *data)
 {
 	t_token	*token_aux;
-	//t_token	*prev;
 	t_token *dead;
 
 	token_aux = data->token;
@@ -103,7 +87,6 @@ void	update_token(t_data *data)
 		}
 		token_aux = token_aux->next;
 	}
-	//update_commands(data);
 }
 
 void	init_commands(char *buffer, t_data *data)
