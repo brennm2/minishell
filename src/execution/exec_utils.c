@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/16 15:51:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:06:41 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	safe_fork(t_data *data)
 {
 	int	pid;
 
-	//ft_catch_signal(CHILD);
 	pid = fork();
 	if (pid == -1)
 	{
