@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/11 16:48:05 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:00:46 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ bool	is_red_or_pipe(t_token *token)
 void	tokenize(t_data *data)
 {
 	t_token	*token_aux;
-	int		i;
+	//int		i;
 
-	i = -1;
+	//i = -1;
 	token_aux = data->token;
 	while (token_aux)
 	{

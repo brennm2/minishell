@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/05 14:45:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:15:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	expansion_digit(t_token *token, int j, int i)
 	token->str = expanded;
 }
 
-void	is_expand_util(t_token *token, t_envp *envp, int i, int j)
+void	is_expand_util(t_token *token, t_envp *envp, int i, int j, t_data *data)
 {
 	char	*exit_code;
 
 	j = i;
 	if (token->str[i + 1] == '?')
 	{
-		exit_code = ft_itoa(G_EXIT_CODE);
+		exit_code = ft_itoa(data->exit_code);
 		expansion_exit_code(token, j, i, exit_code);
 		return ;
 	}
