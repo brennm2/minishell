@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/18 14:33:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:07:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_data
 	char	*home;
 	char	*ex_;
 	int		fd;
+	int		flag;
 	t_tree_root	*tree;
 	int		exit_code;
 	struct s_data	*next;

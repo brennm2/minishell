@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/17 19:13:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:15:43 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	unlink_here_doc_file(void)
 	}
 	free(file_name);
 }
+
+/* void	clean_exit(t_data *data, int ex)
+{
+	
+} */
 
 void	clean(t_data *data, int ex)
 {

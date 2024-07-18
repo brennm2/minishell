@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/18 14:33:33 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:54:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,34 @@ void	set_ex_(t_data *data)
 	}
 }
 
+bool	is_red_bool(t_token *token)
+{
+	if (token->type == redin)
+		return (true);
+	else if (token->type == redout)
+		return (true);
+	else if (token->type == append)
+		return (true);
+	return (false);
+}
+
 void	update_token(t_data *data)
 {
 	t_token	*token_aux;
 	t_token *dead;
 
 	token_aux = data->token;
-	if (token_aux->str[0] == '\0')
+	if (token_aux->str[0] == '\0' && !is_red_bool(token_aux))
 	{
 		data->token = token_aux->next;
 		free_token_redir(token_aux);
+		if (data->token && data->token->type == string)
+			which_command(data->token);
 		return ;
 	}
 	while (token_aux)
 	{
-		if (token_aux->next && token_aux->next->str[0] == '\0' && token_aux->next->type == string)
+		if (token_aux->builtin != cd && token_aux->next && token_aux->next->str[0] == '\0' && token_aux->next->type == string)
 		{
 			dead = token_aux->next;
 			token_aux->next = token_aux->next->next;
@@ -149,6 +162,20 @@ void	reset_fd_signals(int fd1, int fd2)
 	dup2(fd2, STDOUT_FILENO);
 }
 
+bool	have_pipe(t_data *data)
+{
+	t_token *token_aux;
+
+	token_aux = data->token;
+	while (token_aux)
+	{
+		if (token_aux->type == is_pipe)
+			return (true);
+		token_aux = token_aux->next;
+	}
+	return (false);
+}
+
 void	loop_minishell(int fd1, int fd2, t_data *data)
 {
 	char	*buffer;
@@ -166,7 +193,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		init_commands(buffer, data);
 		if (!data->token)
 			continue ;
-		if (is_only_builtin(data, data->token) == true)
+		if (is_only_builtin(data, data->token) == true) // if don't have pipes
 		{
 			get_builtin(data, data->token, 0);
 			//waitpid(0, &status, 0);
@@ -176,13 +203,10 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		{
 			ft_signal_ignore();
 			if (safe_fork(data) == 0)
-			{
 				execution(data);
-			}
 			waitpid(0, &status, 0);
 			update_exit_code(status, data);
 		}
-		//printf("exit code: %d\n", data->exit_code); //DEBUG
 		free_token(data->token);
 		unlink_here_doc_file();
 	}
