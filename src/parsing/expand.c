@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/18 14:09:08 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:30:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	expand(t_data *data)
 	token_aux = data->token;
 	while (token_aux)
 	{
-		is_expand(token_aux, data->envp, data->home, data);
+		is_expand(token_aux, data);
 		token_aux = token_aux->next;
 	}
 }

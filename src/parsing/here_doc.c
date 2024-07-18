@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/18 14:08:36 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:31:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int
 	int		status;
 
 	ft_signal_ignore();
-	here_doc_file = creat_here_doc_file(i);
+	here_doc_file = creat_here_doc_file(i, flag);
 	if (!here_doc_file)
 		clean(data, 1);
 	if (safe_fork(data) == 0)

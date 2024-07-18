@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/18 14:07:26 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:29:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	expansion_(t_data *data, t_token *token, int j)
 	token->str = expanded;
 }
 
-void	is_expand_util(t_token *token, t_data *data, int i, int j, t_data *data)
+void	is_expand_util(t_token *token, t_data *data, int i, int j)
 {
 	char	*exit_code;
 
