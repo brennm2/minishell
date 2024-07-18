@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:50:21 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:06:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	update_token(t_data *data)
 
 void	init_commands(char *buffer, t_data *data)
 {
+	ft_signal_ignore();
 	init_data(data, buffer);
 	search_command(buffer, data);
 	//debug_print_list(data);
@@ -103,12 +104,6 @@ void	init_commands(char *buffer, t_data *data)
 	//debug_print_list(data);
 }
 
-void	reset_fd_signals(int fd1, int fd2)
-{
-	ft_catch_signal(MAIN);
-	dup2(fd1, STDIN_FILENO);
-	dup2(fd2, STDOUT_FILENO);
-}
 
 t_data	*init_minishell(int argc, char **argv, char ** envp, t_data *data)
 {	
@@ -128,6 +123,8 @@ void	update_exit_code(int status, t_data *data)
 {
 	if (WIFEXITED(status))
 		set_exit_code(WEXITSTATUS(status), data);
+	else if (WIFSIGNALED(status))
+		set_exit_code(WTERMSIG(status), data);
 }
 
 bool	is_only_builtin(t_data *data, t_token *token)
@@ -143,6 +140,13 @@ bool	is_only_builtin(t_data *data, t_token *token)
 		temp_token = temp_token->next;
 	}
 	return (true);
+}
+
+void	reset_fd_signals(int fd1, int fd2)
+{
+	ft_catch_signal(MAIN);
+	dup2(fd1, STDIN_FILENO);
+	dup2(fd2, STDOUT_FILENO);
 }
 
 void	loop_minishell(int fd1, int fd2, t_data *data)
@@ -163,13 +167,16 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		if (!data->token)
 			continue ;
 		if (is_only_builtin(data, data->token) == true)
+		{
 			get_builtin(data, data->token, 0);
+			//waitpid(0, &status, 0);
+			//update_exit_code(status, data);
+		}
 		else
 		{
-			ft_catch_signal(CHILD);
+			ft_signal_ignore();
 			if (safe_fork(data) == 0)
 			{
-				//ft_catch_signal(CHILD);
 				execution(data);
 			}
 			waitpid(0, &status, 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/15 19:14:30 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:08:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,27 @@ void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int
 	char	*here_doc_file;
 	int		status;
 
-	here_doc_file = creat_here_doc_file(i, 1);
+	ft_signal_ignore();
+	here_doc_file = creat_here_doc_file(i);
 	if (!here_doc_file)
 		clean(data, 1);
 	if (safe_fork(data) == 0)
 	{
+		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
 		clean(data, 0);
 	}
 	waitpid(0, &status, 0);
+	//printf("status pid: %d", status);
 	change_token(token, here_doc_file);
+	//printf("status signal: %d", status);
+	signal_heredoc_checker(status);
 	if (WIFEXITED(status))
-		G_EXIT_CODE = WEXITSTATUS(status);
+	{
+		
+		data->exit_code = WEXITSTATUS(status);
+	}
+	
 }
 
 char	*erase_the_quote_hd(char *delimiter, int i)

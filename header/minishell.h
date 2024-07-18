@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:49:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:06:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void	get_unset(t_data *data, t_token *token, int exit_flag);
 // SRC/SIGNAL/SIGNAL
 void	ft_catch_signal(int fd);
 void	ft_signal_ignore(void);
-void	signal_child_checker(int status);
+void	signal_heredoc_checker(int status);
 
 // SRC/UTILS
 void	init_token(t_token *token, char *buffer);
@@ -390,7 +390,7 @@ void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag);
 char	*expand_hd(t_data *data, char *buffer, bool flag);
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 int	deal_with_quotes(t_token *token, int i);
-void	is_expand_util(t_token *token, t_data *data, int i, int j);
+void	is_expand_util(t_token *token, t_envp *envp, int i, int j, t_data *data);
 void	check_env(t_token *token, t_envp *env, int j, int i);
 void	after_reds(t_data *data);
 

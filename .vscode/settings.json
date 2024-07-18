@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"typeinfo": "c"
+		"typeinfo": "c",
+		"unistd.h": "c",
+		"siginfo_t.h": "c"
 	}
 }
