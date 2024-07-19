@@ -16,6 +16,25 @@ NC=\033[0m
 
 SRC = src/main.c \
 	src/utils.c \
+	src/main_utils.c \
+	src/exit_code.c \
+	src/signal/signal.c \
+	src/signal/signal_utils.c \
+	src/parsing/check_first/check_first.c \
+	src/parsing/check_first/check_first_redir.c \
+	src/parsing/check_first/check_first_utils.c \
+	src/parsing/define_tokens/define_tokens.c \
+	src/parsing/define_tokens/define_tokens_utils.c \
+	src/parsing/here_doc/here_doc.c \
+	src/parsing/here_doc/here_doc_expand.c \
+	src/parsing/here_doc/here_doc_utils.c \
+	src/parsing/expand/expand.c \
+	src/parsing/expand/expand_utils.c \
+	src/parsing/expand/expansion.c \
+	src/parsing/get_env/env.c \
+	src/parsing/deal_with_buffer/parsing.c \
+	src/parsing/deal_with_buffer/moves.c \
+	src/parsing/deal_with_buffer/correct_space.c \
 	src/builtins/get_builtins.c \
 	src/builtins/echo/get_echo.c \
 	src/builtins/pwd/get_pwd.c \
@@ -28,24 +47,12 @@ SRC = src/main.c \
 	src/builtins/export/get_export_utils_2.c \
 	src/builtins/export/get_export_utils_3.c \
 	src/builtins/unset/get_unset.c \
-	src/signal/signal.c \
-	src/parsing/parsing.c \
-	src/parsing/moves.c \
-	src/parsing/check_first.c \
 	src/error/free.c \
 	src/error/free_utils.c \
 	src/error/print_error.c \
 	src/debug/debug_commands.c \
-	src/parsing/env.c \
-	src/parsing/expand.c \
-	src/parsing/expand_utils.c \
-	src/parsing/define_tokens.c \
-	src/parsing/correct_space.c \
 	src/parsing/utils.c \
-	src/parsing/here_doc_utils.c \
 	src/parsing/remove_quotes.c \
-	src/parsing/here_doc.c \
-	src/parsing/here_doc_expand.c \
 	src/parsing/redirects.c \
 	src/execution/construction_node.c \
 	src/execution/construction_tree.c \

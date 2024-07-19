@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/18 14:34:40 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:59:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-#include <sys/ioctl.h>
 
 void	signal_main(int signal_num)
 {
@@ -70,42 +69,4 @@ void	signal_here_doc(int signal_num)
 		rl_redisplay();
 		ioctl(0, TIOCSTI, "\n");
 	}
-}
-
-void	ft_catch_signal(int id)
-{
-	//1 = MAIN, 2 = CHILD, 3 = HERE_DOC, 4 = PIPE
-	
-	if (id == MAIN)
-	{
-		//ft_putstr_fd("Entrou aqui main\n", 2);
-		signal(SIGINT, signal_main); //ctrl + c
-		signal(SIGTERM, SIG_IGN); //ctrl + D
-		signal(SIGQUIT, SIG_IGN); //ctrl + barra
-	}
-	else if (id == CHILD)
-	{
-		signal(SIGINT, signal_child);
-		signal(SIGQUIT, signal_child);
-	}
-	else if (id == HERE_DOC)
-	{
-		ft_putstr_fd("HERE_DOC\n", 2);
-		signal(SIGINT, SIG_DFL);
-		signal(SIGTERM, SIG_IGN); //ctrl + D
-	}
-	else if (id == PIPE)
-	{
-		ft_putstr_fd("PIPE\n", 2);
-	
-	}
-	
-}
-
-void	ft_signal_ignore(void)
-{
-	//ft_putstr_fd("Sinal ignorado\n", 2);
-	signal(SIGTERM, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
 }

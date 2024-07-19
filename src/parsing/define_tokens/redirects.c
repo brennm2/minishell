@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/17 19:31:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:10:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
-
-
-// t_token	*trim_redir(t_data *data, t_token *token)
-// {
-// 	int	type;
-// 	//t_token	*aux; #TODO func nao utilizada. Retirado devido as flags
-// 	t_token	*aux_data;
-
-// 	type = token->type;
-// 	aux_data = data->token;
-// 	while (aux_data->next != token)
-// 		aux_data = aux_data->next;
-// 	aux_data->next = token->next;
-// 	aux_data->next->type = type;
-// 	free(token);
-// 	return (aux_data->next);
-// }
+#include "../../../header/minishell.h"
 
 void	free_token_redir(t_token *token)
 {

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 17:58:09 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:28:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
-
+#include "../../../header/minishell.h"
 
 int	move_space(char *buffer, int i)
 {
@@ -53,24 +52,14 @@ int	move_without_quotes(char *buffer, int i, t_data *data)
 	return(i);
 }
 
-/* 
-int	move_with_quotes(char *buffer, int i, int flag, t_data *data)
+int	check_for_string(char *buffer, int start)
 {
-	int start;
-
-	start = i;
-	i++;
-	while(buffer[i] && buffer[i] != flag)
-		i++;
-	if(!buffer[i])
+	while(buffer[start])
 	{
-		printf("SINTAX ERROR! \n"); //#TODO CRIAR FUNC DE ERROR / Porque?
-		return (i);
+		if (buffer[start] && (buffer[start] >= 7 && buffer[start] <= 32))
+			start++;
+		else
+			return (start);
 	}
-	if (buffer[i] == flag)
-		i++;
-	save_substring(buffer, (start + 1), (i - 2), data);
-	if (flag == S_QUOTES)
-		data->token->type = not_expander;
-	return(i);
-} */
+	return (start);
+}

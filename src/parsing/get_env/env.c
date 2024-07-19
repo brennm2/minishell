@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 16:30:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:51:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
-static t_envp	*ft_lstnew_env(void *key, void *value)
+t_envp	*ft_lstnew_env(void *key, void *value)
 {
 	t_envp	*list;
 	char	*key_d;
@@ -29,7 +29,7 @@ static t_envp	*ft_lstnew_env(void *key, void *value)
 	return (list);
 }
 
-static void	ft_lstadd_back_env(t_envp **lst, t_envp *new)
+void	ft_lstadd_back_env(t_envp **lst, t_envp *new)
 {
 	t_envp	*aux;
 
@@ -46,7 +46,7 @@ static void	ft_lstadd_back_env(t_envp **lst, t_envp *new)
 	aux->next = new;
 }
 
-static void	cpy_env(t_envp **env, char *str)
+void	cpy_env(t_envp **env, char *str)
 {
 	int		i;
 	char	*key;

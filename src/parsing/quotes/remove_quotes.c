@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/06/21 19:15:50 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:29:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	erase_the_quote(t_token *token, int i)
 {

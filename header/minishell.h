@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 12:15:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:45:01 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 
 // ----- COLORS -----
 # define C_BLUE "\e[1;34m"
@@ -157,131 +158,206 @@ typedef struct s_data
 	struct s_data	*next;
 }				t_data;
 
-//VARIAVEL GLOBAL
 extern int	G_EXIT_CODE;
-//
 
+/* ************************************************************************** */
+/* ---------------------------------MAIN------------------------------------- */
+/* ************************************************************************** */
 
-//MAIN
+/*MAIN*/
 void	init_commands(char *buffer, t_data *data);
+void	loop_minishell(t_data *data);
+void	exec_minishell(t_data *data);
+t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data);
 
+/*MAIN UTILS*/
+void	have_pipe(t_data *data);
+void	update_token(t_data *data);
+bool	is_red_bool(t_token *token);
+void	set_ex_(t_data *data);
+void	search_command(char *buffer, t_data *data);
 
-// SRC/BUILTIN/GET_BUILTINS
+/*UTILS*/
+void	*safe_calloc(size_t bytes, size_t n, t_data *data);
+void	init_token(t_token *token, char *buffer);
+void	init_next_token(t_token *token, int len);
+void	init_data(t_data *data, char *buffer);
+int		ft_strcmp(char *s1, char *s2);
+
+/*SIGNALS*/
+void	signal_here_doc(int signal_num);
+void	signal_heredoc_checker(int status);
+void	signal_child(int signal_num);
+void	signal_main(int signal_num);
+
+/*SIGNALS UTILS*/
+void	ft_catch_signal(int fd);
+void	reset_fd_signals(int fd1, int fd2);
+void	ft_signal_ignore(void);
+
+/*EXIT_CODE*/
+void	update_exit_code(int status, t_data *data);
+void	set_exit_code(int code, t_data *data);
+
+/* ************************************************************************** */
+/* -------------------------------PARSING------------------------------------ */
+/* ************************************************************************** */
+
+/*CHECK FIRST*/
+bool	valid_input(char *buffer, t_data *data);
+bool	check_for_syntax_error(char *buffer, t_data *data);
+bool	check_for_double_pipes(char *buffer);
+bool	check_for_quotes(char *buffer, t_data *data);
+bool	syntax_error_sup (char *buffer, t_data *data);
+
+bool	check_valid_redir(char *buffer, int i);
+bool	redirect_space_and_count_error(char *buffer);
+bool	redirect_error(char *buffer);
+bool	redirect_inverse_error(char *buffer);
+
+void	redirect_error_suport(char *buffer, int i);
+void	redirect_inverse_error_suport(char *buffer, int i);
+bool	is_all_space(char *buffer);
+bool	first_character(char *buffer);
+
+/*DEAL WITH BUFFER*/
+char	*check_spaces(char *buffer);
+char	*put_space_on(char *buffer, int i);
+char	*copy_char(char *buffer, int i);
+char	*ft_strjoin_free(char *s1, char *s2);
+
+int		move_space(char *buffer, int i);
+bool	check_for_open_quotes(char *buffer, int i);
+int		move_without_quotes(char *buffer, int i, t_data *data);
+int		check_for_string(char *buffer, int start);
+
+void	save_substring(char *buffer, int start, int end, t_data *data);
+void	save_space(char *buffer, int start, t_data *data);
+void	new_data(t_data *data, t_token *token);
+void	pipe_split(t_data *data);
+void	get_split(char *buffer, t_data *data);
+
+/*DEFINE TOKENS*/
+void	which_command(t_token *token);
+void	define_tokens(t_token *token);
+void	tokenize(t_data *data);
+void	check_tokenize(t_data *data);
+
+void	set_builtins(t_token *token, t_builtins	blt);
+void	after_pipe(t_data *data);
+void	is_red(t_token *token);
+bool	is_red_or_pipe(t_token *token);
+
+void	after_reds(t_data *data);
+t_token	*trim_redir(t_data *data, t_token *token);
+t_token	*trim_first_redir(t_data *data, t_token *token);
+void	free_token_redir(t_token *token);
+
+/*HERE_DOC*/
+void	is_here_doc(t_data *data);
+char	*remove_quotes_hd(char *delimiter);
+char	*erase_the_quote_hd(char *delimiter, int i);
+void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i);
+void	change_token(t_token *token, char *file);
+
+void	fill_file(t_data *data, char *delimiter, char *file, bool flag);
+void	write_file(char *here_doc_file, char *buffer);
+char	*creat_here_doc_file(int i, int flag);
+bool	open_file(char *file);
+char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
+
+char	*expansion_hd(t_envp *envp, char *buffer, int j, int i);
+char	*check_env_hd(char *buffer, t_envp *env, int j, int i);
+char	*expansion_digit_hd(char *buffer, int j, int i);
+char	*is_expand_util_hd(char *buffer, t_envp *envp, int i, int j);
+char	*expand_hd(t_data *data, char *buffer, bool flag);
+
+/*EXPAND*/
+void	is_expand_util(t_token *token, t_data *data, int i, int j);
+void	expansion_(t_data *data, t_token *token, int j);
+void	expansion_digit(t_token *token, int j, int i);
+void	expansion_exit_code(t_token *token, int j, int i, char *exit_code);
+int		deal_with_quotes(t_token *token, int i);
+
+void	expansion(t_envp *envp, t_token *token, int j, int i);
+void	check_env(t_token *token, t_envp *env, int j, int i);
+
+void	expand_til(t_token *token, int i, char *home);
+void	erase_dollar_sign(t_token *token, int i);
+bool	is_expand_2(t_token *token, t_data *data, int i);
+void	is_expand(t_token *token, t_data *data);
+void	expand(t_data *data);
+
+/*GET ENV*/
+void	get_env(t_data *data, char **env);
+void	cpy_(t_envp **env);
+void	cpy_env(t_envp **env, char *str);
+void	ft_lstadd_back_env(t_envp **lst, t_envp *new);
+t_envp	*ft_lstnew_env(void *key, void *value);
+
+/*QUOTES*/
+void	remove_quotes(t_data *data);
+void	unquote_token(t_token *token);
+int		deal_quotes(char *token, int i);
+void	erase_the_quote(t_token *token, int i);
+
+/* ************************************************************************** */
+/* -------------------------------BUILTIN------------------------------------ */
+/* ************************************************************************** */
+
+/*GET_BUILTINS*/
 void	get_builtin(t_data *data, t_token *token, int flag);
 void	command_not_found(char *str, t_data *data);
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data);
 
-// SRC/BUILTIN/ECHO/GET_ECHO
+/*GET_ECHO*/
 void	get_echo(t_token *token, t_data *data, int flag);
 
-// SRC/BUILTIN/PWD/GET_PWD
+/*GET_PWD*/
 void	get_pwd(t_token *token, t_data *data, int exit_flag);
 
-// SRC/BUILTIN/CD/GET_CD
+/*GET_CD*/
 void	get_cd(t_data *data, t_token *token, int exit_flag);
 
-// SRC/BUILTIN/CD/GET_CD_UTILS
+/*GET_CD_UTILS*/
 void	cd_error_invalid_option(t_data *data, int exit_flag);
 void	cd_error_invalid_file(t_data *data, int exit_flag);
 char	*get_in_env(t_envp *envp, char *key);
 t_envp	*change_in_env(t_envp *envp, char *cwd, char *key);
 void	cd_error_no_file(t_data *data, int exit_flag);
 
-// SRC/BUILTIN/ENV/GET_ENV
+/*GET_ENV*/
 void	get_builtin_env(t_data *data, t_token *token, int exit_flag);
 void	display_env(t_envp *envp, t_data *data, int exit_flag);
 
-// SRC/BUILTINS/EXIT/GET_EXIT
+/*GET_EXIT*/
 void	get_exit(t_data *data, t_token *token, int exit_flag);
 
-// SRC/BUILTIN/EXPORT/GET_EXPORT
+/*GET_EXPORT*/
 void	get_export(t_data *data, t_token *token, int exit_flag);
 t_envp	*duplicate_envp_list(t_envp *env);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
-// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS
+/*GET_EXPORT_UTILS*/
 void	display_env_export(t_envp *envp, t_data *data, int exit_flag);
 void	print_export(t_envp *env, t_data *data, int exit_flag);
 t_envp	*find_last_node(t_envp *lst);
 bool	is_valid_export(t_token *token);
 void	export_error_identifier(t_token *token);
 
-// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_2
+/*GET_EXPORT_UTILS_2*/
 char	*find_key(char *str);
 bool	is_invalid_token(char *key);
 t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp	*organize_envp_list(t_envp *duplicate_env);
 
-// SRC/BUILTIN/EXPORT/GET_EXPORT_UTILS_3
+/*GET_EXPORT_UTILS_3*/
 bool	check_invalid_token(t_token *token);
 
-// SRC/BUILTIN/UNSET/GET_UNSET
+/*GET_UNSET*/
 void	get_unset(t_data *data, t_token *token, int exit_flag);
 
-
-// SRC/SIGNAL/SIGNAL
-void	ft_catch_signal(int fd);
-void	ft_signal_ignore(void);
-void	signal_heredoc_checker(int status);
-
-// SRC/UTILS
-void	init_token(t_token *token, char *buffer);
-void	init_next_token(t_token *token, int len);
-void	init_data(t_data *data, char *buffer);
-void	set_exit_code(int code, t_data *data);
-int		ft_strcmp(char *s1, char *s2);
-
-// SRC/PARSING/CHECK_FIRST
-bool	valid_input(char *buffer, t_data *data);
-
-
-/* ************************************************************************** */
-/*                                                                            */
-/* -------------------------- SRC/PARSING/PARSING --------------------------- */
-/*                                                                            */
-/* ************************************************************************** */
-//
-/**
- * @brief Itera buffer para dentro da <DATA->TOKEN->STR> e, caso exista buffer,
- * cria mais uma lista usando <DATA->TOKEN->NEXT>
- * @param buffer BUFFER da string
- * @param start START da string para ser salva
- * @param end END da string para ser salva
- * @param data Estrutura de <DATA>
- * @return <VOID>
- */
-void	save_substring(char *buffer, int start, int end, t_data *data);
-/**
- * @brief Função para executar o split dos comandos.
- * @param buffer String de buffer para ser "splitado"
- * @param data A Estrutura de <DATA> para ser utilizada
- * @return <VOID>
- */
-void	get_split(char *buffer, t_data *data);
-
-/* ************************************************************************** */
-/*                                                                            */
-/* -------------------------- SRC/PARSING/MOVES ----------------------------- */
-/*                                                                            */
-/* ************************************************************************** */
-//
-/**
- * @brief Função move por espaços até encontrar um caractere
- * @param buffer BUFFER da string
- * @param i Iterador de BUFFER
- * @return Iterador de onde o BUFFER parou
- */
-int	move_space(char *buffer, int i);
-/**
- * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
- * caso NÃO possua D_QUOTES ou S_QUOTES
- * @param buffer BUFFER da string
- * @param i Iterador de BUFFER
- * @param data Estrutura de <DATA>
- * @return Iterador de onde o BUFFER parou
- */
-int	move_without_quotes(char *buffer, int i, t_data *data);
 /**
  * @brief Função move e, em seguida, colocar a string em cada NODE de <DATA>,
  * caso possua D_QUOTES ou S_QUOTES
@@ -331,15 +407,7 @@ void	print_error_flag(char *error_type, int error_code, t_data *data,
 /*                                                                            */
 /* ************************************************************************** */
 //
-/**
- * @brief Extracts the environment variables from the provided array and stores
- * them in a linked list.
- * @param data A pointer to a t_data structure. This structure will hold the 
- * linked list of environment variables.
- * @param env An array of strings, where each string is an environment variable
- * in the format "key=value".
- */
-void	get_env(t_data *data, char **env);
+
 
 /**
  * @brief Expands environment variables in the tokens of a command.
@@ -348,21 +416,8 @@ void	get_env(t_data *data, char **env);
  */
 void	expand(t_data *data);
 
-/**
- * @brief Classifies the type of each token in the provided linked list.
- * @param token A pointer to the first token in a linked list. Each token in the list
- * should have its content already set, and this function will set the type of each token.
- */
-void	tokenize(t_data *data);
 
-/**
- * @brief Checks and corrects the spacing in a command string.
- * @param buffer A pointer to the command string to be checked and corrected.
- * @return A pointer to the corrected command string.
- */
-char	*check_spaces(char *buffer);
 
-void	remove_quotes(t_data *data);
 int		deal_quotes(char *token, int i);
 
 /* ************************************************************************** */
@@ -388,15 +443,10 @@ int ft_is_especial(int c);
 char	*ft_strjoin_ex(char *s1, char const *s2);
 
 int	quote_status(char *str, int i);
-void	is_here_doc(t_data *data);
 char	*creat_here_doc_file(int i, int flag);
 void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag);
 char	*expand_hd(t_data *data, char *buffer, bool flag);
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
-int	deal_with_quotes(t_token *token, int i);
-void	is_expand_util(t_token *token, t_data *data, int i, int j);
-void	check_env(t_token *token, t_envp *env, int j, int i);
-void	after_reds(t_data *data);
 
 // execution
 
@@ -424,13 +474,9 @@ char	*get_path(t_data *data, char *cmd);
 void	free_token(t_token *token);
 void	clean(t_data *data, int ex);
 void	*ptr_free(char **ptr);
-void	*safe_calloc(size_t bytes, size_t n, t_data *data);
-void	free_token_redir(t_token *token);
 void	unlink_here_doc_file(void);
 bool	is_red_or_pipe(t_token *token);
 void	free_tree(t_tree_root *cmd);
-void	which_command(t_token *token);
-void	loop_minishell(t_data *data);
 void	finished_exec(t_data *data, int exit_code);
 
 #endif

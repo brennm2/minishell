@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/15 17:51:39 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:17:17 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code)
 {
@@ -74,7 +74,7 @@ void	write_file(char *here_doc_file, char *buffer)
 	close(fd);
 }
 
-void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
+void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 {
 	char	*buffer;
 	
@@ -84,12 +84,12 @@ void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
 		if (!ft_strcmp(delimiter, buffer))
 		{
 			free(buffer);
-			free(here_doc_file);
+			free(file);
 			free(delimiter);	
 			clean(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);
-		write_file(here_doc_file, buffer);
+		write_file(file, buffer);
 		free(buffer);
 	}	
 }

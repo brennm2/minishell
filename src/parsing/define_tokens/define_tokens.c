@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/18 14:06:54 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:01:45 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
-
-void	set_builtins(t_token *token, t_builtins	blt)
-{
-	token->type = builtin;
-	token->builtin = blt;
-}
+#include "../../../header/minishell.h"
 
 void	which_command(t_token *token)
 {
@@ -56,65 +50,10 @@ void	define_tokens(t_token *token)
 		token->type = append;
 }
 
-void	after_pipe(t_data *data)
+void	check_tokenize(t_data *data)
 {
 	t_token	*token_aux;
 
-	token_aux = data->token;
-	while (token_aux)
-	{
-		if (token_aux->type == is_pipe)
-		{
-			if (token_aux->next->type == string)
-			{
-				token_aux = token_aux->next;		
-				which_command(token_aux);
-			}
-		}
-		token_aux = token_aux->next;
-	}
-}
-
-void	is_red(t_token *token)
-{
-	if (!ft_strcmp(token->str, "<"))
-		token->type = redin;
-	else if (!ft_strcmp(token->str, ">"))
-		token->type = redout;
-	else if (!ft_strcmp(token->str, ">>"))
-		token->type = append;
-}
-
-bool	is_red_or_pipe(t_token *token)
-{
-	if (token->type == redin || token->type == redout)
-		return (true);
-	if (token->type == append || token->type == here_doc)
-		return (true);
-	if (token->type == is_pipe)
-		return (true);
-	return (false);
-}
-
-void	tokenize(t_data *data)
-{
-	t_token	*token_aux;
-	//int		i;
-
-	//i = -1;
-	token_aux = data->token;
-	while (token_aux)
-	{
-		is_red(token_aux);
-		token_aux = token_aux->next;
-	}
-	token_aux = data->token;
-	while (token_aux)
-	{
-		if (!ft_strcmp(token_aux->str, "|"))
-			token_aux->type = is_pipe;
-		token_aux = token_aux->next;
-	}
 	token_aux = data->token;
 	if (token_aux->type == string)
 		which_command(token_aux);
@@ -128,4 +67,24 @@ void	tokenize(t_data *data)
 				which_command(token_aux->next);
 		token_aux = token_aux->next;
 	}
+}
+
+void	tokenize(t_data *data)
+{
+	t_token	*token_aux;
+	
+	token_aux = data->token;
+	while (token_aux)
+	{
+		is_red(token_aux);
+		token_aux = token_aux->next;
+	}
+	token_aux = data->token;
+	while (token_aux)
+	{
+		if (!ft_strcmp(token_aux->str, "|"))
+			token_aux->type = is_pipe;
+		token_aux = token_aux->next;
+	}
+	check_tokenize(data);
 }
