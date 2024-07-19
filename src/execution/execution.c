@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/18 18:17:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:17:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	status = 0;
 	pid = 0;
 	if (tree->builtin_token && tree->builtin_token->type == builtin)
-	{
-		get_builtin(data, tree->builtin_token, 1);
-	}
+		get_builtin(data, tree->builtin_token, data->flag);
 	else
 	{
 		ft_catch_signal(CHILD);
@@ -31,14 +29,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 			safe_execve(data, tree);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
-		{
 			set_exit_code(WEXITSTATUS(status), data);
-		}
-		// else if ((WIFSIGNALED(status) == 1)) //Verifica o estado do sinal
-		// {
-		// 	//ft_putstr_fd("Entrou aqui\n", 2);
-		// 	signal_child_checker(status);
-		// }
 	}
 }
 
@@ -49,7 +40,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0] && ft_strcmp(ecmd->argv[0], "\0"))
 		cmd_execution(data, ecmd);
-	clean(data, data->exit_code);
+	finished_exec(data, data->exit_code);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)
@@ -74,7 +65,7 @@ void	redir_execution(t_data *data, t_tree_root *tree)
 		}
 		else
 			perror(rcmd->file);
-		clean(data, 1);
+		finished_exec(data, 1);
 	}
 	executing_tree(data, rcmd->tree);
 }
@@ -98,8 +89,8 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	waitpid(pid_first, &status, 0);
 	waitpid(pid_sec, &status, 0);
 	if (WIFEXITED(status))
-		G_EXIT_CODE = WEXITSTATUS(status);
-	clean(data, G_EXIT_CODE);
+		data->exit_code = WEXITSTATUS(status);
+	finished_exec(data, data->exit_code);
 }
 
 void	executing_tree(t_data *data, t_tree_root *tree)

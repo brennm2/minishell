@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 15:40:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:38:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exit_numeric_error(t_data *data, int option)
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(data->token->str, 2);
+		ft_putstr_fd(data->token->next->str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
 	free_env(data->envp);

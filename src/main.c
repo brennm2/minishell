@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/18 18:54:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:39:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	reset_fd_signals(int fd1, int fd2)
 	dup2(fd2, STDOUT_FILENO);
 }
 
-bool	have_pipe(t_data *data)
+void	have_pipe(t_data *data)
 {
 	t_token *token_aux;
 
@@ -170,13 +170,16 @@ bool	have_pipe(t_data *data)
 	while (token_aux)
 	{
 		if (token_aux->type == is_pipe)
-			return (true);
+		{
+			data->flag = 1;
+			return ;
+		}
 		token_aux = token_aux->next;
 	}
-	return (false);
+	data->flag = 0;
 }
 
-void	loop_minishell(int fd1, int fd2, t_data *data)
+void	loop_minishell(t_data *data)
 {
 	char	*buffer;
 	int		status;
@@ -185,7 +188,7 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 	data->exit_code = 0;
 	while (1)
 	{
-		reset_fd_signals(fd1, fd2);
+		reset_fd_signals(data->fds[0], data->fds[1]);
 		buffer = readline(C_CYAN"minishell: "END_COLOR);
 		if (!valid_input(buffer, data))
 			continue ;
@@ -193,11 +196,13 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		init_commands(buffer, data);
 		if (!data->token)
 			continue ;
-		if (is_only_builtin(data, data->token) == true) // if don't have pipes
+		have_pipe(data);
+		if (data->flag == 0) // if don't have pipes
 		{
-			get_builtin(data, data->token, 0);
-			//waitpid(0, &status, 0);
-			//update_exit_code(status, data);
+			if (!ft_strcmp(data->token->str, "exit"))
+				get_exit(data, data->token, data->flag);
+			else
+				execution(data);
 		}
 		else
 		{
@@ -215,14 +220,12 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 int main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	int	fd1;
-	int	fd2;
-
-	fd1 = dup(STDIN_FILENO);
-	fd2 = dup(1);
+	
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
+	data->fds[0] = dup(STDIN_FILENO);
+	data->fds[1] = dup(1);
 	data->exit_code = 0;
-	loop_minishell(fd1, fd2, data);
+	loop_minishell(data);
 }
 

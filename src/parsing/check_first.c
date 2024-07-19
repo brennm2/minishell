@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 18:24:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:11:57 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ bool	redirect_error(char *buffer)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
+		else if ((buffer[i] == '>' || buffer[i] == '<') && buffer[i + 1] == '\0')
+		{
+			ft_putstr_fd(ERROR_REDIR, 2);
+			ft_putstr_fd("\'\n", 2);
+			return (true);
+		}
 		else if (buffer[i] == '>' && (buffer[move_space(buffer, i + 1)] == '<'
 				|| buffer[move_space(buffer, i + 1)] == '|')
 				&& !d_quotes && !s_quotes)
