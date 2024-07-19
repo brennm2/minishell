@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 14:51:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:53:50 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,3 @@ int main(int argc, char **argv, char **envp)
 	data->exit_code = 0;
 	loop_minishell(data);
 }
-
