@@ -25,6 +25,7 @@ SRC = src/main.c \
 	src/parsing/check_first/check_first_utils.c \
 	src/parsing/define_tokens/define_tokens.c \
 	src/parsing/define_tokens/define_tokens_utils.c \
+	src/parsing/define_tokens/redirects.c \
 	src/parsing/here_doc/here_doc.c \
 	src/parsing/here_doc/here_doc_expand.c \
 	src/parsing/here_doc/here_doc_utils.c \
@@ -35,6 +36,8 @@ SRC = src/main.c \
 	src/parsing/deal_with_buffer/parsing.c \
 	src/parsing/deal_with_buffer/moves.c \
 	src/parsing/deal_with_buffer/correct_space.c \
+	src/parsing/quotes/remove_quotes.c \
+	src/parsing/utils.c \
 	src/builtins/get_builtins.c \
 	src/builtins/echo/get_echo.c \
 	src/builtins/pwd/get_pwd.c \
@@ -51,9 +54,6 @@ SRC = src/main.c \
 	src/error/free_utils.c \
 	src/error/print_error.c \
 	src/debug/debug_commands.c \
-	src/parsing/utils.c \
-	src/parsing/remove_quotes.c \
-	src/parsing/redirects.c \
 	src/execution/construction_node.c \
 	src/execution/construction_tree.c \
 	src/execution/exec_utils.c \

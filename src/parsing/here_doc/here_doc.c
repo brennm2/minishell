@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 18:16:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:03:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		clean(data, 0);
 	}
 	waitpid(0, &status, 0);
-	//printf("status pid: %d", status);
+	printf("status pid: %d", status);
 	change_token(token, here_doc_file);
-	//printf("status signal: %d", status);
+	printf("status signal: %d", status);
 	signal_heredoc_checker(status);
 	if (WIFEXITED(status))
 	{
