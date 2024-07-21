@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/20 15:36:30 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:19:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	open_file(char *file)
 	return (true);
 }
 
-char	*creat_here_doc_file(int i, int flag)
+char	*creat_here_doc_file(int i, bool flag)
 {
 	char	*file;
 	char	*nbr;
@@ -53,13 +53,14 @@ char	*creat_here_doc_file(int i, int flag)
 	file = ft_strjoin(temp, ".temp");
 	free(nbr);
 	free(temp);
-	if (flag == 1)
+	if (flag)
 	{
 		if (!open_file (file))
 		{
+			perror(file);
 			free(file);
 			return (NULL);
-		}
+		}	
 	}
 	return (file);
 }
@@ -71,7 +72,6 @@ void	write_file(char *here_doc_file, char *buffer)
 	fd = open(here_doc_file, O_WRONLY | O_APPEND);
 	if (fd == -1)
 	{
-		perror(here_doc_file);
 		return ;
 	}
 	if (buffer)
@@ -92,7 +92,7 @@ void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 			free(buffer);
 			free(file);
 			free(delimiter);	
-			clean(data, 1);
+			clean(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);
 		write_file(file, buffer);

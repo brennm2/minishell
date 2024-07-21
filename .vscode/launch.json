@@ -23,7 +23,7 @@
 				"ignoreFailures": true
 			}
 		],
-		"miDebuggerArgs": "-iex \"set follow-fork-mode child\"",
+		//"miDebuggerArgs": "-iex \"set follow-fork-mode child\"",
 		"preLaunchTask": "build"
 	}
 	]

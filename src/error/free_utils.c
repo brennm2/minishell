@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 12:18:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:49:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_tree(t_tree_root *cmd)
 	else if (cmd->type == t_redir)
 	{
 		free_tree(((t_tree_red *)(cmd))->tree);
-		//free(((t_tree_red *)(cmd))->exp);
 		free((t_tree_red *)(cmd));
 	}
 	else if (cmd->type == t_exec)
@@ -50,7 +49,7 @@ void	unlink_here_doc_file(void)
 	i = -1;
 	while (1)
 	{
-		file_name = creat_here_doc_file(++i, 0);
+		file_name = creat_here_doc_file(++i, false);
 		if (access(file_name, F_OK) == -1)
 			break ;
 		unlink(file_name);
@@ -61,12 +60,15 @@ void	unlink_here_doc_file(void)
 
 void	finished_exec(t_data *data, int exit_code)
 {
+	/* ft_putstr_fd("flag=", 2);
+	ft_putnbr_fd(data->flag, 2); */
 	if (data->flag == 0)
 	{
 		free_token(data->token);
 		if (data->tree)
-		free_tree(data->tree);
+			free_tree(data->tree);
 		data->exit_code = exit_code;
+		unlink_here_doc_file();
 		loop_minishell(data);
 	}
 	else

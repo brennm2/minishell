@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 12:17:32 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:29:48 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-void	cmd_execution(t_data *data, t_tree_exec *tree)
-{
-	int status;
-	int pid;
-	
-	status = 0;
-	pid = 0;
-	if (tree->builtin_token && tree->builtin_token->type == builtin)
-		get_builtin(data, tree->builtin_token, data->flag);
-	else
-	{
-		ft_catch_signal(CHILD);
-		pid = safe_fork(data);
-		if (pid == 0)
-			safe_execve(data, tree);
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			set_exit_code(WEXITSTATUS(status), data);
-	}
-}
 
 void	exec_execution(t_data *data, t_tree_root *tree)
 {
