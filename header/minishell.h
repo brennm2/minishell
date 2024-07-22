@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/21 17:35:43 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:22:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <sys/stat.h>
 # include <sys/ioctl.h>
 
-/*----- COLORS -----*/
+/*COLORS*/
 # define C_BLUE "\e[1;34m"
 # define C_GREEN "\e[1;32m"
 # define C_YELLOW "\e[1;93m"
@@ -323,7 +323,7 @@ void		get_cd(t_data *data, t_token *token, int exit_flag);
 
 /*GET_CD_UTILS*/
 void		cd_error_invalid_option(t_data *data, int exit_flag);
-void		cd_error_invalid_file(t_data *data, int exit_flag);
+void		cd_error_invalid_file(t_data *data, t_token *token, int exit_flag);
 char		*get_in_env(t_envp *envp, char *key);
 t_envp		*change_in_env(t_envp *envp, char *cwd, char *key);
 void		cd_error_no_file(t_data *data, int exit_flag);

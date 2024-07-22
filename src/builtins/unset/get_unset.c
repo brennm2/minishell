@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 16:04:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:49:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	get_unset(t_data *data, t_token *token, int exit_flag)
 		if (get_in_env(data->envp, token->str) == NULL)
 			continue ;
 		else
-			search_for_node(data->envp, data->token);
+			search_for_node(data->envp, token);
 	}
 	ft_exit_flag(0, exit_flag, data);
 	token = head;

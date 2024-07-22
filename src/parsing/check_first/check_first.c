@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 15:15:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:08:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	check_for_double_pipes(char *buffer)
 	{
 		if(buffer[i] == '\'')
 			in_quotes = !in_quotes;
-		if(!in_quotes && buffer[i] == '|' && buffer[i + 1] != '|')
+		if(!in_quotes && buffer[i] == '|')
 		{
 			i++;
 			while(buffer[i] == ' ')
@@ -109,7 +109,7 @@ bool	check_for_syntax_error(char *buffer, t_data *data)
 		free (buffer);
 		return (false);
 	}
-	if(check_for_double_pipes(buffer))
+	if (check_for_double_pipes(buffer))
 	{
 		print_error(ERROR_PIPE_SINGLE, 2, data);
 		free(buffer);
