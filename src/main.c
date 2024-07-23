@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/23 15:43:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:14:54 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 	if (!data)
 		print_error("Malloc error.", 1, data);
 	(void)envp;
-	//get_env(data, envp);
+	get_env(data, envp);
 	return (data);
 }
 
