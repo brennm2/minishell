@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 18:35:09 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:50:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	expand_til(t_token *token, int i, char *home)
 	{
 		expanded = ft_calloc(sizeof(char), (i + 1));
 		ft_strlcpy(expanded, token->str, i);
-		expanded = ft_strjoin_ex(expanded, home);
+		if (home)
+			expanded = ft_strjoin_ex(expanded, home);
 		expanded = ft_strjoin_ex(expanded, token->str + i);
 		free(token->str);
 		token->str = expanded;
