@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"typeinfo": "c",
 		"unistd.h": "c",
-		"siginfo_t.h": "c"
+		"siginfo_t.h": "c",
+		"ioctl.h": "c"
 	}
 }

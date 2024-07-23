@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/18 14:06:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:05:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	update_token(t_data *data)
 
 void	init_commands(char *buffer, t_data *data)
 {
-	ft_signal_ignore();
+	//ft_signal_ignore();
 	init_data(data, buffer);
 	search_command(buffer, data);
 	//debug_print_list(data);
@@ -149,6 +149,7 @@ void	reset_fd_signals(int fd1, int fd2)
 	dup2(fd2, STDOUT_FILENO);
 }
 
+
 void	loop_minishell(int fd1, int fd2, t_data *data)
 {
 	char	*buffer;
@@ -169,8 +170,6 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 		if (is_only_builtin(data, data->token) == true)
 		{
 			get_builtin(data, data->token, 0);
-			//waitpid(0, &status, 0);
-			//update_exit_code(status, data);
 		}
 		else
 		{
@@ -180,6 +179,15 @@ void	loop_minishell(int fd1, int fd2, t_data *data)
 				execution(data);
 			}
 			waitpid(0, &status, 0);
+			//printf("MAIN status modifcado: %d\n", WSTOPSIG(status));
+			//printf("MAIN status normal: %d\n", status);
+			if(WEXITSTATUS(status) == 2)
+			{
+				data->exit_code = 130;
+				printf("exit: %d\n", data->exit_code);
+			}
+			//wait(&status);
+			//printf("aqui\n");
 			update_exit_code(status, data);
 		}
 		//printf("exit code: %d\n", data->exit_code); //DEBUG
