@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 10:49:32 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:48:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,22 @@ void	get_cd(t_data *data, t_token *token, int exit_flag)
 	getcwd(old_cwd, sizeof(old_cwd));
 	if (token->next) //se for "cd ..."
 	{
-		if ((data->token->next->str[0] == '-' || data->token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
+		if (token->next->str[0] == '\0')
+			return (ft_exit_flag(0, exit_flag, data));
+		else if ((token->next->str[0] == '-' || token->next->str[0] == '~')) //se for "cd -" OU "cd ~-" OU "cd ~+" OU "cd ~"
 			return (cd_options(data, token, exit_flag));
-		else if (!chdir(data->token->next->str)) //Executar o comando normal "cd src/", caso nao encontre, nao entre
+		else if (token->next && token->next->next) // Se for "cd a b"
+			return (print_error_flag(ERROR_CD_MANY_ARGUMENT, 1,
+				data, exit_flag));
+		else if (!chdir(token->next->str)) //Executar o comando normal "cd src/", caso nao encontre, nao entre
 		{
 			getcwd(cwd, sizeof(cwd));
 			data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 			data->envp = change_in_env(data->envp, cwd, "PWD");
 			return (ft_exit_flag(0, exit_flag, data));
-			//return (set_exit_code(0, data));
 		}
-		else if (data->token->next && data->token->next->next) // Se for "cd a b"
-			return (print_error_flag(ERROR_CD_MANY_ARGUMENT, 1,
-				data, exit_flag));
 		else
-			return (cd_error_invalid_file(data, exit_flag)); // Se "cd algumacoisa" (nao for um diretorio valido)
+			return (cd_error_invalid_file(data, token, exit_flag)); // Se "cd algumacoisa" (nao for um diretorio valido)
 	}
 	else // se for somente "cd"
 		only_cd(data, old_cwd, exit_flag);

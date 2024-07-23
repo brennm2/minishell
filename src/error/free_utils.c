@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/16 15:04:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:49:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,30 @@ void	unlink_here_doc_file(void)
 	i = -1;
 	while (1)
 	{
-		file_name = creat_here_doc_file(++i, 0);
+		file_name = creat_here_doc_file(++i, false);
 		if (access(file_name, F_OK) == -1)
 			break ;
 		unlink(file_name);
 		free(file_name);
 	}
 	free(file_name);
+}
+
+void	finished_exec(t_data *data, int exit_code)
+{
+	/* ft_putstr_fd("flag=", 2);
+	ft_putnbr_fd(data->flag, 2); */
+	if (data->flag == 0)
+	{
+		free_token(data->token);
+		if (data->tree)
+			free_tree(data->tree);
+		data->exit_code = exit_code;
+		unlink_here_doc_file();
+		loop_minishell(data);
+	}
+	else
+		clean(data, exit_code);
 }
 
 void	clean(t_data *data, int ex)

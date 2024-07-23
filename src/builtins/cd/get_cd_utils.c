@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cd_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:46:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 10:48:58 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:21:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	cd_error_no_file(t_data *data, int exit_flag)
 	//print_error(NULL, 1);
 }
 
-void	cd_error_invalid_file(t_data *data, int exit_flag)
+void	cd_error_invalid_file(t_data *data, t_token *token, int exit_flag)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
-	ft_putstr_fd(data->token->next->str, 2);
+	ft_putstr_fd(token->next->str, 2);
 	ft_putstr_fd(": ", 2);
 	perror("");
 	ft_exit_flag(1, exit_flag, data);

@@ -6,12 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/23 14:39:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:19:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-#include <sys/ioctl.h>
 
 void	signal_main(int signal_num)
 {

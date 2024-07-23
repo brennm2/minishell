@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_expand.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:31:40 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/15 18:11:30 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:14:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 char	*expansion_hd(t_envp *envp, char *buffer, int j, int i)
 {

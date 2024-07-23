@@ -3,52 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 18:22:04 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:27:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
-
-int	check_for_string(char *buffer, int start)
-{
-	while(buffer[start])
-	{
-		if (buffer[start] && (buffer[start] >= 7 && buffer[start] <= 32))
-		{
-			start++;
-		}
-		else
-			return (start);
-	}
-	return (start);
-}
-
-// void	save_substring(char *buffer, int start, int end, t_data *data) //Boa primo
-// {
-//     int	i;
-
-//     i = 0;
-//     while(start <= end)
-//         data->token->str[i++] = buffer[start++];
-//     data->token->str[i] = '\0'; // Adicione um caractere nulo de terminação
-//     if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
-//         start++;
-//     if(buffer[check_for_string(buffer, start)])
-//     {
-//         start = check_for_string(buffer, end + 1); //Acha a proxima palavra
-//         i = start; // i fica igual ao inicio da palavra
-//         while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
-//             i++;
-//         end = i - 1; // end vai ser igual ao i
-//         init_next_token(data->token, end - start + 2); // Inicia o proximo token com o tamnho da string + 1 para o caractere nulo
-//         data->token = data->token->next;
-//     }
-// }
-
-
+#include "../../../header/minishell.h"
 
 void	save_substring(char *buffer, int start, int end, t_data *data)
 {
@@ -90,7 +52,6 @@ void	new_data(t_data *data, t_token *token)
 	newdata->token = token;
 	newdata->next = NULL;
 	data->next = newdata;
-	//return (newdata);
 }
 
 void	pipe_split(t_data *data)
@@ -113,7 +74,6 @@ void	pipe_split(t_data *data)
 		else
 			token_aux = token_aux->next;
 	}
-	//data = data->next;
 }
 
 void	get_split(char *buffer, t_data *data)
@@ -127,25 +87,10 @@ void	get_split(char *buffer, t_data *data)
 	{
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
 			i = move_space(buffer, i);
-	/* 	if (buffer[i] == '|')
-		{
-			new_data(data, buffer);
-			data = data->next;
-			//i++;
-			continue;
-		} */
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
 		{
 				i = move_without_quotes(buffer, i, data);
 		}
 	}
 	data->token = reset_index;
-	/* pipe_split(data);
-	data->token = reset_index; */
-	/* while (data->next)
-	{
-		printf("a\n");
-		debug_print_list(data);
-		data = data->next;
-	} */
 }

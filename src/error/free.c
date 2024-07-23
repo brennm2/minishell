@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:51:17 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:48:38 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ void	free_token(t_token *token)
 	while(token)
 	{
 		temp_token = token->next;
-		if (token->str)
 		free(token->str);
 		token->str = NULL;
+		if (token->exp)
+			free(token->exp);
 		free(token);
 		token = NULL;
-		//token = NULL;
 		token = temp_token;
 	}
-	//free(temp_token);
-	//printf("%s", token->str);
 }
 
 void	free_env(t_envp *envp)
@@ -75,28 +73,9 @@ void	ft_free_data(t_data *data, int option)
 			free_env(data->envp);
 			free(data);
 		}
-		// free(data->envp);
-		// data->envp = NULL;
-		// free(data->home);
-		// data->home = NULL;
-		// free(data->token);
-		// data->token = NULL;
-		// free(data->tree);
-		// data->tree = NULL;
-		
 		data = temp_data;
 	}
 }
-
-/* void	clean(t_data *data, int ex)
-{
-	if (!data)
-		exit(1);
-	free_env(data->envp);
-	free_token(data->token);
-	rl_clear_history();
-	exit(ex);
-} */
 
 void	*ptr_free(char **ptr)
 {	

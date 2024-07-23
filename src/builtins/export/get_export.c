@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 18:31:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:27:18 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	get_export(t_data *data, t_token *token, int exit_flag)
 {
 	static bool	flag;
 
+	if (!data->envp)
+		return ;
 	if (!token->next || token->next->type != string)
 		return (print_export(data->envp, data, exit_flag));
 	if (token->next && token->next->str[0] == '-')

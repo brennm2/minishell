@@ -6,56 +6,11 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/23 16:00:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:19:17 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
-
-void	signal_fork_checker(int status)
-{
-	ft_putstr_fd("signal_fork_checker\n", 2);
-	//printf("status: %d\n", status);
-	if (WTERMSIG(status) == 2)
-	{
-		//ft_putstr_fd("ctrl + c\n", 2);
-		//write(STDERR_FILENO, "\n", 1);
-	}
-}
-
-void	cmd_execution(t_data *data, t_tree_exec *tree)
-{
-	int status;
-	int pid;
-	
-	status = 0;
-	pid = 0;
-	if (tree->builtin_token && tree->builtin_token->type == builtin)
-	{
-		get_builtin(data, tree->builtin_token, 1);
-	}
-	else
-	{
-		pid = safe_fork(data);
-		if (pid == 0)
-		{
-			ft_signal_ignore();
-			ft_catch_signal(CHILD);
-			safe_execve(data, tree);
-		}
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			set_exit_code(WEXITSTATUS(status), data);
-		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == 2)
-				write(1, "\n", 1);
-			else if (WTERMSIG(status) == 3)
-				ft_putstr_fd("Quit (core dumped)\n", 2);
-			set_exit_code(WTERMSIG(status) + 128, data);
-		}
-	}
-}
 
 void	exec_execution(t_data *data, t_tree_root *tree)
 {
@@ -63,11 +18,9 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 
 	//int	status = 0;
 	ecmd = (t_tree_exec *)tree;
-	if (ecmd->argv[0])
-	{
+	if (ecmd->argv[0] && ft_strcmp(ecmd->argv[0], "\0"))
 		cmd_execution(data, ecmd);
-	}
-	clean(data, data->exit_code);
+	finished_exec(data, data->exit_code);
 }
 
 void	redir_execution(t_data *data, t_tree_root *tree)
@@ -78,10 +31,21 @@ void	redir_execution(t_data *data, t_tree_root *tree)
 	close(rcmd->fd);
 	if (open(rcmd->file, rcmd->mode, rcmd->perm) < 0)
 	{
-		G_EXIT_CODE = 1;
-		write(2, "minishell: ", 12);
-		perror(rcmd->file);
-		clean(data, G_EXIT_CODE);
+		if (!ft_strcmp(rcmd->file, "\0") && rcmd->exp)
+		{
+			write(2, "minishell: ", 12);
+			ft_putstr_fd(rcmd->exp, 2);
+			ft_putstr_fd(": ambiguous redirect\n", 2);
+		}
+		else if (!access(rcmd->file, F_OK))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			ft_putstr_fd(rcmd->exp, 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+		}
+		else
+			perror(rcmd->file);
+		finished_exec(data, 1);
 	}
 	executing_tree(data, rcmd->tree);
 }
@@ -105,8 +69,8 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	waitpid(pid_first, &status, 0);
 	waitpid(pid_sec, &status, 0);
 	if (WIFEXITED(status))
-		G_EXIT_CODE = WEXITSTATUS(status);
-	clean(data, G_EXIT_CODE);
+		data->exit_code = WEXITSTATUS(status);
+	finished_exec(data, data->exit_code);
 }
 
 void	executing_tree(t_data *data, t_tree_root *tree)

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/23 12:11:58 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:18:44 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,6 @@ char	**change_env(t_envp *envp)
 	}
 	env[++i] = NULL;
 	return (env);
-}
-
-void	empty_cmd(t_data *data, t_tree_exec *exec)
-{
-	if (!ft_strncmp(exec->argv[0], "./", 2))
-	{
-		if (access(exec->argv[0], F_OK) < 0)
-			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
-	}
-	else
-		command_not_found(exec->argv[0], data);
-	clean(data, 127);
 }
 
 void	safe_execve(t_data *data, t_tree_exec *exec)
