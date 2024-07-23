@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/23 16:19:31 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:33:13 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	signal_main(int signal_num)
 {
-	ft_putstr_fd("Entrou no signal main\n", 2);
+	//ft_putstr_fd("Entrou no signal main\n", 2);
 	if(signal_num == SIGINT)
 	{
 		rl_replace_line("", 0);
@@ -88,7 +88,7 @@ void	ft_catch_signal(int id)
 	}
 	else if (id == CHILD)
 	{
-		ft_putstr_fd("catch_signal child\n", 2);
+		//ft_putstr_fd("catch_signal child\n", 2);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 	}

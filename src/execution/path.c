@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/21 17:29:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:55:24 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,29 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	
 	status = 0;
 	pid = 0;
+	ft_signal_ignore();
 	if (tree->builtin_token && tree->builtin_token->type == builtin)
 		get_builtin(data, tree->builtin_token, data->flag);
 	else
 	{
-		ft_catch_signal(CHILD);
 		pid = safe_fork(data);
 		if (pid == 0)
+		{
+			//ft_signal_ignore();
+			ft_catch_signal(CHILD);
 			safe_execve(data, tree);
+		}
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			set_exit_code(WEXITSTATUS(status), data);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == 2)
+				write(1, "\n", 1);
+			else if (WTERMSIG(status) == 3)
+				ft_putstr_fd("Quit (core dumped)\n", 2);
+			set_exit_code(WTERMSIG(status) + 128, data);
+			printf("signal cmd_exec: %d\n", WTERMSIG(status));
+		}
 	}
 }
