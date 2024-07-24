@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:46:24 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:52:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void		change_token(t_token *token, char *file);
 
 void		fill_file(t_data *data, char *delimiter, char *file, bool flag);
 void		write_file(char *here_doc_file, char *buffer);
-char		*creat_here_doc_file(int i, bool flag);
+char		*creat_here_doc_file(int i, int flag);
 bool		open_file(char *file);
 char		*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 

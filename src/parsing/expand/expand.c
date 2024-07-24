@@ -6,11 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:48:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:54:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	expansion(t_envp *envp, t_token *token, int j, int i)
 {

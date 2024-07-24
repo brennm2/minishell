@@ -6,11 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:48:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:50:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 char	*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code)
 {

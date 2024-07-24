@@ -6,11 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:48:33 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:53:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
+#include "../../../header/minishell.h"
 
 void	change_token(t_token *token, char *file)
 {
@@ -26,7 +26,7 @@ void	change_token(t_token *token, char *file)
 	token->type = here_doc;
 }
 
-void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int i)
+void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 {
 	char	*here_doc_file;
 	int		status;
@@ -112,7 +112,7 @@ void	is_here_doc(t_data *data)
 				flag = true;
 				delimiter = remove_quotes_hd(delimiter);
 			}
-			open_here_doc(data, token_aux, delimiter, flag, ++i);
+			open_hd(data, token_aux, delimiter, flag, ++i);
 			free(delimiter);
 			continue ;
 		}
