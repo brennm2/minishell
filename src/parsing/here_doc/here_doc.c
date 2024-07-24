@@ -6,11 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/21 13:29:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:48:33 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/minishell.h"
+#include "../../header/minishell.h"
 
 void	change_token(t_token *token, char *file)
 {
@@ -26,13 +26,13 @@ void	change_token(t_token *token, char *file)
 	token->type = here_doc;
 }
 
-void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
+void	open_here_doc(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 {
 	char	*here_doc_file;
 	int		status;
 
 	ft_signal_ignore();
-	here_doc_file = creat_here_doc_file(i, true);
+	here_doc_file = creat_here_doc_file(i, flag);
 	if (!here_doc_file)
 		clean(data, 1);
 	if (safe_fork(data) == 0)
@@ -42,12 +42,13 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		clean(data, 0);
 	}
 	waitpid(0, &status, 0);
-	printf("status pid: %d\n", status);
+	//printf("status pid: %d", status);
 	change_token(token, here_doc_file);
-	printf("status signal: %d\n", status);
+	//printf("status signal: %d", status);
 	signal_heredoc_checker(status);
 	if (WIFEXITED(status))
 	{
+		
 		data->exit_code = WEXITSTATUS(status);
 	}
 	
@@ -111,7 +112,7 @@ void	is_here_doc(t_data *data)
 				flag = true;
 				delimiter = remove_quotes_hd(delimiter);
 			}
-			open_hd(data, token_aux, delimiter, flag, ++i);
+			open_here_doc(data, token_aux, delimiter, flag, ++i);
 			free(delimiter);
 			continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 14:59:36 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:48:57 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	signal_child(int signal_num)
 {
 	//ft_putstr_fd("Estrou no signal child\n", 2);
 	if (signal_num == SIGINT)
-		write(STDERR_FILENO, "\n", 1);
+		write(1, "\n", 1);
 	if (signal_num == SIGQUIT)
-		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+		write(1, "Quit (core dumped)\n", 19);
 
 }
 

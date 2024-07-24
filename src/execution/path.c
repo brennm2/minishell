@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/21 17:29:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:48:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 			set_exit_code(WEXITSTATUS(status), data);
+		if (WIFSIGNALED(status))
+			set_exit_code(WTERMSIG(status) + 128, data);
 	}
 }
