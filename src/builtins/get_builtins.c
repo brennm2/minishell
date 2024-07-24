@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:55:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 18:24:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	get_builtin(t_data *data, t_token *token, int flag)
 		get_builtin_env(data, token, flag);
 	else if (token->builtin == n_exit
 		&& !ft_strcmp(token->str, "exit"))
-		get_exit(data, token, flag);
+		get_exit(data, token, 1);
 	else if (token->builtin == export
 		&& !ft_strcmp(token->str, "export"))
 		get_export(data, token, flag);
