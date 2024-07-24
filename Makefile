@@ -31,6 +31,7 @@ SRC = src/main.c \
 	src/parsing/here_doc/here_doc_utils.c \
 	src/parsing/expand/expand.c \
 	src/parsing/expand/expand_utils.c \
+	src/parsing/expand/expansion.c \
 	src/parsing/get_env/env.c \
 	src/parsing/deal_with_buffer/parsing.c \
 	src/parsing/deal_with_buffer/moves.c \

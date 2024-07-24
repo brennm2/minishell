@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:52:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:11:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ void		change_token(t_token *token, char *file);
 
 void		fill_file(t_data *data, char *delimiter, char *file, bool flag);
 void		write_file(char *here_doc_file, char *buffer);
-char		*creat_here_doc_file(int i, int flag);
+char		*creat_here_doc_file(int i, bool flag);
 bool		open_file(char *file);
 char		*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 
@@ -381,37 +381,7 @@ void		print_error_flag(char *error_type, int error_code, t_data *data, int exit_
 
 /* ************************************************************************** */
 /* -----------------------------EXECUTION------------------------------------ */
-/* -----------------------------EXECUTION------------------------------------ */
 /* ************************************************************************** */
-
-int			count_args(t_data *data, t_token *token);
-t_tree_root	*const_exec(t_data *data, t_token *token);
-t_tree_root	*get_red(t_tree_root *red_cmd);
-t_tree_root	*const_redir(t_tree_root *scmd, char *file, int mode, int fd);
-t_tree_root	*const_pipe(t_data *data, t_tree_root *left, t_tree_root *right);
-
-t_tree_root	*redir_struct(t_data *data, t_tree_root *tree_cmd);
-void		get_exec(t_data *data, t_tree_exec *cmd, char *arg);
-t_tree_root	*exec_struct(t_data *data, t_token *token);
-t_tree_root	*pipe_struct(t_data *data, t_token *token);
-
-void		exec_execution(t_data *data, t_tree_root *tree);
-void		redir_execution(t_data *data, t_tree_root *tree);
-void		pipe_execution(t_data *data, t_tree_root *tree);
-void		executing_tree(t_data *data, t_tree_root *tree);
-void		execution(t_data *data);
-
-int			safe_fork(t_data *data);
-char		**change_env(t_envp *envp);
-void		safe_execve(t_data *data, t_tree_exec *exec);
-void		safe_pipe(int fd[2], t_data *data);
-void		pipe_child_execution(t_data *data, t_tree_root *tree, int fd[2], int proc);
-
-char		*check_command(t_data *data, char *cmd, char *path);
-char		*find_path(t_data *data, char *path, char *cmd);
-char		*get_path(t_data *data, char *cmd);
-void		empty_cmd(t_data *data, t_tree_exec *exec);
-void		cmd_execution(t_data *data, t_tree_exec *tree);
 
 int			count_args(t_data *data, t_token *token);
 t_tree_root	*const_exec(t_data *data, t_token *token);

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:50:12 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:53:26 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	open_file(char *file)
 	return (true);
 }
 
-char	*creat_here_doc_file(int i, int flag)
+char	*creat_here_doc_file(int i, bool flag)
 {
 	char	*file;
 	char	*nbr;
@@ -50,13 +50,13 @@ char	*creat_here_doc_file(int i, int flag)
 	file = ft_strjoin(temp, ".temp");
 	free(nbr);
 	free(temp);
-	if (flag == 1)
+	if (flag)
 	{
 		if (!open_file (file))
 		{
 			free(file);
 			return (NULL);
-		}
+		}	
 	}
 	return (file);
 }
@@ -74,7 +74,7 @@ void	write_file(char *here_doc_file, char *buffer)
 	close(fd);
 }
 
-void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
+void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 {
 	char	*buffer;
 	
@@ -84,12 +84,12 @@ void	fill_file(t_data *data, char *delimiter, char *here_doc_file, bool flag)
 		if (!ft_strcmp(delimiter, buffer))
 		{
 			free(buffer);
-			free(here_doc_file);
+			free(file);
 			free(delimiter);	
-			clean(data, 0);
+			clean_hd(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);
-		write_file(here_doc_file, buffer);
+		write_file(file, buffer);
 		free(buffer);
 	}	
 }
