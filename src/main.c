@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 13:41:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:43:40 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	loop_minishell(t_data *data)
 	char	*buffer;
 
 	buffer = NULL;
-	//data->exit_code = 0;
 	while (1)
 	{
 		reset_fd_signals(data->fds[0], data->fds[1]);
