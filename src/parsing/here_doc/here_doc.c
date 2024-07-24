@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/21 13:29:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:47:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	ft_signal_ignore();
 	here_doc_file = creat_here_doc_file(i, true);
 	if (!here_doc_file)
-		clean(data, 1);
+		clean_hd(data, 1);
 	if (safe_fork(data) == 0)
 	{
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
-		clean(data, 0);
+		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);
 	printf("status pid: %d\n", status);

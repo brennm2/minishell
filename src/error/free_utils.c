@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/21 14:49:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:47:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,21 @@ void	finished_exec(t_data *data, int exit_code)
 	}
 	else
 		clean(data, exit_code);
+}
+
+void	clean_hd(t_data *data, int ex)
+{
+	if (!data)
+		exit(1);
+	free_env(data->envp);
+	free_token(data->token);
+	if (data->home)
+		free(data->home);
+	if (data->ex_)
+		free(data->ex_);
+	free(data);
+	rl_clear_history();
+	exit(ex);
 }
 
 void	clean(t_data *data, int ex)
