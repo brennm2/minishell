@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/23 15:50:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:37:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,5 @@ void	expand(t_data *data)
 		is_expand(token_aux, data);
 		token_aux = token_aux->next;
 	}
+	update_token(data);
 }

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:40:13 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 14:55:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:37:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	update_token(t_data *data)
 	}
 	while (token_aux)
 	{
-		if (token_aux->builtin != cd && token_aux->next && \
-		token_aux->next->str[0] == '\0' && token_aux->next->type == string)
+		if (token_aux->next && token_aux->next->str[0] == '\0' && token_aux->next->type == string)
 		{
 			dead = token_aux->next;
 			token_aux->next = token_aux->next->next;
