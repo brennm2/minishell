@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 10:24:07 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:12:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,6 @@ void	exec_minishell(t_data *data)
 		if (safe_fork(data) == 0)
 			execution(data);
 		waitpid(0, &status, 0);
-		// printf("status: %d\n", WTERMSIG(status));
-		// if (WIFSIGNALED(status))
-		// {
-		// 	if (WTERMSIG(status) == 2)
-		// 		write(1, "\n", 1);
-		// 	else if (WTERMSIG(status) == 3)
-		// 		ft_putstr_fd("Quit (core dumped)\n", 2);
-		// 	set_exit_code(WTERMSIG(status) + 128, data);
-		// }
 		update_exit_code(status, data);
 	}
 }

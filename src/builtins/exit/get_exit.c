@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 13:38:25 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:38:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exit_negative(t_token *token, t_data *data)
 	int	number;
 
 	number = ft_atoi(token->str);
-	number = 256 - (number * -1);
+	number = 256 - (number * -1); 
 	free_env(data->envp);
 	free_token(data->token);
 	free_data(data);
@@ -104,7 +104,7 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 	{
 		if (token->next->next) // Se for "exit ... ..."
 			return (too_many_error(token->next, data, exit_flag));
-		if (token->next->str[0] == '-') // Se tiver numeros negativos "exit -1"
+		if (token->next->str[0] == '-' || token->next->str[0] == '+') // Se tiver numeros negativos "exit -1"
 			i++;
 		while (ft_isdigit(token->next->str[i]) == 1) // Se <TOKEN->STR> / "exit 123" for somente numeros
 		{

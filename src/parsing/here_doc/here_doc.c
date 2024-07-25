@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:10:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:42:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,24 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);
-	printf("status pid: %d\n", status);
 	change_token(token, here_doc_file);
-	printf("status signal: %d\n", status);
-	signal_heredoc_checker(status);
 	if (WIFEXITED(status))
-	{
 		data->exit_code = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		//printf("%d\n", WTERMSIG(status));
+		if (WTERMSIG(status) == 2)
+		{
+			write(1, "\n", 1);
+			rl_redisplay();
+			loop_minishell(data);
+		}
+		if (WTERMSIG(status) == 11)
+		{
+			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 1);
+			loop_minishell(data);
+		}
+		set_exit_code(WTERMSIG(status) + 128, data);
 	}
 	
 }

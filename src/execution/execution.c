@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 10:24:15 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:27:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 {
 	t_tree_exec	*ecmd;
 
-	//int	status = 0;
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0] && ft_strcmp(ecmd->argv[0], "\0"))
 		cmd_execution(data, ecmd);
@@ -76,9 +75,7 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 void	executing_tree(t_data *data, t_tree_root *tree)
 {
 	if (tree->type == t_exec)
-	{
 		exec_execution(data, tree);
-	}
 	else if (tree->type == t_redir)
 		redir_execution(data, tree);
 	else if (tree->type == t_pipe)
