@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 14:51:18 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:57:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,7 @@ void		cpy_(t_envp **env);
 void		cpy_env(t_envp **env, char *str);
 void		ft_lstadd_back_env(t_envp **lst, t_envp *new);
 t_envp		*ft_lstnew_env(void *key, void *value);
+void		empty_env(t_data *data);
 
 /*QUOTES*/
 void		remove_quotes(t_data *data);

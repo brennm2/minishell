@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 11:12:57 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:22:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	env_error_option(t_data *data, int exit_flag)
 
 void	display_env(t_envp *envp, t_data *data, int exit_flag)
 {
-	if (get_in_env(envp, "PATH") == NULL)
+	/* if (get_in_env(envp, "PATH") == NULL)
 	{
 		ft_putstr_fd("minishell: env: No such file or directory\n", 2);
 		return (ft_exit_flag(127, exit_flag, data));
-	}
+	} */
 	while (envp)
 	{
 		if (envp->invisible == 0)

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 19:51:10 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:58:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,20 @@ void	cpy_(t_envp **env)
 	ft_lstadd_back_env(env, node);
 }
 
+void	empty_env(t_data *data)
+{
+	char	pwd[PATH_MAX];
+	char	*str;
+
+	getcwd(pwd, sizeof(pwd));
+	str = ft_strjoin("PWD=", pwd);
+	cpy_env(&data->envp, str);
+	free(str);
+	str = ft_strjoin("SHLVL=", "1");
+	cpy_env(&data->envp, str);
+	cpy_(&data->envp);
+}
+
 void	get_env(t_data *data, char **env)
 {
 	int		i;
@@ -97,6 +111,8 @@ void	get_env(t_data *data, char **env)
 	i = -1;
 	data->envp = NULL;
 	data->home = NULL;
+	if (!env[0])
+		empty_env(data);
 	while (env[++i])
 	{
 		if (!ft_strncmp(env[i], "HOME", 4))
