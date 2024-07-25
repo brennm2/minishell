@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/23 16:33:13 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:25:10 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,15 @@ void	signal_main(int signal_num)
 	}
 }
 
+void	signal_child(int signal_num)
+{
+	//ft_putstr_fd("Estrou no signal child\n", 2);
+	if (signal_num == SIGINT)
+		write(1, "\n", 1);
+	if (signal_num == SIGQUIT)
+		write(1, "Quit (core dumped)\n", 19);
+
+}
 
 void	signal_heredoc_checker(int status)
 {

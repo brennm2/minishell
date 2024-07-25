@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/23 16:55:22 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:24:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_commands(char *buffer, t_data *data)
 	tokenize(data);
 	expand(data);
 	remove_quotes(data);
-	update_token(data);
 	set_ex_(data);
 	//debug_print_list(data);
 }
@@ -80,7 +79,6 @@ void	loop_minishell(t_data *data)
 	char	*buffer;
 
 	buffer = NULL;
-	//data->exit_code = 0;
 	while (1)
 	{
 		reset_fd_signals(data->fds[0], data->fds[1]);

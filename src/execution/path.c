@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/23 16:55:24 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 10:24:46 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,6 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		if (WIFEXITED(status))
 			set_exit_code(WEXITSTATUS(status), data);
 		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == 2)
-				write(1, "\n", 1);
-			else if (WTERMSIG(status) == 3)
-				ft_putstr_fd("Quit (core dumped)\n", 2);
 			set_exit_code(WTERMSIG(status) + 128, data);
-			printf("signal cmd_exec: %d\n", WTERMSIG(status));
-		}
 	}
 }

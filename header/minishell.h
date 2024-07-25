@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/22 16:22:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:11:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,7 @@ void		ft_free_data(t_data *data, int option);
 void		*ptr_free(char **ptr);
 
 void		clean(t_data *data, int ex);
+void		clean_hd(t_data *data, int ex);
 void		finished_exec(t_data *data, int exit_code);
 void		unlink_here_doc_file(void);
 void		free_tree(t_tree_root *cmd);
