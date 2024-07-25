@@ -4,7 +4,6 @@
 		"minishell.h": "c",
 		"typeinfo": "c",
 		"unistd.h": "c",
-		"siginfo_t.h": "c",
-		"history.h": "c"
+		"siginfo_t.h": "c"
 	}
 }

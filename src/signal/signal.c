@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:40:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 11:42:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	signal_main(int signal_num)
 {
+	//ft_putstr_fd("entrou main\n", 2);
 	if(signal_num == SIGINT)
 	{
 		rl_replace_line("", 0);
@@ -21,13 +22,11 @@ void	signal_main(int signal_num)
 		rl_on_new_line();
 		rl_redisplay();
 		G_EXIT_CODE = 130;
-		//print_error(NULL, 130);
 	}
 }
 
 void	signal_child(int signal_num)
 {
-	//ft_putstr_fd("Estrou no signal child\n", 2);
 	if (signal_num == SIGINT)
 		write(1, "\n", 1);
 	if (signal_num == SIGQUIT)

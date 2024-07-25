@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:43:40 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:12:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	G_EXIT_CODE;
 
 void	init_commands(char *buffer, t_data *data)
 {
-	ft_signal_ignore();
+	//ft_signal_ignore();
 	init_data(data, buffer);
 	search_command(buffer, data);
 	//debug_print_list(data);

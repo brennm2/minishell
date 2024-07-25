@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 18:24:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:51:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ void	exit_negative(t_token *token, t_data *data)
 	int	number;
 
 	number = ft_atoi(token->str);
-	//number = 256 - (number * -1);
-	number = (unsigned int)number % 256;
+	number = 256 - (number * -1); 
 	free_env(data->envp);
 	free_token(data->token);
 	free_data(data);
@@ -104,7 +103,7 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 	else if (token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
 	{
 		if (token->next->next) // Se for "exit ... ..."
-			return (too_many_error(token->next, data, 1));
+			return (too_many_error(token->next, data, exit_flag));
 		if (token->next->str[0] == '-' || token->next->str[0] == '+') // Se tiver numeros negativos "exit -1"
 			i++;
 		while (ft_isdigit(token->next->str[i]) == 1) // Se <TOKEN->STR> / "exit 123" for somente numeros

@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   signal_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 15:10:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:13:21 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
+
+void	signal_heredoc(int signal_num)
+{
+	if (signal_num == SIGTERM)
+		ft_putstr_fd("aasdasda", 2);
+}
 
 void	ft_catch_signal(int id)
 {
@@ -28,9 +34,9 @@ void	ft_catch_signal(int id)
 	}
 	else if (id == HERE_DOC)
 	{
-		ft_putstr_fd("HERE_DOC\n", 2);
+		//ft_putstr_fd("HERE_DOC\n", 2);
 		signal(SIGINT, SIG_DFL);
-		signal(SIGTERM, SIG_IGN); //ctrl + D
+		signal(SIGTERM, SIG_DFL); //ctrl + D
 	}
 	else if (id == PIPE)
 		ft_putstr_fd("PIPE\n", 2);
