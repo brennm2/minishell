@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:11:12 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:51:18 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,15 +143,16 @@ typedef struct s_envp
 
 typedef struct s_data
 {
-	t_envp *envp;
-	t_token *token;
-	char	*home;
-	char	*ex_;
-	int		fd;
-	int		fds[2];
-	int		flag;
+	t_envp		*envp;
+	t_token 	*token;
+	char		*home;
+	char		*ex_;
+	int			fd;
+	int			fds[2];
+	int			flag;
 	t_tree_root	*tree;
-	int		exit_code;
+	int			exit_code;
+	int			pid;
 	struct s_data	*next;
 }				t_data;
 

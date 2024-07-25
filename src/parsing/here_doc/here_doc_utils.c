@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 13:35:15 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:44:21 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,10 @@ void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 	while (1)
 	{
 		buffer = readline("> ");
-		if (!ft_strcmp(delimiter, buffer))
+		if (!buffer || !ft_strcmp(delimiter, buffer))
 		{
-			free(buffer);
+			if (buffer)
+				free(buffer);
 			free(file);
 			free(delimiter);	
 			clean_hd(data, 0);

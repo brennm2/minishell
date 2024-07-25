@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 13:12:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:45:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 
 void	exec_minishell(t_data *data)
 {
-	int		status;
+	int	status;
 
 	have_pipe(data);
 	if (data->flag == 0) // if don't have pipes
@@ -86,6 +86,25 @@ void	loop_minishell(t_data *data)
 	}
 }
 
+void	catch_pid(t_data *data)
+{
+	int	pid;
+
+	pid = safe_fork(data);
+	if(pid == 0)
+	{
+		if (!data)
+		exit(1);
+		free_env(data->envp);
+		if (data->home)
+			free(data->home);
+		free(data);
+		exit(0);
+	}
+	else
+		data->pid = pid;
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
@@ -95,5 +114,6 @@ int main(int argc, char **argv, char **envp)
 	data->fds[0] = dup(STDIN_FILENO);
 	data->fds[1] = dup(1);
 	data->exit_code = 0;
+	catch_pid(data);
 	loop_minishell(data);
 }

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 18:29:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:46:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,21 @@ void	expansion_digit(t_token *token, int j, int i)
 	token->str = expanded;
 }
 
+void	expansion_dollar_sign(t_token *token, int j, int i, int pid)
+{
+	char	*expanded;
+	char	*pid_char;
+
+	pid_char = ft_itoa(pid);
+	expanded = ft_calloc(sizeof(char), (j + 1));
+	ft_strlcpy(expanded, token->str, j + 1);
+	expanded = ft_strjoin_ex(expanded, pid_char);
+	expanded = ft_strjoin_ex(expanded, token->str + i + 2);
+	free(token->str);
+	free(pid_char);
+	token->str = expanded;
+}
+
 void	expansion_(t_data *data, t_token *token, int j)
 {
 	char	*expanded;
@@ -73,6 +88,11 @@ void	is_expand_util(t_token *token, t_data *data, int i, int j)
 		exit_code = ft_itoa(data->exit_code);
 		expansion_exit_code(token, j, i, exit_code);
 		return ;
+	}
+	if (token->str[i + 1] == '$')
+	{
+		expansion_dollar_sign(token, j, i, data->pid);
+		return ;	
 	}
 	if (ft_isdigit(token->str[i + 1]))
 	{

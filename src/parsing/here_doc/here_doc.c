@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 13:52:30 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:46:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	{
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
+		printf("aqui\n");
 		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);
@@ -47,11 +48,12 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		data->exit_code = WEXITSTATUS(status);
 	if (WIFSIGNALED(status))
 	{
-		//printf("%d\n", WTERMSIG(status));
 		if (WTERMSIG(status) == 2)
 		{
 			write(1, "\n", 1);
 			rl_redisplay();
+			free_token(data->token);
+			free(delimiter);
 			loop_minishell(data);
 		}
 		if (WTERMSIG(status) == 11)
