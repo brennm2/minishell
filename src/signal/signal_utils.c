@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 13:13:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:04:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,16 @@
 
 void	signal_heredoc(int signal_num)
 {
-	if (signal_num == SIGTERM)
-		ft_putstr_fd("aasdasda", 2);
+	//ft_putstr_fd("entrou aqui\n", 1);
+	if (signal_num == SIGINT)
+	{
+		//ft_putstr_fd("aasdasda", 1);
+		//ioctl(0, TIOCSTI, "\n");
+		exit (69);
+		
+		// write(1, "\n", 1);
+		// rl_redisplay();
+	}
 }
 
 void	ft_catch_signal(int id)
@@ -35,7 +43,7 @@ void	ft_catch_signal(int id)
 	else if (id == HERE_DOC)
 	{
 		//ft_putstr_fd("HERE_DOC\n", 2);
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, signal_heredoc);
 		signal(SIGTERM, SIG_DFL); //ctrl + D
 	}
 	else if (id == PIPE)

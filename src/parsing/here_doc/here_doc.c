@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 13:42:53 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:04:54 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,27 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	}
 	waitpid(0, &status, 0);
 	change_token(token, here_doc_file);
+	
 	if (WIFEXITED(status))
+	{
+		//ft_putstr_fd("Saiu aqui\n", 2);
+		if (WEXITSTATUS(status) == 69)
+		{
+			//ft_putstr_fd("morra\n", 2);
+			write(1, "\n", 1);
+			rl_redisplay();
+			loop_minishell(data);
+		}
 		data->exit_code = WEXITSTATUS(status);
+	}
 	if (WIFSIGNALED(status))
 	{
-		//printf("%d\n", WTERMSIG(status));
+		printf("%d\n", WTERMSIG(status));
 		if (WTERMSIG(status) == 2)
 		{
 			write(1, "\n", 1);
 			rl_redisplay();
+			free_env(data->envp);
 			loop_minishell(data);
 		}
 		if (WTERMSIG(status) == 11)
