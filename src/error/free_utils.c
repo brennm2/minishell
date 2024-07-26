@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/26 12:58:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:49:25 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	clean_hd(t_data *data, int ex)
 		free(data->home);
 	if (data->ex_)
 		free(data->ex_);
+	if (data->shlvl)
+		free(data->shlvl);
 	free(data);
 	rl_clear_history();
 	exit(ex);
@@ -102,6 +104,8 @@ void	clean(t_data *data, int ex)
 		free(data->home);
 	if (data->ex_)
 		free(data->ex_);
+	if (data->shlvl)
+		free(data->shlvl);
 	free(data);
 	rl_clear_history();
 	exit(ex);

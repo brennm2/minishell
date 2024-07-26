@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 20:53:09 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:55:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ char	*get_path(t_data *data, char *cmd)
 	if (!valid_path)
 	{
 		if (cmd[0] == '/' && !access(cmd, X_OK))
+			return (ft_strdup(cmd));
+		else if (cmd[0] == '.' && cmd[1] == '/' && !access(cmd, X_OK))
 			return (ft_strdup(cmd));
 		return (NULL);
 	}

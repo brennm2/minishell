@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 20:57:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:03:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ typedef struct s_data
 	t_token 	*token;
 	char		*home;
 	char		*ex_;
+	char		*shlvl;
 	int			fd;
 	int			fds[2];
 	int			flag;
@@ -167,6 +168,7 @@ void		init_commands(char *buffer, t_data *data);
 void		loop_minishell(t_data *data);
 void		exec_minishell(t_data *data);
 t_data		*init_minishell(int argc, char **argv, char **envp, t_data *data);
+void		change_shlvl(t_data *data, char **envp);
 
 /*MAIN UTILS*/
 void		have_pipe(t_data *data);
@@ -293,6 +295,7 @@ void		cpy_env(t_envp **env, char *str);
 void		ft_lstadd_back_env(t_envp **lst, t_envp *new);
 t_envp		*ft_lstnew_env(void *key, void *value);
 void		empty_env(t_data *data);
+t_envp		*have_variable(t_envp *env, char *key);
 
 /*QUOTES*/
 void		remove_quotes(t_data *data);
