@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 14:17:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 12:58:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	unlink_here_doc_file(void)
 
 void	finished_exec(t_data *data, int exit_code)
 {
-	/* ft_putstr_fd("flag=", 2);
-	ft_putnbr_fd(data->flag, 2); */
+	//ft_putstr_fd("flag=", 2);
+	//ft_putnbr_fd(data->flag, 2);
 	if (data->flag == 0)
 	{
 		free_token(data->token);

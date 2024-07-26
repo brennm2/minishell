@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 17:45:05 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:35:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,36 @@ void	catch_pid(t_data *data)
 		data->pid = pid;
 }
 
+char	**change_shlvl(char **envp)
+{
+	int	i;
+	int	lvl;
+	char	*c_lvl;
+	char	*shlvl;
+	
+	i = -1;
+	while (envp[++i])
+	{
+		if (!ft_strncmp(envp[i], "SHLVL=", 6))
+		{
+			lvl = ft_atoi(envp[i] + ft_strlen(envp[i]) - 1);
+			lvl++;
+			c_lvl = ft_itoa(lvl);
+			shlvl = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
+			ft_strlcpy(shlvl, envp[i], ft_strlen(envp[i]));
+			shlvl = ft_strjoin_ex(shlvl, c_lvl);
+			free(c_lvl);
+			envp[i] = shlvl;
+		}
+	}
+	return (envp);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
 	
+	envp = change_shlvl(envp);
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
 	data->fds[0] = dup(STDIN_FILENO);
