@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/22 15:49:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/25 22:16:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,25 @@ void	free_node(t_envp *node)
 	free(node);
 }
 
-void	search_for_node(t_envp *env, t_token *token)
+t_envp	*search_for_node(t_envp *env, t_token *token)
 {
 	t_envp	*back_node;
 	t_envp	*next_node;
 	t_envp	*dead_node;
 
 	back_node = find_back_node_in_env(env, token->str);
+	if (!back_node)
+	{
+		dead_node = env;
+		env = env->next;
+		free_node(dead_node);
+		return (env);
+	}
 	dead_node = back_node->next;
 	next_node = back_node->next->next;
 	back_node->next = next_node;
 	free_node(dead_node);
+	return (env);
 }
 
 void	get_unset(t_data *data, t_token *token, int exit_flag)
@@ -57,7 +65,7 @@ void	get_unset(t_data *data, t_token *token, int exit_flag)
 
 	flag = 0;
 	head = data->token;
-	if (!token->next)
+	if (!token->next || !ft_strcmp(token->next->str, "_"))
 		return ;
 	while (token->next)
 	{
@@ -73,7 +81,7 @@ void	get_unset(t_data *data, t_token *token, int exit_flag)
 		if (get_in_env(data->envp, token->str) == NULL)
 			continue ;
 		else
-			search_for_node(data->envp, token);
+			data->envp = search_for_node(data->envp, token);
 	}
 	ft_exit_flag(0, exit_flag, data);
 	token = head;
