@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/26 15:49:25 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:05:48 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	unlink_here_doc_file(void)
 
 void	finished_exec(t_data *data, int exit_code)
 {
-	//ft_putstr_fd("flag=", 2);
 	//ft_putnbr_fd(data->flag, 2);
 	if (data->flag == 0)
 	{
@@ -72,7 +71,9 @@ void	finished_exec(t_data *data, int exit_code)
 		loop_minishell(data);
 	}
 	else
+	{
 		clean(data, exit_code);
+	}
 }
 
 void	clean_hd(t_data *data, int ex)
