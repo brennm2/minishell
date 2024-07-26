@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/26 18:55:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:57:38 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 		ft_putstr_fd("Minishell does not accept any arguments.", 2);
 		exit(1);
 	}
-	data = ft_calloc(1, sizeof(t_data));;
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		print_error("Malloc error.", 1, data);
 	(void)envp;
