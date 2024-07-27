@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/26 19:05:57 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:22:39 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	loop_minishell(t_data *data)
 		if (!data->token)
 			continue ;
 		exec_minishell(data);
-		ft_putstr_fd("flag=", 2);
+		//ft_putstr_fd("flag=", 2);
 		free_token(data->token);
 		unlink_here_doc_file();
 	}
@@ -114,10 +114,8 @@ void	change_shlvl(t_data *data, char **envp)
 	int	i;
 	int	lvl;
 	char	*c_lvl;
-	char	*shlvl;
 	
 	i = -1;
-	shlvl = NULL;
 	while (envp[++i])
 	{
 		if (!ft_strncmp(envp[i], "SHLVL=", 6))
