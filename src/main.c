@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/27 10:22:39 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:04:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	loop_minishell(t_data *data)
 		if (!data->token)
 			continue ;
 		exec_minishell(data);
+		//ft_putstr_fd("aaa\n", 2);
 		//ft_putstr_fd("flag=", 2);
 		free_token(data->token);
 		unlink_here_doc_file();
