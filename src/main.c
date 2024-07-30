@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/29 20:04:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:30:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ void	catch_pid(t_data *data)
 		exit(0);
 	}
 	else
+	{
+		wait(0);	
 		data->pid = pid;
+	}
 }
 
 void	change_shlvl(t_data *data, char **envp)

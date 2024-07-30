@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/26 18:03:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:40:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void		erase_the_quote(t_token *token, int i);
 
 /*UTILS*/
 int			ft_is_especial(int c);
+int			ft_is_especial_2(int c);
 char		*ft_strjoin_ex(char *s1, char const *s2);
 int			quote_status(char *str, int i);
 
