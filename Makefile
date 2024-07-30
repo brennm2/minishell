@@ -45,6 +45,7 @@ SRC = src/main.c \
 	src/builtins/cd/get_cd_utils.c \
 	src/builtins/env/get_env.c \
 	src/builtins/exit/get_exit.c \
+	src/builtins/exit/get_exit_utils.c \
 	src/builtins/export/get_export.c \
 	src/builtins/export/get_export_utils.c \
 	src/builtins/export/get_export_utils_2.c \
@@ -102,7 +103,7 @@ norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
 valgrind:
-	@make re
+	@make
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
 sync_shell: all		## Test w/ syncshell

@@ -6,23 +6,36 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 15:04:59 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:46:27 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	signal_heredoc(int signal_num)
+void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here)
 {
 	//ft_putstr_fd("entrou aqui\n", 1);
-	if (signal_num == SIGINT)
+	static t_data *data_temp;
+	static char	*delimiter_temp;
+	static	char *here_temp;
+	
+	if (signal == -1)
 	{
-		//ft_putstr_fd("aasdasda", 1);
-		//ioctl(0, TIOCSTI, "\n");
-		exit (69);
-		
-		// write(1, "\n", 1);
-		// rl_redisplay();
+		data_temp = data;
+		delimiter_temp = delimiter;
+		here_temp = here;
+	}
+	else if (signal == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_redisplay();
+		free(delimiter_temp);
+		free(here_temp);
+		clean_hd(data_temp, 130);
+		// free_env(data_temp->envp);
+		// free_token(data_temp->token);
+		// free_data(data_temp);
+		//exit(130);
 	}
 }
 
@@ -43,7 +56,7 @@ void	ft_catch_signal(int id)
 	else if (id == HERE_DOC)
 	{
 		//ft_putstr_fd("HERE_DOC\n", 2);
-		signal(SIGINT, signal_heredoc);
+		signal(SIGINT, (void *)signal_heredoc);
 		signal(SIGTERM, SIG_DFL); //ctrl + D
 	}
 	else if (id == PIPE)

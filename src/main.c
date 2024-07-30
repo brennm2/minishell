@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/25 13:12:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:03:45 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ void	exec_minishell(t_data *data)
 	have_pipe(data);
 	if (data->flag == 0) // if don't have pipes
 	{
-		if (!ft_strcmp(data->token->str, "exit"))
-			get_exit(data, data->token, data->flag);
-		else
 			execution(data);
 	}
 	else
@@ -81,6 +78,7 @@ void	loop_minishell(t_data *data)
 		if (!data->token)
 			continue ;
 		exec_minishell(data);
+		//printf("%d\n", data->exit_code);
 		free_token(data->token);
 		unlink_here_doc_file();
 	}

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 13:35:15 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/30 10:57:17 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 	while (1)
 	{
 		buffer = readline("> ");
+		if (!buffer)
+		{
+			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 1);
+			free (delimiter);
+			free (file);
+			break ;
+		}
 		if (!ft_strcmp(delimiter, buffer))
 		{
 			free(buffer);

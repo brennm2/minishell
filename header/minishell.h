@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/24 15:11:12 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:57:17 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ void		signal_main(int signal_num);
 void		ft_catch_signal(int fd);
 void		reset_fd_signals(int fd1, int fd2);
 void		ft_signal_ignore(void);
+void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here);
 
 /*EXIT_CODE*/
 void		update_exit_code(int status, t_data *data);
@@ -334,6 +335,9 @@ void		display_env(t_envp *envp, t_data *data, int exit_flag);
 
 /*GET_EXIT*/
 void		get_exit(t_data *data, t_token *token, int exit_flag);
+
+/*GET_UTILS*/
+void	exit_number(t_data *data, t_token *token, int exit_flag, int number);
 
 /*GET_EXPORT*/
 void		get_export(t_data *data, t_token *token, int exit_flag);

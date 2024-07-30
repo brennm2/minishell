@@ -6,11 +6,12 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/25 15:04:54 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:46:12 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
+
 
 void	change_token(t_token *token, char *file)
 {
@@ -37,6 +38,7 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		clean_hd(data, 1);
 	if (safe_fork(data) == 0)
 	{
+		signal_heredoc(-1, data, delimiter, here_doc_file);
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
 		clean_hd(data, 0);
@@ -46,34 +48,8 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	
 	if (WIFEXITED(status))
 	{
-		//ft_putstr_fd("Saiu aqui\n", 2);
-		if (WEXITSTATUS(status) == 69)
-		{
-			//ft_putstr_fd("morra\n", 2);
-			write(1, "\n", 1);
-			rl_redisplay();
-			loop_minishell(data);
-		}
 		data->exit_code = WEXITSTATUS(status);
 	}
-	if (WIFSIGNALED(status))
-	{
-		printf("%d\n", WTERMSIG(status));
-		if (WTERMSIG(status) == 2)
-		{
-			write(1, "\n", 1);
-			rl_redisplay();
-			free_env(data->envp);
-			loop_minishell(data);
-		}
-		if (WTERMSIG(status) == 11)
-		{
-			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 1);
-			loop_minishell(data);
-		}
-		set_exit_code(WTERMSIG(status) + 128, data);
-	}
-	
 }
 
 char	*erase_the_quote_hd(char *delimiter, int i)

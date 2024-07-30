@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   construction_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:14:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/13 19:17:13 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/30 11:35:55 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_tree_root	*exec_struct(t_data *data, t_token *token)
 			tree_cmd = redir_struct(data, tree_cmd);
 		else if (temp->type == is_pipe)
 			break ;
-		temp = temp->next;			
+		temp = temp->next;
 	}
 	return (tree_cmd);
 }
