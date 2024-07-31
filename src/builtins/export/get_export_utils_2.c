@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:32:23 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 16:53:31 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 13:57:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,21 @@ t_envp	*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env)
 bool	is_invalid_token(char *key)
 {
 	int	i;
+	int flag;
 
 	i = 0;
+	flag = 0;
 	if (!ft_isalpha(key[0]) && ft_isdigit(key[0]))
 		return (false);
 	while (key[i])
 	{
-		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '=' && key[i] != ' ')
+		if (key[i] == '=' && flag == 0)
+			flag++;
+		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '='
+			&& key[i] != ' ' && flag == 0)
 			return (false);
-		if (key[i] && key[i + 1] == ' ')
-			return (false);
+		//if (key[i] && key[i + 1] == ' ')
+		//	return (false);
 		i++;
 	}
 	return (true);

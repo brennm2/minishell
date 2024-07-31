@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/30 15:22:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:31:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], F_OK) < 0)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
+		else
+			printf("test\n");
 	}
 	else
 		command_not_found(exec->argv[0], data);

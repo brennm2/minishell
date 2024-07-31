@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:03:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 17:27:41 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:19:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	redirect_space_and_count_error(char *buffer)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
-		else if (buffer[i] == '>' || buffer[i] == '<')
+		else if ((buffer[i] == '>' || buffer[i] == '<') && (!d_quotes && !s_quotes))
 		{
 			if (check_valid_redir(buffer, i))
 				return (true);

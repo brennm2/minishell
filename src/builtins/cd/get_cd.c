@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/30 16:04:53 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:36:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	get_cd(t_data *data, t_token *token, int exit_flag)
 	char	old_cwd[256];
 
 	getcwd(old_cwd, sizeof(old_cwd));
-	if (token->next) //se for "cd ..."
+	if (token->next && token->next->type == string) //se for "cd ..."
 	{
 		if (token->next->str[0] == '\0')
 			return (ft_exit_flag(0, exit_flag, data));

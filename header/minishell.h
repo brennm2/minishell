@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/30 13:57:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:52:55 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,11 +346,11 @@ t_envp		*duplicate_next_node(t_envp *duplicate_env, t_envp *temp_env);
 t_envp		*organize_envp_list(t_envp *duplicate_env);
 
 /*GET_EXPORT_UTILS*/
-void		display_env_export(t_envp *envp, t_data *data, int exit_flag);
+void		display_env_export(t_envp *envp);
 void		print_export(t_envp *env, t_data *data, int exit_flag);
 t_envp		*find_last_node(t_envp *lst);
-bool		is_valid_export(t_token *token);
-void		export_error_identifier(t_token *token);
+bool	is_valid_export(t_token *token, t_data *data, int exit_flag);
+void		export_error_identifier(t_token *token, t_data *data, int exit_flag);
 
 /*GET_EXPORT_UTILS_2*/
 char		*find_key(char *str);
@@ -360,6 +360,7 @@ t_envp		*organize_envp_list(t_envp *duplicate_env);
 
 /*GET_EXPORT_UTILS_3*/
 bool		check_invalid_token(t_token *token);
+void	print_error_option_export(t_token *token);
 
 /*GET_UNSET*/
 void		get_unset(t_data *data, t_token *token, int exit_flag);

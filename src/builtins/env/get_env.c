@@ -6,27 +6,27 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 10:13:12 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 11:12:57 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 10:45:21 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	env_error_invalid(t_data *data, int exit_flag)
+void	env_error_invalid(t_data *data, t_token *token, int exit_flag)
 {
 	write(2, "env: invalid option -- ", 23);
 	write(2, "'", 1);
-	write(2, &data->token->next->str[1], 1);
+	write(2, &token->next->str[1], 1);
 	write(2, "'", 1);
 	write(2, "\n", 1);
-	ft_exit_flag(127, exit_flag, data);
+	ft_exit_flag(125, exit_flag, data);
 }
 
-void	env_error_option(t_data *data, int exit_flag)
+void	env_error_option(t_data *data, t_token *token, int exit_flag)
 {
 	write(2, "env: ", 5);
 	write(2, "'", 1);
-	write(2, data->token->next->str, ft_strlen(data->token->next->str));
+	ft_putstr_fd(token->next->str, 2);
 	write(2, "': No such file or directory", 29);
 	write(2, "\n", 1);
 	ft_exit_flag(127, exit_flag, data);
@@ -60,9 +60,10 @@ void	get_builtin_env(t_data *data, t_token *token, int exit_flag)
 	temp_env = data->envp;
 	if (token->next) // Se for "env ..."
 	{
-		if (token->next->str[0] == '-' && token->next->str[1] && token->next->type == string) //Se for Option "-n"
+		if (token->next->str[0] == '-' && token->next->str[1]
+			&& token->next->type == string) //Se for Option "-n"
 		{
-			env_error_invalid(data, exit_flag);
+			env_error_invalid(data, token, exit_flag);
 			return ;
 		}
 	}
@@ -70,7 +71,7 @@ void	get_builtin_env(t_data *data, t_token *token, int exit_flag)
 	{
 		if (token->next->str[0] == '-') // Se for somente "-", retornar sem fazer nada
 			return (ft_exit_flag(0, exit_flag, data));
-		env_error_option(data, exit_flag);
+		env_error_option(data, token, exit_flag);
 		return ;
 	}
 	else //Se nenhuma dessas condicoes foi atendida...

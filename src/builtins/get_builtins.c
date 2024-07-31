@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/16 15:55:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:56:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 {
-	if (exit_flag == 0) //flag 0 = data->exit_code
+	//printf("%d\n", exit_code);
+	if (exit_flag == 0) //flag 0 = PAI
 	{
-		//ft_putstr_fd("Usando exit_flag_0 = data->exit_code ", 2); //DEBUG
-		//ft_putnbr_fd(exit_code, 2);
-		//ft_putstr_fd(" <--\n", 2);
 		data->exit_code = exit_code;
 	}
-	else //flag 1 = signal
+	else //flag 1 = FILHO
 	{
 		if (!data)
-		exit(1);
+			exit(1);
 		free_env(data->envp);
 		free_token(data->token);
 		if (data->tree)

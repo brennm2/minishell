@@ -6,35 +6,35 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 18:32:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 12:54:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	export_error_identifier(t_token *token)
+void	export_error_identifier(t_token *token, t_data *data, int exit_flag)
 {
 	ft_putstr_fd("minishell: export: '", 2);
 	ft_putstr_fd(token->str, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	//ft_exit_flag(1, exit_flag, data);
+	ft_exit_flag(1, exit_flag, data);
 	//set_exit_code(1, data);
 	//print_error(NULL, 1, data);
 }
 
-bool	is_valid_export(t_token *token)
-{
-	if (ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
-	{
-		while (token->next)
-		{
-			export_error_identifier(token);
-			token = token->next;
-		}
-		return (false);
-	}
-	return (true);
-}
+// bool	is_valid_export(t_token *token, t_data *data, int exit_flag)
+// {
+// 	if (ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
+// 	{
+// 		while (token->next)
+// 		{
+// 			export_error_identifier(token, data, exit_flag);
+// 			token = token->next;
+// 		}
+// 		return (false);
+// 	}
+// 	return (true);
+// }
 
 t_envp	*find_last_node(t_envp *lst)
 {
@@ -45,7 +45,7 @@ t_envp	*find_last_node(t_envp *lst)
 	return (lst);
 }
 
-void	display_env_export(t_envp *envp, t_data *data, int exit_flag)
+void	display_env_export(t_envp *envp)
 {
 	while (envp)
 	{
@@ -67,16 +67,15 @@ void	display_env_export(t_envp *envp, t_data *data, int exit_flag)
 		}
 		envp = envp->next;
 	}
-	return (ft_exit_flag(0, exit_flag, data));
-	//return (set_exit_code(0, data));
 }
 
 void	print_export(t_envp *env, t_data *data, int exit_flag)
 {
-	t_envp	*duplicate_env;
+	static t_envp	*duplicate_env;
 
 	duplicate_env = duplicate_envp_list(env);
 	duplicate_env = organize_envp_list(duplicate_env);
-	display_env_export(duplicate_env, data, exit_flag);
+	display_env_export(duplicate_env);
 	free_env(duplicate_env);
+	ft_exit_flag(0, exit_flag, data);
 }
