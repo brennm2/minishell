@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_code.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 14:50:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:34:18 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	update_exit_code(int status, t_data *data)
 	if (WIFEXITED(status))
 		set_exit_code(WEXITSTATUS(status), data);
 	else if (WIFSIGNALED(status))
-		set_exit_code(WTERMSIG(status), data);
+	{
+		if (WTERMSIG(status) == SIGINT)
+		{
+			write(1, "\n", 1);
+			set_exit_code(WTERMSIG(status) + 128, data);
+		}
+		if (WCOREDUMP(status))
+		{
+			write(1, "Quit (core dumped)\n", 20);
+			set_exit_code(WTERMSIG(status) + 128, data);
+		}
+		//set_exit_code(WTERMSIG(status), data);
+	}
 }
 

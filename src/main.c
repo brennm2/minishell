@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:48:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:34:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ void	exec_minishell(t_data *data)
 
 	have_pipe(data);
 	if (data->flag == 0) // if don't have pipes
-	{
 			execution(data);
-	}
 	else
 	{
-		ft_signal_ignore();
 		if (safe_fork(data) == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			execution(data);
+		}
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(0, &status, 0);
 		update_exit_code(status, data);
 	}

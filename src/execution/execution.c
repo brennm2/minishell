@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/29 15:23:21 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:37:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	int status;
 	int	pid_first;
 	int pid_sec;
+	int exit_test = 0;
+	
 	
 	safe_pipe(fd, data);
 	pid_first = safe_fork(data);
@@ -65,11 +67,47 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 		pipe_child_execution(data, tree, fd, 2);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid_first, &status, 0);
-	waitpid(pid_sec, &status, 0);
-	if (WIFEXITED(status))
-		data->exit_code = WEXITSTATUS(status);
-	finished_exec(data, data->exit_code);
+	
+	//if (!data)
+	//	exit(1);
+	free_env(data->envp);
+	free_token(data->token);
+	if (data->tree)
+		free_tree(data->tree);
+	if (data->home)
+		free(data->home);
+	if (data->ex_)
+		free(data->ex_);
+	if (data->shlvl)
+		free(data->shlvl);
+	free(data);
+	//rl_clear_history();
+
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		//write(2, "teste\n", 6);
+		// if (WIFEXITED(status))
+		// 	exit_test = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT)
+				write(1, "\n", 1);
+			if (WCOREDUMP(status))
+				write(1, "Quit (core dumped)\n", 20);
+			exit_test = WTERMSIG(status) + 128;
+			//set_exit_code(WTERMSIG(status) + 128, data);
+		}
+	}
+	//ft_putnbr_fd(exit_test, 2);
+	exit(exit_test);
+
+
+	
+	// waitpid(pid_first, &status, 0);
+	// waitpid(pid_sec, &status, 0);
+	// if (WIFEXITED(status))
+	// 	data->exit_code = WEXITSTATUS(status);
+	// finished_exec(data, data->exit_code);
 }
 
 void	executing_tree(t_data *data, t_tree_root *tree)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/29 19:59:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:50:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	unlink_here_doc_file(void)
 
 void	finished_exec(t_data *data, int exit_code)
 {
-	if (data->flag == 0)
+	if (data->flag == 0) //sem pipe
 	{
 		free_token(data->token);
 		if (data->tree)
@@ -74,6 +74,7 @@ void	finished_exec(t_data *data, int exit_code)
 		//ft_putstr_fd("bb\n", 2);
 		clean(data, exit_code);
 	}
+	
 }
 
 void	clean_hd(t_data *data, int ex)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:50:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:23:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,13 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	clean(data, 127);
 }
 
+void	ft_signal_def(void)
+{
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+}
+
 void	cmd_execution(t_data *data, t_tree_exec *tree)
 {
 	int status;
@@ -102,14 +109,29 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 		get_builtin(data, tree->builtin_token, data->flag);
 	else
 	{
-		ft_catch_signal(CHILD);
-		pid = safe_fork(data);
-		if (pid == 0)
+		if (data->flag == 0)
+		{
+			ft_signal_def();
+			pid = safe_fork(data);
+			if (pid == 0)
+				safe_execve(data, tree);
+			ft_signal_ignore();
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				set_exit_code(WEXITSTATUS(status), data);
+			if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGINT)
+					write(1, "\n", 1);
+				if (WCOREDUMP(status))
+					write(1, "Quit (core dumped)\n", 20);
+				set_exit_code(WTERMSIG(status) + 128, data);
+			}
+		}
+		else
+		{
 			safe_execve(data, tree);
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			set_exit_code(WEXITSTATUS(status), data);
-		if (WIFSIGNALED(status))
-			set_exit_code(WTERMSIG(status) + 128, data);
+			
+		}
 	}
 }

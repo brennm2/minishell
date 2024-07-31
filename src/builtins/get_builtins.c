@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:48:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:16:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 			free(data->home);
 		if (data->ex_)
 			free(data->ex_);
+		if (data->shlvl)
+			free(data->shlvl);
 		free(data);
 		rl_clear_history();
 		//exit(ex);
