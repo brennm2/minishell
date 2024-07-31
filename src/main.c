@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/30 16:03:45 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:48:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,18 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 		ft_putstr_fd("Minishell does not accept any arguments.", 2);
 		exit(1);
 	}
-	data = ft_calloc(1, sizeof(t_data));;
+	data = ft_calloc(1, sizeof(t_data));
 	if (!data)
 		print_error("Malloc error.", 1, data);
 	(void)envp;
+	change_shlvl(data, envp);
 	get_env(data, envp);
 	return (data);
 }
 
 void	exec_minishell(t_data *data)
 {
-	int		status;
+	int	status;
 
 	have_pipe(data);
 	if (data->flag == 0) // if don't have pipes
@@ -78,10 +79,54 @@ void	loop_minishell(t_data *data)
 		if (!data->token)
 			continue ;
 		exec_minishell(data);
-		//printf("%d\n", data->exit_code);
 		free_token(data->token);
 		unlink_here_doc_file();
 	}
+}
+
+void	catch_pid(t_data *data)
+{
+	int	pid;
+
+	pid = safe_fork(data);
+	if(pid == 0)
+	{
+		if (!data)
+		exit(1);
+		free_env(data->envp);
+		if (data->home)
+			free(data->home);
+		if (data->shlvl)
+			free(data->shlvl);
+		free(data);
+		exit(0);
+	}
+	else
+	{
+		wait(0);	
+		data->pid = pid;
+	}
+}
+
+void	change_shlvl(t_data *data, char **envp)
+{
+	int	i;
+	int	lvl;
+	char	*c_lvl;
+	
+	i = -1;
+	while (envp[++i])
+	{
+		if (!ft_strncmp(envp[i], "SHLVL=", 6))
+		{
+			lvl = ft_atoi(envp[i] + ft_strlen(envp[i]) - 1);
+			lvl++;
+			c_lvl = ft_itoa(lvl);
+			data->shlvl = c_lvl;
+			return ;
+		}
+	}
+	data->shlvl = ft_strdup("2");
 }
 
 int main(int argc, char **argv, char **envp)
@@ -93,5 +138,6 @@ int main(int argc, char **argv, char **envp)
 	data->fds[0] = dup(STDIN_FILENO);
 	data->fds[1] = dup(1);
 	data->exit_code = 0;
+	catch_pid(data);
 	loop_minishell(data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 12:52:55 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:47:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,15 +143,17 @@ typedef struct s_envp
 
 typedef struct s_data
 {
-	t_envp *envp;
-	t_token *token;
-	char	*home;
-	char	*ex_;
-	int		fd;
-	int		fds[2];
-	int		flag;
+	t_envp		*envp;
+	t_token 	*token;
+	char		*home;
+	char		*ex_;
+	char		*shlvl;
+	int			fd;
+	int			fds[2];
+	int			flag;
 	t_tree_root	*tree;
-	int		exit_code;
+	int			exit_code;
+	int			pid;
 	struct s_data	*next;
 }				t_data;
 
@@ -166,6 +168,7 @@ void		init_commands(char *buffer, t_data *data);
 void		loop_minishell(t_data *data);
 void		exec_minishell(t_data *data);
 t_data		*init_minishell(int argc, char **argv, char **envp, t_data *data);
+void		change_shlvl(t_data *data, char **envp);
 
 /*MAIN UTILS*/
 void		have_pipe(t_data *data);
@@ -292,6 +295,8 @@ void		cpy_(t_envp **env);
 void		cpy_env(t_envp **env, char *str);
 void		ft_lstadd_back_env(t_envp **lst, t_envp *new);
 t_envp		*ft_lstnew_env(void *key, void *value);
+void		empty_env(t_data *data);
+t_envp		*have_variable(t_envp *env, char *key);
 
 /*QUOTES*/
 void		remove_quotes(t_data *data);
@@ -301,6 +306,7 @@ void		erase_the_quote(t_token *token, int i);
 
 /*UTILS*/
 int			ft_is_especial(int c);
+int			ft_is_especial_2(int c);
 char		*ft_strjoin_ex(char *s1, char const *s2);
 int			quote_status(char *str, int i);
 

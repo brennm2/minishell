@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/30 15:46:12 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:55:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		signal_heredoc(-1, data, delimiter, here_doc_file);
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
+		printf("aqui\n");
 		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);

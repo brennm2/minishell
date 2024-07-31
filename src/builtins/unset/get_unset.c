@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/30 17:07:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:49:52 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	get_unset(t_data *data, t_token *token, int exit_flag)
 
 	flag = 0;
 	head = data->token;
-	if (!token->next)
+	if (!token->next || !ft_strcmp(token->next->str, "_"))
 		return ;
 	while (token->next)
 	{

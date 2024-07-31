@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:31:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/07/31 14:50:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ char	*get_path(t_data *data, char *cmd)
 		if (!ft_strcmp(env_aux->key, "PATH"))
 			valid_path = find_path(data, env_aux->value, cmd);
 		env_aux = env_aux->next;
+	}
+	if (!valid_path)
+	{
+		if (cmd[0] == '/' && !access(cmd, X_OK))
+			return (ft_strdup(cmd));
+		else if (cmd[0] == '.' && cmd[1] == '/' && !access(cmd, X_OK))
+			return (ft_strdup(cmd));
+		return (NULL);
 	}
 	return (valid_path);
 }

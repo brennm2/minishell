@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/21 14:48:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:48:38 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	free_data(t_data *data)
 	data->home = NULL;
 	if (data->ex_)
 		free(data->ex_);
-	//free(data->token);
-	//free(data->envp);
+	if (data->shlvl)
+		free(data->shlvl);
 	free(data);
 	data = NULL;
 }
