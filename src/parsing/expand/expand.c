@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/30 14:40:11 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:37:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	is_expand(t_token *token, t_data *data)
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
 			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$' && token->str[i + 1] && !ft_is_especial_2(token->str[i + 1]))
+		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] != ' ' && !ft_is_especial_2(token->str[i + 1]))
 		{
 			if (is_expand_2(token, data, i))
 			{

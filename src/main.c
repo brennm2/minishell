@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:48:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 15:06:21 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ void	exec_minishell(t_data *data)
 
 	have_pipe(data);
 	if (data->flag == 0) // if don't have pipes
-	{
 			execution(data);
-	}
 	else
 	{
 		ft_signal_ignore();

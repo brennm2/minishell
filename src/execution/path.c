@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:50:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:13:35 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,11 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], F_OK) < 0)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
-		else
-			printf("test\n");
+		else if (access(exec->argv[0], X_OK) < 0)
+		{
+			printf("minishell: %s: Permission denied\n", exec->argv[0]);
+			clean(data, 126);
+		}
 	}
 	else
 		command_not_found(exec->argv[0], data);
