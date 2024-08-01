@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:47:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:19:52 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,8 @@ int			ft_strcmp(char *s1, char *s2);
 void		signal_here_doc(int signal_num);
 void		signal_heredoc_checker(int status);
 void		signal_child(int signal_num);
-void		signal_main(int signal_num);
+void		signal_main(int signal_num, t_data *data);
+void		ft_signal_def(void);
 
 /*SIGNALS UTILS*/
 void		ft_catch_signal(int fd);

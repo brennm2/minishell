@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/30 10:46:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:30:40 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here)
 {
-	//ft_putstr_fd("entrou aqui\n", 1);
-	static t_data *data_temp;
-	static char	*delimiter_temp;
+	static	t_data *data_temp;
+	static	char	*delimiter_temp;
 	static	char *here_temp;
 	
 	if (signal == -1)
@@ -32,10 +31,6 @@ void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here)
 		free(delimiter_temp);
 		free(here_temp);
 		clean_hd(data_temp, 130);
-		// free_env(data_temp->envp);
-		// free_token(data_temp->token);
-		// free_data(data_temp);
-		//exit(130);
 	}
 }
 
@@ -44,7 +39,7 @@ void	ft_catch_signal(int id)
 	if (id == MAIN)
 	{
 		//ft_putstr_fd("Entrou aqui main\n", 2);
-		signal(SIGINT, signal_main); //ctrl + c
+		signal(SIGINT, (void *)signal_main); //ctrl + c
 		signal(SIGTERM, SIG_IGN); //ctrl + D
 		signal(SIGQUIT, SIG_IGN); //ctrl + barra
 	}
@@ -57,7 +52,7 @@ void	ft_catch_signal(int id)
 	{
 		//ft_putstr_fd("HERE_DOC\n", 2);
 		signal(SIGINT, (void *)signal_heredoc);
-		signal(SIGTERM, SIG_DFL); //ctrl + D
+		signal(SIGTERM, (void *)signal_heredoc); //ctrl + D
 	}
 	else if (id == PIPE)
 		ft_putstr_fd("PIPE\n", 2);

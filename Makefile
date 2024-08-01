@@ -106,6 +106,10 @@ valgrind:
 	@make
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
+run:
+	@make
+	@./minishell
+
 sync_shell: all		## Test w/ syncshell
 	@echo "[Testing with syncshell]"
 	tmux split-window -h "./$(NAME)"

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 18:34:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:08:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 	return (data);
 }
 
+void	sig_quit(int sig)
+{
+	(void)sig;
+
+	//ft_putstr_fd("Quit (core dumped)\n", 2);
+}
+void	sig_int(int sig)
+{
+	(void)sig;
+
+	//ft_putstr_fd("Quit (core dumped)\n", 2);
+}
+
+
 void	exec_minishell(t_data *data)
 {
 	int	status;
@@ -62,6 +76,13 @@ void	exec_minishell(t_data *data)
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 		waitpid(0, &status, 0);
+		// if (WIFEXITED(status))
+		// {
+		// 	if (WEXITSTATUS(status) == 130)
+		// 		ft_putstr_fd("\n", 2);
+		// 	if (WEXITSTATUS(status) == 131)
+		// 		ft_putstr_fd("Quit (core dumped)\n", 2); //write(1, "Quit (core dumped)\n", 20);
+		// }
 		update_exit_code(status, data);
 	}
 }

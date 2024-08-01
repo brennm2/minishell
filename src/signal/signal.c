@@ -6,13 +6,13 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 17:06:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:19:37 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	signal_main(int signal_num)
+void	signal_main(int signal_num, t_data *data)
 {
 	//ft_putstr_fd("entrou main\n", 2);
 	if(signal_num == SIGINT)
@@ -21,7 +21,7 @@ void	signal_main(int signal_num)
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		G_EXIT_CODE = 130;
+		data->exit_code = 130;
 	}
 }
 
@@ -36,8 +36,6 @@ void	signal_child(int signal_num)
 
 void	signal_heredoc_checker(int status)
 {
-	//ft_putstr_fd("test\n", 2);
-	//printf("status: %d", status);
 	if (WTERMSIG(status) == 3)// Se o sinal for terminado com status 3 (ctrl + barra)
 	{
 			//ft_putstr_fd("ctrl + barra\n", 2);
@@ -68,4 +66,11 @@ void	signal_here_doc(int signal_num)
 		rl_redisplay();
 		ioctl(0, TIOCSTI, "\n");
 	}
+}
+
+void	ft_signal_def(void)
+{
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 }

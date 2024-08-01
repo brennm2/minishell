@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:55:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:30:03 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,20 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		signal_heredoc(-1, data, delimiter, here_doc_file);
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
-		printf("aqui\n");
 		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);
 	change_token(token, here_doc_file);
-	
 	if (WIFEXITED(status))
 	{
-		data->exit_code = WEXITSTATUS(status);
+		if (WEXITSTATUS(status) == 130)
+		{
+			if (delimiter)
+				free(delimiter);
+			data->exit_code = WEXITSTATUS(status);
+			free_token(data->token);
+			loop_minishell(data);
+		}
 	}
 }
 

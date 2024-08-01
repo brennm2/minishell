@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 18:16:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:15:04 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	get_builtin(t_data *data, t_token *token, int flag)
 		get_builtin_env(data, token, flag);
 	else if (token->builtin == n_exit
 		&& !ft_strcmp(token->str, "exit"))
-		get_exit(data, token, 1);
+		get_exit(data, token, flag);
 	else if (token->builtin == export
 		&& !ft_strcmp(token->str, "export"))
 		get_export(data, token, flag);

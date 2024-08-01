@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 18:23:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:20:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,6 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	clean(data, 127);
 }
 
-void	ft_signal_def(void)
-{
-	signal(SIGTERM, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-	signal(SIGINT, SIG_DFL);
-}
-
 void	cmd_execution(t_data *data, t_tree_exec *tree)
 {
 	int status;
@@ -129,9 +122,6 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 			}
 		}
 		else
-		{
 			safe_execve(data, tree);
-			
-		}
 	}
 }

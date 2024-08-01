@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 18:37:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:56:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	int pid_sec;
 	int exit_test = 0;
 	
-	
 	safe_pipe(fd, data);
 	pid_first = safe_fork(data);
 	if (pid_first == 0)
@@ -68,8 +67,8 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	close(fd[0]);
 	close(fd[1]);
 	
-	//if (!data)
-	//	exit(1);
+	if (!data)
+		exit(1);
 	free_env(data->envp);
 	free_token(data->token);
 	if (data->tree)
@@ -81,28 +80,20 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	if (data->shlvl)
 		free(data->shlvl);
 	free(data);
-	//rl_clear_history();
-
+	rl_clear_history();
 	while (waitpid(-1, &status, 0) > 0)
 	{
-		//write(2, "teste\n", 6);
-		// if (WIFEXITED(status))
-		// 	exit_test = WEXITSTATUS(status);
 		if (WIFSIGNALED(status))
 		{
-			if (WTERMSIG(status) == SIGINT)
-				write(1, "\n", 1);
-			if (WCOREDUMP(status))
-				write(1, "Quit (core dumped)\n", 20);
+			// if (WTERMSIG(status) == SIGINT)
+			// 	write(1, "\n", 1);
+			//if (WTERMSIG(status) == SIGQUIT)
+			//	exit(WTERMSIG(status) + 128);//ft_putstr_fd("Quit core dumped)\n", 2); //write(1, "Quit (core dumped)\n", 20);
 			exit_test = WTERMSIG(status) + 128;
 			//set_exit_code(WTERMSIG(status) + 128, data);
 		}
 	}
-	//ft_putnbr_fd(exit_test, 2);
 	exit(exit_test);
-
-
-	
 	// waitpid(pid_first, &status, 0);
 	// waitpid(pid_sec, &status, 0);
 	// if (WIFEXITED(status))
