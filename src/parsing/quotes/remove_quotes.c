@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 19:29:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/01 21:13:57 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 void	erase_the_quote(t_token *token, int i)
 {
 	char	*unquote_str;
-
-	unquote_str = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(unquote_str, token->str, i + 1);
+	
+	if (i > 0)
+	{
+		unquote_str = ft_calloc(sizeof(char), i + 1);
+		ft_strlcpy(unquote_str, token->str, i + 1);
+	}
+	else
+		unquote_str = ft_strdup("");
 	i++;
 	unquote_str = ft_strjoin_ex(unquote_str, token->str + i);
 	free(token->str);
