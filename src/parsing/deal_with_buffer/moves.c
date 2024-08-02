@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 19:28:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:41:13 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,36 @@ bool	check_for_open_quotes(char *buffer, int i)
 		return (false);
 }
 
+int get_size(char *buffer, int i)
+{
+	int		size;
+	char	c;
+
+	c = buffer[i];
+	size = 1;
+	if (buffer[i] == S_QUOTES || buffer[i] == D_QUOTES)
+	{
+		while (buffer[++i] != c)
+			size++;
+		return (size + 1);		
+	}
+	else
+	{
+		while(buffer[++i] && (!(buffer[i] >= 7 && buffer[i] <= 32)))
+		size++;
+		return (size);
+	}
+}
+
 int	move_without_quotes(char *buffer, int i, t_data *data)
 {
-	int start;
+	int size;
 
-	start = i;
+	/* start = i;
 	while(buffer[i] && (!(buffer[i] >= 7 && buffer[i] <= 32) || check_for_open_quotes(buffer, i)))
-		i++;
-	save_substring(buffer, start, (i - 1), data);
+		i++; */
+	size = get_size(buffer, i);
+	i = save_substring(buffer, size, i, data);
 	return(i);
 }
 

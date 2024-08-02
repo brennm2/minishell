@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:47:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:38:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ bool		check_for_open_quotes(char *buffer, int i);
 int			move_without_quotes(char *buffer, int i, t_data *data);
 int			check_for_string(char *buffer, int start);
 
-void		save_substring(char *buffer, int start, int end, t_data *data);
+int			save_substring(char *buffer, int size, int i, t_data *data);
 void		save_space(char *buffer, int start, t_data *data);
 void		new_data(t_data *data, t_token *token);
 void		pipe_split(t_data *data);

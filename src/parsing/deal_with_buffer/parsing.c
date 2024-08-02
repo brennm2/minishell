@@ -6,22 +6,52 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/01 21:20:10 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:01:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	save_substring(char *buffer, int start, int end, t_data *data)
+t_token	*alloc_token(t_data *data)
 {
-	int	i;
+	t_token *token_aux;
+	
+	if (!data->token)
+	{
+		data->token = ft_calloc(1, sizeof(t_token));
+		token_aux = data->token;
+	}
+	else
+	{
+		token_aux = data->token;
+		while (token_aux->next)
+			token_aux = token_aux->next;
+		token_aux->next = ft_calloc(1, sizeof(t_token));
+		token_aux = token_aux->next;
+	}
+	return (token_aux);
+}
+
+int	save_substring(char *buffer, int size, int i, t_data *data)
+{
+	t_token *token_aux;
+	int		j;
+	
+	j = 0;
+	token_aux = alloc_token(data);
+	token_aux->str = ft_calloc((size + 1), sizeof(char));
+	while(j < size)
+        token_aux->str[j++] = buffer[i++];
+	token_aux->str[j] = '\0';
+	return (i);
+	/* int	i;
 
 	i = 0;
 	while(start <= end)
-	{
-		data->token->str[i] = buffer[start++];
-		i++;
-	}
+    {
+        data->token->str[i] = buffer[start++];
+        i++;
+    }
 	if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
 		start++;
 	if(buffer[check_for_string(buffer, start)])
@@ -33,7 +63,7 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		end = i - 1; // end vai ser igual ao i
 		init_next_token(data->token, end - start + 2); // Inicia o proximo token com o tamnho da string
 		data->token = data->token->next;
-	}
+	} */
 }
 
 void	save_space(char *buffer, int start, t_data *data)
@@ -81,10 +111,10 @@ void	pipe_split(t_data *data)
 
 void	get_split(char *buffer, t_data *data)
 {
-	t_token	*reset_index;
+	//t_token	*reset_index;
 	int		i;
 	
-	reset_index = data->token;
+	//reset_index = data->token;
 	i = 0;
 	while(buffer[i])
 	{
@@ -92,8 +122,9 @@ void	get_split(char *buffer, t_data *data)
 			i = move_space(buffer, i);
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
 		{
-				i = move_without_quotes(buffer, i, data);
+			i = move_without_quotes(buffer, i, data);
 		}
+		//printf("%c\n", buffer[i]);
 	}
-	data->token = reset_index;
+	//data->token = reset_index;
 }
