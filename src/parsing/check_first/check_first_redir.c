@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:03:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:19:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:14:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	redirect_error(char *buffer)
 		else if ((buffer[i] == '>' || buffer[i] == '<') && buffer[i + 1] == '\0')
 		{
 			ft_putstr_fd(ERROR_REDIR, 2);
-			ft_putstr_fd("\'\n", 2);
+			ft_putstr_fd("\n", 1);
 			return (true);
 		}
 		else if (buffer[i] == '>' && (buffer[move_space(buffer, i + 1)] == '<'

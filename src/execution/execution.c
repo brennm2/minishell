@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 15:56:07 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:30:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,43 @@ void	redir_execution(t_data *data, t_tree_root *tree)
 			ft_putstr_fd(rcmd->exp, 2);
 			ft_putstr_fd(": ambiguous redirect\n", 2);
 		}
-		else if (!access(rcmd->file, F_OK))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			ft_putstr_fd(rcmd->exp, 2);
-			ft_putstr_fd(": No such file or directory\n", 2);
-		}
+		// else if (!access(rcmd->file, F_OK))
+		// {
+		// 	ft_putstr_fd("minishell: ", 2);
+		// 	ft_putstr_fd("entrou aqui\n", 2);
+		// 	perror("");
+		// 	//ft_putstr_fd(rcmd->exp, 2);
+		// 	//ft_putstr_fd(": No such file or directory\n", 2);
+		// }
 		else
+		{
+			//write(2, "entrou aqui\n", 12);
+			write(2, "minishell: ", 12);
 			perror(rcmd->file);
+		}
 		finished_exec(data, 1);
 	}
 	executing_tree(data, rcmd->tree);
 }
+
+void	clean_withou_exit(t_data *data)
+{
+	if (!data)
+		exit(1);
+	free_env(data->envp);
+	free_token(data->token);
+	if (data->tree)
+		free_tree(data->tree);
+	if (data->home)
+		free(data->home);
+	if (data->ex_)
+		free(data->ex_);
+	if (data->shlvl)
+		free(data->shlvl);
+	free(data);
+	rl_clear_history();
+}
+
 
 void	pipe_execution(t_data *data, t_tree_root *tree)
 {
@@ -67,20 +92,8 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	close(fd[0]);
 	close(fd[1]);
 	
-	if (!data)
-		exit(1);
-	free_env(data->envp);
-	free_token(data->token);
-	if (data->tree)
-		free_tree(data->tree);
-	if (data->home)
-		free(data->home);
-	if (data->ex_)
-		free(data->ex_);
-	if (data->shlvl)
-		free(data->shlvl);
-	free(data);
-	rl_clear_history();
+	clean_withou_exit(data);
+	
 	while (waitpid(-1, &status, 0) > 0)
 	{
 		if (WIFSIGNALED(status))
@@ -93,6 +106,13 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 			//set_exit_code(WTERMSIG(status) + 128, data);
 		}
 	}
+	if (WIFEXITED(status))
+	{
+		//printf("status :%d\n", WEXITSTATUS(status));
+		//data->exit_code = WEXITSTATUS(status);
+		exit(WEXITSTATUS(status));
+	}
+	printf("exit_test :%d\n", exit_test);
 	exit(exit_test);
 	// waitpid(pid_first, &status, 0);
 	// waitpid(pid_sec, &status, 0);

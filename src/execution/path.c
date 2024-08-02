@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 14:20:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:58:01 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,11 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 		if (access(exec->argv[0], F_OK) < 0)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
 		else
-			printf("test\n");
+		{
+			perror("");
+			//printf("test\n");
+			clean(data, 126);
+		}
 	}
 	else
 		command_not_found(exec->argv[0], data);
@@ -104,6 +108,7 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	{
 		if (data->flag == 0)
 		{
+			//ft_putstr_fd("entrou aqui\n", 2);
 			ft_signal_def();
 			pid = safe_fork(data);
 			if (pid == 0)
@@ -111,7 +116,9 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 			ft_signal_ignore();
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status))
+			{
 				set_exit_code(WEXITSTATUS(status), data);
+			}
 			if (WIFSIGNALED(status))
 			{
 				if (WTERMSIG(status) == SIGINT)

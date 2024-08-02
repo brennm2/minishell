@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 15:44:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:37:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,22 @@
 
 void	put_token_str(t_token *token, t_data *data)
 {
-	if (token->str[0] == '~'
-		&& (token->str[1] == '-' || token->str[1] == '+'))
+	if (token->str[0] == '~' && (token->str[1] == '-' || token->str[1] == '+'))
 	{
 		if (token->str[1] == '+')
-			ft_putstr_fd(get_in_env(data->envp, "PWD"), 1);
+		{
+			if(get_in_env(data->envp, "PWD") == NULL)
+				write(1, "~+", 2);
+			else
+				ft_putstr_fd(get_in_env(data->envp, "PWD"), 1);
+		}
 		else
-			ft_putstr_fd(get_in_env(data->envp, "OLDPWD"), 1);
+		{
+			if(get_in_env(data->envp, "OLDPWD") == NULL)
+				write(1, "~-", 2);
+			else
+				ft_putstr_fd(get_in_env(data->envp, "OLDPWD"), 1);
+		}
 		if (token->next)
 			write(1, " ", 1);
 	}
@@ -89,7 +98,7 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 
 	//write (1, "B\n", 2);
 	t_flag = 0;
-	while (token && token->type == string)
+	while (token && (token->type == string || token->type == command))
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n'
 			&& is_all_flag(token) == true)

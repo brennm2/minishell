@@ -6,13 +6,13 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/01 17:22:26 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:58:48 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-bool	syntax_error_sup (char *buffer, t_data *data)
+bool syntax_error_sup(char *buffer, t_data *data)
 {
 	if (buffer[0] == '|')
 	{
@@ -39,16 +39,16 @@ bool	syntax_error_sup (char *buffer, t_data *data)
 	return (false);
 }
 
-bool	check_for_quotes(char *buffer, t_data *data) // Procura por D_QUOTES ou S_QUOTES nao fechadas
+bool check_for_quotes(char *buffer, t_data *data) // Procura por D_QUOTES ou S_QUOTES nao fechadas
 {
 	int s_quotes;
 	int d_quotes;
 	int i;
-	
+
 	i = 0;
 	s_quotes = 0;
 	d_quotes = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
 		if (buffer[i] == S_QUOTES && !d_quotes)
 			s_quotes = !s_quotes;
@@ -64,23 +64,23 @@ bool	check_for_quotes(char *buffer, t_data *data) // Procura por D_QUOTES ou S_Q
 	return (false);
 }
 
-bool	check_for_double_pipes(char *buffer)
+bool check_for_double_pipes(char *buffer)
 {
 	int i;
 	bool in_quotes;
 
 	i = 0;
 	in_quotes = false;
-	while(buffer[i])
+	while (buffer[i])
 	{
-		if(buffer[i] == '\'')
+		if (buffer[i] == '\'' || buffer[i] == D_QUOTES)
 			in_quotes = !in_quotes;
-		if(!in_quotes && buffer[i] == '|')
+		if (!in_quotes && buffer[i] == '|')
 		{
 			i++;
-			while(buffer[i] == ' ')
+			while (buffer[i] == ' ')
 				i++;
-			if(buffer[i] == '|')
+			if (buffer[i] == '|')
 				return true;
 			else
 				return false;
@@ -90,23 +90,22 @@ bool	check_for_double_pipes(char *buffer)
 	return false;
 }
 
-
-bool	check_for_syntax_error(char *buffer, t_data *data)
+bool check_for_syntax_error(char *buffer, t_data *data)
 {
 	buffer = ft_strtrim(buffer, " \t");
-	if (!buffer || first_character(buffer) //ft_strchr("|<>", buffer[0])
+	if (!buffer || first_character(buffer) // ft_strchr("|<>", buffer[0])
 		|| ft_strchr("|<>", buffer[ft_strlen(buffer) - 1]))
 	{
 		if (buffer)
 			if (syntax_error_sup(buffer, data))
 				data->exit_code = 2;
-		free (buffer);
+		free(buffer);
 		return (false);
 	}
 	if (buffer && syntax_error_sup(buffer, data) == true)
 	{
-		data->exit_code = 2; //verificar
-		free (buffer);
+		data->exit_code = 2; // verificar
+		free(buffer);
 		return (false);
 	}
 	if (check_for_double_pipes(buffer))
@@ -115,11 +114,11 @@ bool	check_for_syntax_error(char *buffer, t_data *data)
 		free(buffer);
 		return (false);
 	}
-	free (buffer);
+	free(buffer);
 	return (true);
 }
 
-bool	valid_input(char *buffer, t_data *data)
+bool valid_input(char *buffer, t_data *data)
 {
 	if (!buffer || buffer == NULL)
 	{
@@ -129,9 +128,10 @@ bool	valid_input(char *buffer, t_data *data)
 		free_env(data->envp);
 		free_data(data);
 		ft_putstr_fd("exit\n", 2);
-		exit (exit_code);
+		exit(exit_code);
 	}
-	if(is_all_space(buffer))
+	if (is_all_space(buffer) ||
+		(buffer[0] == '\t' && !buffer[move_space(buffer, 0)]))
 	{
 		free(buffer);
 		return (false);

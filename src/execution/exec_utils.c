@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/29 15:17:25 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:55:12 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 		if (access(exec->argv[0], X_OK) == 0)
 		{
 			printf("minishell: %s: Is a directory\n", exec->argv[0]);
+			ptr_free(env);
 			clean(data, 126);
 		}
 		perror(exec->cmd);

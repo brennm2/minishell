@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/01 14:15:04 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:18:47 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 {
-	//printf("%d\n", exit_code);
 	if (exit_flag == 0) //flag 0 = PAI
 	{
 		data->exit_code = exit_code;

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 11:37:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2023/10/19 12:08:24 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 15:00:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_putstr_fd(char *s, int fd)
 	int	i;
 
 	i = 0;
+
 	while (s[i])
 	{
 		write(fd, &s[i], 1);

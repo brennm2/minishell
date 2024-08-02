@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 12:36:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:44:15 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	cd_options_tilde(t_data *data, int exit_flag)
 	getcwd(cwd, sizeof(cwd));
 	if (data->token->next->str[1] == '+') //Vai para o pwd atual e mudar o pwd antigo para o pwd atual
 	{
+		if (get_in_env(data->envp, "PWD") == NULL)
+		{
+			ft_putstr_fd("minishell: cd: ~+: No such file or directory\n", 2);
+			return (ft_exit_flag(1, exit_flag, data));
+		}
 		chdir(cwd);
 		data->envp = change_in_env(data->envp, cwd, "OLDPWD");
 		data->envp = change_in_env(data->envp, cwd, "PWD");
@@ -45,6 +50,11 @@ void	cd_options_tilde(t_data *data, int exit_flag)
 	}
 	if (data->token->next->str[1] == '-') // Vai para o OLDPWD e mudar o OLDPWD para o atual PWD
 	{
+		if (get_in_env(data->envp, "OLDPWD") == NULL)
+		{
+			ft_putstr_fd("minishell: cd: ~-: No such file or directory\n", 2);
+			return (ft_exit_flag(1, exit_flag, data));
+		}
 		cd_change_last_oldpwd(data, 0);
 		getcwd(cwd, sizeof(cwd));
 		data->envp = change_in_env(data->envp, cwd, "PWD");
