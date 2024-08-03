@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 16:29:49 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/02 17:39:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:50:29 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ void	init_token(t_token *token, char *buffer)
 
 void init_data(t_data *data, char *buffer)
 {
-	(void)buffer;
 	data->token = (t_token *)ft_calloc(1, sizeof(t_token));
 	//data->envp = (t_envp *)ft_calloc(1, sizeof(t_envp));
 	//data->next = (t_data *)(ft_calloc(1, sizeof(t_data)));
-	//init_token(data->token, buffer);
+	init_token(data->token, buffer);
 }
 
 void	*safe_calloc(size_t bytes, size_t n, t_data *data)
