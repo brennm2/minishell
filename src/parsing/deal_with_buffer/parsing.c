@@ -6,11 +6,25 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/01 21:20:10 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:50:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
+
+int	find_token_end(char *buffer, int i)
+{
+	int	start;
+
+	start = i;
+	if (buffer[i] && (buffer[i] == S_QUOTES || buffer[i] == D_QUOTES))
+		while (buffer[++i] && buffer[i] != buffer[start])
+			;
+	else
+		while (buffer[++i] && !(buffer[i] >= 7 && buffer[i] <= 32))
+			;
+	return (i);
+}
 
 void	save_substring(char *buffer, int start, int end, t_data *data)
 {
@@ -26,12 +40,11 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 		start++;
 	if(buffer[check_for_string(buffer, start)])
 	{
-		start = check_for_string(buffer, end + 1); //Acha a proxima palavra
-		i = start; // i fica igual ao inicio da palavra
-		while (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32)) // anda pela palavra ate achar espaco
-			i++;
-		end = i - 1; // end vai ser igual ao i
-		init_next_token(data->token, end - start + 2); // Inicia o proximo token com o tamnho da string
+		start = check_for_string(buffer, end + 1);
+		i = start;
+		i = find_token_end(buffer, i);
+		end = i;
+		init_next_token(data->token, end - start + 2);
 		data->token = data->token->next;
 	}
 }
