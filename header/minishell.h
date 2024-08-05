@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:47:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:17:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ char		*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 char		*expansion_hd(t_envp *envp, char *buffer, int j, int i);
 char		*check_env_hd(char *buffer, t_envp *env, int j, int i);
 char		*expansion_digit_hd(char *buffer, int j, int i);
-char		*is_expand_util_hd(char *buffer, t_envp *envp, int i, int j);
+char		*is_expand_util_hd(char *buffer, t_data *data, int i, int j);
 char		*expand_hd(t_data *data, char *buffer, bool flag);
 
 /*EXPAND*/
