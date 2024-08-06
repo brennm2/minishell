@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:04:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	change_token(t_token *token, char *file)
 {
 	t_token	*dead;
-	
+
 	dead = token->next;
 	token->next = token->next->next;
 	if (token->str)
@@ -25,6 +25,21 @@ void	change_token(t_token *token, char *file)
 	free(file);
 	free_token_redir(dead);
 	token->type = here_doc;
+}
+
+void	finish_hd(int status, char *delimiter, t_data *data)
+{
+	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == 130)
+		{
+			if (delimiter)
+				free(delimiter);
+			data->exit_code = WEXITSTATUS(status);
+			free_token(data->token);
+			loop_minishell(data);
+		}
+	}
 }
 
 void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
@@ -45,17 +60,7 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	}
 	waitpid(0, &status, 0);
 	change_token(token, here_doc_file);
-	if (WIFEXITED(status))
-	{
-		if (WEXITSTATUS(status) == 130)
-		{
-			if (delimiter)
-				free(delimiter);
-			data->exit_code = WEXITSTATUS(status);
-			free_token(data->token);
-			loop_minishell(data);
-		}
-	}
+	finish_hd(status, delimiter, data);
 }
 
 char	*erase_the_quote_hd(char *delimiter, int i)
