@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:57:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:01:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 	{
 		if (data->flag == 0)
 		{
-			//ft_putstr_fd("entrou aqui\n", 2);
 			ft_signal_def();
 			pid = safe_fork(data);
 			if (pid == 0)
@@ -124,14 +123,9 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 			ft_signal_ignore();
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status))
-			{
-				write(2, "aqui\n", 5);
 				set_exit_code(WEXITSTATUS(status), data);
-			}
 			if (WIFSIGNALED(status))
 			{
-				write(2, "aqu2\n", 5);
-
 				if (WTERMSIG(status) == SIGINT)
 					write(1, "\n", 1);
 				if (WCOREDUMP(status))
