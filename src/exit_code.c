@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 14:09:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:45:10 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ void	update_exit_code(int status, t_data *data)
 {
 	if (WIFEXITED(status))
 	{
+		//printf("aqui exit\n");
 		set_exit_code(WEXITSTATUS(status), data);
 	}
 	else if (WIFSIGNALED(status))
 	{
+		//printf("aqui sinal\n");
 		if (WTERMSIG(status) == SIGINT)
 		{
 			write(1, "\n", 1);

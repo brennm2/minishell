@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/02 12:18:47 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:14:22 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ void	command_not_found(char *str, t_data *data)
 {
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	//ft_exit_flag(127, exit_flag, data);
 	set_exit_code(127, data);
 	clean(data, 127);
 }
-
 
 void	get_builtin(t_data *data, t_token *token, int flag)
 {

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/02 11:14:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:32:37 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,11 @@ void		cd_error_invalid_file(t_data *data, t_token *token, int exit_flag);
 char		*get_in_env(t_envp *envp, char *key);
 t_envp		*change_in_env(t_envp *envp, char *cwd, char *key);
 void		cd_error_no_file(t_data *data, int exit_flag);
+void		cd_change_last_oldpwd(t_data *data, int option);
+
+/*GET_CD_UTILS_2*/
+void	handle_plus_option(t_data *data, char *cwd, int exit_flag);
+void	handle_minus_option(t_data *data, char *cwd, int exit_flag);
 
 /*GET_ENV*/
 void		get_builtin_env(t_data *data, t_token *token, int exit_flag);

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/02 10:58:01 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:15:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,13 @@ void	cmd_execution(t_data *data, t_tree_exec *tree)
 			waitpid(pid, &status, 0);
 			if (WIFEXITED(status))
 			{
+				write(2, "aqui\n", 5);
 				set_exit_code(WEXITSTATUS(status), data);
 			}
 			if (WIFSIGNALED(status))
 			{
+				write(2, "aqu2\n", 5);
+
 				if (WTERMSIG(status) == SIGINT)
 					write(1, "\n", 1);
 				if (WCOREDUMP(status))

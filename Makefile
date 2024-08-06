@@ -43,6 +43,7 @@ SRC = src/main.c \
 	src/builtins/pwd/get_pwd.c \
 	src/builtins/cd/get_cd.c \
 	src/builtins/cd/get_cd_utils.c \
+	src/builtins/cd/get_cd_utils_2.c \
 	src/builtins/env/get_env.c \
 	src/builtins/exit/get_exit.c \
 	src/builtins/exit/get_exit_utils.c \

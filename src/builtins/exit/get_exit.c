@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:48:57 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:15:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	exit_numeric_error(t_data *data, t_token *token, int option, int exit_flag)
+void	exit_numeric_error(t_data *data, t_token *token, int option,
+	int exit_flag)
 {
 	if (option == 0)
 	{
@@ -49,7 +50,7 @@ void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 		{
 			if (exit_flag == 0)
 				write (2, "exit\n", 6);//ft_putstr_fd("exit\n", 2);
-			write(2, "minishell: exit: too many arguments\n", 37); //ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+			write(2, "minishell: exit: too many arguments\n", 37);
 			if (data->exit_code != 0)
 				ft_exit_flag(data->exit_code, exit_flag, data);
 			else
