@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:44:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:09:11 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	exec_minishell(t_data *data)
 		}
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
-		while (waitpid(-1, &status, 0) > 0)
+		//waitpid()
+		//while (waitpid(-1, &status, 0) > 0)
 			;
 		// {
 		// 	printf("a\n");
