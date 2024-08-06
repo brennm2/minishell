@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/12 15:44:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:29:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	put_token_str(t_token *token, t_data *data)
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->next && token->next->type == string)
+	else if (token->next && (token->next->type == string || token->next->type == redin || token->next->type == redout))
 	{
 		ft_putstr_fd(token->str, 1);
 		write(1, " ", 1);
@@ -76,8 +76,15 @@ bool	is_all_flag(t_token *token)
 
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && ((*token)->type == string))
+	while (*token && ((*token)->type == string || (*token)->type == redin || (*token)->type == redout))
 	{
+		//printf("%s\n", (*token)->str);
+		if ((*token)->type == redin || (*token)->type == redout)
+		{
+			*token = (*token)->next;
+			if (!(*token))
+				break ;
+		}
 		put_token_str(*token, data);
 		*token = (*token)->next;
 	}

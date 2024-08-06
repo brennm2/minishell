@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 14:55:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:54:56 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 		signal_heredoc(-1, data, delimiter, here_doc_file);
 		ft_catch_signal(HERE_DOC);
 		fill_file(data, delimiter, here_doc_file, flag);
-		printf("aqui\n");
+		//printf("aqui\n");
 		clean_hd(data, 0);
 	}
 	waitpid(0, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/05 15:17:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:46:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ void		save_space(char *buffer, int start, t_data *data);
 void		new_data(t_data *data, t_token *token);
 void		pipe_split(t_data *data);
 void		get_split(char *buffer, t_data *data);
+int			find_token_end(char *buffer, int i);
 
 /*DEFINE TOKENS*/
 void		which_command(t_token *token);
