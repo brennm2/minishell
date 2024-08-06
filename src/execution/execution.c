@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 15:15:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:55:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,8 @@ void	redir_execution(t_data *data, t_tree_root *tree)
 			ft_putstr_fd(rcmd->exp, 2);
 			ft_putstr_fd(": ambiguous redirect\n", 2);
 		}
-		// else if (!access(rcmd->file, F_OK))
-		// {
-		// 	ft_putstr_fd("minishell: ", 2);
-		// 	ft_putstr_fd("entrou aqui\n", 2);
-		// 	perror("");
-		// 	//ft_putstr_fd(rcmd->exp, 2);
-		// 	//ft_putstr_fd(": No such file or directory\n", 2);
-		// }
 		else
 		{
-			//write(2, "entrou aqui\n", 12);
 			write(2, "minishell: ", 12);
 			perror(rcmd->file);
 		}
