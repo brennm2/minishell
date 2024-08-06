@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:56:44 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:22:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,23 @@ void	clean_withou_exit(t_data *data)
 	rl_clear_history();
 }
 
+void test_sigint2(int signal)
+{
+	(void)signal;
+}
+
+void	right_exit(int status)
+{
+	if (WIFEXITED(status))
+		exit(WEXITSTATUS(status));
+	if (WIFSIGNALED(status))
+	{
+		if(WTERMSIG(status) == SIGINT)
+			exit(130);
+		if(WTERMSIG(status) == SIGQUIT)
+			exit(131);
+	}
+}
 
 void	pipe_execution(t_data *data, t_tree_root *tree)
 {
@@ -71,8 +88,9 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	int status;
 	int	pid_first;
 	int pid_sec;
-	int exit_test = 0;
 	
+	signal(SIGINT, test_sigint2);
+	signal(SIGQUIT, test_sigint2);
 	safe_pipe(fd, data);
 	pid_first = safe_fork(data);
 	if (pid_first == 0)
@@ -83,31 +101,9 @@ void	pipe_execution(t_data *data, t_tree_root *tree)
 	close(fd[0]);
 	close(fd[1]);
 	clean_withou_exit(data);
-	while (waitpid(-1, &status, 0) > 0)
-	{
-		// if (WIFSIGNALED(status))
-		// {
-		// 	// if (WTERMSIG(status) == SIGINT)
-		// 	// 	write(1, "\n", 1);
-		// 	//if (WTERMSIG(status) == SIGQUIT)
-		// 	//	exit(WTERMSIG(status) + 128);//ft_putstr_fd("Quit core dumped)\n", 2); //write(1, "Quit (core dumped)\n", 20);
-		// 	exit_test = WTERMSIG(status) + 128;
-		// 	//set_exit_code(WTERMSIG(status) + 128, data);
-		// }
-	}
-	if (WIFEXITED(status))
-	{
-		//printf("status :%d\n", WEXITSTATUS(status));
-		//data->exit_code = WEXITSTATUS(status);
-		exit(WEXITSTATUS(status));
-	}
-	//printf("exit_test :%d\n", exit_test);
-	exit(exit_test);
-	// waitpid(pid_first, &status, 0);
-	// waitpid(pid_sec, &status, 0);
-	// if (WIFEXITED(status))
-	// 	data->exit_code = WEXITSTATUS(status);
-	// finished_exec(data, data->exit_code);
+	waitpid(pid_first, &status, 0);
+	waitpid(pid_sec, &status, 0);
+	right_exit(status);
 }
 
 void	executing_tree(t_data *data, t_tree_root *tree)

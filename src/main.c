@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:56:15 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:22:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,25 @@ void	sig_int(int sig)
 }
 
 
+void test_sigint(int signal)
+{
+	if (signal == SIGINT)
+	{
+		//write(2, "aaa", 3);
+		//rl_replace_line("", 0);
+		write(STDERR_FILENO, "\n", 1);
+		//rl_on_new_line();
+		//rl_redisplay();
+		//exit (130);
+	}
+	if (signal == SIGQUIT)
+	{
+		write(STDERR_FILENO, "Quit (core dumped)\n", 20);
+
+	}
+	
+}
+
 void	exec_minishell(t_data *data)
 {
 	int	status;
@@ -68,27 +87,10 @@ void	exec_minishell(t_data *data)
 	else
 	{
 		if (safe_fork(data) == 0)
-		{
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
 			execution(data);
-		}
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-		while (waitpid(-1, &status, 0) > 0)
-			;
-		// {
-		// 	printf("a\n");
-		// 	printf("exit: %d\n", status);
-		// }
-		//waitpid(0, &status, 0);
-		// if (WIFEXITED(status))
-		// {
-		// 	if (WEXITSTATUS(status) == 130)
-		// 		ft_putstr_fd("\n", 2);
-		// 	if (WEXITSTATUS(status) == 131)
-		// 		ft_putstr_fd("Quit (core dumped)\n", 2); //write(1, "Quit (core dumped)\n", 20);
-		// }
+		signal(SIGINT, test_sigint);
+		signal(SIGQUIT, test_sigint);
+		waitpid(0, &status, 0);
 		update_exit_code(status, data);
 	}
 }
