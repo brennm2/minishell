@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:44:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:56:15 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,3 +171,5 @@ int main(int argc, char **argv, char **envp)
 	catch_pid(data);
 	loop_minishell(data);
 }
+
+//echo "> >> < * ? [ ] | ; [ ] | | && ( ) & # $ <<"

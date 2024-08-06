@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/02 15:58:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:58:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ bool check_for_quotes(char *buffer, t_data *data) // Procura por D_QUOTES ou S_Q
 
 bool check_for_double_pipes(char *buffer)
 {
-	int i;
-	bool in_quotes;
+	int		i;
+	bool	in_quotes;
 
 	i = 0;
 	in_quotes = false;
 	while (buffer[i])
 	{
-		if (buffer[i] == '\'' || buffer[i] == D_QUOTES)
+		if(buffer[i] == '\'' || buffer[i] == '"')
 			in_quotes = !in_quotes;
 		if (!in_quotes && buffer[i] == '|')
 		{
@@ -82,8 +82,6 @@ bool check_for_double_pipes(char *buffer)
 				i++;
 			if (buffer[i] == '|')
 				return true;
-			else
-				return false;
 		}
 		i++;
 	}
