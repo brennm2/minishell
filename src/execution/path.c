@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 17:01:12 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:26:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	struct stat file_stat;
 	
 	stat(exec->argv[0], &file_stat);
-	if (!ft_strncmp(exec->argv[0], "./", 2))
+	if (!ft_strncmp(exec->argv[0], "./", 2) || !ft_strncmp(exec->argv[0], "/", 1))
 	{
 		if (access(exec->argv[0], F_OK) < 0)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);

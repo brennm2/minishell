@@ -6,12 +6,11 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:58:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
-
 
 void	change_token(t_token *token, char *file)
 {

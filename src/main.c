@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 18:22:49 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:58:54 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@ int	G_EXIT_CODE;
 
 void	init_commands(char *buffer, t_data *data)
 {
-	//ft_signal_ignore();
 	init_data(data, buffer);
 	search_command(buffer, data);
-	//debug_print_list(data);
 	is_here_doc(data);
 	tokenize(data);
 	expand(data);
 	remove_quotes(data);
 	set_ex_(data);
-	//debug_print_list(data);
 }
 
 t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
@@ -47,34 +44,19 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 void	sig_quit(int sig)
 {
 	(void)sig;
-
-	//ft_putstr_fd("Quit (core dumped)\n", 2);
 }
 void	sig_int(int sig)
 {
 	(void)sig;
-
-	//ft_putstr_fd("Quit (core dumped)\n", 2);
 }
 
 
 void test_sigint(int signal)
 {
 	if (signal == SIGINT)
-	{
-		//write(2, "aaa", 3);
-		//rl_replace_line("", 0);
 		write(STDERR_FILENO, "\n", 1);
-		//rl_on_new_line();
-		//rl_redisplay();
-		//exit (130);
-	}
 	if (signal == SIGQUIT)
-	{
 		write(STDERR_FILENO, "Quit (core dumped)\n", 20);
-
-	}
-	
 }
 
 void	exec_minishell(t_data *data)
@@ -82,7 +64,7 @@ void	exec_minishell(t_data *data)
 	int	status;
 
 	have_pipe(data);
-	if (data->flag == 0) // if don't have pipes
+	if (data->flag == 0)
 			execution(data);
 	else
 	{
@@ -173,5 +155,3 @@ int main(int argc, char **argv, char **envp)
 	catch_pid(data);
 	loop_minishell(data);
 }
-
-//echo "> >> < * ? [ ] | ; [ ] | | && ( ) & # $ <<"

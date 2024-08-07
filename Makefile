@@ -104,7 +104,7 @@ norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
 valgrind:
-	@make
+	@make re
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
 run:
