@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 17:58:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:13:03 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,10 @@ void	update_exit_code(int status, t_data *data)
 {
 	if (WIFEXITED(status))
 	{
-		//printf("aqui exit\n");
-		//printf("exit status: %d\n", WEXITSTATUS(status));
-		// if (WEXITSTATUS(status) == 130)
-		// {
-		// 	write(1, "\n", 1);
-		// }
 		set_exit_code(WEXITSTATUS(status), data);
-		
 	}
 	else if (WIFSIGNALED(status))
 	{
-		//printf("aqui sinal\n");
 		if (WTERMSIG(status) == SIGINT)
 		{
 			write(1, "\n", 1);
@@ -43,7 +35,50 @@ void	update_exit_code(int status, t_data *data)
 			write(1, "Quit (core dumped)\n", 20);
 			set_exit_code(WTERMSIG(status) + 128, data);
 		}
-		//set_exit_code(WTERMSIG(status), data);
 	}
 }
 
+void	catch_pid(t_data *data)
+{
+	int	pid;
+
+	pid = safe_fork(data);
+	if(pid == 0)
+	{
+		if (!data)
+		exit(1);
+		free_env(data->envp);
+		if (data->home)
+			free(data->home);
+		if (data->shlvl)
+			free(data->shlvl);
+		free(data);
+		exit(0);
+	}
+	else
+	{
+		wait(0);	
+		data->pid = pid;
+	}
+}
+
+void	change_shlvl(t_data *data, char **envp)
+{
+	int	i;
+	int	lvl;
+	char	*c_lvl;
+	
+	i = -1;
+	while (envp[++i])
+	{
+		if (!ft_strncmp(envp[i], "SHLVL=", 6))
+		{
+			lvl = ft_atoi(envp[i] + ft_strlen(envp[i]) - 1);
+			lvl++;
+			c_lvl = ft_itoa(lvl);
+			data->shlvl = c_lvl;
+			return ;
+		}
+	}
+	data->shlvl = ft_strdup("2");
+}

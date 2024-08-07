@@ -20,6 +20,7 @@ SRC = src/main.c \
 	src/exit_code.c \
 	src/signal/signal.c \
 	src/signal/signal_utils.c \
+	src/signal/signal_utils_2.c \
 	src/parsing/check_first/check_first.c \
 	src/parsing/check_first/check_first_redir.c \
 	src/parsing/check_first/check_first_utils.c \

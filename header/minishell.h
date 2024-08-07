@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:56:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:14:07 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ void		init_commands(char *buffer, t_data *data);
 void		loop_minishell(t_data *data);
 void		exec_minishell(t_data *data);
 t_data		*init_minishell(int argc, char **argv, char **envp, t_data *data);
-void		change_shlvl(t_data *data, char **envp);
 
 /*MAIN UTILS*/
 void		have_pipe(t_data *data);
@@ -195,11 +194,18 @@ void		ft_signal_def(void);
 void		ft_catch_signal(int fd);
 void		reset_fd_signals(int fd1, int fd2);
 void		ft_signal_ignore(void);
-void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here);
+void		signal_heredoc(int signal, t_data *data, char *delimiter, char *here);
+
+/*SIGNALS UTILS 2*/
+void	sig_quit(int sig);
+void	sig_int(int sig);
+void test_sigint(int signal);
 
 /*EXIT_CODE*/
 void		update_exit_code(int status, t_data *data);
 void		set_exit_code(int code, t_data *data);
+void		change_shlvl(t_data *data, char **envp);
+void		catch_pid(t_data *data);
 
 /* ************************************************************************** */
 /* -------------------------------PARSING------------------------------------ */

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 09:58:54 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:12:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 	change_shlvl(data, envp);
 	get_env(data, envp);
 	return (data);
-}
-
-void	sig_quit(int sig)
-{
-	(void)sig;
-}
-void	sig_int(int sig)
-{
-	(void)sig;
-}
-
-
-void test_sigint(int signal)
-{
-	if (signal == SIGINT)
-		write(STDERR_FILENO, "\n", 1);
-	if (signal == SIGQUIT)
-		write(STDERR_FILENO, "Quit (core dumped)\n", 20);
 }
 
 void	exec_minishell(t_data *data)
@@ -96,51 +78,6 @@ void	loop_minishell(t_data *data)
 		free_token(data->token);
 		unlink_here_doc_file();
 	}
-}
-
-void	catch_pid(t_data *data)
-{
-	int	pid;
-
-	pid = safe_fork(data);
-	if(pid == 0)
-	{
-		if (!data)
-		exit(1);
-		free_env(data->envp);
-		if (data->home)
-			free(data->home);
-		if (data->shlvl)
-			free(data->shlvl);
-		free(data);
-		exit(0);
-	}
-	else
-	{
-		wait(0);	
-		data->pid = pid;
-	}
-}
-
-void	change_shlvl(t_data *data, char **envp)
-{
-	int	i;
-	int	lvl;
-	char	*c_lvl;
-	
-	i = -1;
-	while (envp[++i])
-	{
-		if (!ft_strncmp(envp[i], "SHLVL=", 6))
-		{
-			lvl = ft_atoi(envp[i] + ft_strlen(envp[i]) - 1);
-			lvl++;
-			c_lvl = ft_itoa(lvl);
-			data->shlvl = c_lvl;
-			return ;
-		}
-	}
-	data->shlvl = ft_strdup("2");
 }
 
 int main(int argc, char **argv, char **envp)
