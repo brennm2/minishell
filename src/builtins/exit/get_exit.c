@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 13:15:31 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:43:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 		if (token->str[i] == '\0')
 		{
 			if (exit_flag == 0)
-				write (2, "exit\n", 6);//ft_putstr_fd("exit\n", 2);
+				write (2, "exit\n", 6);
 			write(2, "minishell: exit: too many arguments\n", 37);
 			if (data->exit_code != 0)
 				ft_exit_flag(data->exit_code, exit_flag, data);
@@ -58,7 +58,7 @@ void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 			return ;
 		}
 	}
-	exit_numeric_error(data,token, 1, exit_flag);
+	exit_numeric_error(data, token, 1, exit_flag);
 }
 
 void	exit_negative(t_token *token, t_data *data, int exit_flag)

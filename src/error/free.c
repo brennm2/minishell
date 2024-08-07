@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:14:09 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/26 15:48:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:54:52 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	free_token(t_token *token)
 {
 	t_token	*temp_token;
-	
-	while(token)
+
+	while (token)
 	{
 		temp_token = token->next;
 		free(token->str);
@@ -31,20 +31,21 @@ void	free_token(t_token *token)
 
 void	free_env(t_envp *envp)
 {
-    t_envp	*temp_envp;
-    
-    while(envp)
-    {
-        temp_envp = envp->next;
-        free(envp->key);
-        envp->key = NULL;
-        free(envp->value);
-        envp->value = NULL;
-        free(envp);
+	t_envp	*temp_envp;
+
+	while (envp)
+	{
+		temp_envp = envp->next;
+		free(envp->key);
+		envp->key = NULL;
+		free(envp->value);
+		envp->value = NULL;
+		free(envp);
 		envp = NULL;
-        envp = temp_envp;
-    }
+		envp = temp_envp;
+	}
 }
+
 void	free_data(t_data *data)
 {
 	if (data->home)
@@ -60,9 +61,9 @@ void	free_data(t_data *data)
 
 void	ft_free_data(t_data *data, int option)
 {
-	t_data *temp_data;
-	
-	while(data)
+	t_data	*temp_data;
+
+	while (data)
 	{
 		temp_data = data->next;
 		if (option >= 0)
@@ -78,10 +79,10 @@ void	ft_free_data(t_data *data, int option)
 }
 
 void	*ptr_free(char **ptr)
-{	
-	int i;
+{
+	int	i;
 
-	i = 0;	
+	i = 0;
 	while (ptr[i])
 	{
 		free(ptr[i]);
@@ -90,4 +91,3 @@ void	*ptr_free(char **ptr)
 	free(ptr);
 	return (NULL);
 }
-

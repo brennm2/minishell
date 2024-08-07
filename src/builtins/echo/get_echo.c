@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:56:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:41:20 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,12 @@ void	put_token_str(t_token *token, t_data *data)
 {
 	if (token->str[0] == '~' && (token->str[1] == '-' || token->str[1] == '+'))
 	{
-		if (token->str[1] == '+')
-		{
-			if(get_in_env(data->envp, "PWD") == NULL)
-				write(1, "~+", 2);
-			else
-				ft_putstr_fd(get_in_env(data->envp, "PWD"), 1);
-		}
-		else
-		{
-			if(get_in_env(data->envp, "OLDPWD") == NULL)
-				write(1, "~-", 2);
-			else
-				ft_putstr_fd(get_in_env(data->envp, "OLDPWD"), 1);
-		}
+		echo_handle_tidle(data, token);
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->next && (token->next->type == string || token->next->type == redin || token->next->type == redout))
+	else if (token->next && (token->next->type == string
+			|| token->next->type == redin || token->next->type == redout))
 	{
 		ft_putstr_fd(token->str, 1);
 		write(1, " ", 1);
@@ -73,19 +61,10 @@ bool	is_all_flag(t_token *token)
 	return (true); // se andou por toda string e nao achou alem de "n"
 }
 
-// void	handle_token(t_token **token, t_data *data)
-// {
-// 	while (*token && ((*token)->type == string || (*token)->type == not_expander
-// 			|| (*token)->type == expander))
-// 	{
-// 		put_token_str(*token, data);
-// 		*token = (*token)->next;
-// 	}
-// }
-
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && ((*token)->type == string || (*token)->type == redin || (*token)->type == redout))
+	while (*token && ((*token)->type == string
+			|| (*token)->type == redin || (*token)->type == redout))
 	{
 		//printf("%s\n", (*token)->str);
 		if ((*token)->type == redin || (*token)->type == redout)
@@ -103,7 +82,6 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 {
 	int	t_flag;
 
-	//write (1, "B\n", 2);
 	t_flag = 0;
 	while (token && (token->type == string || token->type == command))
 	{

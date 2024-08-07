@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/31 17:50:14 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:55:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	free_tree(t_tree_root *cmd)
 
 void	unlink_here_doc_file(void)
 {
-	int	i;
+	int		i;
 	char	*file_name;
-		
+
 	i = -1;
 	while (1)
 	{
@@ -70,11 +70,7 @@ void	finished_exec(t_data *data, int exit_code)
 		loop_minishell(data);
 	}
 	else
-	{
-		//ft_putstr_fd("bb\n", 2);
 		clean(data, exit_code);
-	}
-	
 }
 
 void	clean_hd(t_data *data, int ex)

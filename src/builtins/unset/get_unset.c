@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 10:26:33 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 14:49:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:30:27 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_envp	*search_for_node(t_envp *env, t_token *token)
 	back_node->next = next_node;
 	free_node(dead_node);
 	return (env);
-
 }
 
 void	get_unset(t_data *data, t_token *token, int exit_flag)

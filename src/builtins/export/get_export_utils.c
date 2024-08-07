@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:59:07 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 12:54:42 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:26:19 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,7 @@ void	export_error_identifier(t_token *token, t_data *data, int exit_flag)
 	ft_putstr_fd(token->str, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
 	ft_exit_flag(1, exit_flag, data);
-	//set_exit_code(1, data);
-	//print_error(NULL, 1, data);
 }
-
-// bool	is_valid_export(t_token *token, t_data *data, int exit_flag)
-// {
-// 	if (ft_strchr(token->str, '=') == NULL && ft_strchr(token->next->str, '=')) // Se não encontrar '=' no node atual ("VAR = 42")
-// 	{
-// 		while (token->next)
-// 		{
-// 			export_error_identifier(token, data, exit_flag);
-// 			token = token->next;
-// 		}
-// 		return (false);
-// 	}
-// 	return (true);
-// }
 
 t_envp	*find_last_node(t_envp *lst)
 {

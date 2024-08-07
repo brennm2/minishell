@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:12:39 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:48:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	loop_minishell(t_data *data)
 	while (1)
 	{
 		reset_fd_signals(data->fds[0], data->fds[1]);
-		buffer = readline(C_CYAN"minishell: "END_COLOR);
+		buffer = readline("minishell: ");
 		if (!valid_input(buffer, data))
 			continue ;
 		add_history(buffer);

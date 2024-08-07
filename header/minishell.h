@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:56:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:34:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
+# include <errno.h>
 
 /*COLORS*/
 # define C_BLUE "\e[1;34m"
@@ -324,6 +325,9 @@ void		ft_exit_flag(int exit_code, int exit_flag, t_data *data);
 /*GET_ECHO*/
 void		get_echo(t_token *token, t_data *data, int flag);
 
+/*GET_ECHO_UTILS*/
+void		echo_handle_tidle(t_data *data, t_token *token);
+
 /*GET_PWD*/
 void		get_pwd(t_token *token, t_data *data, int exit_flag);
 
@@ -336,7 +340,7 @@ void		cd_error_invalid_file(t_data *data, t_token *token, int exit_flag);
 char		*get_in_env(t_envp *envp, char *key);
 t_envp		*change_in_env(t_envp *envp, char *cwd, char *key);
 void		cd_error_no_file(t_data *data, int exit_flag);
-void		cd_change_last_oldpwd(t_data *data, int option);
+bool		cd_change_last_oldpwd(t_data *data, int option);
 
 /*GET_CD_UTILS_2*/
 void	handle_plus_option(t_data *data, char *cwd, int exit_flag);
@@ -395,7 +399,7 @@ void		unlink_here_doc_file(void);
 void		free_tree(t_tree_root *cmd);
 
 void		print_error(char *error_type, int error_code, t_data *data);
-void		print_error_flag(char *error_type, int error_code, t_data *data, int exit_flag);
+void		p_error_flag(char *error_type, int error_code, t_data *data, int exit_flag);
 
 /* ************************************************************************** */
 /* -----------------------------EXECUTION------------------------------------ */

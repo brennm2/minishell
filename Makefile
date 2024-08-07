@@ -40,6 +40,7 @@ SRC = src/main.c \
 	src/parsing/utils.c \
 	src/builtins/get_builtins.c \
 	src/builtins/echo/get_echo.c \
+	src/builtins/echo/get_echo_utils.c \
 	src/builtins/pwd/get_pwd.c \
 	src/builtins/cd/get_cd.c \
 	src/builtins/cd/get_cd_utils.c \
@@ -95,6 +96,7 @@ clean: sup_file
 fclean: clean
 	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT) $(OBJ_DIR)
 	$(MAKE) -C ./libs/ fclean
+	$(RM) $(RMFLAGS) sup
 
 	@echo "\n${YELLOW}--------------------------------"
 	@echo "${YELLOW}| ${RED}ALL files ${GREEN}have been cleaned! ${YELLOW}|"
