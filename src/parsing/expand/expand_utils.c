@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 09:42:39 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:47:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,49 +78,3 @@ void	expansion_(t_data *data, t_token *token, int j)
 	token->str = expanded;
 }
 
-void	expansion_special(t_token *token, int j)
-{
-	char	*expanded;
-
-	expanded = ft_calloc(sizeof(char), (j + 1));
-	ft_strlcpy(expanded, token->str, j + 1);
-	expanded = ft_strjoin_ex(expanded, token->str + j + 2);
-	free(token->str);
-	token->str = expanded;
-}
-
-void	is_expand_util(t_token *token, t_data *data, int i, int j)
-{
-	char	*exit_code;
-
-	j = i;
-	if (token->str[i + 1] == '?')
-	{
-		exit_code = ft_itoa(data->exit_code);
-		expansion_exit_code(token, j, i, exit_code);
-		return ;
-	}
-	if (token->str[i + 1] == '$')
-	{
-		expansion_dollar_sign(token, j, i, data->pid);
-		return ;	
-	}
-	if (ft_isdigit(token->str[i + 1]))
-	{
-		expansion_digit(token, j, i);
-		return ;	
-	}
-	if (token->str[i + 1] == '_' && !token->str[i + 2])
-	{
-		expansion_(data, token, j);
-		return ;
-	}
-	if (ft_is_especial(token->str[i + 1]))
-	{
-		expansion_special(token, j);
-		return ;
-	}
-	while (!ft_is_especial(token->str[++i]) && token->str[i] && token->str[i] != 32)
-		;
-	check_env(token, data->envp, j, i);
-}

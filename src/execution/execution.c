@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 18:22:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:21:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 
 void	redir_execution(t_data *data, t_tree_root *tree)
 {
-	t_tree_red *rcmd;
+	t_tree_red	*rcmd;
 
 	rcmd = (t_tree_red *)tree;
 	close(rcmd->fd);
@@ -62,48 +62,6 @@ void	clean_withou_exit(t_data *data)
 		free(data->shlvl);
 	free(data);
 	rl_clear_history();
-}
-
-void test_sigint2(int signal)
-{
-	(void)signal;
-}
-
-void	right_exit(int status)
-{
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
-	if (WIFSIGNALED(status))
-	{
-		if(WTERMSIG(status) == SIGINT)
-			exit(130);
-		if(WTERMSIG(status) == SIGQUIT)
-			exit(131);
-	}
-}
-
-void	pipe_execution(t_data *data, t_tree_root *tree)
-{
-	int	fd[2];
-	int status;
-	int	pid_first;
-	int pid_sec;
-	
-	signal(SIGINT, test_sigint2);
-	signal(SIGQUIT, test_sigint2);
-	safe_pipe(fd, data);
-	pid_first = safe_fork(data);
-	if (pid_first == 0)
-		pipe_child_execution(data, tree, fd, 1);
-	pid_sec = safe_fork(data);
-	if (pid_sec == 0)
-		pipe_child_execution(data, tree, fd, 2);
-	close(fd[0]);
-	close(fd[1]);
-	clean_withou_exit(data);
-	waitpid(pid_first, &status, 0);
-	waitpid(pid_sec, &status, 0);
-	right_exit(status);
 }
 
 void	executing_tree(t_data *data, t_tree_root *tree)

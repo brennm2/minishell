@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 11:13:03 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:09:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	catch_pid(t_data *data)
 	int	pid;
 
 	pid = safe_fork(data);
-	if(pid == 0)
+	if (pid == 0)
 	{
 		if (!data)
-		exit(1);
+			exit(1);
 		free_env(data->envp);
 		if (data->home)
 			free(data->home);
@@ -57,17 +57,17 @@ void	catch_pid(t_data *data)
 	}
 	else
 	{
-		wait(0);	
+		wait(0);
 		data->pid = pid;
 	}
 }
 
 void	change_shlvl(t_data *data, char **envp)
 {
-	int	i;
-	int	lvl;
+	int		i;
+	int		lvl;
 	char	*c_lvl;
-	
+
 	i = -1;
 	while (envp[++i])
 	{

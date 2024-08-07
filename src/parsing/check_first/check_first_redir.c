@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:03:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 11:16:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:09:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ bool	check_valid_redir(char *buffer, int i)
 
 bool	redirect_space_and_count_error(char *buffer)
 {
-	bool s_quotes;
-	bool d_quotes;
-	int i;
+	bool	s_quotes;
+	bool	d_quotes;
+	int		i;
 
 	s_quotes = false;
 	d_quotes = false;
 	i = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
 		if (buffer[i] == S_QUOTES)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
-		else if ((buffer[i] == '>' || buffer[i] == '<') && (!d_quotes && !s_quotes))
+		else if ((buffer[i] == '>' || buffer[i] == '<') \
+			&& (!d_quotes && !s_quotes))
 		{
 			if (check_valid_redir(buffer, i))
 				return (true);
@@ -55,34 +56,42 @@ bool	redirect_space_and_count_error(char *buffer)
 	return (false);
 }
 
+bool	redirect_error_util(char *buffer, int i, bool s_quotes, bool d_quotes)
+{
+	if ((buffer[i] == '>' || buffer[i] == '<') && \
+		buffer[i + 1] == '\0')
+	{
+		ft_putstr_fd(ERROR_REDIR, 2);
+		ft_putstr_fd("\n", 1);
+		return (true);
+	}
+	else if (buffer[i] == '>' && (buffer[move_space(buffer, i + 1)] == '<'\
+		|| buffer[move_space(buffer, i + 1)] == '|') \
+		&& !d_quotes && !s_quotes)
+	{
+		redirect_error_suport(buffer, i);
+		return (true);
+	}
+	return (false);
+}
+
 bool	redirect_error(char *buffer)
 {
-	bool s_quotes;
-	bool d_quotes;
-	int i;
+	bool	s_quotes;
+	bool	d_quotes;
+	int		i;
 
 	s_quotes = false;
 	d_quotes = false;
 	i = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
 		if (buffer[i] == S_QUOTES)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
-		else if ((buffer[i] == '>' || buffer[i] == '<') && buffer[i + 1] == '\0')
-		{
-			ft_putstr_fd(ERROR_REDIR, 2);
-			ft_putstr_fd("\n", 1);
+		else if (redirect_error_util(buffer, i, s_quotes, d_quotes))
 			return (true);
-		}
-		else if (buffer[i] == '>' && (buffer[move_space(buffer, i + 1)] == '<'
-				|| buffer[move_space(buffer, i + 1)] == '|')
-				&& !d_quotes && !s_quotes)
-		{
-			redirect_error_suport(buffer, i);
-			return (true);
-		}
 		i++;
 	}
 	return (false);
@@ -90,23 +99,22 @@ bool	redirect_error(char *buffer)
 
 bool	redirect_inverse_error(char *buffer)
 {
-	bool s_quotes;
-	bool d_quotes;
-	int i;
+	bool	s_quotes;
+	bool	d_quotes;
+	int		i;
 
 	s_quotes = false;
 	d_quotes = false;
 	i = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
 		if (buffer[i] == S_QUOTES)
 			s_quotes = !s_quotes;
 		else if (buffer[i] == D_QUOTES)
 			d_quotes = !d_quotes;
-		else if (buffer[i] == '<' && (buffer[move_space(buffer, i + 1)] == '>'
-				|| buffer[move_space(buffer, i + 1)] == '|')
-				&& !d_quotes && !s_quotes && (buffer[i + 1] == ' ' 
-				|| buffer[i + 1] == '|'))
+		else if (buffer[i] == '<' && (buffer[move_space(buffer, i + 1)] == \
+			'>' || buffer[move_space(buffer, i + 1)] == '|') && !d_quotes \
+			&& !s_quotes && (buffer[i + 1] == ' ' || buffer[i + 1] == '|'))
 		{
 			redirect_inverse_error_suport(buffer, i);
 			return (true);

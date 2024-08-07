@@ -6,18 +6,17 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:12:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:45:49 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-int	G_EXIT_CODE;
-
 void	init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
+	//debug_print_list(data);
 	is_here_doc(data);
 	tokenize(data);
 	expand(data);
@@ -26,7 +25,7 @@ void	init_commands(char *buffer, t_data *data)
 }
 
 t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
-{	
+{
 	if (argc != 1 || argv[1])
 	{
 		ft_putstr_fd("Minishell does not accept any arguments.", 2);
@@ -47,7 +46,7 @@ void	exec_minishell(t_data *data)
 
 	have_pipe(data);
 	if (data->flag == 0)
-			execution(data);
+		execution(data);
 	else
 	{
 		if (safe_fork(data) == 0)
@@ -80,10 +79,10 @@ void	loop_minishell(t_data *data)
 	}
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	
+
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
 	data->fds[0] = dup(STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 17:30:40 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:12:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	signal_heredoc(int signal, t_data *data, char *delimiter, char *here)
 {
-	static	t_data *data_temp;
-	static	char	*delimiter_temp;
-	static	char *here_temp;
-	
+	static t_data	*data_temp;
+	static char		*delimiter_temp;
+	static char		*here_temp;
+
 	if (signal == -1)
 	{
 		data_temp = data;
@@ -38,10 +38,9 @@ void	ft_catch_signal(int id)
 {
 	if (id == MAIN)
 	{
-		//ft_putstr_fd("Entrou aqui main\n", 2);
-		signal(SIGINT, (void *)signal_main); //ctrl + c
-		signal(SIGTERM, SIG_IGN); //ctrl + D
-		signal(SIGQUIT, SIG_IGN); //ctrl + barra
+		signal(SIGINT, (void *)signal_main);
+		signal(SIGTERM, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (id == CHILD)
 	{
@@ -50,13 +49,11 @@ void	ft_catch_signal(int id)
 	}
 	else if (id == HERE_DOC)
 	{
-		//ft_putstr_fd("HERE_DOC\n", 2);
 		signal(SIGINT, (void *)signal_heredoc);
-		signal(SIGTERM, (void *)signal_heredoc); //ctrl + D
+		signal(SIGTERM, (void *)signal_heredoc);
 	}
 	else if (id == PIPE)
 		ft_putstr_fd("PIPE\n", 2);
-	
 }
 
 void	reset_fd_signals(int fd1, int fd2)
@@ -68,7 +65,6 @@ void	reset_fd_signals(int fd1, int fd2)
 
 void	ft_signal_ignore(void)
 {
-	//ft_putstr_fd("Sinal ignorado\n", 2);
 	signal(SIGTERM, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);

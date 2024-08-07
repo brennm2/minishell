@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:14:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:20:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ typedef struct s_data
 	struct s_data	*next;
 }				t_data;
 
-extern int	G_EXIT_CODE;
 
 /* ************************************************************************** */
 /* ---------------------------------MAIN------------------------------------- */
@@ -185,7 +184,6 @@ int			ft_strcmp(char *s1, char *s2);
 
 /*SIGNALS*/
 void		signal_here_doc(int signal_num);
-void		signal_heredoc_checker(int status);
 void		signal_child(int signal_num);
 void		signal_main(int signal_num, t_data *data);
 void		ft_signal_def(void);
@@ -266,7 +264,7 @@ void		free_token_redir(t_token *token);
 void		is_here_doc(t_data *data);
 char		*remove_quotes_hd(char *delimiter);
 char		*erase_the_quote_hd(char *delimiter, int i);
-void		open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i);
+void		open_hd(t_data *data, t_token *token, char *delimiter, bool flag);
 void		change_token(t_token *token, char *file);
 
 void		fill_file(t_data *data, char *delimiter, char *file, bool flag);
@@ -282,14 +280,17 @@ char		*is_expand_util_hd(char *buffer, t_data *data, int i, int j);
 char		*expand_hd(t_data *data, char *buffer, bool flag);
 
 /*EXPAND*/
-void		is_expand_util(t_token *token, t_data *data, int i, int j);
 void		expansion_(t_data *data, t_token *token, int j);
+void		expansion_dollar_sign(t_token *token, int j, int i, int pid);
 void		expansion_digit(t_token *token, int j, int i);
 void		expansion_exit_code(t_token *token, int j, int i, char *exit_code);
 int			deal_with_quotes(t_token *token, int i);
 
 void		expansion(t_envp *envp, t_token *token, int j, int i);
 void		check_env(t_token *token, t_envp *env, int j, int i);
+void		is_expand_util(t_token *token, t_data *data, int i, int j);
+bool		is_expand_util_2(t_token *token, t_data *data, int i, int j);
+void		expansion_special(t_token *token, int j);
 
 void		expand_til(t_token *token, int i, char *home);
 void		erase_dollar_sign(t_token *token, int i);
@@ -420,7 +421,7 @@ t_tree_root	*pipe_struct(t_data *data, t_token *token);
 
 void		exec_execution(t_data *data, t_tree_root *tree);
 void		redir_execution(t_data *data, t_tree_root *tree);
-void		pipe_execution(t_data *data, t_tree_root *tree);
+void		clean_withou_exit(t_data *data);
 void		executing_tree(t_data *data, t_tree_root *tree);
 void		execution(t_data *data);
 
@@ -434,7 +435,12 @@ char		*check_command(t_data *data, char *cmd, char *path);
 char		*find_path(t_data *data, char *path, char *cmd);
 char		*get_path(t_data *data, char *cmd);
 void		empty_cmd(t_data *data, t_tree_exec *exec);
+
+void	exec_no_pipes(t_data *data, t_tree_exec *tree);
 void		cmd_execution(t_data *data, t_tree_exec *tree);
+void test_sigint2(int signal);
+void	right_exit(int status);
+void	pipe_execution(t_data *data, t_tree_root *tree);
 
 /* ************************************************************************** */
 /* -------------------------------DEBUG-------------------------------------- */

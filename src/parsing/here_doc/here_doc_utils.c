@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 16:52:04 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:32:06 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*creat_here_doc_file(int i, bool flag)
 	char	*file;
 	char	*nbr;
 	char	*temp;
-	
+
 	file = NULL;
 	nbr = ft_itoa(i);
 	temp = ft_strjoin("here_doc_", nbr);
@@ -56,7 +56,7 @@ char	*creat_here_doc_file(int i, bool flag)
 		{
 			free(file);
 			return (NULL);
-		}	
+		}
 	}
 	return (file);
 }
@@ -64,7 +64,7 @@ char	*creat_here_doc_file(int i, bool flag)
 void	write_file(char *here_doc_file, char *buffer)
 {
 	int	fd;
-	
+
 	fd = open(here_doc_file, O_WRONLY | O_APPEND);
 	if (fd == -1)
 		return ;
@@ -77,13 +77,14 @@ void	write_file(char *here_doc_file, char *buffer)
 void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 {
 	char	*buffer;
-	
+
 	while (1)
 	{
 		buffer = readline("> ");
 		if (!buffer)
 		{
-			ft_putstr_fd("minishell: warning: here-document delimited by end-of-file\n", 1);
+			ft_putstr_fd("minishell: warning: here-document delimited \
+			by end-of-file\n", 1);
 			free (delimiter);
 			free (file);
 			break ;
@@ -93,11 +94,11 @@ void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 			if (buffer)
 				free(buffer);
 			free(file);
-			free(delimiter);	
+			free(delimiter);
 			clean_hd(data, 0);
 		}
 		buffer = expand_hd(data, buffer, flag);
 		write_file(file, buffer);
 		free(buffer);
-	}	
+	}
 }
