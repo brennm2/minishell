@@ -20,6 +20,7 @@ SRC = src/main.c \
 	src/exit_code.c \
 	src/signal/signal.c \
 	src/signal/signal_utils.c \
+	src/signal/signal_utils_2.c \
 	src/parsing/check_first/check_first.c \
 	src/parsing/check_first/check_first_redir.c \
 	src/parsing/check_first/check_first_utils.c \
@@ -29,10 +30,12 @@ SRC = src/main.c \
 	src/parsing/here_doc/here_doc.c \
 	src/parsing/here_doc/here_doc_expand.c \
 	src/parsing/here_doc/here_doc_utils.c \
+	src/parsing/here_doc/here_doc_utils_2.c \
 	src/parsing/expand/expand.c \
 	src/parsing/expand/expand_utils.c \
 	src/parsing/expand/expansion.c \
 	src/parsing/get_env/env.c \
+	src/parsing/get_env/env_utils.c \
 	src/parsing/deal_with_buffer/parsing.c \
 	src/parsing/deal_with_buffer/moves.c \
 	src/parsing/deal_with_buffer/correct_space.c \
@@ -60,6 +63,7 @@ SRC = src/main.c \
 	src/execution/construction_node.c \
 	src/execution/construction_tree.c \
 	src/execution/exec_utils.c \
+	src/execution/exec_utils_2.c \
 	src/execution/execution.c \
 	src/execution/path.c \
 
@@ -106,7 +110,7 @@ norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
 valgrind:
-	@make
+	@make re
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
 
 run:

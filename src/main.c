@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 14:48:50 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:32:42 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
 
-int	G_EXIT_CODE;
-
 void	init_commands(char *buffer, t_data *data)
 {
-	//ft_signal_ignore();
 	init_data(data, buffer);
 	search_command(buffer, data);
 	//debug_print_list(data);
@@ -25,11 +22,10 @@ void	init_commands(char *buffer, t_data *data)
 	expand(data);
 	remove_quotes(data);
 	set_ex_(data);
-	//debug_print_list(data);
 }
 
 t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
-{	
+{
 	if (argc != 1 || argv[1])
 	{
 		ft_putstr_fd("Minishell does not accept any arguments.", 2);
@@ -44,46 +40,13 @@ t_data	*init_minishell(int argc, char **argv, char **envp, t_data *data)
 	return (data);
 }
 
-void	sig_quit(int sig)
-{
-	(void)sig;
-
-	//ft_putstr_fd("Quit (core dumped)\n", 2);
-}
-void	sig_int(int sig)
-{
-	(void)sig;
-
-	//ft_putstr_fd("Quit (core dumped)\n", 2);
-}
-
-
-void test_sigint(int signal)
-{
-	if (signal == SIGINT)
-	{
-		//write(2, "aaa", 3);
-		//rl_replace_line("", 0);
-		write(STDERR_FILENO, "\n", 1);
-		//rl_on_new_line();
-		//rl_redisplay();
-		//exit (130);
-	}
-	if (signal == SIGQUIT)
-	{
-		write(STDERR_FILENO, "Quit (core dumped)\n", 20);
-
-	}
-	
-}
-
 void	exec_minishell(t_data *data)
 {
 	int	status;
 
 	have_pipe(data);
-	if (data->flag == 0) // if don't have pipes
-			execution(data);
+	if (data->flag == 0)
+		execution(data);
 	else
 	{
 		if (safe_fork(data) == 0)
@@ -116,55 +79,10 @@ void	loop_minishell(t_data *data)
 	}
 }
 
-void	catch_pid(t_data *data)
-{
-	int	pid;
-
-	pid = safe_fork(data);
-	if(pid == 0)
-	{
-		if (!data)
-		exit(1);
-		free_env(data->envp);
-		if (data->home)
-			free(data->home);
-		if (data->shlvl)
-			free(data->shlvl);
-		free(data);
-		exit(0);
-	}
-	else
-	{
-		wait(0);	
-		data->pid = pid;
-	}
-}
-
-void	change_shlvl(t_data *data, char **envp)
-{
-	int	i;
-	int	lvl;
-	char	*c_lvl;
-	
-	i = -1;
-	while (envp[++i])
-	{
-		if (!ft_strncmp(envp[i], "SHLVL=", 6))
-		{
-			lvl = ft_atoi(envp[i] + ft_strlen(envp[i]) - 1);
-			lvl++;
-			c_lvl = ft_itoa(lvl);
-			data->shlvl = c_lvl;
-			return ;
-		}
-	}
-	data->shlvl = ft_strdup("2");
-}
-
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	
+
 	data = NULL;
 	data = init_minishell(argc, argv, envp, data);
 	data->fds[0] = dup(STDIN_FILENO);
@@ -173,5 +91,3 @@ int main(int argc, char **argv, char **envp)
 	catch_pid(data);
 	loop_minishell(data);
 }
-
-//echo "> >> < * ? [ ] | ; [ ] | | && ( ) & # $ <<"

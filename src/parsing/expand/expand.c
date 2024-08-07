@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 18:52:19 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:33:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ bool	is_expand_2(t_token *token, t_data *data, int i)
 		return (true);
 	}
 	if (token->str[i] == '$' && token->str[i + 1] && (token->str[i + 1] \
-	== S_QUOTES || token->str[i + 1] == D_QUOTES) && quote_status(token->str, i) == 0)
+		== S_QUOTES || token->str[i + 1] == D_QUOTES) && \
+		quote_status(token->str, i) == 0)
 	{
 		erase_dollar_sign(token, i);
 		return (true);
@@ -69,12 +70,11 @@ void	is_expand(t_token *token, t_data *data)
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
 			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] != ' ' && !ft_is_especial_2(token->str[i + 1]))
+		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
+			!= ' ' && !ft_is_especial_2(token->str[i + 1]))
 		{
 			if (is_expand_2(token, data, i))
-			{
 				continue ;
-			}
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);

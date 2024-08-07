@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/01 14:19:37 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:10:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	signal_main(int signal_num, t_data *data)
 {
-	//ft_putstr_fd("entrou main\n", 2);
-	if(signal_num == SIGINT)
+	if (signal_num == SIGINT)
 	{
 		rl_replace_line("", 0);
 		write(STDERR_FILENO, "\n", 1);
@@ -31,30 +30,6 @@ void	signal_child(int signal_num)
 		write(1, "\n", 1);
 	if (signal_num == SIGQUIT)
 		write(1, "Quit (core dumped)\n", 19);
-
-}
-
-void	signal_heredoc_checker(int status)
-{
-	if (WTERMSIG(status) == 3)// Se o sinal for terminado com status 3 (ctrl + barra)
-	{
-			//ft_putstr_fd("ctrl + barra\n", 2);
-			ft_putstr_fd("Quit (core dumped)\n", 2);
-			G_EXIT_CODE = 131;
-			return ;
-	}
-	else if (WTERMSIG(status) == 2) // se o sinal for terminado com status 2 (ctrl + c)
-	{
-			//ft_putstr_fd("ctrl + c\n", 2);
-			ioctl(0, TIOCSTI, "\n");
-			// rl_replace_line("", 0);
-			// //ft_putstr_fd("\n", 2);
-			// ft_putstr_fd("\n", STDERR_FILENO);
-			// rl_on_new_line();
-			// rl_redisplay();
-			// G_EXIT_CODE = 130;
-			// return ;
-	}
 }
 
 void	signal_here_doc(int signal_num)

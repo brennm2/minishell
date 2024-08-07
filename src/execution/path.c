@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 17:22:27 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 11:13:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:33:40 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*check_command(t_data *data, char *cmd, char *path)
 {
 	char	*valid_path;
 	char	*path_aux;
-	
+
 	(void)data;
 	valid_path = NULL;
 	path_aux = ft_strjoin(path, "/");
@@ -25,7 +25,7 @@ char	*check_command(t_data *data, char *cmd, char *path)
 	if (access(valid_path, F_OK) == 0)
 		return (valid_path);
 	free(valid_path);
-	return (NULL);	
+	return (NULL);
 }
 
 char	*find_path(t_data *data, char *path, char *cmd)
@@ -79,10 +79,11 @@ char	*get_path(t_data *data, char *cmd)
 
 void	empty_cmd(t_data *data, t_tree_exec *exec)
 {
-	struct stat file_stat;
-	
+	struct stat	file_stat;
+
 	stat(exec->argv[0], &file_stat);
-	if (!ft_strncmp(exec->argv[0], "./", 2))
+	if (!ft_strncmp(exec->argv[0], "./", 2) || \
+		!ft_strncmp(exec->argv[0], "/", 1))
 	{
 		if (access(exec->argv[0], F_OK) < 0)
 			printf("minishell: %s: No such file or directory\n", exec->argv[0]);
@@ -101,39 +102,4 @@ void	empty_cmd(t_data *data, t_tree_exec *exec)
 	else
 		command_not_found(exec->argv[0], data);
 	clean(data, 127);
-}
-
-void	cmd_execution(t_data *data, t_tree_exec *tree)
-{
-	int status;
-	int pid;
-	
-	status = 0;
-	pid = 0;
-	if (tree->builtin_token && tree->builtin_token->type == builtin)
-		get_builtin(data, tree->builtin_token, data->flag);
-	else
-	{
-		if (data->flag == 0)
-		{
-			ft_signal_def();
-			pid = safe_fork(data);
-			if (pid == 0)
-				safe_execve(data, tree);
-			ft_signal_ignore();
-			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-				set_exit_code(WEXITSTATUS(status), data);
-			if (WIFSIGNALED(status))
-			{
-				if (WTERMSIG(status) == SIGINT)
-					write(1, "\n", 1);
-				if (WCOREDUMP(status))
-					write(1, "Quit (core dumped)\n", 20);
-				set_exit_code(WTERMSIG(status) + 128, data);
-			}
-		}
-		else
-			safe_execve(data, tree);
-	}
 }

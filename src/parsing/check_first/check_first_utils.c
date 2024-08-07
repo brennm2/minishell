@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:11:10 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/02 11:13:03 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:38:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	redirect_inverse_error_suport(char *buffer, int i)
 
 bool	is_all_space(char *buffer)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	while(buffer[++i])
+	while (buffer[++i])
 		if (buffer[i] != ' ' && buffer[i] != '\0')
 			return (false);
 	return (true);

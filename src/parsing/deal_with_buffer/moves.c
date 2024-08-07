@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 10:28:05 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/19 19:28:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:32:58 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 int	move_space(char *buffer, int i)
 {
-	while(buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
+	while (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
 		i++;
-	return(i);
+	return (i);
 }
 
 bool	check_for_open_quotes(char *buffer, int i)
 {
 	bool	dquotes;
-	bool 	squotes;
+	bool	squotes;
 
 	dquotes = false;
 	squotes = false;
-
-	while(i >= 0 && buffer[i])
+	while (i >= 0 && buffer[i])
 	{
-		if(buffer[i] == S_QUOTES && dquotes == false)
+		if (buffer[i] == S_QUOTES && dquotes == false)
 			squotes = !squotes;
-		if(buffer[i] == D_QUOTES && squotes == false)
+		if (buffer[i] == D_QUOTES && squotes == false)
 			dquotes = !dquotes;
 		i--;
 	}
@@ -43,18 +42,19 @@ bool	check_for_open_quotes(char *buffer, int i)
 
 int	move_without_quotes(char *buffer, int i, t_data *data)
 {
-	int start;
+	int	start;
 
 	start = i;
-	while(buffer[i] && (!(buffer[i] >= 7 && buffer[i] <= 32) || check_for_open_quotes(buffer, i)))
+	while (buffer[i] && (!(buffer[i] >= 7 && buffer[i] <= 32) || \
+		check_for_open_quotes(buffer, i)))
 		i++;
 	save_substring(buffer, start, (i - 1), data);
-	return(i);
+	return (i);
 }
 
 int	check_for_string(char *buffer, int start)
 {
-	while(buffer[start])
+	while (buffer[start])
 	{
 		if (buffer[start] && (buffer[start] >= 7 && buffer[start] <= 32))
 			start++;
@@ -62,4 +62,15 @@ int	check_for_string(char *buffer, int start)
 			return (start);
 	}
 	return (start);
+}
+
+void	save_space(char *buffer, int start, t_data *data)
+{
+	while (buffer[start] && buffer[start] >= 7 && buffer[start] <= 32)
+		start++;
+	if (buffer[check_for_string(buffer, start)])
+	{
+		data->token = data->token->next;
+		init_token(data->token, buffer);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:40:13 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/24 13:44:58 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:07:13 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	have_pipe(t_data *data)
 {
-	t_token *token_aux;
+	t_token	*token_aux;
 
 	token_aux = data->token;
 	while (token_aux)
@@ -66,7 +66,7 @@ bool	is_red_bool(t_token *token)
 void	update_token(t_data *data)
 {
 	t_token	*token_aux;
-	t_token *dead;
+	t_token	*dead;
 
 	token_aux = data->token;
 	if (token_aux->str[0] == '\0' && !is_red_bool(token_aux))
@@ -79,7 +79,8 @@ void	update_token(t_data *data)
 	}
 	while (token_aux)
 	{
-		if (token_aux->next && token_aux->next->str[0] == '\0' && token_aux->next->type == string)
+		if (token_aux->next && token_aux->next->str[0] == '\0' && \
+			token_aux->next->type == string)
 		{
 			dead = token_aux->next;
 			token_aux->next = token_aux->next->next;

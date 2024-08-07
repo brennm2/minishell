@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/01 21:13:57 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:15:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	erase_the_quote(t_token *token, int i)
 {
 	char	*unquote_str;
-	
+
 	if (i > 0)
 	{
 		unquote_str = ft_calloc(sizeof(char), i + 1);

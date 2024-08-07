@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:29:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/22 20:17:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:26:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_tree_root	*const_exec(t_data *data, t_token *token)
 {
 	t_tree_exec	*exec_cmd;
 	int			args;
-	
+
 	(void)data;
 	exec_cmd = ft_calloc(1, sizeof(t_tree_exec));
 	if (!exec_cmd)
@@ -60,7 +60,7 @@ t_tree_root	*const_exec(t_data *data, t_token *token)
 t_tree_root	*get_red(t_tree_root *red_cmd)
 {
 	t_tree_red	*redir;
-	
+
 	while (red_cmd->type == t_redir)
 	{
 		redir = (t_tree_red *)red_cmd;
@@ -76,7 +76,7 @@ t_tree_root	*const_redir(t_tree_root *scmd, char *file, int mode, int fd)
 {
 	t_tree_red	*red_cmd;
 	t_tree_root	*old;
-	
+
 	red_cmd = ft_calloc(1, sizeof(t_tree_red));
 	if (!red_cmd)
 		return (NULL);
@@ -104,7 +104,7 @@ t_tree_root	*const_redir(t_tree_root *scmd, char *file, int mode, int fd)
 t_tree_root	*const_pipe(t_data *data, t_tree_root *left, t_tree_root *right)
 {
 	t_tree_pipe	*pipe_cmd;
-	
+
 	pipe_cmd = ft_calloc(1, sizeof(t_tree_pipe));
 	if (!pipe_cmd)
 		clean(data, 1);

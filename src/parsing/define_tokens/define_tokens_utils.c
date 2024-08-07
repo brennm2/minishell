@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 17:29:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 17:30:33 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:24:06 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	after_pipe(t_data *data)
 		{
 			if (token_aux->next->type == string)
 			{
-				token_aux = token_aux->next;		
+				token_aux = token_aux->next;
 				which_command(token_aux);
 			}
 		}

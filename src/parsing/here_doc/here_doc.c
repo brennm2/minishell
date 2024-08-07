@@ -6,17 +6,16 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:26 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:31:01 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-
 void	change_token(t_token *token, char *file)
 {
 	t_token	*dead;
-	
+
 	dead = token->next;
 	token->next = token->next->next;
 	if (token->str)
@@ -27,24 +26,8 @@ void	change_token(t_token *token, char *file)
 	token->type = here_doc;
 }
 
-void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
+void	finish_hd(t_data *data, char *delimiter, int status)
 {
-	char	*here_doc_file;
-	int		status;
-
-	ft_signal_ignore();
-	here_doc_file = creat_here_doc_file(i, true);
-	if (!here_doc_file)
-		clean_hd(data, 1);
-	if (safe_fork(data) == 0)
-	{
-		signal_heredoc(-1, data, delimiter, here_doc_file);
-		ft_catch_signal(HERE_DOC);
-		fill_file(data, delimiter, here_doc_file, flag);
-		clean_hd(data, 0);
-	}
-	waitpid(0, &status, 0);
-	change_token(token, here_doc_file);
 	if (WIFEXITED(status))
 	{
 		if (WEXITSTATUS(status) == 130)
@@ -58,23 +41,33 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag, int i)
 	}
 }
 
-char	*erase_the_quote_hd(char *delimiter, int i)
+void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag)
 {
-	char	*unquote_str;
-	char	*temp;
+	char		*here_doc_file;
+	int			status;
+	static int	i = -1;
 
-	temp = ft_calloc(sizeof(char), i + 1);
-	ft_strlcpy(temp, delimiter, i + 1);
 	i++;
-	unquote_str = ft_strjoin(temp, delimiter + i);
-	free(temp);
-	return (unquote_str);
+	ft_signal_ignore();
+	here_doc_file = creat_here_doc_file(i, true);
+	if (!here_doc_file)
+		clean_hd(data, 1);
+	if (safe_fork(data) == 0)
+	{
+		signal_heredoc(-1, data, delimiter, here_doc_file);
+		ft_catch_signal(HERE_DOC);
+		fill_file(data, delimiter, here_doc_file, flag);
+		clean_hd(data, 0);
+	}
+	waitpid(0, &status, 0);
+	change_token(token, here_doc_file);
+	finish_hd(data, delimiter, status);
 }
 
 char	*remove_quotes_hd(char *delimiter)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*temp;
 
 	i = 0;
@@ -101,14 +94,12 @@ void	is_here_doc(t_data *data)
 	char	*delimiter;
 	t_token	*token_aux;
 	bool	flag;
-	int		i;
 
-	i = -1;
 	token_aux = data->token;
 	flag = false;
 	while (token_aux)
 	{
-   		if (!ft_strcmp(token_aux->str, "<<"))
+		if (!ft_strcmp(token_aux->str, "<<"))
 		{
 			delimiter = ft_strdup(token_aux->next->str);
 			if (ft_strchr(delimiter, '"') || ft_strchr(delimiter, '\''))
@@ -116,7 +107,7 @@ void	is_here_doc(t_data *data)
 				flag = true;
 				delimiter = remove_quotes_hd(delimiter);
 			}
-			open_hd(data, token_aux, delimiter, flag, ++i);
+			open_hd(data, token_aux, delimiter, flag);
 			free(delimiter);
 			continue ;
 		}

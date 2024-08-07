@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 19:01:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:25:27 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_tokenize(t_data *data)
 void	tokenize(t_data *data)
 {
 	t_token	*token_aux;
-	
+
 	token_aux = data->token;
 	while (token_aux)
 	{

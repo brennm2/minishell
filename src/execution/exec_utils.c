@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/02 14:55:12 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/07 19:22:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**change_env(t_envp *envp)
 
 	envp_aux = envp;
 	i = 0;
-	while(envp_aux)
+	while (envp_aux)
 	{
 		i++;
 		envp_aux = envp_aux->next;
@@ -41,7 +41,7 @@ char	**change_env(t_envp *envp)
 	env = ft_calloc(i + 1, sizeof(char *));
 	envp_aux = envp;
 	i = -1;
-	while(envp_aux)
+	while (envp_aux)
 	{
 		env[++i] = ft_strdup(envp_aux->key);
 		env[i] = ft_strjoin_ex(env[i], "=");
@@ -79,7 +79,8 @@ void	safe_pipe(int fd[2], t_data *data)
 		clean(data, 1);
 }
 
-void pipe_child_execution(t_data *data, t_tree_root *tree, int fd[2], int proc)
+void	pipe_child_execution(t_data *data, t_tree_root *tree, \
+int fd[2], int proc)
 {
 	if (proc == 1)
 	{

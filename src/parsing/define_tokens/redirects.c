@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 16:25:35 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 19:10:16 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:24:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*trim_first_redir(t_data *data, t_token *token)
 {
 	t_token	*head;
 	t_token	*dead_token;
-	
+
 	head = token->next;
 	token->next->type = token->type;
 	dead_token = token;
@@ -37,7 +37,7 @@ t_token	*trim_first_redir(t_data *data, t_token *token)
 
 t_token	*trim_redir(t_data *data, t_token *token)
 {
-	int	type;
+	int		type;
 	t_token	*aux_data;
 	t_token	*dead_token;
 

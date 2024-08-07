@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:03:06 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/07/19 19:19:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:34:17 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*put_space_on(char *buffer, int i)
 	if (!new_buffer)
 	{
 		free(space);
-        free(symbol);
+		free(symbol);
 		return (NULL);
 	}
 	ft_strlcpy(new_buffer, buffer, i + 1);
@@ -85,12 +85,13 @@ char	*put_space_on(char *buffer, int i)
 char	*check_spaces(char *buffer)
 {
 	int	i;
-	
+
 	i = -1;
 	while (buffer[++i])
 	{
-		if ((buffer[i] == '|' || buffer[i] == '>' || buffer[i] == '<' || \
-			(buffer[i] == '>' && buffer[i + 1] == '>')) && quote_status(buffer, i) == 0)
+		if ((buffer[i] == '|' || buffer[i] == '>' || buffer[i] == '<' \
+			|| (buffer[i] == '>' && buffer[i + 1] == '>')) && \
+			quote_status(buffer, i) == 0)
 		{
 			buffer = put_space_on(buffer, i);
 			i += 2;

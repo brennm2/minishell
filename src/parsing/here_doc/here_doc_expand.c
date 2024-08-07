@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:31:40 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/05 15:26:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:33:19 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*expansion_hd(t_envp *envp, char *buffer, int j, int i)
 	char	*expanded;
 
 	if (!envp && j == 0 && !buffer[i])
-	return (NULL);
+		return (NULL);
 	expanded = ft_calloc(sizeof(char), (j + 1));
 	ft_strlcpy(expanded, buffer, j + 1);
 	if (envp)
@@ -96,38 +96,15 @@ char	*is_expand_util_hd(char *buffer, t_data *data, int i, int j)
 	if (buffer[i + 1] == '$')
 	{
 		buffer = expansion_dollar_sign_hd(buffer, j, i, data->pid);
-		return (buffer);	
+		return (buffer);
 	}
 	if (ft_isdigit(buffer[i + 1]))
 	{
 		buffer = expansion_digit_hd(buffer, j, i);
-		return (buffer);	
+		return (buffer);
 	}
 	while (!ft_is_especial(buffer[++i]) && buffer[i] && buffer[i] != 32)
 		;
 	buffer = check_env_hd(buffer, data->envp, j, i);
-	return (buffer);
-}
-
-char	*expand_hd(t_data *data, char *buffer, bool flag)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = 0;
-	if (flag)
-		return (buffer);
-	while (buffer[++i])
-	{
-		if (buffer[i] == '$' && buffer[i + 1] && buffer[i + 1])
-		{
-			buffer = is_expand_util_hd(buffer, data, i, j);
-			if (!buffer)
-				break ;
-			i = -1;
-			continue ;
-		}
-	}
 	return (buffer);
 }

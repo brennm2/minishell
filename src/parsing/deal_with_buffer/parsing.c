@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 11:57:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:07 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:30:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 	int	i;
 
 	i = 0;
-	while(start <= end)
+	while (start <= end)
 	{
 		data->token->str[i] = buffer[start++];
 		i++;
 	}
-	if(buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
+	if (buffer[start] == D_QUOTES || buffer[start] == S_QUOTES)
 		start++;
-	if(buffer[check_for_string(buffer, start)])
+	if (buffer[check_for_string(buffer, start)])
 	{
 		start = check_for_string(buffer, end + 1);
 		i = start;
@@ -49,16 +49,6 @@ void	save_substring(char *buffer, int start, int end, t_data *data)
 	}
 }
 
-void	save_space(char *buffer, int start, t_data *data)
-{
-	while(buffer[start] && buffer[start] >= 7 && buffer[start] <= 32)
-		start++;
-	if(buffer[check_for_string(buffer, start)])
-	{
-		data->token = data->token->next;
-		init_token(data->token, buffer);
-	}
-}
 void	new_data(t_data *data, t_token *token)
 {
 	t_data	*newdata;
@@ -74,8 +64,8 @@ void	pipe_split(t_data *data)
 {
 	t_token	*aux;
 	t_token	*token_aux;
-	t_data *data_aux;
-	
+	t_data	*data_aux;
+
 	data_aux = data;
 	token_aux = data->token;
 	while (token_aux->str)
@@ -96,16 +86,16 @@ void	get_split(char *buffer, t_data *data)
 {
 	t_token	*reset_index;
 	int		i;
-	
+
 	reset_index = data->token;
 	i = 0;
-	while(buffer[i])
+	while (buffer[i])
 	{
 		if (buffer[i] && (buffer[i] >= 7 && buffer[i] <= 32))
 			i = move_space(buffer, i);
 		if (buffer[i] && !(buffer[i] >= 7 && buffer[i] <= 32))
 		{
-				i = move_without_quotes(buffer, i, data);
+			i = move_without_quotes(buffer, i, data);
 		}
 	}
 	data->token = reset_index;
