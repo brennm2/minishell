@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 13:32:37 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:56:06 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ void		save_space(char *buffer, int start, t_data *data);
 void		new_data(t_data *data, t_token *token);
 void		pipe_split(t_data *data);
 void		get_split(char *buffer, t_data *data);
+int			find_token_end(char *buffer, int i);
 
 /*DEFINE TOKENS*/
 void		which_command(t_token *token);
@@ -271,7 +272,7 @@ char		*expansion_exit_code_hd(char *buffer, int j, int i, char *exit_code);
 char		*expansion_hd(t_envp *envp, char *buffer, int j, int i);
 char		*check_env_hd(char *buffer, t_envp *env, int j, int i);
 char		*expansion_digit_hd(char *buffer, int j, int i);
-char		*is_expand_util_hd(char *buffer, t_envp *envp, int i, int j);
+char		*is_expand_util_hd(char *buffer, t_data *data, int i, int j);
 char		*expand_hd(t_data *data, char *buffer, bool flag);
 
 /*EXPAND*/

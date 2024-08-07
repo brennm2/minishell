@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_code.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/06 16:45:10 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:58:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ void	update_exit_code(int status, t_data *data)
 	if (WIFEXITED(status))
 	{
 		//printf("aqui exit\n");
+		//printf("exit status: %d\n", WEXITSTATUS(status));
+		// if (WEXITSTATUS(status) == 130)
+		// {
+		// 	write(1, "\n", 1);
+		// }
 		set_exit_code(WEXITSTATUS(status), data);
+		
 	}
 	else if (WIFSIGNALED(status))
 	{
