@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/08 15:43:30 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:01:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	need_space(t_token *token)
 {
-	t_token *temp_token;
+	// t_token *temp_token;
 
-	temp_token = token;
+	// temp_token = token;
 
 	while (token && (token->type != is_pipe))
 	{
