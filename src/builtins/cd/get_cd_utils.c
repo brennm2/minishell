@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cd_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 11:46:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/22 16:21:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:41:26 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,12 @@ t_envp	*change_in_env(t_envp *envp, char *value, char *key)
 				temp_envp->invisible = 0;
 				free(temp_envp->value);
 				temp_envp->value = ft_strdup(value);
+			}
+			else if (!value)
+			{
+				temp_envp->invisible = 1;
+				free(temp_envp->value);
+				temp_envp->value = ft_strdup("\0");
 			}
 			return (envp);
 		}

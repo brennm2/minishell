@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 15:25:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:59:34 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,30 @@ void	define_tokens(t_token *token)
 void	check_tokenize(t_data *data)
 {
 	t_token	*token_aux;
+	t_token	*first;
 
 	token_aux = data->token;
 	if (token_aux->type == string)
 		which_command(token_aux);
 	after_pipe(data);
 	after_reds(data);
+	first = data->token;
 	token_aux = data->token;
 	while (token_aux)
 	{
+		if (token_aux->type == is_pipe)
+			first = token_aux->next;
 		if (is_red_or_pipe(token_aux))
+		{
+			if ((token_aux->type == redin || token_aux->type == redout
+				|| token_aux->type == append) && first->builtin == echo)
+			{
+				token_aux = token_aux->next;
+				continue ;
+			}
 			if (token_aux->next && !is_red_or_pipe(token_aux->next))
 				which_command(token_aux->next);
+		}
 		token_aux = token_aux->next;
 	}
 }

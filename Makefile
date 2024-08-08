@@ -100,7 +100,7 @@ clean: sup_file
 fclean: clean
 	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT) $(OBJ_DIR)
 	$(MAKE) -C ./libs/ fclean
-	$(RM) $(RMFLAGS) sup
+	$(RM) sup
 
 	@echo "\n${YELLOW}--------------------------------"
 	@echo "${YELLOW}| ${RED}ALL files ${GREEN}have been cleaned! ${YELLOW}|"
@@ -109,10 +109,10 @@ fclean: clean
 norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
-valgrind:
+valgrind: sup_file
 	@make re
+	@make sup_file
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
-
 run:
 	@make
 	@./minishell

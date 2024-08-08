@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 14:34:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 12:07:35 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	get_cd(t_data *data, t_token *token, int exit_flag)
 {
 	char	cwd[256];
 	//char	old_cwd[256];
+	//int		flag_empty_pwd = 0;
 	char	*old_cwd = get_in_env(data->envp, "PWD");
 
 	//getcwd(old_cwd, sizeof(old_cwd));

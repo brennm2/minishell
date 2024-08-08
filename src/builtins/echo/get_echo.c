@@ -6,11 +6,26 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:41:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:43:30 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
+
+bool	need_space(t_token *token)
+{
+	t_token *temp_token;
+
+	temp_token = token;
+
+	while (token && (token->type != is_pipe))
+	{
+		if(token->type == string)
+			return (true);
+		token = token->next;
+	}
+	return (false);
+}
 
 void	put_token_str(t_token *token, t_data *data)
 {
@@ -21,10 +36,11 @@ void	put_token_str(t_token *token, t_data *data)
 			write(1, " ", 1);
 	}
 	else if (token->next && (token->next->type == string
-			|| token->next->type == redin || token->next->type == redout))
+			|| token->next->type == redin || token->next->type == redout || token->next->type == append))
 	{
 		ft_putstr_fd(token->str, 1);
-		write(1, " ", 1);
+		if (need_space(token->next) == true)
+			write(1, " ", 1);
 	}
 	else
 		ft_putstr_fd(token->str, 1);
@@ -61,18 +77,24 @@ bool	is_all_flag(t_token *token)
 	return (true); // se andou por toda string e nao achou alem de "n"
 }
 
+// echo test > ola | oi
+
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && ((*token)->type == string
-			|| (*token)->type == redin || (*token)->type == redout))
+	while (*token && (*token)->type != is_pipe) //((*token)->type == string
+			//|| (*token)->type == redin || (*token)->type == redout
+			//|| (*token)->type == append))
 	{
-		//printf("%s\n", (*token)->str);
-		if ((*token)->type == redin || (*token)->type == redout)
+		//write(2, "a\n", 2);
+		if ((*token)->type == redin || (*token)->type == redout || (*token)->type == append)
 		{
 			*token = (*token)->next;
-			if (!(*token))
+			if (!(*token) || (*token)->type == is_pipe)
 				break ;
+			else
+				continue;
 		}
+		//ft_putstr_fd((*token)->str, 2);
 		put_token_str(*token, data);
 		*token = (*token)->next;
 	}
@@ -83,7 +105,7 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 	int	t_flag;
 
 	t_flag = 0;
-	while (token && (token->type == string || token->type == command))
+	while (token && token->type != is_pipe)//(token->type == string || token->type == command))
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n'
 			&& is_all_flag(token) == true)
@@ -100,6 +122,11 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 				token->type = flag;
 		}
 		handle_token(&token, data);
+		// if (token->type == is_pipe)
+		// 	break;
+		//ft_putstr_fd(token->str, 2);
+		
+		//ft_putstr_fd("test\n", 2);
 	}
 	if (t_flag == 0)
 		write(1, "\n", 1);

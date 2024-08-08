@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first_redir.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:03:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:09:09 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:14:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,19 @@ bool	redirect_space_and_count_error(char *buffer)
 
 bool	redirect_error_util(char *buffer, int i, bool s_quotes, bool d_quotes)
 {
+	//static int flag_error;
+
+	//flag_error = 0;
+	//if(buffer[i] == '>' || buffer[i] == '<')
+	//	flag_error++;
 	if ((buffer[i] == '>' || buffer[i] == '<') && \
 		buffer[i + 1] == '\0')
 	{
-		ft_putstr_fd(ERROR_REDIR, 2);
-		ft_putstr_fd("\n", 1);
+		//if(flag_error < 2)
+		//ft_putstr_fd(ERROR_REDIR, 2);
+		ft_putstr_fd("syntax error near unexpected token '", 2);
+		ft_putchar_fd(buffer[i], 2);
+		ft_putstr_fd("'\n", 2);
 		return (true);
 	}
 	else if (buffer[i] == '>' && (buffer[move_space(buffer, i + 1)] == '<'\
