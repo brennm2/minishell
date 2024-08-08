@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/08 12:07:35 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:58:45 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	cd_change_last_oldpwd(t_data *data, int option)
 			write(1, "\n", 1);
 		}
 		free (old_cwd_char);
-		return(false);
+		return (false);
 	}
 	else
 	{
@@ -114,11 +114,9 @@ void	only_cd(t_data *data, char *old_cwd, int exit_flag)
 void	get_cd(t_data *data, t_token *token, int exit_flag)
 {
 	char	cwd[256];
-	//char	old_cwd[256];
-	//int		flag_empty_pwd = 0;
-	char	*old_cwd = get_in_env(data->envp, "PWD");
+	char	*old_cwd;
 
-	//getcwd(old_cwd, sizeof(old_cwd));
+	old_cwd = get_in_env(data->envp, "PWD");
 	if (token->next && token->next->type == string) //se for "cd ..."
 	{
 		if (token->next->str[0] == '\0')

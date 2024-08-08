@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 19:32:29 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define ERROR_PIPE_DOUBLE "syntax error near unexpected token `||'"
 # define ERROR_PIPE_SINGLE "syntax error near unexpected token `|'"
 # define ERROR_PIPE_FINAL "no support for this type of pipe"
-# define ERROR_REDIR "syntax error near unexpected token `newline'"
+# define ERROR_REDIR "syntax error near unexpected token `newline"
 # define ERROR_REDIR_1 "syntax error near unexpected token `<'"
 # define ERROR_QUOTE "quotation has not been closed"
 # define ERROR_CD_MANY_ARGUMENT "cd: too many arguments"
@@ -362,6 +362,7 @@ void		get_exit(t_data *data, t_token *token, int exit_flag);
 
 /*GET_UTILS*/
 void	exit_number(t_data *data, t_token *token, int exit_flag, int number);
+void	free_to_exit(t_data *data);
 
 /*GET_EXPORT*/
 void		get_export(t_data *data, t_token *token, int exit_flag);
