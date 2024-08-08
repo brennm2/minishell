@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/08 16:05:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:51:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,15 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], X_OK) == 0)
 		{
-			printf("minishell: %s: Is a directory\n", exec->argv[0]);
+			if (!ft_strncmp(exec->argv[0], "/", 1))
+				printf("minishell: %s: Is a directory\n", exec->argv[0]);
+			else
+			{
+				ft_putstr_fd(exec->argv[0], 2);
+				ft_putstr_fd(": command not found\n", 2);
+				ptr_free(env);
+				clean(data, 127);
+			}
 			ptr_free(env);
 			clean(data, 126);
 		}
