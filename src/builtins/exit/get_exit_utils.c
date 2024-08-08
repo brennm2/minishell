@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:56:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/06 13:16:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:08 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,12 @@ void	exit_number(t_data *data, t_token *token, int exit_flag, int number)
 		free_data(data);
 		exit(temp_exit);
 	}
+}
+
+void	free_to_exit(t_data *data)
+{
+	free_env(data->envp);
+	free_token(data->token);
+	free_tree(data->tree);
+	free_data(data);
 }

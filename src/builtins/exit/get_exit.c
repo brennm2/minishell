@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:43:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:53:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,22 @@ void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 void	exit_negative(t_token *token, t_data *data, int exit_flag)
 {
 	int	number;
+	long long	temp_number;
 
+	temp_number = atoll(token->str);
+	if (temp_number < -9223372036854775807)
+	{
+		if (temp_number == -9223372036854775807 - 1 )
+		{
+			free_to_exit(data);
+			exit(0);
+		}
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(token->str, 2);
+		ft_putstr_fd(" numeric argument required\n", 2);
+		free_to_exit(data);
+		exit(2);
+	}
 	number = ft_atoi(token->str);
 	number = 256 - (number * -1);
 	(void)exit_flag;
@@ -122,9 +137,9 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 			i++;
 			if (token->next->str[i] == '\0') // Se <TOKEN->STR[i]> acabar e for tudo numero
 			{
-				if (ft_atoi(token->next->str) < 0)
+				if (atoll(token->next->str) < 0)
 					return (exit_negative(token->next, data, exit_flag));
-				exit_number(data, token, exit_flag, ft_atoi(token->next->str)); //only_exit(data, token, exit_flag);
+				exit_number(data, token, exit_flag, atoll(token->next->str)); //only_exit(data, token, exit_flag);
 			}
 		}
 		exit_numeric_error(data, token, 0, exit_flag);//Se saiu do loop entao encotrou algo que nao e numerico
