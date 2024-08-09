@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:20:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:31:37 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	loop_minishell(t_data *data)
 			continue ;
 		exec_minishell(data);
 		free_token(data->token);
-		unlink_here_doc_file();
+		unlink_here_doc_file(data);
 	}
 }
 
