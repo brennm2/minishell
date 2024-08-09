@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 13:48:59 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:01:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,9 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], X_OK) == 0)
 		{
-			if (!ft_strncmp(exec->argv[0], "./", 2) || !ft_strncmp(exec->argv[0], "/", 1))
-				printf("minishell: %s: Is a directory\n", exec->argv[0]);
-			else
-			{
-				ft_putstr_fd(exec->argv[0], 2);
-				ft_putstr_fd(": command not found\n", 2);
-				ptr_free(env);
-				clean(data, 127);
-			}
+			execve_error(data, exec->argv[0]);
 			ptr_free(env);
-			clean(data, 126);
+			clean(data, data->exit_code);
 		}
 		perror(exec->cmd);
 		ptr_free(env);

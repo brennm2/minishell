@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 13:14:24 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:00:58 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,6 +446,7 @@ char		*check_command(t_data *data, char *cmd, char *path);
 char		*find_path(t_data *data, char *path, char *cmd);
 char		*get_path(t_data *data, char *cmd);
 void		empty_cmd(t_data *data, t_tree_exec *exec);
+void		execve_error(t_data *data, char *exec_argv);
 
 void		exec_no_pipes(t_data *data, t_tree_exec *tree);
 void		cmd_execution(t_data *data, t_tree_exec *tree);
