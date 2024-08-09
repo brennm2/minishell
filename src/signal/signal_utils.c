@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 23:53:19 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:58:08 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	ft_catch_signal(int id)
 		signal(SIGINT, (void *)signal_heredoc);
 		signal(SIGTERM, (void *)signal_heredoc);
 	}
-	else if (id == PIPE)
-		ft_putstr_fd("PIPE\n", 2);
 }
 
 void	reset_fd_signals(int fd1, int fd2)
