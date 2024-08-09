@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 19:18:43 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:43:05 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ typedef struct s_data
 	struct s_data	*next;
 }				t_data;
 
+extern int		g_exit_code;
+
 /* ************************************************************************** */
 /* ---------------------------------MAIN------------------------------------- */
 /* ************************************************************************** */
@@ -185,7 +187,7 @@ int			ft_strcmp(char *s1, char *s2);
 /*SIGNALS*/
 void		signal_here_doc(int signal_num);
 void		signal_child(int signal_num);
-void		signal_main(int signal_num, t_data *data);
+void		signal_main(int signal_num);
 void		ft_signal_def(void);
 
 /*SIGNALS UTILS*/

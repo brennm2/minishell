@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:57:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 19:13:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:42:58 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_catch_signal(int id)
 {
 	if (id == MAIN)
 	{
-		signal(SIGINT, (void *)signal_main);
+		signal(SIGINT, signal_main);
 		signal(SIGTERM, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
 	}

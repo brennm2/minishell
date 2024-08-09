@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:20:45 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 20:37:21 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/minishell.h"
+
+int	g_exit_code;
 
 void	init_commands(char *buffer, t_data *data)
 {
@@ -66,12 +68,20 @@ void	loop_minishell(t_data *data)
 	{
 		reset_fd_signals(data->fds[0], data->fds[1]);
 		buffer = readline("minishell: ");
+		if (g_exit_code == 130)
+		{
+			data->exit_code = 130;
+			g_exit_code = 0;
+		}
 		if (!valid_input(buffer, data))
 			continue ;
 		add_history(buffer);
 		init_commands(buffer, data);
 		if (!data->token)
+		{
+			data->exit_code = 0;
 			continue ;
+		}
 		exec_minishell(data);
 		free_token(data->token);
 		unlink_here_doc_file();
@@ -87,6 +97,7 @@ int	main(int argc, char **argv, char **envp)
 	data->fds[0] = dup(STDIN_FILENO);
 	data->fds[1] = dup(1);
 	data->exit_code = 0;
+	g_exit_code = 0;
 	catch_pid(data);
 	loop_minishell(data);
 }
