@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 12:04:53 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:14:24 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,7 @@ void		get_exit(t_data *data, t_token *token, int exit_flag);
 void		exit_number(t_data *data, t_token *token, int exit_flag, \
 int number);
 void		free_to_exit(t_data *data);
+long long	ft_atoll(const char *str);
 
 /*GET_EXPORT*/
 void		get_export(t_data *data, t_token *token, int exit_flag);

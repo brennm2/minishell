@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:50:48 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:13:38 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exit_negative(t_token *token, t_data *data, int exit_flag)
 	int			number;
 	long long	temp_number;
 
-	temp_number = atoll(token->str);
+	temp_number = ft_atoll(token->str);
 	if (temp_number < -9223372036854775807)
 	{
 		if (temp_number == -9223372036854775807 - 1)
@@ -137,9 +137,9 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 			i++;
 			if (token->next->str[i] == '\0')
 			{
-				if (atoll(token->next->str) < 0)
+				if (ft_atoll(token->next->str) < 0)
 					return (exit_negative(token->next, data, exit_flag));
-				exit_number(data, token, exit_flag, atoll(token->next->str));
+				exit_number(data, token, exit_flag, ft_atoll(token->next->str));
 			}
 		}
 		exit_numeric_error(data, token, 0, exit_flag);

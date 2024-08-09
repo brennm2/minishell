@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:56:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:49:10 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:23:08 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,26 @@ void	free_to_exit(t_data *data)
 	free_token(data->token);
 	free_tree(data->tree);
 	free_data(data);
+}
+
+long long	ft_atoll(const char *str)
+{
+	long long	result;
+	int			sign;
+
+	result = 0;
+	sign = 1;
+	if (*str == '-')
+	{
+		sign = -1;
+		str++;
+	}
+	else if (*str == '+')
+		str++;
+	while (ft_isdigit((unsigned char)*str))
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (sign * result);
 }
