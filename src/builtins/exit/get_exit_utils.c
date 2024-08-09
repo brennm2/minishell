@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_exit_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:56:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/08 18:53:08 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:49:10 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exit_number(t_data *data, t_token *token, int exit_flag, int number)
 
 	(void) token;
 	temp_exit = 0;
-	if (exit_flag == 0) // se for no pai
+	if (exit_flag == 0)
 	{
 		temp_exit = number;
 		ft_putstr_fd("exit\n", 1);

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:47:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:07:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ void	expansion_(t_data *data, t_token *token, int j)
 	free(token->str);
 	token->str = expanded;
 }
-

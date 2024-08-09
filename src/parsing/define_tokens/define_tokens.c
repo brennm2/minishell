@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:56 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/08 15:59:34 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:19:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,23 @@ void	define_tokens(t_token *token)
 		token->type = append;
 }
 
-void	check_tokenize(t_data *data)
+void	check_tokenize_util(t_data *data)
 {
 	t_token	*token_aux;
-	t_token	*first;
 
 	token_aux = data->token;
 	if (token_aux->type == string)
 		which_command(token_aux);
 	after_pipe(data);
 	after_reds(data);
+}
+
+void	check_tokenize(t_data *data)
+{
+	t_token	*token_aux;
+	t_token	*first;
+
+	check_tokenize_util(data);
 	first = data->token;
 	token_aux = data->token;
 	while (token_aux)
@@ -68,7 +75,7 @@ void	check_tokenize(t_data *data)
 			first = token_aux->next;
 		if (is_red_or_pipe(token_aux))
 		{
-			if ((token_aux->type == redin || token_aux->type == redout
+			if ((token_aux->type == redin || token_aux->type == redout \
 				|| token_aux->type == append) && first->builtin == echo)
 			{
 				token_aux = token_aux->next;

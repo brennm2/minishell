@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/08 21:01:59 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:42:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
-
-bool	need_space(t_token *token)
-{
-	// t_token *temp_token;
-
-	// temp_token = token;
-
-	while (token && (token->type != is_pipe))
-	{
-		if(token->type == string)
-			return (true);
-		token = token->next;
-	}
-	return (false);
-}
 
 void	put_token_str(t_token *token, t_data *data)
 {
@@ -35,8 +20,9 @@ void	put_token_str(t_token *token, t_data *data)
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->next && (token->next->type == string
-			|| token->next->type == redin || token->next->type == redout || token->next->type == append))
+	else if (token->next && (token->next->type == string \
+		|| token->next->type == redin || token->next->type == redout || \
+		token->next->type == append))
 	{
 		ft_putstr_fd(token->str, 1);
 		if (need_space(token->next) == true)
@@ -48,7 +34,7 @@ void	put_token_str(t_token *token, t_data *data)
 
 int	get_echo_flag(t_token *token)
 {
-	if (ft_strcmp(token->str, "-n") == 0) //Se a flag for -n
+	if (ft_strcmp(token->str, "-n") == 0)
 		return (1);
 	else
 	{
@@ -62,39 +48,34 @@ bool	is_all_flag(t_token *token)
 	int	i;
 
 	i = 2;
-	if (token->str[0] == '-' && token->str[1] == 'n') //se for "-n..."
+	if (token->str[0] == '-' && token->str[1] == 'n')
 	{
-		while (token->str[i]) // Enquanto a str existir
+		while (token->str[i])
 		{
-			if (token->str[i] == 'n') // se a posicao atual for "n"
+			if (token->str[i] == 'n')
 				i++;
 			else
-				return (false); // se for diferente de "n", entao nao e uma flag valida
+				return (false);
 		}
 	}
 	else
-		return (false); // Se nao for "-n..."
-	return (true); // se andou por toda string e nao achou alem de "n"
+		return (false);
+	return (true);
 }
-
-// echo test > ola | oi
 
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && (*token)->type != is_pipe) //((*token)->type == string
-			//|| (*token)->type == redin || (*token)->type == redout
-			//|| (*token)->type == append))
+	while (*token && (*token)->type != is_pipe)
 	{
-		//write(2, "a\n", 2);
-		if ((*token)->type == redin || (*token)->type == redout || (*token)->type == append)
+		if ((*token)->type == redin || (*token)->type == redout || \
+			(*token)->type == append)
 		{
 			*token = (*token)->next;
 			if (!(*token) || (*token)->type == is_pipe)
 				break ;
 			else
-				continue;
+				continue ;
 		}
-		//ft_putstr_fd((*token)->str, 2);
 		put_token_str(*token, data);
 		*token = (*token)->next;
 	}
@@ -105,7 +86,7 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 	int	t_flag;
 
 	t_flag = 0;
-	while (token && token->type != is_pipe)//(token->type == string || token->type == command))
+	while (token && token->type != is_pipe)
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n'
 			&& is_all_flag(token) == true)
@@ -122,11 +103,6 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 				token->type = flag;
 		}
 		handle_token(&token, data);
-		// if (token->type == is_pipe)
-		// 	break;
-		//ft_putstr_fd(token->str, 2);
-		
-		//ft_putstr_fd("test\n", 2);
 	}
 	if (t_flag == 0)
 		write(1, "\n", 1);

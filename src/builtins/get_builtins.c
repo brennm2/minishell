@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_builtins.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/08 14:32:05 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:55:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 {
-	if (exit_flag == 0) //flag 0 = PAI
+	if (exit_flag == 0)
 	{
 		data->exit_code = exit_code;
 	}
-	else //flag 1 = FILHO
+	else
 	{
 		if (!data)
 			exit(1);
