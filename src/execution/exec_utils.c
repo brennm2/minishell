@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/08 19:37:38 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:33:32 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], X_OK) == 0)
 		{
-			if (!ft_strncmp(exec->argv[0], "/", 1))
+			if (!ft_strncmp(exec->argv[0], "./", 2))
 				printf("minishell: %s: Is a directory\n", exec->argv[0]);
 			else
 			{
