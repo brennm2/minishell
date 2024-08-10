@@ -152,6 +152,7 @@ sup_file:
 	$(file > sup,$(SUP_BODY))
 
 re: fclean all
+	@make sup_file
 
 .PHONY: sup_file
 
