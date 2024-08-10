@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:48:47 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:52:13 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:53:51 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ t_token	*split_token_2(t_token *token, char *str)
 
 void	split_token(t_token *token)
 {
-	t_token	*token_next;
-	char	*str;
-	char	**str_split;
-	int		i;
+	t_token		*token_next;
+	char		*str;
+	char		**str_split;
+	int			i;
 	
 	i = 0;
 	str = ft_strdup(token->str);
