@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:48:47 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:10:37 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:52:13 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,24 @@ t_token	*split_token_2(t_token *token, char *str)
 
 void	split_token(t_token *token)
 {
-	t_token *token_next;
+	t_token	*token_next;
 	char	*str;
 	char	**str_split;
 	int		i;
 	
 	i = 0;
-	if (token->str[i] == D_QUOTES && token->str[i] != D_QUOTES)
-		return ;
 	str = ft_strdup(token->str);
 	str = unquote_str(str);
 	if (is_all_space(str))
-	{
-		free(str);
-		return ;
-	}
+		return (free(str));
 	token_next = token->next;
 	str_split = ft_split(str, ' ');
 	if (str_split[1] == NULL)
-		return ;
+		return (ptr_free(str_split), free(str));
 	free(token->str);
 	token->str = ft_strdup(str_split[0]);
 	while (str_split[++i] != NULL)
-	{
 		token = split_token_2(token, str_split[i]);
-	}
 	token->next = token_next;
 	free(str);
 	ptr_free(str_split);
