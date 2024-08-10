@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:21:34 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:56:46 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	is_expand_2(t_token *token, t_data *data, int i)
 
 bool	is_expand(t_token *token, t_data *data)
 {
-	int	i;
+	int		i;
 	bool	flag;
 
 	i = 0;
@@ -88,48 +88,6 @@ bool	is_expand(t_token *token, t_data *data)
 	if (flag == true)
 		split_token(token);
 	return (flag);
-}
-
-t_token	*erase_token(t_data *data, t_token *token)
-{
-	t_token	*aux;
-	t_token	*dead;
-
-	aux = data->token;
-	if (aux == token)
-	{
-		dead = aux;
-		data->token = aux->next;
-		free_token_redir(aux);
-		return (data->token);
-	}
-	while (aux)
-	{
-		if (aux->next == token)
-		{
-			dead = token;
-			aux->next = token->next;
-			free_token_redir(dead);
-			break ;
-		}
-		aux = aux->next;
-	}
-	return (aux);
-}
-
-bool	all_space_or_null(t_token *token)
-{
-	size_t	i;
-
-	i = 1;
-	if (token->str[0] && token->str[0] == '\"')
-	{
-		while (token->str[i] && i != (ft_strlen(token->str) - 1) && token->str[i] == ' ')
-			i++;
-		if (i == (ft_strlen(token->str) - 1))
-			return (true);
-	}
-	return (false);
 }
 
 void	expand(t_data *data)

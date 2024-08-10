@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:48:47 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:53:51 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:55:57 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	split_token(t_token *token)
 	char		*str;
 	char		**str_split;
 	int			i;
-	
+
 	i = 0;
 	str = ft_strdup(token->str);
 	str = unquote_str(str);

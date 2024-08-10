@@ -34,6 +34,7 @@ SRC = src/main.c \
 	src/parsing/expand/expand.c \
 	src/parsing/expand/expand_utils.c \
 	src/parsing/expand/expand_utils_2.c \
+	src/parsing/expand/expand_utils_3.c \
 	src/parsing/expand/expansion.c \
 	src/parsing/get_env/env.c \
 	src/parsing/get_env/env_utils.c \
