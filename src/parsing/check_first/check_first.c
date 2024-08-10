@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_first.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 10:28:38 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 21:26:14 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:59:10 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ bool	valid_input(char *buffer, t_data *data)
 	if (is_all_space(buffer) || (buffer[0] == '\t' && \
 		!buffer[move_space(buffer, 0)]))
 	{
+		data->exit_code = 0;
 		free(buffer);
 		return (false);
 	}

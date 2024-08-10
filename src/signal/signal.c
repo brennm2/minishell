@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 13:46:27 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 14:10:31 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:42:50 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../header/minishell.h"
 
-void	signal_main(int signal_num, t_data *data)
+void	signal_main(int signal_num)
 {
 	if (signal_num == SIGINT)
 	{
@@ -20,7 +20,7 @@ void	signal_main(int signal_num, t_data *data)
 		write(STDERR_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		data->exit_code = 130;
+		g_exit_code = 130;
 	}
 }
 

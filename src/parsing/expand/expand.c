@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:06:50 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:20:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ bool	is_expand(t_token *token, t_data *data)
 			{
 				flag = true;
 				continue ;
-			}
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);
