@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 11:55:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:48:00 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,37 @@ void	free_tree(t_tree_root *cmd)
 	}
 }
 
-void	unlink_here_doc_file(void)
+void	unlink_here_doc_file(t_data *data)
 {
 	int		i;
 	char	*file_name;
 
-	i = -1;
-	while (1)
+	if (data->hd == 0)
+		return ;
+	i = data->hd;
+	while (i > 0)
 	{
-		file_name = creat_here_doc_file(++i, false);
+		file_name = creat_here_doc_file(i, false);
 		if (access(file_name, F_OK) == -1)
-			break ;
+		{
+			free(file_name);
+			return ;
+		}
 		unlink(file_name);
 		free(file_name);
+		i--;
 	}
-	free(file_name);
 }
 
 void	finished_exec(t_data *data, int exit_code)
 {
-	if (data->flag == 0) //sem pipe
+	if (data->flag == 0)
 	{
 		free_token(data->token);
 		if (data->tree)
 			free_tree(data->tree);
 		data->exit_code = exit_code;
-		unlink_here_doc_file();
+		unlink_here_doc_file(data);
 		loop_minishell(data);
 	}
 	else

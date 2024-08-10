@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 19:39:15 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:32:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:56:11 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ void	fill_file(t_data *data, char *delimiter, char *file, bool flag)
 		buffer = readline("> ");
 		if (!buffer)
 		{
-			ft_putstr_fd("minishell: warning: here-document delimited \
-			by end-of-file\n", 1);
+			ft_putstr_fd(ERR_HD, 1);
 			free (delimiter);
 			free (file);
 			break ;

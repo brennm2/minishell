@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_export_utils_2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:32:23 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:27:29 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:52:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ bool	is_invalid_token(char *key)
 		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '='
 			&& key[i] != ' ' && flag == 0)
 			return (false);
-		//if (key[i] && key[i + 1] == ' ')
-		//	return (false);
 		i++;
 	}
 	return (true);

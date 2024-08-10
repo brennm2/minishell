@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:11:10 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 18:38:55 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:07:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ bool	first_character(char *buffer)
 	}
 	return (false);
 }
-

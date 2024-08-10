@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 10:04:02 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:22:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:01:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	safe_execve(t_data *data, t_tree_exec *exec)
 	{
 		if (access(exec->argv[0], X_OK) == 0)
 		{
-			printf("minishell: %s: Is a directory\n", exec->argv[0]);
+			execve_error(data, exec->argv[0]);
 			ptr_free(env);
-			clean(data, 126);
+			clean(data, data->exit_code);
 		}
 		perror(exec->cmd);
 		ptr_free(env);

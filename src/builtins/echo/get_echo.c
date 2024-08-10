@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:41:20 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:42:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	put_token_str(t_token *token, t_data *data)
 		if (token->next)
 			write(1, " ", 1);
 	}
-	else if (token->next && (token->next->type == string
-			|| token->next->type == redin || token->next->type == redout))
+	else if (token->next && (token->next->type == string \
+		|| token->next->type == redin || token->next->type == redout || \
+		token->next->type == append))
 	{
 		ft_putstr_fd(token->str, 1);
-		write(1, " ", 1);
+		if (need_space(token->next) == true)
+			write(1, " ", 1);
 	}
 	else
 		ft_putstr_fd(token->str, 1);
@@ -32,7 +34,7 @@ void	put_token_str(t_token *token, t_data *data)
 
 int	get_echo_flag(t_token *token)
 {
-	if (ft_strcmp(token->str, "-n") == 0) //Se a flag for -n
+	if (ft_strcmp(token->str, "-n") == 0)
 		return (1);
 	else
 	{
@@ -46,32 +48,33 @@ bool	is_all_flag(t_token *token)
 	int	i;
 
 	i = 2;
-	if (token->str[0] == '-' && token->str[1] == 'n') //se for "-n..."
+	if (token->str[0] == '-' && token->str[1] == 'n')
 	{
-		while (token->str[i]) // Enquanto a str existir
+		while (token->str[i])
 		{
-			if (token->str[i] == 'n') // se a posicao atual for "n"
+			if (token->str[i] == 'n')
 				i++;
 			else
-				return (false); // se for diferente de "n", entao nao e uma flag valida
+				return (false);
 		}
 	}
 	else
-		return (false); // Se nao for "-n..."
-	return (true); // se andou por toda string e nao achou alem de "n"
+		return (false);
+	return (true);
 }
 
 void	handle_token(t_token **token, t_data *data)
 {
-	while (*token && ((*token)->type == string
-			|| (*token)->type == redin || (*token)->type == redout))
+	while (*token && (*token)->type != is_pipe)
 	{
-		//printf("%s\n", (*token)->str);
-		if ((*token)->type == redin || (*token)->type == redout)
+		if ((*token)->type == redin || (*token)->type == redout || \
+			(*token)->type == append)
 		{
 			*token = (*token)->next;
-			if (!(*token))
+			if (!(*token) || (*token)->type == is_pipe)
 				break ;
+			else
+				continue ;
 		}
 		put_token_str(*token, data);
 		*token = (*token)->next;
@@ -83,7 +86,7 @@ void	get_echo(t_token *token, t_data *data, int exit_flag)
 	int	t_flag;
 
 	t_flag = 0;
-	while (token && (token->type == string || token->type == command))
+	while (token && token->type != is_pipe)
 	{
 		if (token->str[0] == '-' && token->str[1] == 'n'
 			&& is_all_flag(token) == true)

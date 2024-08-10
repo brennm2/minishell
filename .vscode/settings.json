@@ -5,6 +5,7 @@
 		"typeinfo": "c",
 		"unistd.h": "c",
 		"siginfo_t.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"limits.h": "c"
 	}
 }

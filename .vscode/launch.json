@@ -4,7 +4,7 @@
 		"name": "(gdb) Launch",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "/home/nsouza-o/common_core/minishell/minishell",
+		"program": "/home/bde-souz/minishell/minishell",
 		"args": [],
 		"stopAtEntry": false,
 		"cwd": "${fileDirname}",
@@ -23,7 +23,7 @@
 				"ignoreFailures": true
 			}
 		],
-		//"miDebuggerArgs": "-iex \"set follow-fork-mode child\"",
+		// "miDebuggerArgs": "-iex \"set follow-fork-mode child\"",
 		"preLaunchTask": "build"
 	}
 	]

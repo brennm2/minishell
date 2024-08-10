@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 19:32:42 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/09 23:31:37 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_commands(char *buffer, t_data *data)
 {
 	init_data(data, buffer);
 	search_command(buffer, data);
-	//debug_print_list(data);
 	is_here_doc(data);
 	tokenize(data);
 	expand(data);
@@ -75,7 +74,7 @@ void	loop_minishell(t_data *data)
 			continue ;
 		exec_minishell(data);
 		free_token(data->token);
-		unlink_here_doc_file();
+		unlink_here_doc_file(data);
 	}
 }
 
