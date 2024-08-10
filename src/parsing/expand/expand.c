@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 13:02:48 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:06:50 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ bool	is_expand_2(t_token *token, t_data *data, int i)
 	return (false);
 }
 
-void	is_expand(t_token *token, t_data *data)
+bool	is_expand(t_token *token, t_data *data)
 {
 	int	i;
+	bool	flag;
 
 	i = 0;
+	flag = false;
 	while (token->str[i])
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
@@ -75,7 +77,7 @@ void	is_expand(t_token *token, t_data *data)
 		{
 			if (is_expand_2(token, data, i))
 			{
-				i++;
+				flag = true;
 				continue ;
 			}
 		}
@@ -83,18 +85,67 @@ void	is_expand(t_token *token, t_data *data)
 			expand_til(token, i, data->home);
 		i++;
 	}
+	if (flag == true)
+		split_token(token);
+	return (flag);
+}
+
+t_token	*erase_token(t_data *data, t_token *token)
+{
+	t_token	*aux;
+	t_token	*dead;
+
+	aux = data->token;
+	if (aux == token)
+	{
+		dead = aux;
+		data->token = aux->next;
+		free_token_redir(aux);
+		return (data->token);
+	}
+	while (aux)
+	{
+		if (aux->next == token)
+		{
+			dead = token;
+			aux->next = token->next;
+			free_token_redir(dead);
+			break ;
+		}
+		aux = aux->next;
+	}
+	return (aux);
+}
+
+bool	all_space_or_null(t_token *token)
+{
+	size_t	i;
+
+	i = 1;
+	if (token->str[0] && token->str[0] == '\"')
+	{
+		while (token->str[i] && i != (ft_strlen(token->str) - 1) && token->str[i] == ' ')
+			i++;
+		if (i == (ft_strlen(token->str) - 1))
+			return (true);
+	}
+	return (false);
 }
 
 void	expand(t_data *data)
 {
 	t_token	*token_aux;
+	bool	flag;
 
 	token_aux = data->token;
 	while (token_aux)
 	{
-		is_expand(token_aux, data);
+		flag = is_expand(token_aux, data);
 		update_tokenize(token_aux);
-		token_aux = token_aux->next;
+		if (all_space_or_null(token_aux) && flag)
+			token_aux = erase_token(data, token_aux);
+		if (token_aux)
+			token_aux = token_aux->next;
 	}
 	update_token(data);
 }

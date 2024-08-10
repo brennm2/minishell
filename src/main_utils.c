@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:40:13 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:07:13 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:12:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	update_token(t_data *data)
 	t_token	*dead;
 
 	token_aux = data->token;
+	if (!token_aux)
+		return ;
 	if (token_aux->str[0] == '\0' && !is_red_bool(token_aux))
 	{
 		data->token = token_aux->next;
