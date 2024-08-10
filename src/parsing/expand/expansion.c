@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 18:34:44 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 20:11:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:59:17 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	expansion(t_envp *envp, t_token *token, int j, int i)
 {
 	char	*expanded;
 
-	expanded = ft_calloc(sizeof(char), (j + 1));
+	expanded = ft_calloc(sizeof(char), (j + 2));
 	if (!token->exp)
 		token->exp = ft_strdup(token->str);
 	ft_strlcpy(expanded, token->str, j + 1);
+	expanded = ft_strjoin_ex(expanded, "\"");
 	if (envp)
 		expanded = ft_strjoin_ex(expanded, envp->value);
+	expanded = ft_strjoin_ex(expanded, "\"");
 	expanded = ft_strjoin_ex(expanded, token->str + i);
 	free(token->str);
 	token->str = expanded;

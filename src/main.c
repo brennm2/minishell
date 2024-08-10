@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 22:20:02 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 20:37:21 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:57:31 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	loop_minishell(t_data *data)
 		}
 		exec_minishell(data);
 		free_token(data->token);
-		unlink_here_doc_file();
+		unlink_here_doc_file(data);
 	}
 }
 

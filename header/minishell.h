@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 19:43:05 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:57:25 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define ERROR_REDIR_1 "syntax error near unexpected token `<'"
 # define ERROR_QUOTE "quotation has not been closed"
 # define ERROR_CD_MANY_ARGUMENT "cd: too many arguments"
+# define ERR_HD "minishell: warning: here-document delimited by end-of-file\n"
 
 typedef enum s_builtins
 {
@@ -152,6 +153,7 @@ typedef struct s_data
 	int				fd;
 	int				fds[2];
 	int				flag;
+	int				hd;
 	t_tree_root		*tree;
 	int				exit_code;
 	int				pid;
@@ -409,7 +411,7 @@ void		*ptr_free(char **ptr);
 void		clean(t_data *data, int ex);
 void		clean_hd(t_data *data, int ex);
 void		finished_exec(t_data *data, int exit_code);
-void		unlink_here_doc_file(void);
+void		unlink_here_doc_file(t_data *data);
 void		free_tree(t_tree_root *cmd);
 
 void		print_error(char *error_type, int error_code, t_data *data);

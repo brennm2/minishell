@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:33:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:29:47 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	is_expand(t_token *token, t_data *data)
 			!= ' ' && !ft_is_especial_2(token->str[i + 1]))
 		{
 			if (is_expand_2(token, data, i))
+			{
+				i++;
 				continue ;
+			}
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);

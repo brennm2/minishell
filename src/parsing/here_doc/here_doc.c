@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 16:12:37 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 21:14:49 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/10 11:59:39 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ void	open_hd(t_data *data, t_token *token, char *delimiter, bool flag)
 {
 	char		*here_doc_file;
 	int			status;
-	static int	i = -1;
 
-	i++;
+	data->hd++;
 	ft_signal_ignore();
-	here_doc_file = creat_here_doc_file(i, true);
+	here_doc_file = creat_here_doc_file(data->hd, true);
 	if (!here_doc_file)
 		clean_hd(data, 1);
 	if (safe_fork(data) == 0)
