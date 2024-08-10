@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 23:58:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 12:51:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,8 @@ void		erase_dollar_sign(t_token *token, int i);
 bool		is_expand_2(t_token *token, t_data *data, int i);
 void		is_expand(t_token *token, t_data *data);
 void		expand(t_data *data);
+
+void		update_tokenize(t_token *token_aux);
 
 /*GET ENV*/
 void		get_env(t_data *data, char **env);

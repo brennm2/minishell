@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 11:29:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:02:48 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	expand(t_data *data)
 	while (token_aux)
 	{
 		is_expand(token_aux, data);
+		update_tokenize(token_aux);
 		token_aux = token_aux->next;
 	}
 	update_token(data);
