@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 13:02:48 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:35:33 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,7 @@ void	is_expand(t_token *token, t_data *data)
 			!= ' ' && !ft_is_especial_2(token->str[i + 1]))
 		{
 			if (is_expand_2(token, data, i))
-			{
-				i++;
 				continue ;
-			}
 		}
 		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);
