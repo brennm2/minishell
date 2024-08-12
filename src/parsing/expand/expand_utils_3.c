@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/12 12:36:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:34:56 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,11 @@ bool	all_space_or_null(t_token *token)
 			return (true);
 	}
 	return (false);
+}
+
+int	have_dquotes(t_token *token)
+{
+	if (token->str[0] == D_QUOTES && token->str[ft_strlen(token->str) - 1] == D_QUOTES)
+		return (1);
+	return (0);
 }

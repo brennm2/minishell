@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/12 12:43:02 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:42:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ typedef struct s_data
 	t_tree_root		*tree;
 	int				exit_code;
 	int				pid;
+	int				quotes;
 	struct s_data	*next;
 }				t_data;
 
@@ -308,6 +309,7 @@ void		update_tokenize(t_token *token_aux);
 void		split_token(t_token *token);
 t_token		*erase_token(t_data *data, t_token *token);
 bool		all_space_or_null(t_token *token);
+int			have_dquotes(t_token *token);
 
 /*GET ENV*/
 void		get_env(t_data *data, char **env);

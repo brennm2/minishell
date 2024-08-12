@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:56:46 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:44:44 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ bool	is_expand(t_token *token, t_data *data)
 			expand_til(token, i, data->home);
 		i++;
 	}
-	if (flag == true)
+	if (flag == true && data->quotes == 0)
 		split_token(token);
 	return (flag);
 }
@@ -96,6 +96,9 @@ void	expand(t_data *data)
 	bool	flag;
 
 	token_aux = data->token;
+	data->quotes = 0;
+	if (!ft_strcmp(data->token->str, "export"))
+		data->quotes = 1;
 	while (token_aux)
 	{
 		flag = is_expand(token_aux, data);
