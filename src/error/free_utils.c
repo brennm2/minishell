@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:12:51 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/09 23:48:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:42:01 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ void	free_tree(t_tree_root *cmd)
 
 	argc = 0;
 	if (cmd->type == t_pipe)
-	{
-		free_tree(((t_tree_pipe *)(cmd))->left);
-		free_tree(((t_tree_pipe *)(cmd))->right);
-		free((t_tree_pipe *)(cmd));
-	}
+		free_cmd_type(cmd);
 	else if (cmd->type == t_redir)
 	{
 		free_tree(((t_tree_red *)(cmd))->tree);

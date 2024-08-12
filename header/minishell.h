@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/10 17:19:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:43:02 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -469,5 +469,6 @@ void		pipe_execution(t_data *data, t_tree_root *tree);
 
 void		debug_print_list(t_data *data);
 t_data		*debug_get_builtin_type(t_data *data);
+void		free_cmd_type(t_tree_root *cmd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 18:21:10 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:36:28 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ t_token	*erase_token(t_data *data, t_token *token)
 	t_token	*dead;
 
 	aux = data->token;
-	if (aux->type != string && aux->type != command && aux->type != builtin)
+	if (token->type == redin || token->type == redout || token->type == append \
+		|| token->type == here_doc)
 		return (token);
 	if (aux == token)
 	{
 		dead = aux;
 		data->token = aux->next;
-		free_token_redir(aux);
-		return (data->token);
+		return (free_token_redir(aux), data->token);
 	}
 	while (aux)
 	{
