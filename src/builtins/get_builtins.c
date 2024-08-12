@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 14:36:06 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/12 13:40:52 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:03:59 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ void	ft_exit_flag(int exit_code, int exit_flag, t_data *data)
 
 void	command_not_found(char *str, t_data *data)
 {
+	long int	i;
+
+	i = -1;
+	while (++i != 10000000)
+		;
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd(": command not found\n", 2);
 	set_exit_code(127, data);
