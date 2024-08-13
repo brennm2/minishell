@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/12 15:34:56 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:06:00 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ bool	all_space_or_null(t_token *token)
 
 int	have_dquotes(t_token *token)
 {
-	if (token->str[0] == D_QUOTES && token->str[ft_strlen(token->str) - 1] == D_QUOTES)
+	if (token->str[0] == D_QUOTES
+		&& token->str[ft_strlen(token->str) - 1] == D_QUOTES)
 		return (1);
 	return (0);
 }
