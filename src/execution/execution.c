@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/12 12:27:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:37:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,5 @@ void	executing_tree(t_data *data, t_tree_root *tree)
 void	execution(t_data *data)
 {
 	data->tree = pipe_struct(data, data->token);
-	if (!((t_tree_pipe *)(data->tree))->right)
-		clean(data, 0);
 	executing_tree(data, data->tree);
 }

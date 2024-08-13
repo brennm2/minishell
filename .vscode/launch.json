@@ -22,9 +22,7 @@
 				"text": "-gdb-set disassembly-flavor intel",
 				"ignoreFailures": true
 			}
-		],
-		// "miDebuggerArgs": "-iex \"set follow-fork-mode child\"",
-		"preLaunchTask": "build"
+		]
 	}
 	]
 }
