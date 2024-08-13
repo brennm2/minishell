@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:15:24 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:35:24 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	deal_quotes(char *token, int i)
 	quote = token[i];
 	while (token[++i] && token[i] != quote)
 		;
+	if (token[i] == '\0')
+		return (0);
 	return (i);
 }
 
@@ -51,6 +53,11 @@ void	unquote_token(t_token *token)
 		if ((token->str[i] == S_QUOTES || token->str[i] == D_QUOTES))
 		{
 			j = deal_quotes(token->str, i);
+			if (j == 0)
+			{
+				i++;
+				continue ;
+			}
 			erase_the_quote(token, i);
 			erase_the_quote(token, j - 1);
 			i = j - 1;
@@ -60,6 +67,22 @@ void	unquote_token(t_token *token)
 	}
 }
 
+int	count_quotes(t_token *token)
+{
+	int	i;
+	int	quotes;
+
+	i = 0;
+	quotes = 0;
+	while (token->str[i])
+	{
+		if (token->str[i] == S_QUOTES || token->str[i] == D_QUOTES)
+			quotes++;
+		i++;
+	}
+	return (quotes);
+}
+
 void	remove_quotes(t_data *data)
 {
 	t_token	*token_aux;
@@ -67,7 +90,10 @@ void	remove_quotes(t_data *data)
 	token_aux = data->token;
 	while (token_aux)
 	{
+		//printf("%s\n", token_aux->str);
+		//if (count_quotes(token_aux) != 1)
 		unquote_token(token_aux);
+		//printf("%s\n", token_aux->str);
 		token_aux = token_aux->next;
 	}
 }

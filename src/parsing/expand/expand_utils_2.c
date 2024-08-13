@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:48:47 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 17:55:57 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:42:41 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,19 @@ t_token	*split_token_2(t_token *token, char *str)
 	return (token_2);
 }
 
+bool	have_spaces(t_token *token)
+{
+	int	i;
+
+	i = -1;
+	while (token->str[++i])
+	{
+		if (token->str[i] == ' ')
+			return (true);
+	}
+	return (false);
+}
+
 void	split_token(t_token *token)
 {
 	t_token		*token_next;
@@ -68,6 +81,8 @@ void	split_token(t_token *token)
 	char		**str_split;
 	int			i;
 
+	if (!have_spaces(token))
+		return ;
 	i = 0;
 	str = ft_strdup(token->str);
 	str = unquote_str(str);

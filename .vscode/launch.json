@@ -4,7 +4,7 @@
 		"name": "(gdb) Launch",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "/home/bde-souz/Desktop/minishell/minishell",
+		"program": "/home/nsouza-o/common_core/minishell/minishell",
 		"args": [],
 		"stopAtEntry": false,
 		"cwd": "${fileDirname}",
