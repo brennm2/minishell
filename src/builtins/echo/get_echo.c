@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_echo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 10:40:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:42:59 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:33:36 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_token_str(t_token *token, t_data *data)
 	}
 	else if (token->next && (token->next->type == string \
 		|| token->next->type == redin || token->next->type == redout || \
-		token->next->type == append))
+		token->next->type == append || token->next->type == here_doc))
 	{
 		ft_putstr_fd(token->str, 1);
 		if (need_space(token->next) == true)
@@ -68,7 +68,7 @@ void	handle_token(t_token **token, t_data *data)
 	while (*token && (*token)->type != is_pipe)
 	{
 		if ((*token)->type == redin || (*token)->type == redout || \
-			(*token)->type == append)
+			(*token)->type == append || (*token)->type == here_doc)
 		{
 			*token = (*token)->next;
 			if (!(*token) || (*token)->type == is_pipe)

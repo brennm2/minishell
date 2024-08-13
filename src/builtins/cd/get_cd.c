@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 11:38:08 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:53:53 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@ bool	cd_change_last_oldpwd(t_data *data, int option)
 	char	*old_cwd_char;
 
 	getcwd(old_cwd, sizeof(old_cwd));
-	old_cwd_char = ft_strdup(get_in_env(data->envp, "OLDPWD"));
+	if (get_in_env(data->envp, "OLDPWD") == NULL)
+	{
+		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+		return (true);
+	}
+	else
+		old_cwd_char = ft_strdup(get_in_env(data->envp, "OLDPWD"));
 	if (chdir(old_cwd_char) != -1)
 	{
 		data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
