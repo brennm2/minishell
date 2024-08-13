@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/13 13:53:53 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:47:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,7 @@ bool	cd_change_last_oldpwd(t_data *data, int option)
 	}
 	else
 		old_cwd_char = ft_strdup(get_in_env(data->envp, "OLDPWD"));
-	if (chdir(old_cwd_char) != -1)
-	{
-		data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
-		if (option == 1)
-		{
-			ft_putstr_fd(old_cwd_char, 1);
-			write(1, "\n", 1);
-		}
-		free (old_cwd_char);
-		return (false);
-	}
-	else
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		perror(get_in_env(data->envp, "OLDPWD"));
-		free (old_cwd_char);
-		return (true);
-	}
+	return (change_dir_update_env(data, old_cwd, old_cwd_char, option));
 }
 
 void	cd_options_tilde(t_data *data, int exit_flag)
@@ -85,13 +68,7 @@ void	cd_options(t_data *data, t_token *token, int exit_flag)
 	}
 	else if ((token->next->str[0] == '-' && token->next->str[1] == '-')
 		|| (token->next->str[0] == '~' && token->next->str[1] == '\0'))
-	{
-		cd_change_last_oldpwd(data, 0);
-		chdir(get_in_env(data->envp, "HOME"));
-		getcwd(cwd, sizeof(cwd));
-		data->envp = change_in_env(data->envp, cwd, "PWD");
-		return (ft_exit_flag(0, exit_flag, data));
-	}
+		return (handle_tilde(data, token, exit_flag, cwd));
 	else if (token->next->str[1] == '+' || (token->next->str[1] == '-'))
 		return (cd_options_tilde(data, exit_flag));
 	if (cd_change_last_oldpwd(data, 1) == true)
