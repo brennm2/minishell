@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 11:13:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:24:06 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,8 @@ void		split_token(t_token *token);
 t_token		*erase_token(t_data *data, t_token *token);
 bool		all_space_or_null(t_token *token);
 int			have_dquotes(t_token *token);
+
+bool		have_spaces(t_token *token);
 
 /*GET ENV*/
 void		get_env(t_data *data, char **env);

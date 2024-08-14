@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/12 16:06:00 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:23:42 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,17 @@ int	have_dquotes(t_token *token)
 		&& token->str[ft_strlen(token->str) - 1] == D_QUOTES)
 		return (1);
 	return (0);
+}
+
+bool	have_spaces(t_token *token)
+{
+	int	i;
+
+	i = -1;
+	while (token->str[++i])
+	{
+		if (token->str[i] == ' ')
+			return (true);
+	}
+	return (false);
 }
