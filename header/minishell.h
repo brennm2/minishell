@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/13 16:40:48 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:13:23 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,9 +365,10 @@ bool		cd_change_last_oldpwd(t_data *data, int option);
 /*GET_CD_UTILS_2*/
 void		handle_plus_option(t_data *data, char *cwd, int exit_flag);
 void		handle_minus_option(t_data *data, char *cwd, int exit_flag);
-void		handle_tilde(t_data *data, t_token *token, int exit_flag, char *cwd);
-bool		change_dir_update_env(t_data *data, char *old_cwd, char *old_cwd_char, int option);
-
+void		handle_tilde(t_data *data, t_token *token, int exit_flag,
+				char *cwd);
+bool		change_dir_update_env(t_data *data, char *old_cwd,
+				char *old_cwd_char, int option);
 
 /*GET_ENV*/
 void		get_builtin_env(t_data *data, t_token *token, int exit_flag);
