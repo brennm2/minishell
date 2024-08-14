@@ -9,7 +9,7 @@
 - Fixed crash related to unset OLDPWD (unset OLDPWD + (cd -- or cd -)) <br>
 - Fixed "" and '' error display (('' or "") + enter) <br>
 - Fixed displaying temp file on heredoc (echo << a) <br>
-- Fixed a ocasion problem with quotes when expanding (export a='"' + echo $a$USER) <br>
+- Fixed an occasion problem with quotes when expanding (export a='"' + echo $a$USER) <br>
 
 ---------
 </details>
