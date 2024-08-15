@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 18:56:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:00:43 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ void	only_exit(t_data *data, t_token *token, int exit_flag)
 			temp_exit = data->exit_code;
 		unlink_here_doc_file(data);
 		ft_putstr_fd("exit\n", 2);
-		free_env(data->envp);
-		free_token(data->token);
-		free_tree(data->tree);
-		free_data(data);
+		free_to_exit(data);
 		exit(temp_exit);
 	}
 	else
@@ -131,7 +128,8 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 	else if (token->next->str)
 	{
 		if (token->next->next && token->next->next->type != is_pipe
-			&& token->next->next->type != redout)
+			&& token->next->next->type != redout
+			&& token->next->next->type != append)
 			return (too_many_error(token->next, data, exit_flag));
 		if (token->next->str[0] == '-' || token->next->str[0] == '+')
 			i++;

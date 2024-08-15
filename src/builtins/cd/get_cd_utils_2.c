@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:20:11 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 11:12:23 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:41:59 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,47 +22,54 @@ void	handle_plus_option(t_data *data, char *cwd, int exit_flag)
 
 void	handle_minus_option(t_data *data, char *cwd, int exit_flag)
 {
+	(void)cwd;
 	cd_change_last_oldpwd(data, 0);
-	getcwd(cwd, sizeof(cwd));
-	data->envp = change_in_env(data->envp, cwd, "PWD");
 	return (ft_exit_flag(0, exit_flag, data));
 }
 
-void	handle_tilde(t_data *data, t_token *token, int exit_flag, char *cwd)
+void	handle_tilde(t_data *data, t_token *token, int exit_flag)
 {
-	(void)token;
-	if (get_in_env(data->envp, "OLDPWD") == NULL)
+	char cwd[256];
+	
+	if(token->str[2] != '\0')
 	{
-		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
-		ft_exit_flag(1, exit_flag, data);
-		return ;
+		ft_putstr_fd("minishell: cd: --: invalid option\n", 2);
+		return (ft_exit_flag(2, exit_flag, data));
 	}
-	cd_change_last_oldpwd(data, 0);
-	chdir(get_in_env(data->envp, "HOME"));
-	getcwd(cwd, sizeof(cwd));
-	data->envp = change_in_env(data->envp, cwd, "PWD");
-	ft_exit_flag(0, exit_flag, data);
+	else if (token->next && (token->next->type != is_pipe
+		&& token->next->type != here_doc && token->next->type != append
+		&& token->next->type != redout && token->next->type != redin))
+	{
+		ft_putstr_fd("minishell: cd: No such file or directory\n", 2);
+		return (ft_exit_flag(1, exit_flag, data));
+	}
+	else
+	{
+		getcwd(cwd, sizeof(cwd));
+		only_cd(data, cwd, exit_flag);
+	}
 }
 
-bool	change_dir_update_env(t_data *data, char *old_cwd, char *old_cwd_char,
+bool	change_dir_update_env(t_data *data, char *old_cwd, char *new_pwd,
 		int option)
 {
-	if (chdir(old_cwd_char) != -1)
+	if (chdir(get_in_env(data->envp, "OLDPWD")) == 0)
 	{
 		data->envp = change_in_env(data->envp, old_cwd, "OLDPWD");
 		if (option == 1)
 		{
-			ft_putstr_fd(old_cwd_char, 1);
+			ft_putstr_fd(new_pwd, 1);
 			write(1, "\n", 1);
 		}
-		free(old_cwd_char);
+		data->envp = change_in_env(data->envp, new_pwd, "PWD");
+		free(new_pwd);
 		return (false);
 	}
 	else
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		perror(get_in_env(data->envp, "OLDPWD"));
-		free(old_cwd_char);
+		free(new_pwd);
 		return (true);
 	}
 }
