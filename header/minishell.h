@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 16:24:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:48:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_token
 {
 	char				*str;
 	char				*exp;
+	bool				quote_flag;
 	t_types				type;
 	t_builtins			builtin;
 	struct s_token		*next;
@@ -312,6 +313,8 @@ bool		all_space_or_null(t_token *token);
 int			have_dquotes(t_token *token);
 
 bool		have_spaces(t_token *token);
+char 		*find_c(t_envp *envp);
+void		remove_quotes_ex(t_token *token, int j);
 
 /*GET ENV*/
 void		get_env(t_data *data, char **env);

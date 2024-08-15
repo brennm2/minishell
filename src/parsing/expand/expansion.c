@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 18:34:44 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 17:16:07 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:31:34 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,25 @@ void	expansion(t_envp *envp, t_token *token, int j, int i)
 	char	*expanded;
 	char	*c;
 
-	if (envp && !strcmp(envp->value, "\""))
-		c = ft_strdup("\'");
-	else
-		c = ft_strdup("\"");
+	c = find_c(envp);
 	expanded = ft_calloc(sizeof(char), (j + 2));
 	if (!token->exp)
 		token->exp = ft_strdup(token->str);
 	ft_strlcpy(expanded, token->str, j + 1);
-	expanded = ft_strjoin_ex(expanded, c);
+	/* if (c)
+		expanded = ft_strjoin_ex(expanded, c); */
 	if (envp)
 		expanded = ft_strjoin_ex(expanded, envp->value);
-	expanded = ft_strjoin_ex(expanded, c);
+	/* if (c)
+		expanded = ft_strjoin_ex(expanded, c); */
 	expanded = ft_strjoin_ex(expanded, token->str + i);
 	free(token->str);
-	free(c);
 	token->str = expanded;
+	if (c)
+	{
+		remove_quotes_ex(token, j);
+		free(c);
+	}
 }
 
 void	check_env(t_token *token, t_envp *env, int j, int i)

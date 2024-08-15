@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 16:23:42 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:08:53 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ bool	have_spaces(t_token *token)
 			return (true);
 	}
 	return (false);
+}
+
+char *find_c(t_envp *envp)
+{
+	char	*c;
+
+	if (envp && !strcmp(envp->value, "\""))
+		c = ft_strdup("\'");
+	else if (envp && !strcmp(envp->value, "\'"))
+		c = ft_strdup("\"");
+	else 
+		c = NULL;
+	return (c);
 }

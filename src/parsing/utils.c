@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 18:41:04 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/12 13:20:01 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:29:20 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,32 @@ int	quote_status(char *str, int i)
 	if (d_flag < 0)
 		return (d_flag);
 	return (0);
+}
+
+void	remove_quotes_ex(t_token *token, int j)
+{
+	int		i;
+	int		k;
+
+	i = 0;
+	k = 0;
+	while (token->str[i] && i < j)
+	{
+		if ((token->str[i] == S_QUOTES || token->str[i] == D_QUOTES) && i != j)
+		{
+			k = i;
+			i++;
+			while (token->str[i] && (token->str[i] != token->str[k] || i == j))
+				i++;
+			erase_the_quote(token, k);
+			erase_the_quote(token, i - 1);
+			if (i < j)
+				j = j - 2;
+			i = i - 1;
+			
+		}
+		else
+			i++;
+	}
+	token->quote_flag = true;
 }
