@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 18:34:44 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 17:16:07 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:58:09 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../header/minishell.h"
 
-void	expansion(t_envp *envp, t_token *token, int j, int i)
+bool	expansion(t_envp *envp, t_token *token, int j, int i)
 {
 	char	*expanded;
 	char	*c;
 
+		
 	if (envp && !strcmp(envp->value, "\""))
 		c = ft_strdup("\'");
 	else
@@ -33,15 +34,18 @@ void	expansion(t_envp *envp, t_token *token, int j, int i)
 	free(token->str);
 	free(c);
 	token->str = expanded;
+	if (envp && have_spaces(envp->value))
+		return (true);
+	return (false);
 }
 
-void	check_env(t_token *token, t_envp *env, int j, int i)
+void	check_env(t_token *token, t_data *data, int j, int i)
 {
 	char	*variable;
 	int		size;
 	t_envp	*env_aux;
 
-	env_aux = env;
+	env_aux = data->envp;
 	size = i - j;
 	variable = ft_calloc(sizeof(char), size + 1);
 	if (!variable)
@@ -51,7 +55,7 @@ void	check_env(t_token *token, t_envp *env, int j, int i)
 	{
 		if (!ft_strncmp(variable, env_aux->key, size))
 		{
-			expansion(env_aux, token, j, i);
+			data->split = expansion(env_aux, token, j, i);
 			free(variable);
 			return ;
 		}
@@ -113,5 +117,5 @@ void	is_expand_util(t_token *token, t_data *data, int i, int j)
 	while (!ft_is_especial(token->str[++i]) && token->str[i] && \
 		token->str[i] != 32)
 		;
-	check_env(token, data->envp, j, i);
+	check_env(token, data, j, i);
 }

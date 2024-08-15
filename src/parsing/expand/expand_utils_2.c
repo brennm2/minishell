@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:48:47 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 16:24:17 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:52:05 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	split_token(t_token *token)
 	char		**str_split;
 	int			i;
 
-	if (!have_spaces(token))
+	if (!have_spaces(token->str))
 		return ;
 	i = 0;
 	str = ft_strdup(token->str);
