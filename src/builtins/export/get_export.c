@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:42:30 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/07/31 13:45:52 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:53:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_envp	*duplicate_envp_list(t_envp *env)
 		duplicate_env->invisible = temp_env->invisible;
 		if (!head)
 			head = duplicate_env;
-		duplicate_env = duplicate_next_node(duplicate_env, temp_env); // Verifica se ha outro node e se e necessario alocar memoria
+		duplicate_env = duplicate_next_node(duplicate_env, temp_env);
 		temp_env = temp_env->next;
 	}
 	return (head);
@@ -53,7 +53,6 @@ void	create_new_export(t_data *data, char *key, char *value, int exit_flag)
 	else
 		new_envp->value = ft_strdup(value);
 	new_envp->key = key;
-	//ft_exit_flag(0, exit_flag, data);
 }
 
 bool	change_existing_export(t_data *data, char *key, char *value,
@@ -61,15 +60,14 @@ bool	change_existing_export(t_data *data, char *key, char *value,
 
 {
 	(void) exit_flag;
-	if (get_in_env(data->envp, key) == NULL) // Se procurou na lista e não encontrou, então retorna falso
+	if (get_in_env(data->envp, key) == NULL)
 	{
 		return (false);
 	}
-	if (ft_strcmp(key, get_in_env(data->envp, key))) // Se achar Key igual no env
+	if (ft_strcmp(key, get_in_env(data->envp, key)))
 	{
 		change_in_env(data->envp, value, key);
 		free(key);
-		//ft_exit_flag(0, exit_flag, data);
 		return (true);
 	}
 	return (false);
@@ -80,16 +78,16 @@ void	handle_export_token(t_data *data, t_token *token, int exit_flag)
 	char	*value;
 	char	*key;
 
-	if (token->str[0] == '=' || token->str[0] == '-') //se tiver '=' ou '-' no comeco
+	if (token->str[0] == '=' || token->str[0] == '-')
 	{
 		export_error_identifier(token, data, exit_flag);
 		return ;
 	}
 	key = find_key(token->str);
 	value = ft_strchr(token->str, '=');
-	if (value) //Se existir value, anda para frente uma casa, para tirar o "="
+	if (value)
 		value = value + 1;
-	if (!is_invalid_token(key)) //Se nao for uma key valida
+	if (!is_invalid_token(key))
 	{
 		free(key);
 		export_error_identifier(token, data, exit_flag);

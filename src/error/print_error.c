@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 11:33:40 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:44:36 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:42:06 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,13 @@ void	p_error_flag(char *error_type, int error_code, t_data *data,
 		write(2, "\n", 1);
 	}
 	ft_exit_flag(error_code, exit_flag, data);
+}
+
+void	free_cmd_type(t_tree_root *cmd)
+{
+	if (((t_tree_pipe *)(cmd))->left)
+		free_tree(((t_tree_pipe *)(cmd))->left);
+	if (((t_tree_pipe *)(cmd))->right)
+		free_tree(((t_tree_pipe *)(cmd))->right);
+	free((t_tree_pipe *)(cmd));
 }

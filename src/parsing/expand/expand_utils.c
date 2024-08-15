@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:47:47 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:19:58 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	deal_with_quotes(t_token *token, int i)
 	if (token->str[i] == S_QUOTES)
 	{
 		i++;
-		while (token->str[i] != S_QUOTES)
+		while (token->str[i] && token->str[i] != S_QUOTES)
 			i++;
 	}
 	return (i);
@@ -77,4 +77,3 @@ void	expansion_(t_data *data, t_token *token, int j)
 	free(token->str);
 	token->str = expanded;
 }
-

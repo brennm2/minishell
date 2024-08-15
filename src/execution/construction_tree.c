@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:14:11 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:24:06 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:37:40 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_tree_root	*exec_struct(t_data *data, t_token *token)
 	t_tree_exec	*exec_cmd;
 
 	tree_cmd = const_exec(data, token);
+	if (tree_cmd == NULL)
+		return (NULL);
 	exec_cmd = (t_tree_exec *)tree_cmd;
 	temp = tree_cmd->token;
 	while (temp)
@@ -76,6 +78,8 @@ t_tree_root	*pipe_struct(t_data *data, t_token *token)
 	t_tree_root	*tree_cmd;
 
 	tree_cmd = exec_struct(data, token);
+	if (tree_cmd == NULL)
+		return (NULL);
 	token = tree_cmd->token;
 	if (tree_cmd && token && token->type == is_pipe)
 	{

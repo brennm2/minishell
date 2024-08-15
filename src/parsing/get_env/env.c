@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 16:24:21 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:41:56 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:45:12 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	empty_env(t_data *data)
 	{
 		str = ft_strjoin("SHLVL=", data->shlvl);
 		cpy_env(&data->envp, str);
+		free(str);
 	}
 	if (!have_variable(data->envp, "_"))
 		cpy_(&data->envp);

@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/07 11:43:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:56:27 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exit_numeric_error(t_data *data, t_token *token, int option,
 		ft_putstr_fd(token->next->str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
+	unlink_here_doc_file(data);
 	free_env(data->envp);
 	free_token(data->token);
 	free_tree(data->tree);
@@ -63,8 +64,23 @@ void	too_many_error(t_token	*token, t_data *data, int exit_flag)
 
 void	exit_negative(t_token *token, t_data *data, int exit_flag)
 {
-	int	number;
+	int			number;
+	long long	temp_number;
 
+	temp_number = ft_atoll(token->str);
+	if (temp_number < -9223372036854775807)
+	{
+		if (temp_number == -9223372036854775807 - 1)
+		{
+			free_to_exit(data);
+			exit(0);
+		}
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(token->str, 2);
+		ft_putstr_fd(" numeric argument required\n", 2);
+		free_to_exit(data);
+		exit(2);
+	}
 	number = ft_atoi(token->str);
 	number = 256 - (number * -1);
 	(void)exit_flag;
@@ -80,12 +96,13 @@ void	only_exit(t_data *data, t_token *token, int exit_flag)
 	int	temp_exit;
 
 	temp_exit = 0;
-	if (exit_flag == 0) // se for no pai
+	if (exit_flag == 0)
 	{
 		if (token->next)
 			temp_exit = ft_atoi(token->next->str);
 		else
 			temp_exit = data->exit_code;
+		unlink_here_doc_file(data);
 		ft_putstr_fd("exit\n", 2);
 		free_env(data->envp);
 		free_token(data->token);
@@ -109,24 +126,25 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 	int	i;
 
 	i = 0;
-	if (!token->next || token->next->type != string) //Se for somente "exit"
+	if (!token->next || (token->next->type != string && !token->next->next))
 		only_exit(data, token, exit_flag);
-	else if (token->next->str) // Se existir <TOKEN->NEXT> / "exit algumacoisa"
+	else if (token->next->str)
 	{
-		if (token->next->next && token->next->next->type == string) // Se for "exit ... ..."
+		if (token->next->next && token->next->next->type != is_pipe
+			&& token->next->next->type != redout)
 			return (too_many_error(token->next, data, exit_flag));
-		if (token->next->str[0] == '-' || token->next->str[0] == '+') // Se tiver numeros negativos "exit -1"
+		if (token->next->str[0] == '-' || token->next->str[0] == '+')
 			i++;
-		while (ft_isdigit(token->next->str[i]) == 1) // Se <TOKEN->STR> / "exit 123" for somente numeros
+		while (ft_isdigit(token->next->str[i]) == 1)
 		{
 			i++;
-			if (token->next->str[i] == '\0') // Se <TOKEN->STR[i]> acabar e for tudo numero
+			if (token->next->str[i] == '\0')
 			{
-				if (ft_atoi(token->next->str) < 0)
+				if (ft_atoll(token->next->str) < 0)
 					return (exit_negative(token->next, data, exit_flag));
-				exit_number(data, token, exit_flag, ft_atoi(token->next->str)); //only_exit(data, token, exit_flag);
+				exit_number(data, token, exit_flag, ft_atoll(token->next->str));
 			}
 		}
-		exit_numeric_error(data, token, 0, exit_flag);//Se saiu do loop entao encotrou algo que nao e numerico
+		exit_numeric_error(data, token, 0, exit_flag);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 18:34:44 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 14:54:09 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:16:07 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	expansion(t_envp *envp, t_token *token, int j, int i)
 {
 	char	*expanded;
+	char	*c;
 
-	expanded = ft_calloc(sizeof(char), (j + 1));
+	if (envp && !strcmp(envp->value, "\""))
+		c = ft_strdup("\'");
+	else
+		c = ft_strdup("\"");
+	expanded = ft_calloc(sizeof(char), (j + 2));
 	if (!token->exp)
 		token->exp = ft_strdup(token->str);
 	ft_strlcpy(expanded, token->str, j + 1);
+	expanded = ft_strjoin_ex(expanded, c);
 	if (envp)
 		expanded = ft_strjoin_ex(expanded, envp->value);
+	expanded = ft_strjoin_ex(expanded, c);
 	expanded = ft_strjoin_ex(expanded, token->str + i);
 	free(token->str);
+	free(c);
 	token->str = expanded;
 }
 

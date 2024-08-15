@@ -33,6 +33,8 @@ SRC = src/main.c \
 	src/parsing/here_doc/here_doc_utils_2.c \
 	src/parsing/expand/expand.c \
 	src/parsing/expand/expand_utils.c \
+	src/parsing/expand/expand_utils_2.c \
+	src/parsing/expand/expand_utils_3.c \
 	src/parsing/expand/expansion.c \
 	src/parsing/get_env/env.c \
 	src/parsing/get_env/env_utils.c \
@@ -100,7 +102,7 @@ clean: sup_file
 fclean: clean
 	$(RM) $(RMFLAGS) $(NAME) $(OBJ) $(LIBFT) $(OBJ_DIR)
 	$(MAKE) -C ./libs/ fclean
-	$(RM) $(RMFLAGS) sup
+	$(RM) sup
 
 	@echo "\n${YELLOW}--------------------------------"
 	@echo "${YELLOW}| ${RED}ALL files ${GREEN}have been cleaned! ${YELLOW}|"
@@ -109,10 +111,10 @@ fclean: clean
 norminette:
 	@norminette | grep -v "line too long" | grep -v "Comment is invalid in this scope" | grep -v "libs"
 
-valgrind:
+valgrind: sup_file
 	@make re
+	@make sup_file
 	@valgrind --quiet --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=sup --tool=memcheck ./minishell
-
 run:
 	@make
 	@./minishell
@@ -151,6 +153,7 @@ sup_file:
 	$(file > sup,$(SUP_BODY))
 
 re: fclean all
+	@make sup_file
 
 .PHONY: sup_file
 

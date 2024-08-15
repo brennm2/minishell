@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 15:29:16 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:26:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:36:54 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_tree_root	*const_exec(t_data *data, t_token *token)
 	int			args;
 
 	(void)data;
+	if (!token)
+		return (NULL);
 	exec_cmd = ft_calloc(1, sizeof(t_tree_exec));
 	if (!exec_cmd)
 		exit(1);

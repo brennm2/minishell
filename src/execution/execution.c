@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:28:34 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:21:28 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:25:34 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ void	exec_execution(t_data *data, t_tree_root *tree)
 	ecmd = (t_tree_exec *)tree;
 	if (ecmd->argv[0] && ft_strcmp(ecmd->argv[0], "\0"))
 		cmd_execution(data, ecmd);
+	else if (ecmd->argv[0] && !ft_strcmp(ecmd->argv[0], "\0"))
+	{
+		ft_putstr_fd(ecmd->argv[0], 2);
+		ft_putstr_fd("'': command not found\n", 2);
+		set_exit_code(127, data);
+	}
 	finished_exec(data, data->exit_code);
 }
 

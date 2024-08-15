@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
+/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/07 19:33:27 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:00:27 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,36 +61,50 @@ bool	is_expand_2(t_token *token, t_data *data, int i)
 	return (false);
 }
 
-void	is_expand(t_token *token, t_data *data)
+bool	is_expand(t_token *token, t_data *data)
 {
-	int	i;
+	int		i;
+	bool	flag;
 
 	i = 0;
+	flag = false;
 	while (token->str[i])
 	{
 		if (token->str[i] == S_QUOTES && quote_status(token->str, i) == -1)
-			i = deal_with_quotes(token, i);
-		if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
+			i = deal_with_quotes(token, i) - 1;
+		else if (token->str[i] == '$' && token->str[i + 1] && token->str[i + 1] \
 			!= ' ' && !ft_is_especial_2(token->str[i + 1]))
 		{
 			if (is_expand_2(token, data, i))
-				continue ;
+				flag = true;
 		}
-		if (token->str[i] == '~' && i == 0 && quote_status(token->str, i) >= 0)
+		else if (token->str[i] == '~' && i == 0
+			&& quote_status(token->str, i) >= 0)
 			expand_til(token, i, data->home);
 		i++;
 	}
+	if (flag == true && data->quotes == 0)
+		split_token(token);
+	return (flag);
 }
 
 void	expand(t_data *data)
 {
 	t_token	*token_aux;
+	bool	flag;
 
 	token_aux = data->token;
+	data->quotes = 0;
+	if (!ft_strcmp(data->token->str, "export"))
+		data->quotes = 1;
 	while (token_aux)
 	{
-		is_expand(token_aux, data);
-		token_aux = token_aux->next;
+		flag = is_expand(token_aux, data);
+		update_tokenize(token_aux);
+		if (all_space_or_null(token_aux) && flag)
+			token_aux = erase_token(data, token_aux);
+		if (token_aux)
+			token_aux = token_aux->next;
 	}
 	update_token(data);
 }
