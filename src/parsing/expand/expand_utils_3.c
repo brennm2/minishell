@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/15 21:25:00 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:52:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	all_space_or_null(t_token *token)
 	size_t	i;
 
 	i = 1;
-	if (token->str[0] && token->str[0] == '\"')
+	if (token->str[0] && token->str[0] == '\"' && token->str[1] != '\\')
 	{
 		while (token->str[i] && i != (ft_strlen(token->str) - 1) \
 			&& token->str[i] == ' ')
