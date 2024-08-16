@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 15:19:54 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 13:13:38 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:00:43 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	exit_numeric_error(t_data *data, t_token *token, int option,
 		ft_putstr_fd(token->next->str, 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
+	unlink_here_doc_file(data);
 	free_env(data->envp);
 	free_token(data->token);
 	free_tree(data->tree);
@@ -101,11 +102,9 @@ void	only_exit(t_data *data, t_token *token, int exit_flag)
 			temp_exit = ft_atoi(token->next->str);
 		else
 			temp_exit = data->exit_code;
+		unlink_here_doc_file(data);
 		ft_putstr_fd("exit\n", 2);
-		free_env(data->envp);
-		free_token(data->token);
-		free_tree(data->tree);
-		free_data(data);
+		free_to_exit(data);
 		exit(temp_exit);
 	}
 	else
@@ -124,11 +123,13 @@ void	get_exit(t_data *data, t_token *token, int exit_flag)
 	int	i;
 
 	i = 0;
-	if (!token->next || token->next->type != string)
+	if (!token->next || (token->next->type != string && !token->next->next))
 		only_exit(data, token, exit_flag);
 	else if (token->next->str)
 	{
-		if (token->next->next && token->next->next->type == string)
+		if (token->next->next && token->next->next->type != is_pipe
+			&& token->next->next->type != redout
+			&& token->next->next->type != append)
 			return (too_many_error(token->next, data, exit_flag));
 		if (token->next->str[0] == '-' || token->next->str[0] == '+')
 			i++;

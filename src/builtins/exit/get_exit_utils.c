@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:56:34 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/09 13:23:08 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:59:02 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exit_number(t_data *data, t_token *token, int exit_flag, int number)
 	if (exit_flag == 0)
 	{
 		temp_exit = number;
-		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("exit\n", 2);
 		free_env(data->envp);
 		free_token(data->token);
 		free_tree(data->tree);

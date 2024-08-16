@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 15:32:23 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/14 16:22:13 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:02:14 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ bool	is_invalid_token(char *key)
 			flag++;
 		if (!ft_isalnum(key[i]) && key[i] != '_' && key[i] != '='
 			&& key[i] != ' ' && flag == 0)
+			return (false);
+		if (key[i] == ' ' && flag == 0)
 			return (false);
 		i++;
 	}

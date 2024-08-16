@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:50:20 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/13 16:47:06 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:21:03 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ void	cd_options(t_data *data, t_token *token, int exit_flag)
 			return (cd_error_no_file(data, exit_flag));
 		return (cd_error_invalid_option(data, exit_flag));
 	}
-	else if ((token->next->str[0] == '-' && token->next->str[1] == '-')
-		|| (token->next->str[0] == '~' && token->next->str[1] == '\0'))
-		return (handle_tilde(data, token, exit_flag, cwd));
+	else if ((token->next->str[0] == '-' && token->next->str[1] == '-'))
+		return (handle_tilde(data, token->next, exit_flag));
 	else if (token->next->str[1] == '+' || (token->next->str[1] == '-'))
 		return (cd_options_tilde(data, exit_flag));
 	if (cd_change_last_oldpwd(data, 1) == true)
