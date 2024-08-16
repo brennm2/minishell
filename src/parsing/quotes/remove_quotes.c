@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/15 22:59:04 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:43:22 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,6 @@ void	unquote_token(t_token *token)
 	}
 }
 
-int	count_quotes(t_token *token)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	while (token->str[i])
-	{
-		if (token->str[i] == S_QUOTES || token->str[i] == D_QUOTES)
-			quotes++;
-		i++;
-	}
-	return (quotes);
-}
-
 void	remove_backslash(t_token *token)
 {
 	int	i;
@@ -94,7 +78,8 @@ void	remove_backslash(t_token *token)
 	i = 0;
 	while (token->str[i])
 	{
-		if ((token->str[i] == '\"' || token->str[i] == '\'') && token->str[i + 1] == '\\')
+		if ((token->str[i] == '\"' || token->str[i] == '\'') && \
+			token->str[i + 1] == '\\')
 			erase_the_quote(token, i + 1);
 		else
 			i++;

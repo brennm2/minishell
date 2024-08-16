@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:03:08 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/15 19:32:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:42:16 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	deal_with_quotes(t_token *token, int i)
 {
 	int	j;
-	
+
 	j = i;
 	if (token->str[j] == S_QUOTES)
 	{

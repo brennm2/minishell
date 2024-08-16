@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 18:34:44 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/15 22:44:22 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:42:31 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ bool	expansion(t_envp *envp, t_token *token, int j, int i)
 	char	*expanded;
 	char	*c;
 
-		
 	if (envp && (!strcmp(envp->value, "\"") || !strcmp(envp->value, "\'")))
 		c = ft_strdup("\\");
 	else

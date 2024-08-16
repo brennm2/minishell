@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 14:48:41 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/10 11:34:31 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:43:38 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,20 @@ void	change_shlvl(t_data *data, char **envp)
 		}
 	}
 	data->shlvl = ft_strdup("1");
+}
+
+int	count_quotes(t_token *token)
+{
+	int	i;
+	int	quotes;
+
+	i = 0;
+	quotes = 0;
+	while (token->str[i])
+	{
+		if (token->str[i] == S_QUOTES || token->str[i] == D_QUOTES)
+			quotes++;
+		i++;
+	}
+	return (quotes);
 }

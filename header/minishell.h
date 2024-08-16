@@ -6,7 +6,7 @@
 /*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/16 10:40:23 by nsouza-o         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:44:36 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ void		update_exit_code(int status, t_data *data);
 void		set_exit_code(int code, t_data *data);
 void		change_shlvl(t_data *data, char **envp);
 void		catch_pid(t_data *data);
+int			count_quotes(t_token *token);
 
 /* ************************************************************************** */
 /* -------------------------------PARSING------------------------------------ */
