@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:16:52 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 16:56:18 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:59:04 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ int	deal_quotes(char *token, int i)
 	char	quote;
 
 	quote = token[i];
-	while (token[++i] && token[i] != quote)
-		;
+	while (token[++i])
+	{
+		if (token[i] == quote && token[i + 1] != '\\')
+			break ;
+	}
 	if (token[i] == '\0')
 		return (0);
 	return (i);
@@ -50,7 +53,8 @@ void	unquote_token(t_token *token)
 	j = 0;
 	while (token->str[i])
 	{
-		if ((token->str[i] == S_QUOTES || token->str[i] == D_QUOTES))
+		if ((token->str[i] == S_QUOTES || token->str[i] == D_QUOTES) \
+			&& token->str[i + 1] != '\\')
 		{
 			j = deal_quotes(token->str, i);
 			if (j == 0)
@@ -83,6 +87,20 @@ int	count_quotes(t_token *token)
 	return (quotes);
 }
 
+void	remove_backslash(t_token *token)
+{
+	int	i;
+
+	i = 0;
+	while (token->str[i])
+	{
+		if ((token->str[i] == '\"' || token->str[i] == '\'') && token->str[i + 1] == '\\')
+			erase_the_quote(token, i + 1);
+		else
+			i++;
+	}
+}
+
 void	remove_quotes(t_data *data)
 {
 	t_token	*token_aux;
@@ -91,6 +109,7 @@ void	remove_quotes(t_data *data)
 	while (token_aux)
 	{
 		unquote_token(token_aux);
+		remove_backslash(token_aux);
 		token_aux = token_aux->next;
 	}
 }

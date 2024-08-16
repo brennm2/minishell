@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils_3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:56:26 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 16:23:42 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 22:52:55 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*erase_token(t_data *data, t_token *token)
 
 	aux = data->token;
 	if (token->type == redin || token->type == redout || token->type == append \
-		|| token->type == here_doc)
+		|| token->type == here_doc || !ft_strcmp(token->str, "\"\""))
 		return (token);
 	if (aux == token)
 	{
@@ -46,7 +46,7 @@ bool	all_space_or_null(t_token *token)
 	size_t	i;
 
 	i = 1;
-	if (token->str[0] && token->str[0] == '\"')
+	if (token->str[0] && token->str[0] == '\"' && token->str[1] != '\\')
 	{
 		while (token->str[i] && i != (ft_strlen(token->str) - 1) \
 			&& token->str[i] == ' ')
@@ -65,14 +65,14 @@ int	have_dquotes(t_token *token)
 	return (0);
 }
 
-bool	have_spaces(t_token *token)
+bool	have_spaces(char *str)
 {
 	int	i;
 
 	i = -1;
-	while (token->str[++i])
+	while (str[++i])
 	{
-		if (token->str[i] == ' ')
+		if (str[i] == ' ')
 			return (true);
 	}
 	return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 11:46:56 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/15 15:03:16 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:40:23 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,11 @@ typedef struct s_data
 	int				fds[2];
 	int				flag;
 	int				hd;
-	t_tree_root		*tree;
 	int				exit_code;
 	int				pid;
 	int				quotes;
+	bool			split;
+	t_tree_root		*tree;
 	struct s_data	*next;
 }				t_data;
 
@@ -293,8 +294,8 @@ void		expansion_digit(t_token *token, int j, int i);
 void		expansion_exit_code(t_token *token, int j, int i, char *exit_code);
 int			deal_with_quotes(t_token *token, int i);
 
-void		expansion(t_envp *envp, t_token *token, int j, int i);
-void		check_env(t_token *token, t_envp *env, int j, int i);
+bool		expansion(t_envp *envp, t_token *token, int j, int i);
+void		check_env(t_token *token, t_data *data, int j, int i);
 void		is_expand_util(t_token *token, t_data *data, int i, int j);
 bool		is_expand_util_2(t_token *token, t_data *data, int i, int j);
 void		expansion_special(t_token *token, int j);
@@ -311,7 +312,7 @@ t_token		*erase_token(t_data *data, t_token *token);
 bool		all_space_or_null(t_token *token);
 int			have_dquotes(t_token *token);
 
-bool		have_spaces(t_token *token);
+bool		have_spaces(char *str);
 
 /*GET ENV*/
 void		get_env(t_data *data, char **env);

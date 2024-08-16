@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsouza-o <nsouza-o@student.42porto.com     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:29:01 by nsouza-o          #+#    #+#             */
-/*   Updated: 2024/08/14 17:00:27 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/15 21:20:30 by nsouza-o         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	is_expand(t_token *token, t_data *data)
 			expand_til(token, i, data->home);
 		i++;
 	}
-	if (flag == true && data->quotes == 0)
+	if (flag == true && data->quotes == 0 && data->split)
 		split_token(token);
 	return (flag);
 }
