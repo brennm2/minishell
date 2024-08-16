@@ -6,7 +6,7 @@
 /*   By: bde-souz <bde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:20:11 by bde-souz          #+#    #+#             */
-/*   Updated: 2024/08/15 15:41:59 by bde-souz         ###   ########.fr       */
+/*   Updated: 2024/08/16 10:01:45 by bde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	handle_minus_option(t_data *data, char *cwd, int exit_flag)
 
 void	handle_tilde(t_data *data, t_token *token, int exit_flag)
 {
-	char cwd[256];
-	
-	if(token->str[2] != '\0')
+	char	cwd[256];
+
+	if (token->str[2] != '\0')
 	{
 		ft_putstr_fd("minishell: cd: --: invalid option\n", 2);
 		return (ft_exit_flag(2, exit_flag, data));
 	}
 	else if (token->next && (token->next->type != is_pipe
-		&& token->next->type != here_doc && token->next->type != append
-		&& token->next->type != redout && token->next->type != redin))
+			&& token->next->type != here_doc && token->next->type != append
+			&& token->next->type != redout && token->next->type != redin))
 	{
 		ft_putstr_fd("minishell: cd: No such file or directory\n", 2);
 		return (ft_exit_flag(1, exit_flag, data));
